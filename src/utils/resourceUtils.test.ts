@@ -162,17 +162,17 @@ describe('resourceUtils', () => {
   describe('getResourcesByCategory', () => {
     // Using store mock for this test
     const state = store.getState();
-    const resources = state.resources.resources;
+    const resources = state.resources.resources as Record<string, any>;
     
     test('should filter resources by category', () => {
-      const socialResources = getResourcesByCategory(resources, 'social');
+      const socialResources = getResourcesByCategory(resources as any, 'social');
       expect(socialResources).toHaveLength(2);
       expect(socialResources[0].id).toBe('solidarity');
       expect(socialResources[1].id).toBe('community_trust');
     });
     
     test('should only include unlocked resources', () => {
-      const specialResources = getResourcesByCategory(resources, 'special');
+      const specialResources = getResourcesByCategory(resources as any, 'special');
       expect(specialResources).toHaveLength(0); // The special resource is locked
     });
   });
@@ -180,16 +180,16 @@ describe('resourceUtils', () => {
   describe('getStructuresByCategory', () => {
     // Using store mock for this test
     const state = store.getState();
-    const structures = state.structures.structures;
+    const structures = state.structures.structures as Record<string, any>;
     
     test('should filter structures by category', () => {
-      const organizingStructures = getStructuresByCategory(structures, 'organizing');
+      const organizingStructures = getStructuresByCategory(structures as any, 'organizing');
       expect(organizingStructures).toHaveLength(1);
       expect(organizingStructures[0].id).toBe('union_office');
     });
     
     test('should only include unlocked structures', () => {
-      const specialStructures = getStructuresByCategory(structures, 'special');
+      const specialStructures = getStructuresByCategory(structures as any, 'special');
       expect(specialStructures).toHaveLength(0); // The special structure is locked
     });
   });
@@ -197,16 +197,16 @@ describe('resourceUtils', () => {
   describe('getTotalProductionByCategory', () => {
     // Using store mock for this test
     const state = store.getState();
-    const resources = state.resources.resources;
+    const resources = state.resources.resources as Record<string, any>;
     
     test('should calculate total production for a category', () => {
-      const socialProduction = getTotalProductionByCategory(resources, 'social');
+      const socialProduction = getTotalProductionByCategory(resources as any, 'social');
       // solidarity (1) + community_trust (0.2) = 1.2
       expect(socialProduction).toBeCloseTo(1.2);
     });
     
     test('should return 0 for a category with no resources', () => {
-      const nonexistentProduction = getTotalProductionByCategory(resources, 'nonexistent');
+      const nonexistentProduction = getTotalProductionByCategory(resources as any, 'nonexistent');
       expect(nonexistentProduction).toBe(0);
     });
   });
@@ -214,7 +214,7 @@ describe('resourceUtils', () => {
   describe('canAffordCost', () => {
     // Using store mock for this test
     const state = store.getState();
-    const resources = state.resources.resources;
+    const resources = state.resources.resources as Record<string, any>;
     
     test('should return true if all resources are available', () => {
       const cost = {
@@ -222,7 +222,7 @@ describe('resourceUtils', () => {
         'collective_bargaining_power': 25
       };
       
-      expect(canAffordCost(resources, cost)).toBe(true);
+      expect(canAffordCost(resources as any, cost)).toBe(true);
     });
     
     test('should return false if any resource is insufficient', () => {
@@ -231,7 +231,7 @@ describe('resourceUtils', () => {
         'collective_bargaining_power': 25
       };
       
-      expect(canAffordCost(resources, cost)).toBe(false);
+      expect(canAffordCost(resources as any, cost)).toBe(false);
     });
     
     test('should return false if a resource is not unlocked', () => {
@@ -240,12 +240,12 @@ describe('resourceUtils', () => {
         'locked_resource': 10 // This resource exists but is locked
       };
       
-      expect(canAffordCost(resources, cost)).toBe(false);
+      expect(canAffordCost(resources as any, cost)).toBe(false);
     });
     
     test('should return true for empty or null costs', () => {
-      expect(canAffordCost(resources, {})).toBe(true);
-      expect(canAffordCost(resources, null as any)).toBe(true);
+      expect(canAffordCost(resources as any, {})).toBe(true);
+      expect(canAffordCost(resources as any, null as any)).toBe(true);
     });
   });
   

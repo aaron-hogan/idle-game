@@ -10,6 +10,26 @@ export enum EventType {
 }
 
 /**
+ * Categories of events in the game
+ */
+export enum EventCategory {
+  OPPORTUNITY = 'opportunity',
+  CRISIS = 'crisis',
+  RANDOM = 'random',
+  STORY = 'story'
+}
+
+/**
+ * Status of events in the game
+ */
+export enum EventStatus {
+  PENDING = 'pending',
+  ACTIVE = 'active',
+  RESOLVED = 'resolved',
+  EXPIRED = 'expired'
+}
+
+/**
  * Represents a condition for triggering an event
  */
 export interface EventCondition {
@@ -73,6 +93,12 @@ export interface IEvent {
   /** Type of event */
   type: EventType;
   
+  /** Category of event (opportunity, crisis, etc.) */
+  category: EventCategory;
+  
+  /** Current status of the event */
+  status?: EventStatus;
+  
   /** Conditions that must be met for this event to trigger */
   conditions: EventCondition[];
   
@@ -99,4 +125,7 @@ export interface IEvent {
   
   /** When this event was last triggered (timestamp) */
   lastTriggered?: number;
+  
+  /** Tags for filtering and organizing events */
+  tags?: string[];
 }

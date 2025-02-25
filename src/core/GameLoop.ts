@@ -337,4 +337,18 @@ export class GameLoop {
   public getTimeScale(): number {
     return this.gameTimer.getTimeScale();
   }
+  
+  /**
+   * Register a named callback to be called on each fixed update
+   * @param name Unique name for the callback
+   * @param callback Function to call on each fixed update
+   * @returns Function to unregister the callback
+   */
+  public registerCallback(name: string, callback: TickHandler): () => void {
+    if (this.config.debugMode) {
+      console.log(`GameLoop: Registered named callback '${name}'`);
+    }
+    // Delegate to the existing registerHandler method
+    return this.registerHandler(callback);
+  }
 }

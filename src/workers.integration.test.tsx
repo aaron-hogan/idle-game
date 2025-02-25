@@ -42,6 +42,7 @@ describe('Worker System Integration Test', () => {
           lastSaveTimestamp: Date.now(),
           gameStartTimestamp: Date.now(),
           totalPlayTime: 0,
+          startDate: Date.now(), // Added missing required field
         },
         resources: {},
         structures: {}

@@ -223,11 +223,15 @@ export const stateValidationMiddleware: Middleware = store => next => action => 
   
   // Only validate state for specific critical actions, not on every state change
   // This prevents console spam and improves performance
+  const actionType = typeof action === 'object' && action !== null && 'type' in action 
+    ? action.type as string 
+    : '';
+    
   if (
-    action.type.includes('init') || 
-    action.type.includes('reset') || 
-    action.type.includes('load') ||
-    action.type.includes('add') && !action.type.includes('addResourceAmount')
+    actionType.includes('init') || 
+    actionType.includes('reset') || 
+    actionType.includes('load') ||
+    (actionType.includes('add') && !actionType.includes('addResourceAmount'))
   ) {
     const state = store.getState() as RootState;
     validateState(state);

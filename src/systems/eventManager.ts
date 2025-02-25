@@ -4,15 +4,21 @@ import {
   IEvent, 
   EventCondition, 
   EventConsequence, 
-  EventChoice 
+  EventChoice,
+  EventStatus,
+  EventCategory,
+  EventType
 } from '../interfaces/Event';
 import { getCurrentTime } from '../utils/timeUtils';
 import { ErrorLogger, invariant } from '../utils/errorUtils';
 import { 
   addEvent, 
+  addEvents,
   triggerEvent as triggerEventAction, 
-  resolveEvent as resolveEventAction 
+  resolveEvent as resolveEventAction,
+  updateEvent 
 } from '../state/eventsSlice';
+import { GameLoop } from '../core/GameLoop';
 
 /**
  * Manages game events and conditions
@@ -45,6 +51,92 @@ export class EventManager {
   public initialize(store: Store<RootState>): void {
     this.store = store;
     this.initialized = true;
+    
+    // Register with GameLoop for periodic event checks
+    const gameLoop = GameLoop.getInstance();
+    gameLoop.registerCallback('eventManager', () => this.processEvents());
+    
+    // Initialize with proper event statuses
+    this.initializeEventStatuses();
+    
+    console.log('EventManager initialized and registered with GameLoop');
+  }
+  
+  /**
+   * Set initial statuses for all events
+   */
+  private initializeEventStatuses(): void {
+    try {
+      this.ensureInitialized();
+      const state = this.store!.getState();
+      const events = state.events.availableEvents;
+      
+      // Set initial statuses for all events
+      Object.values(events).forEach(event => {
+        if (!event.status) {
+          // Set status to PENDING by default
+          this.store!.dispatch(updateEvent({
+            id: event.id,
+            changes: { status: EventStatus.PENDING }
+          }));
+        }
+      });
+      
+      // Fix any inconsistencies with active events
+      this.healEventInconsistencies();
+      
+    } catch (error) {
+      this.logger.logError(
+        error instanceof Error ? error : new Error(String(error)),
+        'EventManager.initializeEventStatuses'
+      );
+    }
+  }
+  
+  /**
+   * Heal any inconsistencies in event states
+   */
+  private healEventInconsistencies(): void {
+    try {
+      this.ensureInitialized();
+      const state = this.store!.getState();
+      
+      // For each active event ID, check if the event actually exists
+      state.events.activeEvents.forEach(eventId => {
+        const event = state.events.availableEvents[eventId];
+        
+        if (!event) {
+          // If event doesn't exist, resolve it to remove from active list
+          console.warn(`Found inconsistency: Active event ${eventId} doesn't exist, fixing...`);
+          this.store!.dispatch(resolveEventAction({ eventId }));
+        } else if (event.status !== EventStatus.ACTIVE) {
+          // If event status doesn't match its presence in active events
+          console.warn(`Found inconsistency: Event ${eventId} is in active list but has status ${event.status}, fixing...`);
+          this.store!.dispatch(updateEvent({
+            id: eventId,
+            changes: { status: EventStatus.ACTIVE }
+          }));
+        }
+      });
+      
+      // Check for any events with ACTIVE status not in the active list
+      Object.values(state.events.availableEvents).forEach(event => {
+        if (event.status === EventStatus.ACTIVE && !state.events.activeEvents.includes(event.id)) {
+          console.warn(`Found inconsistency: Event ${event.id} has ACTIVE status but is not in active list, fixing...`);
+          // Either add to active list or fix status
+          this.store!.dispatch(updateEvent({
+            id: event.id,
+            changes: { status: EventStatus.PENDING }
+          }));
+        }
+      });
+      
+    } catch (error) {
+      this.logger.logError(
+        error instanceof Error ? error : new Error(String(error)),
+        'EventManager.healEventInconsistencies'
+      );
+    }
   }
 
   /**
@@ -210,6 +302,58 @@ export class EventManager {
   }
 
   /**
+   * Create an event using factory pattern
+   * @param template Base template for the event
+   * @returns The created event with generated id if not provided
+   */
+  public createEvent(template: Partial<IEvent>): IEvent {
+    try {
+      // Generate a unique ID if not provided
+      const id = template.id || `event-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+      
+      // Create a complete event from the template
+      const event: IEvent = {
+        id,
+        title: template.title || 'Unnamed Event',
+        description: template.description || 'No description provided',
+        type: template.type || EventType.NOTIFICATION,
+        category: template.category || EventCategory.RANDOM,
+        status: EventStatus.PENDING,
+        conditions: template.conditions || [],
+        consequences: template.consequences || [],
+        choices: template.choices || [],
+        priority: template.priority || 50,
+        seen: false,
+        repeatable: template.repeatable || false,
+        cooldown: template.cooldown,
+        tags: template.tags || [],
+        imageUrl: template.imageUrl,
+      };
+      
+      return event;
+    } catch (error) {
+      this.logger.logError(
+        error instanceof Error ? error : new Error(String(error)),
+        'EventManager.createEvent'
+      );
+      
+      // Return a minimal valid event as fallback
+      return {
+        id: `error-event-${Date.now()}`,
+        title: 'Error Event',
+        description: 'An error occurred while creating this event',
+        type: EventType.NOTIFICATION,
+        category: EventCategory.RANDOM,
+        status: EventStatus.PENDING,
+        conditions: [],
+        priority: 0,
+        seen: false,
+        repeatable: false,
+      };
+    }
+  }
+
+  /**
    * Trigger a specific event
    * @param eventId The ID of the event to trigger
    * @returns Whether the event was triggered successfully
@@ -232,12 +376,26 @@ export class EventManager {
         return false;
       }
       
+      // Update event status
+      this.store!.dispatch(updateEvent({
+        id: eventId,
+        changes: { 
+          status: EventStatus.ACTIVE,
+          lastTriggered: getCurrentTime()
+        }
+      }));
+      
       // Trigger the event
       this.store!.dispatch(triggerEventAction(eventId));
       
       // If the event has no choices, apply consequences immediately
       if (!event.choices || event.choices.length === 0) {
         this.applyConsequences(event.consequences || []);
+        
+        // Auto-resolve events with no choices after a short delay
+        setTimeout(() => {
+          this.resolveEvent(eventId, '');
+        }, 5000); // 5 second display time for notification-style events
       }
       
       return true;
@@ -273,23 +431,32 @@ export class EventManager {
         return false;
       }
       
-      // Find the selected choice
-      const choice = event.choices?.find(c => c.id === choiceId);
-      if (!choice) {
-        console.warn(`Choice with ID ${choiceId} not found in event ${eventId}`);
-        return false;
+      // Find the selected choice if a choice ID was provided
+      let choice = undefined;
+      if (choiceId && event.choices && event.choices.length > 0) {
+        choice = event.choices.find(c => c.id === choiceId);
+        if (!choice && choiceId !== '') {
+          console.warn(`Choice with ID ${choiceId} not found in event ${eventId}`);
+          return false;
+        }
       }
       
-      // Apply choice consequences
-      if (choice.consequences && choice.consequences.length > 0) {
+      // Apply choice consequences if a valid choice was made
+      if (choice && choice.consequences && choice.consequences.length > 0) {
         this.applyConsequences(choice.consequences);
       }
+      
+      // Update event status
+      this.store!.dispatch(updateEvent({
+        id: eventId,
+        changes: { status: EventStatus.RESOLVED }
+      }));
       
       // Resolve the event
       this.store!.dispatch(resolveEventAction({ eventId, choiceId }));
       
       // Trigger next event if specified
-      if (choice.nextEventId) {
+      if (choice && choice.nextEventId) {
         setTimeout(() => {
           this.triggerEvent(choice.nextEventId!);
         }, 500); // Short delay for better UX
@@ -300,6 +467,44 @@ export class EventManager {
       this.logger.logError(
         error instanceof Error ? error : new Error(String(error)),
         'EventManager.resolveEvent'
+      );
+      return false;
+    }
+  }
+  
+  /**
+   * Expire an event that is no longer relevant
+   * @param eventId The ID of the event to expire
+   * @returns Whether the event was expired successfully
+   */
+  public expireEvent(eventId: string): boolean {
+    try {
+      this.ensureInitialized();
+      const state = this.store!.getState();
+      const event = state.events.availableEvents[eventId];
+      
+      // Validate event exists
+      if (!event) {
+        console.warn(`Event with ID ${eventId} not found`);
+        return false;
+      }
+      
+      // Update event status
+      this.store!.dispatch(updateEvent({
+        id: eventId,
+        changes: { status: EventStatus.EXPIRED }
+      }));
+      
+      // If event is active, resolve it
+      if (state.events.activeEvents.includes(eventId)) {
+        this.store!.dispatch(resolveEventAction({ eventId, choiceId: '' }));
+      }
+      
+      return true;
+    } catch (error) {
+      this.logger.logError(
+        error instanceof Error ? error : new Error(String(error)),
+        'EventManager.expireEvent'
       );
       return false;
     }
@@ -397,6 +602,7 @@ export class EventManager {
 
   // Track last process time to prevent too frequent checks
   private lastProcessTime: number = 0;
+  private lastHealTime: number = 0;
   
   /**
    * Check for events that can be triggered and do so if appropriate
@@ -417,6 +623,13 @@ export class EventManager {
       
       // Update last process time
       this.lastProcessTime = currentTime;
+      
+      // Self-heal inconsistencies occasionally (every 30 seconds)
+      const timeSinceLastHeal = currentTime - this.lastHealTime;
+      if (timeSinceLastHeal > 30000) {
+        this.healEventInconsistencies();
+        this.lastHealTime = currentTime;
+      }
       
       const state = this.store!.getState();
       
@@ -444,10 +657,52 @@ export class EventManager {
           this.triggerEvent(events[0].id);
         }
       }
+      
+      // Check for expired events
+      this.checkForExpiredEvents();
+      
     } catch (error) {
       this.logger.logError(
         error instanceof Error ? error : new Error(String(error)),
         'EventManager.processEvents'
+      );
+    }
+  }
+  
+  /**
+   * Check for events that have expired and should be removed
+   */
+  private checkForExpiredEvents(): void {
+    try {
+      this.ensureInitialized();
+      const state = this.store!.getState();
+      
+      // Get all active events
+      const activeEvents = this.getActiveEvents();
+      
+      // Current time
+      const currentTime = getCurrentTime();
+      
+      // Events that should expire after some time (e.g., notifications without choices)
+      activeEvents.forEach(event => {
+        // If event has no choices and has been active for more than 30 seconds
+        const isAutoResolvable = !event.choices || event.choices.length === 0;
+        
+        if (isAutoResolvable && event.lastTriggered) {
+          const activeTime = (currentTime - event.lastTriggered) / 1000; // in seconds
+          
+          // If active for more than 30 seconds, auto-resolve
+          if (activeTime > 30) {
+            console.log(`Auto-resolving event ${event.id} after ${activeTime.toFixed(2)} seconds`);
+            this.resolveEvent(event.id, '');
+          }
+        }
+      });
+      
+    } catch (error) {
+      this.logger.logError(
+        error instanceof Error ? error : new Error(String(error)),
+        'EventManager.checkForExpiredEvents'
       );
     }
   }

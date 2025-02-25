@@ -85,7 +85,7 @@ describe('GameLoop', () => {
   });
   
   it('should start the game loop when start() is called', () => {
-    jest.spyOn(global, 'setInterval');
+    jest.spyOn(global, 'setInterval').mockReturnValue(123 as unknown as NodeJS.Timeout);
     gameLoop.start();
     
     // Verify it started an interval
@@ -94,6 +94,7 @@ describe('GameLoop', () => {
   
   it('should stop the game loop when stop() is called', () => {
     jest.spyOn(global, 'clearInterval');
+    jest.spyOn(global, 'setInterval').mockReturnValue(123 as unknown as NodeJS.Timeout);
     gameLoop.start();
     gameLoop.stop();
     
