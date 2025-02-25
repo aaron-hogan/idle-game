@@ -1,0 +1,150 @@
+.game-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  outline: none;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+/* Button Sizes */
+.game-button-small {
+  padding: 0.3rem 0.8rem;
+  font-size: 0.75rem;
+}
+
+.game-button-medium {
+  padding: 0.5rem 1.25rem;
+  font-size: 0.85rem;
+}
+
+.game-button-large {
+  padding: 0.7rem 1.5rem;
+  font-size: 0.95rem;
+}
+
+/* Button Variants */
+.game-button-primary {
+  background-color: var(--color-accent);
+  color: white;
+}
+
+.game-button-primary:hover:not(:disabled) {
+  background-color: #FF5555;
+  box-shadow: 0 3px 6px rgba(239, 68, 68, 0.4);
+}
+
+.game-button-secondary {
+  background-color: var(--bg-color-accent);
+  color: var(--text-color-primary);
+  border: 1px solid var(--border-color);
+}
+
+.game-button-secondary:hover:not(:disabled) {
+  background-color: #444444;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.game-button-danger {
+  background-color: var(--color-danger);
+  color: white;
+}
+
+.game-button-danger:hover:not(:disabled) {
+  background-color: #FF6B6B;
+  box-shadow: 0 3px 6px rgba(217, 73, 73, 0.4);
+}
+
+.game-button-success {
+  background-color: var(--color-success);
+  color: var(--text-color-inverse);
+}
+
+.game-button-success:hover:not(:disabled) {
+  background-color: var(--color-success-light);
+  box-shadow: 0 3px 6px rgba(125, 204, 117, 0.3);
+}
+
+.game-button-info {
+  background-color: var(--color-info);
+  color: var(--text-color-primary);
+}
+
+.game-button-info:hover:not(:disabled) {
+  background-color: var(--color-info-light);
+  box-shadow: 0 3px 6px rgba(141, 141, 141, 0.3);
+}
+
+/* Full Width Button */
+.game-button-full-width {
+  display: block;
+  width: 100%;
+}
+
+/* Disabled State */
+.game-button-disabled,
+.game-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Button active/focus states */
+.game-button:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.game-button:focus:not(:disabled) {
+  outline: 2px solid rgba(143, 111, 255, 0.5);
+  outline-offset: 2px;
+}
+
+/* Button with icon spacing */
+.game-button svg,
+.game-button img {
+  margin-right: 0.5rem;
+}
+
+/* Ripple effect */
+.game-button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%, -50%);
+  transform-origin: 50% 50%;
+}
+
+.game-button:focus:not(:active)::after {
+  animation: ripple 0.6s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.5;
+  }
+  20% {
+    transform: scale(25, 25);
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(40, 40);
+  }
+}

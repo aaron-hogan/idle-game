@@ -1,0 +1,128 @@
+.buildingItem {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  transition: all 0.2s ease-in-out;
+  background-color: #262020;
+  border-radius: 6px;
+  border: 1px solid #363030;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.buildingItem:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.name {
+  font-size: 1.25rem;
+  margin: 0;
+  color: #C4A3FF;
+}
+
+.level {
+  padding: 0.25rem 0.5rem;
+  background-color: #363030;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: bold;
+  color: #B09E9E;
+}
+
+.description {
+  margin-bottom: 1rem;
+  color: #9789AC;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.details {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.production, .cost {
+  flex: 1;
+}
+
+.production h4, .cost h4, .workers h4 {
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+  color: #64A79F;
+  text-transform: uppercase;
+}
+
+.productionItem, .costItem {
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
+}
+
+.productionItem {
+  color: #7DCC75;
+}
+
+.canAfford {
+  color: #B09E9E;
+}
+
+.cannotAfford {
+  color: #FF6B6B;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.workers {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  min-width: 180px;
+}
+
+.workerControls {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.efficiency {
+  width: 100%;
+  height: 0.75rem;
+  background-color: #15131A;
+  border-radius: 0.25rem;
+  overflow: hidden;
+  margin-top: 0.25rem;
+  position: relative;
+  border: 1px solid #363030;
+}
+
+.efficiencyBar {
+  height: 100%;
+  transition: width 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  background-color: #64A79F;
+}
+
+.efficiencyLabel {
+  font-size: 0.7rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #15131A;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+}

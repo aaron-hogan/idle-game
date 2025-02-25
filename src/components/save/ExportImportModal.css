@@ -1,0 +1,70 @@
+.export-import-modal {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.export-import-tabs {
+  display: flex;
+  border-bottom: 1px solid #363030;
+  margin-bottom: 16px;
+}
+
+.export-import-tabs .tab {
+  padding: 8px 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s ease;
+  color: #9789AC;
+}
+
+.export-import-tabs .tab.active {
+  border-bottom-color: #B195D8;
+  font-weight: bold;
+  color: #C4A3FF;
+}
+
+.export-import-tabs .tab:hover:not(.active) {
+  background-color: #322e36;
+}
+
+.export-textarea,
+.import-textarea {
+  width: 100%;
+  min-height: 150px;
+  padding: 10px;
+  border: 1px solid #363030;
+  border-radius: 4px;
+  font-family: monospace;
+  margin-bottom: 16px;
+  resize: vertical;
+  background-color: #15131A;
+  color: #B09E9E;
+}
+
+.export-buttons,
+.import-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.export-note {
+  font-size: 0.9rem;
+  color: #9789AC;
+}
+
+.import-warning {
+  font-size: 0.9rem;
+  color: #FF6B6B;
+  font-weight: bold;
+}
+
+/* Fix for Button as label */
+.file-input-wrapper {
+  display: inline-block;
+}

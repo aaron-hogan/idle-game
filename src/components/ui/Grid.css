@@ -1,0 +1,39 @@
+.game-grid {
+  width: 100%;
+}
+
+/* Responsive grid for when columns are specified as an object */
+.game-grid-responsive {
+  grid-template-columns: repeat(1, 1fr); /* Default to 1 column */
+}
+
+/* Apply column counts based on data attributes at different breakpoints */
+@media (min-width: 576px) {
+  .game-grid-responsive[data-grid-xs] {
+    grid-template-columns: repeat(var(--grid-xs, 1), 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .game-grid-responsive[data-grid-sm] {
+    grid-template-columns: repeat(var(--grid-sm, var(--grid-xs, 1)), 1fr);
+  }
+}
+
+@media (min-width: 992px) {
+  .game-grid-responsive[data-grid-md] {
+    grid-template-columns: repeat(var(--grid-md, var(--grid-sm, var(--grid-xs, 2))), 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .game-grid-responsive[data-grid-lg] {
+    grid-template-columns: repeat(var(--grid-lg, var(--grid-md, var(--grid-sm, var(--grid-xs, 3)))), 1fr);
+  }
+}
+
+@media (min-width: 1400px) {
+  .game-grid-responsive[data-grid-xl] {
+    grid-template-columns: repeat(var(--grid-xl, var(--grid-lg, var(--grid-md, var(--grid-sm, var(--grid-xs, 4))))), 1fr);
+  }
+}

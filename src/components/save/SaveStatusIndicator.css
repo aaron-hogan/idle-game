@@ -1,0 +1,94 @@
+.save-status-indicator {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.9rem;
+  color: #B09E9E;
+  position: relative;
+}
+
+.save-status-time,
+.save-status-autosave {
+  display: flex;
+  align-items: center;
+}
+
+.save-status-time {
+  position: relative;
+}
+
+.save-status-time::before {
+  content: '';
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 8px;
+  background-color: #7DCC75;
+  animation: pulse 2s infinite;
+}
+
+.save-status-autosave .enabled {
+  color: #7DCC75;
+  font-weight: bold;
+  margin-left: 4px;
+}
+
+.save-status-autosave .disabled {
+  color: #FF6B6B;
+  font-weight: bold;
+  margin-left: 4px;
+}
+
+.save-status-message {
+  margin-top: 8px;
+  padding: 6px 10px;
+  border-radius: 4px;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.save-status-message.success {
+  background-color: rgba(125, 204, 117, 0.2);
+  color: #A1F497;
+  border-left: 3px solid #7DCC75;
+}
+
+.save-status-message.error {
+  background-color: rgba(217, 73, 73, 0.2);
+  color: #FF6B6B;
+  border-left: 3px solid #D94949;
+}
+
+/* Save indicator animation */
+.save-activity-indicator {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 2px solid #7DCC75;
+  opacity: 0;
+}
+
+.save-activity-indicator.active {
+  animation: saveActivity 1.5s ease-in-out;
+}
+
+@keyframes saveActivity {
+  0% { transform: scale(0.5); opacity: 1; border-color: #7DCC75; }
+  50% { transform: scale(1.2); opacity: 0.8; border-color: #7DCC75; }
+  100% { transform: scale(1.5); opacity: 0; border-color: transparent; }
+}
+
+@keyframes pulse {
+  0% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

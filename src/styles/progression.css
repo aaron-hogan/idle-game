@@ -1,0 +1,133 @@
+/* Bare progression styling - dark theme */
+.bare-progression-tracker {
+  margin-bottom: 20px;
+}
+
+.bare-progression-tracker h2 {
+  margin: 0 0 10px 0;
+  font-weight: normal;
+  font-size: 18px;
+  color: #ccc;
+}
+
+.stage-indicator, .completion-percentage {
+  margin-bottom: 15px;
+  color: #bbb;
+}
+
+.stage-label, .progress-label {
+  margin-right: 10px;
+  color: #888;
+}
+
+.stage-value {
+  font-weight: bold;
+  color: #ddd;
+}
+
+.progress-value {
+  color: #ddd;
+}
+
+.progress-bar {
+  height: 8px;
+  background-color: #151515;
+  margin-top: 5px;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: #555;
+  transition: width 0.5s;
+}
+
+/* Milestone progress */
+.bare-milestone-progress {
+  margin-top: 20px;
+}
+
+.bare-milestone-progress h3 {
+  margin: 0 0 10px 0;
+  font-weight: normal;
+  font-size: 16px;
+  color: #ccc;
+}
+
+.milestone-card {
+  border: 1px solid #333;
+  padding: 10px;
+  margin-bottom: 15px;
+  background-color: #222;
+}
+
+.milestone-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.milestone-name {
+  font-weight: bold;
+  color: #ccc;
+}
+
+.milestone-percentage {
+  color: #ddd;
+}
+
+.milestone-progress-bar {
+  height: 6px;
+  background-color: #151515;
+  margin-bottom: 10px;
+  overflow: hidden;
+  border-radius: 3px;
+}
+
+.milestone-progress-fill {
+  height: 100%;
+  background-color: #555;
+  transition: width 0.5s;
+}
+
+.milestone-requirements {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.resource-requirement {
+  margin-bottom: 10px;
+  padding-left: 10px;
+  border-left: 2px solid #444;
+}
+
+.requirement-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #aaa;
+}
+
+.requirement-progress-bar {
+  height: 5px;
+  background-color: #151515;
+  margin-bottom: 5px;
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.requirement-progress-fill {
+  height: 100%;
+  background-color: #555;
+  transition: width 0.5s;
+}
+
+.requirement-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #888;
+}

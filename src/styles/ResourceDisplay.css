@@ -1,0 +1,65 @@
+.resource-display {
+  border: 1px solid #457B9D;
+  border-radius: 6px;
+  padding: 12px;
+  margin-bottom: 12px;
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.resource-display:hover {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.resource-name {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  color: #1D3557;
+  margin-bottom: 6px;
+}
+
+.resource-amount {
+  font-weight: normal;
+  color: #457B9D;
+}
+
+.resource-progress {
+  height: 8px;
+  background-color: #e9ecef;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.resource-progress-bar {
+  height: 100%;
+  background-color: #2A9D8F;
+  transition: width 0.5s ease-out;
+}
+
+.resource-rate {
+  font-size: 0.9rem;
+  color: #2A9D8F;
+  margin-bottom: 6px;
+}
+
+.resource-description {
+  font-size: 0.85rem;
+  color: #6c757d;
+  line-height: 1.4;
+}
+
+/* Style for resources that are nearly full */
+.resource-progress-bar[style*="width: 9"] {
+  background-color: #E63946;
+}
+
+/* Animation for resource gain */
+@keyframes resource-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}

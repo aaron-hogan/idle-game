@@ -1,0 +1,75 @@
+:root {
+  /* Main colors - minimal theme */
+  --color-primary: #4A90E2;
+  --color-secondary: #9E9E9E;
+  --color-accent: #5C6BC0;
+  --color-background: #F5F5F5;
+  --color-light: #E0E0E0;
+
+  /* Semantic colors */
+  --color-success: #66BB6A;
+  --color-success-light: #A5D6A7;
+  --color-success-dark: #43A047;
+  --color-warning: #FFA726;
+  --color-warning-light: #FFB74D;
+  --color-warning-dark: #F57C00;
+  --color-danger: #EF5350;
+  --color-danger-light: #EF9A9A;
+  --color-danger-dark: #E53935;
+  --color-info: #42A5F5;
+  --color-info-light: #90CAF9;
+  --color-info-dark: #1E88E5;
+
+  /* Background colors */
+  --bg-color-main: #FFFFFF;
+  --bg-color-primary: #F5F5F5;
+  --bg-color-secondary: #EEEEEE;
+  --bg-color-accent: #E0E0E0;
+  --bg-color-highlight: #F0F7FF;
+
+  /* Text colors */
+  --text-color-primary: #212121;
+  --text-color-secondary: #616161;
+  --text-color-tertiary: #9E9E9E;
+  --text-color-inverse: #FFFFFF;
+
+  /* Border colors */
+  --border-color: #E0E0E0;
+  --border-color-accent: #BBDEFB;
+  --border-color-dark: #BDBDBD;
+
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+
+  /* Font sizes - minimal style */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
+  --font-size-xxl: 2rem;
+  --font-size-headline: 2rem;
+  
+  /* Font families */
+  --font-family-heading: 'Roboto', sans-serif;
+  --font-family-body: 'Roboto', sans-serif;
+
+  /* Border radius */
+  --border-radius-sm: 0.25rem;
+  --border-radius-md: 0.5rem;
+  --border-radius-lg: 1rem;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.35);
+
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+}

@@ -1,0 +1,42 @@
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: #15131A;
+  color: #B09E9E;
+}
+
+.app-header {
+  margin-bottom: 20px;
+  border-bottom: 2px solid #B195D8;
+  padding-bottom: 15px;
+  background-color: #27252D;
+}
+
+.app-header h1 {
+  margin: 0 0 15px 0;
+  color: #C4A3FF;
+  font-size: 2rem;
+}
+
+.app-main {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  background-color: #15131A;
+}
+
+/* Add responsive layout for larger screens */
+@media (min-width: 768px) {
+  .app-main {
+    grid-template-columns: 300px 1fr;
+  }
+}
+
+/* Add responsive layout for even larger screens */
+@media (min-width: 1024px) {
+  .app-main {
+    grid-template-columns: 300px 1fr 250px;
+  }
+}

@@ -1,0 +1,2156 @@
+[Log] [HMR] Waiting for update signal from WDS...
+[Log] Root State: – {resources: {}, structures: {}, game: Object, …}
+{resources: {}, structures: {}, game: Object, tasks: {tasks: {}, activeTaskId: null}}Object
+[Log] Structures from state: – {}
+[Log] Root State: – {resources: {}, structures: {}, game: Object, …}
+{resources: {}, structures: {}, game: Object, tasks: {tasks: {}, activeTaskId: null}}Object
+[Log] Structures from state: – {}
+[Log] Root State: – {resources: {}, structures: {}, game: Object, …}
+{resources: {}, structures: {}, game: Object, tasks: {tasks: {}, activeTaskId: null}}Object
+[Log] Structures from state: – {}
+[Log] GameTimer: totalPlayTime updated to 0.00s
+[Log] Initializing buildings...
+[Log] Buildings to add: – [Object, Object, Object, …] (5)
+[Object, Object, Object, Object, Object]Array (5)
+[Log] Root State: – {resources: {}, structures: Object, game: Object, …}
+{resources: {}, structures: Object, game: Object, tasks: {tasks: {}, activeTaskId: null}}Object
+[Log] Structures from state: – {community_center: Object}
+{community_center: Object}Object
+[Log] Root State: – {resources: {}, structures: Object, game: Object, …}
+{resources: {}, structures: Object, game: Object, tasks: {tasks: {}, activeTaskId: null}}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object}
+{community_center: Object, union_office: Object}Object
+[Log] Root State: – {resources: {}, structures: Object, game: Object, …}
+{resources: {}, structures: Object, game: Object, tasks: {tasks: {}, activeTaskId: null}}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object}
+{community_center: Object, union_office: Object, alt_media_outlet: Object}Object
+[Log] Root State: – {resources: {}, structures: Object, game: Object, …}
+{resources: {}, structures: Object, game: Object, tasks: {tasks: {}, activeTaskId: null}}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object}Object
+[Log] Root State: – {resources: {}, structures: Object, game: Object, …}
+{resources: {}, structures: Object, game: Object, tasks: {tasks: {}, activeTaskId: null}}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: {}, structures: {}, game: Object, …}
+{resources: {}, structures: {}, game: Object, tasks: {tasks: {}, activeTaskId: null}}Object
+[Log] Structures from state: – {}
+[Log] App: Initializing game systems
+[Log] GameLoopManager: Registered tick handler, total handlers: – 1
+[Log] TaskManager: Starting game loop
+[Log] GameLoopManager: Starting game loop
+[Log] Root State: – {resources: {}, structures: {}, game: Object, …}
+{resources: {}, structures: {}, game: Object, tasks: Object}Object
+[Log] Structures from state: – {}
+[Log] App: Initializing resources
+[Log] Root State: – {resources: Object, structures: {}, game: Object, …}
+{resources: Object, structures: {}, game: Object, tasks: Object}Object
+[Log] Structures from state: – {}
+[Log] Root State: – {resources: Object, structures: {}, game: Object, …}
+{resources: Object, structures: {}, game: Object, tasks: Object}Object
+[Log] Structures from state: – {}
+[Log] Root State: – {resources: Object, structures: {}, game: Object, …}
+{resources: Object, structures: {}, game: Object, tasks: Object}Object
+[Log] Structures from state: – {}
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object}
+{community_center: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object}
+{community_center: Object, union_office: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object}
+{community_center: Object, union_office: Object, alt_media_outlet: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: GameLoopManager already running
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 0s to 0.1s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 0.00s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Initializing buildings...
+[Log] Buildings to add: – [Object, Object, Object, …] (5)
+[Object, Object, Object, Object, Object]Array (5)
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: {}, structures: Object, game: Object, …}
+{resources: {}, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: {}, structures: {}, game: Object, …}
+{resources: {}, structures: {}, game: Object, tasks: Object}Object
+[Log] Structures from state: – {}
+[Log] App: Initializing game systems
+[Log] App: Initializing resources
+[Log] Root State: – {resources: Object, structures: {}, game: Object, …}
+{resources: Object, structures: {}, game: Object, tasks: Object}Object
+[Log] Structures from state: – {}
+[Log] Root State: – {resources: Object, structures: {}, game: Object, …}
+{resources: Object, structures: {}, game: Object, tasks: Object}Object
+[Log] Structures from state: – {}
+[Log] Root State: – {resources: Object, structures: {}, game: Object, …}
+{resources: Object, structures: {}, game: Object, tasks: Object}Object
+[Log] Structures from state: – {}
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object}
+{community_center: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object}
+{community_center: Object, union_office: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object}
+{community_center: Object, union_office: Object, alt_media_outlet: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 0s to 0.1s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 0.10s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 0.1s to 0.2s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 0.20s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 0.2s to 0.30000000000000004s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 0.30s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 0.30000000000000004s to 0.4s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 0.40s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 0.4s to 0.5s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 0.50s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 0.5s to 0.6s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 0.60s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 0.6s to 0.7s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 0.70s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 0.7s to 0.7999999999999999s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 0.80s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 0.7999999999999999s to 0.8999999999999999s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 0.90s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 0.8999999999999999s to 0.9999999999999999s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 1.00s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 0.9999999999999999s to 1.0999999999999999s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 1.10s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 1.0999999999999999s to 1.2s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 1.20s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 1.2s to 1.3s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 1.30s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 1.3s to 1.4000000000000001s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 1.40s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 1.4000000000000001s to 1.5000000000000002s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 1.50s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 1.5000000000000002s to 1.6000000000000003s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 1.60s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 1.6000000000000003s to 1.7000000000000004s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 1.70s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 1.7000000000000004s to 1.8000000000000005s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 1.80s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 1.8000000000000005s to 1.9000000000000006s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 1.90s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 1.9000000000000006s to 2.0000000000000004s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 2.00s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 2.0000000000000004s to 2.1000000000000005s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 2.10s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 2.1000000000000005s to 2.2000000000000006s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 2.20s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 2.2000000000000006s to 2.3000000000000007s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 2.30s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 2.3000000000000007s to 2.400000000000001s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 2.40s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 2.400000000000001s to 2.500000000000001s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 2.50s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 2.500000000000001s to 2.600000000000001s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 2.60s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 2.600000000000001s to 2.700000000000001s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 2.70s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 2.700000000000001s to 2.800000000000001s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 2.80s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 2.800000000000001s to 2.9000000000000012s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 2.90s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 2.9000000000000012s to 3.0000000000000013s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 3.00s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 3.0000000000000013s to 3.1000000000000014s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 3.10s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 3.1000000000000014s to 3.2000000000000015s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 3.20s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 3.2000000000000015s to 3.3000000000000016s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 3.30s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 3.3000000000000016s to 3.4000000000000017s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 3.40s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 3.4000000000000017s to 3.5000000000000018s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 3.50s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 3.5000000000000018s to 3.600000000000002s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 3.60s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 3.600000000000002s to 3.700000000000002s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 3.70s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 3.700000000000002s to 3.800000000000002s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 3.80s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 3.800000000000002s to 3.900000000000002s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 3.90s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 3.900000000000002s to 4.000000000000002s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 4.00s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 4.000000000000002s to 4.100000000000001s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 4.10s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 4.100000000000001s to 4.200000000000001s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 4.20s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 4.200000000000001s to 4.300000000000001s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 4.30s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 4.300000000000001s to 4.4s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 4.40s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 4.4s to 4.5s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 4.50s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 4.5s to 4.6s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 4.60s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 4.6s to 4.699999999999999s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 4.70s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 4.699999999999999s to 4.799999999999999s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 4.80s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 4.799999999999999s to 4.899999999999999s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 4.90s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 4.899999999999999s to 4.999999999999998s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 5.00s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 4.999999999999998s to 5.099999999999998s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 5.10s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 5.099999999999998s to 5.1999999999999975s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] GameTimer: totalPlayTime updated to 5.20s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Starting GameLoopManager
+[Log] GameLoopManager: Starting game loop
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 5.1999999999999975s to 5.299999999999997s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameTimer: totalPlayTime updated to 5.30s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: Initializing game systems
+[Log] App: Initializing game loop
+[Log] App: Starting main game loop
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] App: GameLoopManager already running
+[Log] gameSlice: addPlayTime called with 0.1s, total updated from 5.299999999999997s to 5.399999999999997s
+[Log] Root State: – {resources: Object, structures: Object, game: Object, …}
+{resources: Object, structures: Object, game: Object, tasks: Object}Object
+[Log] Structures from state: – {community_center: Object, union_office: Object, alt_media_outlet: Object, …}
+{community_center: Object, union_office: Object, alt_media_outlet: Object, mutual_aid_network: Object, study_group: Object}Object
+[Log] GameLoopManager: Stopped game loop
+[Log] Initializing debug tools...
+[Log] Diagnostics button injected. Click to run tests.
+[Log] State monitor buttons injected
+[Log] Resource test button injected
+[Log] Direct tick button injected
+[Log] GameLoop.tick() monkey patched for debugging
+[Log] ResourceManager.updateResources() monkey patched for debugging
+[Log] ===== INITIAL GAME STATE =====
+[Log] Game state: – {isRunning: true, tickRate: 1000, gameTimeScale: 1, …}
+{isRunning: true, tickRate: 1000, gameTimeScale: 1, totalPlayTime: 5.399999999999997}Object
+[Log] Resources (3):
+[Log] - Collective Bargaining Power: amount=0.00, perSecond=0.10
+[Log] - Solidarity: amount=0.00, perSecond=0.00
+[Log] - Community Trust: amount=0.00, perSecond=0.00
+[Log] GameLoop status: – {isRunning: false, isPaused: false, tickInterval: 1000, …}
+{isRunning: false, isPaused: false, tickInterval: 1000, tickCount: 0, elapsedSinceLastTick: 0.756}Object
+[Log] Debug tools initialized.
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] App: Resource check after startup: – 3 – "resources"
+[Log] App: Current game time: 5.40s
+[Log] Resource Collective Bargaining Power: amount=0, perSecond=0.1
+[Log] Resource Solidarity: amount=0, perSecond=0
+[Log] Resource Community Trust: amount=0, perSecond=0
+[Log] ===== FOLLOW-UP CHECK (5s after load) =====
+[Log] Game time progress: 0.00 seconds
+[Log] TaskManager: Re-registering tick handler
+[Log] GameLoopManager: Registered tick handler, total handlers: – 2
+[Log] TaskManager: Starting game loop
+[Log] GameLoopManager: Starting game loop
+[Log] GameLoopManager: Tick processed, deltaTime=18ms, handlers=2
+[Log] GameLoopManager: Tick processed, deltaTime=15ms, handlers=2
+[Log] GameLoopManager: Tick processed, deltaTime=16ms, handlers=2
+[Log] GameLoopManager: Tick processed, deltaTime=15ms, handlers=2
+[Log] GameLoopManager: Tick processed, deltaTime=17ms, handlers=2
+[Log] GameLoopManager: Tick processed, deltaTime=16ms, handlers=2
+[Log] GameLoopManager: Tick processed, deltaTime=17ms, handlers=2
+[Log] TaskManager: Re-registering tick handler
+[Log] GameLoopManager: Registered tick handler, total handlers: – 3
+[Log] TaskManager: Game loop already running
+[Log] GameLoopManager: Tick processed, deltaTime=16ms, handlers=3
+[Log] GameLoopManager: Tick processed, deltaTime=17ms, handlers=3 (x4)
+[Log] GameLoopManager: Tick processed, deltaTime=16ms, handlers=3
+[Log] GameLoopManager: Tick processed, deltaTime=17ms, handlers=3 (x3)
+[Log] GameLoopManager: Tick processed, deltaTime=16ms, handlers=3
+[Log] TaskManager: Re-registering tick handler
+[Log] GameLoopManager: Registered tick handler, total handlers: – 4
+[Log] TaskManager: Game loop already running
+[Log] GameLoopManager: Tick processed, deltaTime=17ms, handlers=4
+[Log] GameLoopManager: Tick processed, deltaTime=16ms, handlers=4 (x3)
+[Log] GameLoopManager: Tick processed, deltaTime=15ms, handlers=4
+[Log] GameLoopManager: Tick processed, deltaTime=17ms, handlers=4 (x3)
+[Log] GameLoopManager: Tick processed, deltaTime=16ms, handlers=4
+[Log] TaskManager: Re-registering tick handler
+[Log] GameLoopManager: Registered tick handler, total handlers: – 5
+[Log] TaskManager: Game loop already running
+[Log] GameLoopManager: Tick processed, deltaTime=17ms, handlers=5 (x4)
+[Log] GameLoopManager: Tick processed, deltaTime=16ms, handlers=5
+[Log] GameLoopManager: Tick processed, deltaTime=17ms, handlers=5
+[Log] TaskManager: Re-registering tick handler
+[Log] GameLoopManager: Registered tick handler, total handlers: – 6
+[Log] TaskManager: Game loop already running
+[Log] GameLoopManager: Tick processed, deltaTime=16ms, handlers=6
+[Log] GameLoopManager: Tick processed, deltaTime=17ms, handlers=6 (x2)
+[Log] GameLoopManager: Tick processed, deltaTime=16ms, handlers=6
+[Log] GameLoopManager: Tick processed, deltaTime=17ms, handlers=6
+[Log] GameLoopManager: Tick processed, deltaTime=18ms, handlers=6
+[Log] TaskManager: Re-registering tick handler
+[Log] GameLoopManager: Registered tick handler, total handlers: – 7
+[Log] TaskManager: Game loop already running
+[Log] GameLoopManager: Tick processed, deltaTime=16ms, handlers=7 (x2)

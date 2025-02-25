@@ -1,0 +1,179 @@
+/* Stripped down bare UI - dark theme */
+
+/* Base layout */
+.bare-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  font-family: monospace;
+  background-color: #1a1a1a;
+  color: #e0e0e0;
+}
+
+/* Top controls bar */
+.controls-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 15px;
+  background-color: #121212;
+  border-bottom: 1px solid #333;
+}
+
+.game-timer {
+  flex: 1;
+}
+
+.menu-button {
+  cursor: pointer;
+  background: #222;
+  border: 1px solid #444;
+  border-radius: 3px;
+  color: #999;
+  font-size: 12px;
+  padding: 5px 10px;
+  font-family: monospace;
+}
+
+.menu-button:hover {
+  background: #333;
+  color: #fff;
+}
+
+/* Menu dropdown */
+.game-menu {
+  position: absolute;
+  top: 40px;
+  right: 15px;
+  background-color: #222;
+  border: 1px solid #444;
+  border-radius: 4px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+  z-index: 100;
+  min-width: 150px;
+  display: none;
+}
+
+.game-menu.active {
+  display: block;
+}
+
+.game-menu-item {
+  padding: 8px 15px;
+  cursor: pointer;
+  border-bottom: 1px solid #333;
+}
+
+.game-menu-item:last-child {
+  border-bottom: none;
+}
+
+.game-menu-item:hover {
+  background-color: #333;
+}
+
+/* Core content area */
+.core-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow-y: auto;
+  padding: 15px;
+}
+
+.resource-display, .progression-display {
+  margin-bottom: 20px;
+}
+
+/* Debug toggle button */
+.debug-toggle-btn {
+  width: 100%;
+  padding: 8px;
+  background-color: #121212;
+  color: #999;
+  border: none;
+  border-top: 1px solid #333;
+  cursor: pointer;
+  text-align: center;
+  font-family: monospace;
+}
+
+.debug-toggle-btn:hover {
+  background-color: #222;
+  color: #fff;
+}
+
+/* Debug panel */
+.debug-panel {
+  border-top: 1px solid #333;
+  transition: height 0.3s ease;
+  height: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.debug-panel.expanded {
+  height: 400px;
+  resize: vertical;
+  overflow: auto;
+}
+
+.debug-panel.collapsed {
+  height: 0;
+}
+
+/* Debug panel resize handle */
+.debug-resize-handle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background-color: #333;
+  cursor: ns-resize;
+}
+
+.debug-resize-handle:hover {
+  background-color: #444;
+}
+
+/* Override existing styles for minimal UI */
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-weight: normal;
+  color: #ccc;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  text-align: left;
+  padding: 4px 8px;
+  border-bottom: 1px solid #eee;
+}
+
+th {
+  font-weight: bold;
+  background-color: #f5f5f5;
+}
+
+button {
+  padding: 4px 8px;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #e0e0e0;
+}
+
+/* Hide unnecessary UI elements */
+.game-section, .sidebar-content, .sidebar-section, .game-content {
+  display: none;
+}

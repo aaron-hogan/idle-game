@@ -1,0 +1,33 @@
+.game-footer {
+  background-color: #262020;
+  color: #B09E9E;
+  padding: 0.8rem 1rem;
+  border-top: 1px solid #363030;
+  font-size: 0.85rem;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.play-time {
+  color: #64A79F;
+  font-weight: 500;
+}
+
+.copyright {
+  color: rgba(176, 158, 158, 0.7);
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+    text-align: center;
+  }
+}

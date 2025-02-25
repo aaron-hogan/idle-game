@@ -1,0 +1,45 @@
+.game-icon {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+/* Optional common styles for specific icons */
+.game-icon-rotate-90 {
+  transform: rotate(90deg);
+}
+
+.game-icon-rotate-180 {
+  transform: rotate(180deg);
+}
+
+.game-icon-rotate-270 {
+  transform: rotate(270deg);
+}
+
+.game-icon-flip-horizontal {
+  transform: scaleX(-1);
+}
+
+.game-icon-flip-vertical {
+  transform: scaleY(-1);
+}
+
+.game-icon-spin {
+  animation: icon-spin 2s infinite linear;
+}
+
+.game-icon-pulse {
+  animation: icon-spin 1s infinite steps(8);
+}
+
+@keyframes icon-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
+  }
+}

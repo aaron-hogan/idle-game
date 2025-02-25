@@ -1,0 +1,65 @@
+.game-badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Badge sizes */
+.game-badge-small {
+  padding: 0.15rem 0.4rem;
+  font-size: 0.75rem;
+}
+
+.game-badge-medium {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.85rem;
+}
+
+.game-badge-large {
+  padding: 0.35rem 0.6rem;
+  font-size: 0.95rem;
+}
+
+/* Badge variants */
+.game-badge-primary {
+  background-color: #E63946;
+  color: #F1FAEE;
+}
+
+.game-badge-secondary {
+  background-color: #457B9D;
+  color: #F1FAEE;
+}
+
+.game-badge-success {
+  background-color: #2A9D8F;
+  color: #F1FAEE;
+}
+
+.game-badge-danger {
+  background-color: #E63946;
+  color: #F1FAEE;
+}
+
+.game-badge-warning {
+  background-color: #FFD166;
+  color: #1D3557;
+}
+
+.game-badge-info {
+  background-color: #A8DADC;
+  color: #1D3557;
+}
+
+/* Pill shape */
+.game-badge-pill {
+  border-radius: 50rem;
+}

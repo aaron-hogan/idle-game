@@ -1,0 +1,18 @@
+.reset-confirmation-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.reset-warning {
+  font-weight: bold;
+  color: #FF6B6B;
+  font-size: 1.1rem;
+}
+
+.reset-confirmation-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}

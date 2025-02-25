@@ -1,0 +1,32 @@
+.save-controls {
+  display: flex;
+  flex-direction: column;
+  background-color: #262020;
+  border-radius: 4px;
+  padding: 12px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border: 1px solid #363030;
+}
+
+.save-controls-status {
+  margin-bottom: 12px;
+  color: #B09E9E;
+}
+
+.save-controls-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+  .save-controls-buttons {
+    flex-direction: column;
+  }
+  
+  .save-controls-buttons button {
+    width: 100%;
+  }
+}

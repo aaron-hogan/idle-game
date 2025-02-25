@@ -1,0 +1,94 @@
+.progress-bar-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 0.5rem 0;
+}
+
+.progress-bar {
+  background-color: #262020;
+  border-radius: 4px;
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+  border: 1px solid #363030;
+}
+
+.progress-bar-fill {
+  background-color: #64A79F;
+  height: 100%;
+  width: 0;
+  border-radius: 4px;
+  transition: width 0.3s ease-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Sizes */
+.progress-bar-small {
+  height: 8px;
+}
+
+.progress-bar-medium {
+  height: 16px;
+}
+
+.progress-bar-large {
+  height: 24px;
+}
+
+/* Labels */
+.progress-bar-label {
+  color: #15131A;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 1;
+  white-space: nowrap;
+}
+
+.progress-bar-label-outside {
+  margin-left: 0.5rem;
+  color: #B09E9E;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+/* Hide label for small progress bars */
+.progress-bar-small .progress-bar-label {
+  display: none;
+}
+
+/* Label position */
+.progress-bar-label-inside .progress-bar-fill {
+  justify-content: flex-start;
+  padding-left: 0.5rem;
+}
+
+/* Striped effect for loading states */
+.progress-bar-striped .progress-bar-fill {
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 40px 40px;
+  animation: progress-bar-stripes 1s linear infinite;
+}
+
+@keyframes progress-bar-stripes {
+  from {
+    background-position: 40px 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}

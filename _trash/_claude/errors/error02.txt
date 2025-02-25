@@ -1,0 +1,36 @@
+Compiled with problems:
+×
+ERROR in /Users/aaronhogan/Dev/idle-game/src/components/ui/Tooltip.tsx 48:4-16
+[tsl] ERROR in /Users/aaronhogan/Dev/idle-game/src/components/ui/Tooltip.tsx(48,5)
+      TS2769: No overload matches this call.
+  The last overload gave the following error.
+    Object literal may only specify known properties, and 'onMouseEnter' does not exist in type 'Partial<unknown> & Attributes'.
+ERROR in /Users/aaronhogan/Dev/idle-game/src/components/ui/Tooltip.tsx 49:10-24
+[tsl] ERROR in /Users/aaronhogan/Dev/idle-game/src/components/ui/Tooltip.tsx(49,11)
+      TS18046: 'children.props' is of type 'unknown'.
+ERROR in /Users/aaronhogan/Dev/idle-game/src/components/ui/Tooltip.tsx 49:39-53
+[tsl] ERROR in /Users/aaronhogan/Dev/idle-game/src/components/ui/Tooltip.tsx(49,40)
+      TS18046: 'children.props' is of type 'unknown'.
+ERROR in /Users/aaronhogan/Dev/idle-game/src/components/ui/Tooltip.tsx 53:10-24
+[tsl] ERROR in /Users/aaronhogan/Dev/idle-game/src/components/ui/Tooltip.tsx(53,11)
+      TS18046: 'children.props' is of type 'unknown'.
+ERROR in /Users/aaronhogan/Dev/idle-game/src/components/ui/Tooltip.tsx 53:39-53
+[tsl] ERROR in /Users/aaronhogan/Dev/idle-game/src/components/ui/Tooltip.tsx(53,40)
+      TS18046: 'children.props' is of type 'unknown'.
+ERROR in /Users/aaronhogan/Dev/idle-game/src/components/ui/Tooltip.tsx 57:10-24
+[tsl] ERROR in /Users/aaronhogan/Dev/idle-game/src/components/ui/Tooltip.tsx(57,11)
+      TS18046: 'children.props' is of type 'unknown'.
+ERROR in /Users/aaronhogan/Dev/idle-game/src/components/ui/Tooltip.tsx 57:34-48
+[tsl] ERROR in /Users/aaronhogan/Dev/idle-game/src/components/ui/Tooltip.tsx(57,35)
+      TS18046: 'children.props' is of type 'unknown'.
+ERROR in /Users/aaronhogan/Dev/idle-game/src/components/ui/Tooltip.tsx 61:10-24
+[tsl] ERROR in /Users/aaronhogan/Dev/idle-game/src/components/ui/Tooltip.tsx(61,11)
+      TS18046: 'children.props' is of type 'unknown'.
+ERROR in /Users/aaronhogan/Dev/idle-game/src/components/ui/Tooltip.tsx 61:33-47
+[tsl] ERROR in /Users/aaronhogan/Dev/idle-game/src/components/ui/Tooltip.tsx(61,34)
+      TS18046: 'children.props' is of type 'unknown'.
+ERROR in /Users/aaronhogan/Dev/idle-game/src/systems/__tests__/gameLoop.test.ts 19:35-43
+[tsl] ERROR in /Users/aaronhogan/Dev/idle-game/src/systems/__tests__/gameLoop.test.ts(19,36)
+      TS2345: Argument of type 'EventListenerOrEventListenerObject' is not assignable to parameter of type '(...args: any[]) => void'.
+  Type 'EventListenerObject' is not assignable to type '(...args: any[]) => void'.
+    Type 'EventListenerObject' provides no match for the signature '(...args: any[]): void'.

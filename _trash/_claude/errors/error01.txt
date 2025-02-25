@@ -1,0 +1,91 @@
+Compiled with problems:
+×
+ERROR in ./src/components/layout/Footer.tsx 7:41-60
+export 'selectTotalPlayTime' (imported as 'selectTotalPlayTime') was not found in '../../state/gameSlice' (possible exports: addPlayTime, default, processOfflineProgress, resetGame, setGameStage, setGameTimeScale, setTickRate, setTotalPlayTime, startGame, stopGame, updateLastSaveTime)
+ERROR in ./src/components/layout/Header.tsx 6:37-52
+export 'selectGameStage' (imported as 'selectGameStage') was not found in '../../state/gameSlice' (possible exports: addPlayTime, default, processOfflineProgress, resetGame, setGameStage, setGameTimeScale, setTickRate, setTotalPlayTime, startGame, stopGame, updateLastSaveTime)
+ERROR in ./src/components/resources/ResourceList.tsx 7:37-55
+export 'selectAllResources' (imported as 'selectAllResources') was not found in '../../state/resourcesSlice' (possible exports: addResource, addResourceAmount, default, resetResources, toggleResourceUnlocked, updateResourceAmount, updateResourcePerSecond)
+ERROR in ./src/components/layout/Footer.tsx (/Users/aaronhogan/Dev/idle-game/src/components/layout/Footer.tsx) 3:9-28
+[tsl] ERROR in /Users/aaronhogan/Dev/idle-game/src/components/layout/Footer.tsx(3,10)
+      TS2724: '"../../state/gameSlice"' has no exported member named 'selectTotalPlayTime'. Did you mean 'setTotalPlayTime'?
+ERROR in ./src/components/layout/Footer.tsx (/Users/aaronhogan/Dev/idle-game/src/components/layout/Footer.tsx) 14:45-58
+[tsl] ERROR in /Users/aaronhogan/Dev/idle-game/src/components/layout/Footer.tsx(14,46)
+      TS2345: Argument of type 'unknown' is not assignable to parameter of type 'number'.
+ERROR in ./src/components/layout/Header.tsx (/Users/aaronhogan/Dev/idle-game/src/components/layout/Header.tsx) 3:9-24
+[tsl] ERROR in /Users/aaronhogan/Dev/idle-game/src/components/layout/Header.tsx(3,10)
+      TS2724: '"../../state/gameSlice"' has no exported member named 'selectGameStage'. Did you mean 'setGameStage'?
+ERROR in ./src/components/layout/Header.tsx (/Users/aaronhogan/Dev/idle-game/src/components/layout/Header.tsx) 19:49-58
+[tsl] ERROR in /Users/aaronhogan/Dev/idle-game/src/components/layout/Header.tsx(19,50)
+      TS2345: Argument of type 'unknown' is not assignable to parameter of type 'number'.
+ERROR in ./src/components/layout/Header.tsx (/Users/aaronhogan/Dev/idle-game/src/components/layout/Header.tsx) 26:47-56
+[tsl] ERROR in /Users/aaronhogan/Dev/idle-game/src/components/layout/Header.tsx(26,48)
+      TS18046: 'gameStage' is of type 'unknown'.
+ERROR in /Users/aaronhogan/Dev/idle-game/src/components/layout/__tests__/Layout.test.tsx 4:27-45
+[tsl] ERROR in /Users/aaronhogan/Dev/idle-game/src/components/layout/__tests__/Layout.test.tsx(4,28)
+      TS7016: Could not find a declaration file for module 'redux-mock-store'. '/Users/aaronhogan/Dev/idle-game/node_modules/redux-mock-store/dist/index-cjs.js' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/redux-mock-store` if it exists or add a new declaration (.d.ts) file containing `declare module 'redux-mock-store';`
+ERROR in ./src/components/resources/ResourceDisplay.tsx (/Users/aaronhogan/Dev/idle-game/src/components/resources/ResourceDisplay.tsx) 2:25-48
+[tsl] ERROR in /Users/aaronhogan/Dev/idle-game/src/components/resources/ResourceDisplay.tsx(2,26)
+      TS1149: File name '/Users/aaronhogan/Dev/idle-game/src/models/Resource.ts' differs from already included file name '/Users/aaronhogan/Dev/idle-game/src/models/resource.ts' only in casing.
+  The file is in the program because:
+    Imported via '../models/resource' from file '/Users/aaronhogan/Dev/idle-game/src/state/resourcesSlice.ts'
+    Imported via '../models/resource' from file '/Users/aaronhogan/Dev/idle-game/src/state/selectors.ts'
+    Imported via '../models/resource' from file '/Users/aaronhogan/Dev/idle-game/src/systems/resourceManager.ts'
+    Imported via '../models/resource' from file '/Users/aaronhogan/Dev/idle-game/src/constants/resources.ts'
+    Imported via '../../models/Resource' from file '/Users/aaronhogan/Dev/idle-game/src/components/resources/ResourceDisplay.tsx'
+    Imported via '../models/resource' from file '/Users/aaronhogan/Dev/idle-game/src/components/ResourceDisplay.tsx'
+    Imported via '../models/resource' from file '/Users/aaronhogan/Dev/idle-game/src/components/ResourceDisplay.test.tsx'
+    Imported via '../models/resource' from file '/Users/aaronhogan/Dev/idle-game/src/components/ResourceList.test.tsx'
+    Imported via './resource' from file '/Users/aaronhogan/Dev/idle-game/src/models/gameState.ts'
+    Root file specified for compilation
+    Imported via '../models/resource' from file '/Users/aaronhogan/Dev/idle-game/src/state/resourcesSlice.test.ts'
+    Imported via '../models/resource' from file '/Users/aaronhogan/Dev/idle-game/src/state/selectors.test.ts'
+    Imported via '../models/resource' from file '/Users/aaronhogan/Dev/idle-game/src/systems/resourceManager.test.ts'
+ERROR in ./src/components/resources/ResourceList.tsx (/Users/aaronhogan/Dev/idle-game/src/components/resources/ResourceList.tsx) 3:9-27
+[tsl] ERROR in /Users/aaronhogan/Dev/idle-game/src/components/resources/ResourceList.tsx(3,10)
+      TS2614: Module '"../../state/resourcesSlice"' has no exported member 'selectAllResources'. Did you mean to use 'import selectAllResources from "../../state/resourcesSlice"' instead?
+ERROR in ./src/components/resources/ResourceList.tsx (/Users/aaronhogan/Dev/idle-game/src/components/resources/ResourceList.tsx) 11:28-37
+[tsl] ERROR in /Users/aaronhogan/Dev/idle-game/src/components/resources/ResourceList.tsx(11,29)
+      TS18046: 'resources' is of type 'unknown'.
+ERROR in ./src/components/resources/ResourceList.tsx (/Users/aaronhogan/Dev/idle-game/src/components/resources/ResourceList.tsx) 11:45-53
+[tsl] ERROR in /Users/aaronhogan/Dev/idle-game/src/components/resources/ResourceList.tsx(11,46)
+      TS7006: Parameter 'resource' implicitly has an 'any' type.
+ERROR in ./src/components/resources/ResourceList.tsx (/Users/aaronhogan/Dev/idle-game/src/components/resources/ResourceList.tsx) 18:32-40
+[tsl] ERROR in /Users/aaronhogan/Dev/idle-game/src/components/resources/ResourceList.tsx(18,33)
+      TS7006: Parameter 'resource' implicitly has an 'any' type.
+ERROR in /Users/aaronhogan/Dev/idle-game/src/components/ui/Tooltip.tsx 48:4-16
+[tsl] ERROR in /Users/aaronhogan/Dev/idle-game/src/components/ui/Tooltip.tsx(48,5)
+      TS2769: No overload matches this call.
+  The last overload gave the following error.
+    Object literal may only specify known properties, and 'onMouseEnter' does not exist in type 'Partial<unknown> & Attributes'.
+ERROR in /Users/aaronhogan/Dev/idle-game/src/state/gameSlice.test.ts 26:31-43
+[tsl] ERROR in /Users/aaronhogan/Dev/idle-game/src/state/gameSlice.test.ts(26,32)
+      TS2345: Argument of type '{ gameStage: number; lastSaveTime: any; totalPlayTime: number; }' is not assignable to parameter of type 'GameState'.
+  Type '{ gameStage: number; lastSaveTime: any; totalPlayTime: number; }' is missing the following properties from type 'GameState': isRunning, tickRate, gameTimeScale
+ERROR in /Users/aaronhogan/Dev/idle-game/src/state/gameSlice.test.ts 36:31-43
+[tsl] ERROR in /Users/aaronhogan/Dev/idle-game/src/state/gameSlice.test.ts(36,32)
+      TS2345: Argument of type '{ gameStage: number; lastSaveTime: any; totalPlayTime: number; }' is not assignable to parameter of type 'GameState'.
+  Type '{ gameStage: number; lastSaveTime: any; totalPlayTime: number; }' is missing the following properties from type 'GameState': isRunning, tickRate, gameTimeScale
+ERROR in /Users/aaronhogan/Dev/idle-game/src/state/gameSlice.test.ts 46:31-41
+[tsl] ERROR in /Users/aaronhogan/Dev/idle-game/src/state/gameSlice.test.ts(46,32)
+      TS2345: Argument of type '{ totalPlayTime: number; gameStage: number; lastSaveTime: any; }' is not assignable to parameter of type 'GameState'.
+  Type '{ totalPlayTime: number; gameStage: number; lastSaveTime: any; }' is missing the following properties from type 'GameState': isRunning, tickRate, gameTimeScale
+ERROR in /Users/aaronhogan/Dev/idle-game/src/state/gameSlice.test.ts 52:31-43
+[tsl] ERROR in /Users/aaronhogan/Dev/idle-game/src/state/gameSlice.test.ts(52,32)
+      TS2345: Argument of type '{ gameStage: number; lastSaveTime: any; totalPlayTime: number; }' is not assignable to parameter of type 'GameState'.
+  Type '{ gameStage: number; lastSaveTime: any; totalPlayTime: number; }' is missing the following properties from type 'GameState': isRunning, tickRate, gameTimeScale
+ERROR in /Users/aaronhogan/Dev/idle-game/src/state/gameSlice.test.ts 62:31-44
+[tsl] ERROR in /Users/aaronhogan/Dev/idle-game/src/state/gameSlice.test.ts(62,32)
+      TS2345: Argument of type '{ gameStage: number; lastSaveTime: number; totalPlayTime: number; }' is not assignable to parameter of type 'GameState'.
+  Type '{ gameStage: number; lastSaveTime: number; totalPlayTime: number; }' is missing the following properties from type 'GameState': isRunning, tickRate, gameTimeScale
+ERROR in /Users/aaronhogan/Dev/idle-game/src/state/selectors.test.ts 88:31-104:16
+[tsl] ERROR in /Users/aaronhogan/Dev/idle-game/src/state/selectors.test.ts(88,32)
+      TS2352: Conversion of type '{ resources: { 'collective-power': Resource; solidarity: Resource; 'community-trust': Resource; }; structures: { 'union-office': Structure; 'community-center': Structure; 'alternative-media': Structure; }; game: { ...; }; }' to type '{ resources: ResourcesState; structures: StructuresState; game: GameState; }' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Types of property 'game' are incompatible.
+    Type '{ gameStage: number; lastSaveTime: number; totalPlayTime: number; }' is missing the following properties from type 'GameState': isRunning, tickRate, gameTimeScale
+ERROR in /Users/aaronhogan/Dev/idle-game/src/systems/__tests__/gameLoop.test.ts 19:35-43
+[tsl] ERROR in /Users/aaronhogan/Dev/idle-game/src/systems/__tests__/gameLoop.test.ts(19,36)
+      TS2345: Argument of type 'EventListenerOrEventListenerObject' is not assignable to parameter of type '(...args: any[]) => void'.
+  Type 'EventListenerObject' is not assignable to type '(...args: any[]) => void'.
+    Type 'EventListenerObject' provides no match for the signature '(...args: any[]): void'.

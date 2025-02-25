@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Ticking Test</title>
+    <style>
+        body {
+            font-family: monospace;
+            padding: 20px;
+            background-color: #15131A;
+            color: #B09E9E;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #27252D;
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            color: #B195D8;
+        }
+        button {
+            background-color: #64A79F;
+            color: #15131A;
+            border: none;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #B195D8;
+        }
+        #output {
+            background-color: #202020;
+            padding: 10px;
+            border-radius: 4px;
+            height: 300px;
+            overflow-y: auto;
+            margin-top: 20px;
+            white-space: pre-wrap;
+        }
+        .pass {
+            color: #64A79F;
+            font-weight: bold;
+        }
+        .fail {
+            color: #ff5555;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Game Ticking Test</h1>
+        <p>This page tests the core game ticking functionality.</p>
+        
+        <button id="runTest">Run Tick Test</button>
+        <button id="testGameLoop">Test Game Loop</button>
+        
+        <div id="output">Test results will appear here...</div>
+    </div>
+
+    <script>
+        // Function to log to the output div
+        function log(message) {
+            const output = document.getElementById('output');
+            output.innerHTML += message + '\n';
+            output.scrollTop = output.scrollHeight;
+        }
+
+        // Load the test module
+        async function loadTestModule() {
+            try {
+                // Use dynamic import to load the test module
+                const module = await import('./tickingTest.js');
+                window.tickingTest = module;
+                log("✅ Test module loaded successfully!");
+            } catch (error) {
+                log(`❌ Error loading test module: ${error.message}`);
+                console.error(error);
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadTestModule();
+            
+            // Set up button handlers
+            document.getElementById('runTest').addEventListener('click', () => {
+                document.getElementById('output').innerHTML = '';
+                log("Running basic ticking test...");
+                
+                if (window.tickingTest && window.tickingTest.runTickingTest) {
+                    try {
+                        const results = window.tickingTest.runTickingTest();
+                        
+                        if (results.test1Success && results.test2Success) {
+                            log('\n<span class="pass">All tests passed! The Redux store updates correctly.</span>');
+                        } else {
+                            log('\n<span class="fail">Some tests failed. Redux store is not updating as expected.</span>');
+                        }
+                    } catch (error) {
+                        log(`❌ Error running test: ${error.message}`);
+                        console.error(error);
+                    }
+                } else {
+                    log("Test module not loaded or runTickingTest function not found");
+                }
+            });
+            
+            document.getElementById('testGameLoop').addEventListener('click', () => {
+                document.getElementById('output').innerHTML = '';
+                log("Testing game loop functionality...");
+                log("This test will run for 5 seconds...");
+                
+                // Create a test Redux store
+                if (window.tickingTest) {
+                    try {
+                        const { configureStore, addPlayTime } = window.tickingTest;
+                        
+                        // Store the starting time
+                        const startTime = Date.now();
+                        
+                        // Update display every 100ms
+                        const interval = setInterval(() => {
+                            const store = window.testStore;
+                            if (store) {
+                                const state = store.getState();
+                                log(`Current play time: ${state.game.totalPlayTime.toFixed(2)}s`);
+                            }
+                        }, 100);
+                        
+                        // Stop after 5 seconds
+                        setTimeout(() => {
+                            clearInterval(interval);
+                            
+                            const elapsedRealTime = (Date.now() - startTime) / 1000;
+                            const store = window.testStore;
+                            
+                            if (store) {
+                                const state = store.getState();
+                                const gameTime = state.game.totalPlayTime;
+                                
+                                log(`\nTest completed:`);
+                                log(`Real time elapsed: ${elapsedRealTime.toFixed(2)}s`);
+                                log(`Game time elapsed: ${gameTime.toFixed(2)}s`);
+                                
+                                if (gameTime > 0) {
+                                    log('<span class="pass">Test passed! The game time is updating.</span>');
+                                } else {
+                                    log('<span class="fail">Test failed. Game time is not updating.</span>');
+                                }
+                            }
+                        }, 5000);
+                        
+                    } catch (error) {
+                        log(`❌ Error setting up test: ${error.message}`);
+                        console.error(error);
+                    }
+                } else {
+                    log("Test module not loaded");
+                }
+            });
+        });
+    </script>
+</body>
+</html>

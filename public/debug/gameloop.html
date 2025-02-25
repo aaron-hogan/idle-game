@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Loop Debug</title>
+  <style>
+    body {
+      font-family: monospace;
+      background-color: #1e1e1e;
+      color: #d4d4d4;
+      padding: 20px;
+    }
+    h1 {
+      color: #569cd6;
+    }
+    .debug-panel {
+      background-color: #2d2d2d;
+      border: 1px solid #3c3c3c;
+      border-radius: 5px;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 5px;
+    }
+    .label {
+      font-weight: bold;
+      color: #9cdcfe;
+    }
+    .value {
+      color: #ce9178;
+    }
+    .controls {
+      margin-top: 20px;
+      display: flex;
+      gap: 10px;
+    }
+    button {
+      background-color: #0e639c;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #1177bb;
+    }
+    canvas {
+      width: 100%;
+      height: 150px;
+      background-color: #2d2d2d;
+      border: 1px solid #3c3c3c;
+      border-radius: 5px;
+    }
+    #log {
+      height: 150px;
+      overflow-y: auto;
+      background-color: #2d2d2d;
+      border: 1px solid #3c3c3c;
+      border-radius: 5px;
+      padding: 10px;
+      margin-top: 20px;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Game Loop Debugger</h1>
+  
+  <div class="debug-panel">
+    <h2>Game Loop Stats</h2>
+    <div class="stats">
+      <div class="label">Tick Rate:</div>
+      <div class="value" id="tick-rate">0 Hz</div>
+      
+      <div class="label">Tick Count:</div>
+      <div class="value" id="tick-count">0</div>
+      
+      <div class="label">FPS:</div>
+      <div class="value" id="fps">0</div>
+      
+      <div class="label">Handler Count:</div>
+      <div class="value" id="handlers">0</div>
+      
+      <div class="label">Game Time:</div>
+      <div class="value" id="game-time">0s</div>
+      
+      <div class="label">Status:</div>
+      <div class="value" id="status">Stopped</div>
+    </div>
+    
+    <div class="controls">
+      <button id="start-btn">Start</button>
+      <button id="stop-btn">Stop</button>
+      <button id="slower-btn">Slower</button>
+      <button id="faster-btn">Faster</button>
+    </div>
+  </div>
+  
+  <h2>Timing History</h2>
+  <canvas id="timing-graph"></canvas>
+  
+  <div id="log"></div>
+  
+  <script>
+    // Connect to main game
+    function updateStats() {
+      if (!window.parent.debug) return;
+      
+      try {
+        const gameLoop = window.parent.debug.gameLoop();
+        const stats = gameLoop.getStats();
+        const gameState = window.parent.debug.getState();
+        
+        // Update stats display
+        document.getElementById('tick-rate').textContent = `${stats.tickRate} Hz`;
+        document.getElementById('tick-count').textContent = stats.tickCount.toLocaleString();
+        document.getElementById('fps').textContent = `${stats.fps.toFixed(1)}`;
+        document.getElementById('handlers').textContent = stats.handlerCount;
+        document.getElementById('game-time').textContent = `${gameState.game.totalPlayTime.toFixed(1)}s`;
+        document.getElementById('status').textContent = gameLoop.isRunning() ? 'Running' : 'Stopped';
+        
+        // Add to timing history for graph
+        addDataPoint(stats.fps);
+        
+        // Log occasional updates
+        if (stats.tickCount % 100 === 0) {
+          logMessage(`Tick #${stats.tickCount}: ${stats.fps.toFixed(1)} FPS, Game time: ${gameState.game.totalPlayTime.toFixed(1)}s`);
+        }
+      } catch (err) {
+        logMessage(`Error: ${err.message}`);
+      }
+      
+      // Schedule next update
+      setTimeout(updateStats, 1000);
+    }
+    
+    // Call once to start updating
+    updateStats();
+    
+    // Button controls
+    document.getElementById('start-btn').addEventListener('click', () => {
+      if (window.parent.debug) {
+        window.parent.debug.startGame();
+        logMessage('Game started');
+      }
+    });
+    
+    document.getElementById('stop-btn').addEventListener('click', () => {
+      if (window.parent.debug) {
+        window.parent.debug.stopGame();
+        logMessage('Game stopped');
+      }
+    });
+    
+    document.getElementById('slower-btn').addEventListener('click', () => {
+      if (window.parent.debug) {
+        const gameLoop = window.parent.debug.gameLoop();
+        const stats = gameLoop.getStats();
+        const newRate = Math.max(1, stats.tickRate - 5);
+        window.parent.debug.setTickRate(newRate);
+        logMessage(`Tick rate decreased to ${newRate}Hz`);
+      }
+    });
+    
+    document.getElementById('faster-btn').addEventListener('click', () => {
+      if (window.parent.debug) {
+        const gameLoop = window.parent.debug.gameLoop();
+        const stats = gameLoop.getStats();
+        const newRate = Math.min(60, stats.tickRate + 5);
+        window.parent.debug.setTickRate(newRate);
+        logMessage(`Tick rate increased to ${newRate}Hz`);
+      }
+    });
+    
+    // Timing graph
+    const canvas = document.getElementById('timing-graph');
+    const ctx = canvas.getContext('2d');
+    let dataPoints = Array(100).fill(0);
+    
+    // Ensure canvas resolution matches display size
+    function resizeCanvas() {
+      const displayWidth = canvas.clientWidth;
+      const displayHeight = canvas.clientHeight;
+      
+      if (canvas.width !== displayWidth || canvas.height !== displayHeight) {
+        canvas.width = displayWidth;
+        canvas.height = displayHeight;
+      }
+    }
+    
+    function addDataPoint(fps) {
+      dataPoints.push(fps);
+      if (dataPoints.length > 100) {
+        dataPoints.shift();
+      }
+      drawGraph();
+    }
+    
+    function drawGraph() {
+      resizeCanvas();
+      
+      // Clear canvas
+      ctx.fillStyle = '#2d2d2d';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      // Draw grid
+      ctx.strokeStyle = '#3c3c3c';
+      ctx.lineWidth = 1;
+      
+      // Vertical grid lines
+      for (let i = 0; i <= 10; i++) {
+        const x = i * (canvas.width / 10);
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, canvas.height);
+        ctx.stroke();
+      }
+      
+      // Horizontal grid lines
+      for (let i = 0; i <= 5; i++) {
+        const y = i * (canvas.height / 5);
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(canvas.width, y);
+        ctx.stroke();
+      }
+      
+      // Draw FPS graph
+      ctx.strokeStyle = '#569cd6';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      
+      const maxFPS = 70; // Adjust as needed
+      
+      dataPoints.forEach((fps, index) => {
+        const x = index * (canvas.width / 100);
+        const y = canvas.height - (fps / maxFPS) * canvas.height;
+        
+        if (index === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+      });
+      
+      ctx.stroke();
+      
+      // Draw target zone
+      ctx.fillStyle = 'rgba(80, 160, 80, 0.1)';
+      const y1 = canvas.height - (55 / maxFPS) * canvas.height;
+      const y2 = canvas.height - (65 / maxFPS) * canvas.height;
+      ctx.fillRect(0, y2, canvas.width, y1 - y2);
+    }
+    
+    // Initialize graph
+    drawGraph();
+    
+    // Logging
+    function logMessage(message) {
+      const log = document.getElementById('log');
+      const timestamp = new Date().toLocaleTimeString();
+      log.innerHTML += `<div>[${timestamp}] ${message}</div>`;
+      log.scrollTop = log.scrollHeight;
+      
+      // Keep log from getting too long
+      const lines = log.children;
+      if (lines.length > 50) {
+        log.removeChild(lines[0]);
+      }
+    }
+  </script>
+</body>
+</html>

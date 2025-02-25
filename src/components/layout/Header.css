@@ -1,0 +1,61 @@
+.game-header {
+  background-color: #262020;
+  color: #B09E9E;
+  padding: 1rem;
+  border-bottom: 2px solid #B195D8;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.game-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #C4A3FF;
+}
+
+.stage-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  border: 1px solid #363030;
+}
+
+.stage-label {
+  font-weight: bold;
+  color: #64A79F;
+}
+
+.stage-name {
+  color: #B09E9E;
+}
+
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .game-header h1 {
+    font-size: 1.2rem;
+  }
+  
+  .stage-indicator {
+    font-size: 0.8rem;
+  }
+}

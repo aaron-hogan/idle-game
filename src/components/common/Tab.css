@@ -1,0 +1,33 @@
+.tab {
+  padding: 0.8rem 1.5rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: #9789AC;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.tab:hover:not(.tab-disabled) {
+  background-color: #322e36;
+  color: #B09E9E;
+}
+
+.tab-active {
+  color: #C4A3FF;
+  font-weight: 600;
+  border-bottom-color: #B195D8;
+}
+
+.tab-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.tab-icon {
+  margin-right: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+}
