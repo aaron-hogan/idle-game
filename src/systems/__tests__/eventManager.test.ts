@@ -4,9 +4,11 @@ import structuresReducer from '../../state/structuresSlice';
 import gameReducer from '../../state/gameSlice';
 import tasksReducer from '../../state/tasksSlice';
 import eventsReducer, { addEvent, triggerEvent, resolveEvent, clearEventHistory } from '../../state/eventsSlice';
+import progressionReducer from '../../redux/progressionSlice';
 import { EventManager } from '../eventManager';
 import { EventType, IEvent, EventCategory, EventStatus } from '../../interfaces/Event';
 import { Resource } from '../../models/resource';
+import { GameStage } from '../../interfaces/progression';
 
 describe('EventManager', () => {
   // Mock store for testing
@@ -17,6 +19,7 @@ describe('EventManager', () => {
       game: gameReducer,
       tasks: tasksReducer,
       events: eventsReducer,
+      progression: progressionReducer
     }
   });
   

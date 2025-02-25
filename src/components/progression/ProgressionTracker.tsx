@@ -8,7 +8,19 @@ import {
   selectVisibleMilestones,
   selectCompletionPercentage
 } from '../../redux/progressionSlice';
+import { GameStage } from '../../interfaces/progression';
 import MilestoneProgress from './MilestoneProgress';
+
+// Helper to get readable stage names
+const getStageDisplayName = (stage: GameStage): string => {
+  const stageNames = {
+    [GameStage.EARLY]: 'Early Stage',
+    [GameStage.MID]: 'Mid Stage',
+    [GameStage.LATE]: 'Late Stage',
+    [GameStage.END_GAME]: 'End Game'
+  };
+  return stageNames[stage] || 'Starting Out';
+};
 
 /**
  * Stripped down component for tracking and displaying game progression
@@ -24,7 +36,7 @@ const ProgressionTracker: React.FC = () => {
       
       <div className="stage-indicator">
         <span className="stage-label">Current Stage:</span>
-        <span className="stage-value">{currentStage?.name || 'Starting Out'}</span>
+        <span className="stage-value">{currentStage ? getStageDisplayName(currentStage) : 'Starting Out'}</span>
       </div>
       
       <div className="completion-percentage">

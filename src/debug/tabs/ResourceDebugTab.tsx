@@ -37,9 +37,9 @@ const ResourceDebugTab: React.FC = () => {
       
       // Check resource requirements
       milestone.requirements.forEach(req => {
-        if (req.type === 'resourceAmount' && resources[req.target]) {
+        if (req.type === 'resourceAmount' && req.target && typeof req.target === 'string' && resources[req.target]) {
           const currentAmount = resources[req.target].amount;
-          const targetAmount = req.value;
+          const targetAmount = typeof req.value === 'number' ? req.value : 0;
           
           // Only update if this is the next closest target or no target is set yet
           if (currentAmount < targetAmount && 

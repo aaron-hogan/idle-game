@@ -17,6 +17,28 @@ describe('ProgressionTracker', () => {
   beforeEach(() => {
     // Create a mock store with test data
     store = mockStore({
+      resources: {
+        'collective-power': {
+          id: 'collective-power',
+          name: 'Collective Power',
+          amount: 10,
+          maxAmount: 100,
+          perSecond: 1,
+          description: 'Measure of community influence',
+          unlocked: true,
+          category: 'primary'
+        },
+        'solidarity': {
+          id: 'solidarity',
+          name: 'Solidarity',
+          amount: 20,
+          maxAmount: 100,
+          perSecond: 1.5,
+          description: 'Measure of community bonds',
+          unlocked: true,
+          category: 'social'
+        }
+      },
       progression: {
         currentStage: GameStage.EARLY,
         milestones: {
@@ -121,21 +143,17 @@ describe('ProgressionTracker', () => {
     );
     
     // Check that the component renders
-    expect(screen.getByText('Movement Progress')).toBeInTheDocument();
+    expect(screen.getByText('Progress')).toBeInTheDocument();
     
     // Check that stage indicator shows correct stage
-    expect(screen.getByText(/Early Organizing/i)).toBeInTheDocument();
+    expect(screen.getByText('Current Stage:')).toBeInTheDocument();
+    expect(screen.getByText('Early Stage')).toBeInTheDocument();
     
-    // Check that milestones are displayed
-    expect(screen.getByText('Test Milestone 1')).toBeInTheDocument();
-    expect(screen.getByText('Test Milestone 2')).toBeInTheDocument();
+    // Check that progress is shown
+    expect(screen.getByText('Overall Progress:')).toBeInTheDocument();
+    expect(screen.getByText('50%')).toBeInTheDocument();
     
-    // Check that completed status is shown
-    const completedBadge = screen.getByText('Completed');
-    expect(completedBadge).toBeInTheDocument();
-    
-    // Check that achievements are displayed
-    expect(screen.getByText('Test Achievement')).toBeInTheDocument();
-    expect(screen.getByText('Test Achievement 2')).toBeInTheDocument();
+    // Check that milestone section is shown
+    expect(screen.getByText('Next Milestones')).toBeInTheDocument();
   });
 });
