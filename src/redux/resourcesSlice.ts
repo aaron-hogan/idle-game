@@ -160,6 +160,18 @@ const resourcesSlice = createSlice({
     
     // Reset all resources
     resetResources: () => initialState,
+    
+    // Update click power for a resource
+    updateClickPower: (
+      state,
+      action: PayloadAction<{ id: string; clickPower: number }>
+    ) => {
+      const { id, clickPower } = action.payload;
+      
+      if (state.byId[id]) {
+        state.byId[id].clickPower = clickPower;
+      }
+    },
   },
 });
 
@@ -172,6 +184,7 @@ export const {
   toggleResourceUnlocked,
   updateMaxAmount,
   updateResourceCategory,
+  updateClickPower,
   resetResources
 } = resourcesSlice.actions;
 

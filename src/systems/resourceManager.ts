@@ -8,6 +8,7 @@ import {
   addResourceAmount, 
   updateResourcePerSecond,
   toggleResourceUnlocked,
+  updateClickPower,
 } from '../state/resourcesSlice';
 import { invariant } from '../utils/errorUtils';
 import { validateObject } from '../utils/validationUtils';
@@ -329,5 +330,109 @@ export class ResourceManager {
     }));
     
     return true;
+  }
+  
+  /**
+   * Handle a user click to generate resources
+   * @param resourceId The ID of the resource to generate
+   * @returns The amount of resources added
+   */
+  handleResourceClick(resourceId: string): number {
+    this.ensureInitialized();
+    
+    const state = this.getState!();
+    const resource = state.resources[resourceId];
+    
+    // Can't generate a resource that doesn't exist or isn't unlocked
+    if (!resource || !resource.unlocked) {
+      return 0;
+    }
+    
+    // Use click power or default to 1 if not set
+    const clickPower = resource.clickPower || 1;
+    
+    // Add the resources
+    this.dispatch!(addResourceAmount({
+      id: resourceId,
+      amount: clickPower,
+    }));
+    
+    // Return the amount added for UI feedback
+    return clickPower;
+  }
+  
+  /**
+   * Upgrade the click power for a resource
+   * @param resourceId The ID of the resource to upgrade
+   * @returns True if the upgrade was successful
+   */
+  upgradeClickPower(resourceId: string): boolean {
+    this.ensureInitialized();
+    
+    const state = this.getState!();
+    const resource = state.resources[resourceId];
+    
+    // Can't upgrade a resource that doesn't exist or isn't unlocked
+    if (!resource || !resource.unlocked) {
+      return false;
+    }
+    
+    // Get current click power or default to 1
+    const currentClickPower = resource.clickPower || 1;
+    
+    // Calculate the cost of the upgrade (exponential scaling)
+    const baseCost = 10; // Starting cost
+    const scaleFactor = 1.5; // Cost increases by this factor each time
+    const currentLevel = Math.floor(currentClickPower);
+    const upgradeCost = Math.floor(baseCost * Math.pow(scaleFactor, currentLevel - 1));
+    
+    // Check if player can afford the upgrade
+    const costs = {
+      [resourceId]: upgradeCost
+    };
+    
+    if (!this.canAfford(costs)) {
+      return false;
+    }
+    
+    // Apply the cost
+    this.applyResourceCost(costs);
+    
+    // Calculate new click power (increase by 1)
+    const newClickPower = currentClickPower + 1;
+    
+    // Update the click power
+    this.dispatch!(updateClickPower({
+      id: resourceId,
+      clickPower: newClickPower,
+    }));
+    
+    return true;
+  }
+  
+  /**
+   * Get the cost to upgrade click power for a resource
+   * @param resourceId The ID of the resource
+   * @returns The cost to upgrade or -1 if resource doesn't exist
+   */
+  getClickUpgradeCost(resourceId: string): number {
+    this.ensureInitialized();
+    
+    const state = this.getState!();
+    const resource = state.resources[resourceId];
+    
+    // Can't get cost for a resource that doesn't exist
+    if (!resource) {
+      return -1;
+    }
+    
+    // Get current click power or default to 1
+    const currentClickPower = resource.clickPower || 1;
+    
+    // Calculate the cost of the upgrade (exponential scaling)
+    const baseCost = 10; // Starting cost
+    const scaleFactor = 1.5; // Cost increases by this factor each time
+    const currentLevel = Math.floor(currentClickPower);
+    return Math.floor(baseCost * Math.pow(scaleFactor, currentLevel - 1));
   }
 }

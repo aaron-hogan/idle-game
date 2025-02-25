@@ -15,7 +15,9 @@ import { addPlayTime } from '../state/gameSlice';
 import { GameManager } from '../core/GameManager';
 import GameDebugger from '../debug/GameDebugger';
 import ProgressionTracker from './progression/ProgressionTracker';
-import { ResourceList } from './resources';
+import MilestoneProgress from './progression/MilestoneProgress';
+import { ResourceList, ClickableResource, UpgradePanel } from './resources';
+import { ResourceId } from '../constants/resources';
 import { SaveControls } from './save';
 import { TaskManager } from '../managers/TaskManager';
 import './App.css';
@@ -143,13 +145,21 @@ const App: React.FC = () => {
             <MenuButton />
           </div>
           
-          {/* Core content area with resources and progression */}
+          {/* Core content area with resources, clicking, and progression */}
           <div className="core-content">
             <div className="resource-display">
               <ResourceList />
             </div>
+            
+            {/* Clickable resource and upgrade panel */}
+            <div className="click-section">
+              <ClickableResource resourceId={ResourceId.COLLECTIVE_POWER} />
+              <UpgradePanel resourceId={ResourceId.COLLECTIVE_POWER} />
+            </div>
+            
             <div className="progression-display">
               <ProgressionTracker />
+              <MilestoneProgress limit={2} />
             </div>
           </div>
           

@@ -1,11 +1,12 @@
 /**
- * Simplified component for displaying milestone progress with resource contributions
+ * Enhanced component for displaying milestone progress with resource contributions and visual feedback
  */
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../state/store';
 import { Milestone } from '../../interfaces/progression';
 import { allMilestones } from '../../data/progression/milestones';
+import './MilestoneProgress.css';
 
 interface ResourceRequirement {
   resourceId: string;
@@ -28,14 +29,62 @@ interface MilestoneProgressProps {
   limit?: number;
 }
 
+interface CompletedMilestone {
+  id: string;
+  name: string;
+  timeVisible: number;
+}
+
 /**
  * Component to display detailed milestone progress with resource contributions
+ * and visual feedback for milestone completion
  */
 const MilestoneProgress: React.FC<MilestoneProgressProps> = ({ limit = 3 }) => {
+  // Track completed milestones for animations
+  const [completedMilestones, setCompletedMilestones] = useState<CompletedMilestone[]>([]);
+  // Previously completed milestone IDs to detect new completions
+  const [prevCompletedIds, setPrevCompletedIds] = useState<string[]>([]);
   // Get resources from state
   const resources = useSelector((state: RootState) => state.resources);
   const progression = useSelector((state: RootState) => state.progression);
   
+  // Check for newly completed milestones and show notifications
+  useEffect(() => {
+    if (!progression?.milestones) return;
+    
+    // Get currently completed milestone IDs
+    const currentCompletedIds = Object.keys(progression.milestones)
+      .filter(id => progression.milestones[id]?.completed);
+    
+    // Find newly completed milestones (completed now but weren't before)
+    const newlyCompletedIds = currentCompletedIds
+      .filter(id => !prevCompletedIds.includes(id));
+    
+    // Add notifications for newly completed milestones
+    if (newlyCompletedIds.length > 0) {
+      const newCompletions = newlyCompletedIds.map(id => {
+        // Find milestone details
+        const milestone = allMilestones.find(m => m.id === id);
+        return {
+          id,
+          name: milestone?.name || 'Unknown Milestone',
+          timeVisible: Date.now(),
+        };
+      });
+      
+      // Add new completions to the list
+      setCompletedMilestones(prev => [...prev, ...newCompletions]);
+    }
+    
+    // Update previous completed IDs for next comparison
+    setPrevCompletedIds(currentCompletedIds);
+    
+    // Clean up old notifications (older than 5 seconds)
+    const currentTime = Date.now();
+    setCompletedMilestones(prev => 
+      prev.filter(m => currentTime - m.timeVisible < 5000));
+  }, [progression?.milestones]);
+
   // Calculate progress for each milestone
   const milestonesWithProgress = useMemo(() => {
     const result: MilestoneRequirements[] = [];
@@ -52,10 +101,10 @@ const MilestoneProgress: React.FC<MilestoneProgressProps> = ({ limit = 3 }) => {
       
       // Process each requirement in the milestone
       milestone.requirements.forEach(req => {
-        if (req.type === 'resourceAmount' && resources[req.target]) {
+        if (req.type === 'resourceAmount' && req.target && resources[req.target]) {
           const resource = resources[req.target];
           const currentAmount = resource.amount;
-          const requiredAmount = req.value;
+          const requiredAmount = typeof req.value === 'number' ? req.value : parseFloat(req.value.toString());
           const progress = Math.min(100, (currentAmount / requiredAmount) * 100);
           
           // If resource generation rate is positive, calculate time to completion
@@ -64,7 +113,7 @@ const MilestoneProgress: React.FC<MilestoneProgressProps> = ({ limit = 3 }) => {
             : null;
           
           resourceReqs.push({
-            resourceId: req.target,
+            resourceId: req.target || '',
             resourceName: resource.name,
             currentAmount,
             requiredAmount,
@@ -113,22 +162,39 @@ const MilestoneProgress: React.FC<MilestoneProgressProps> = ({ limit = 3 }) => {
   
   if (milestonesWithProgress.length === 0) {
     return (
-      <div className="bare-milestone-progress empty">
+      <div className="milestone-progress empty">
         <h3>Next Milestones</h3>
         <p>No available milestones</p>
+        
+        {/* Milestone completion notifications */}
+        <div className="milestone-notifications">
+          {completedMilestones.map(milestone => (
+            <div key={milestone.id} className="milestone-notification">
+              <div className="notification-icon">🏆</div>
+              <div className="notification-content">
+                <div className="notification-title">Milestone Completed!</div>
+                <div className="notification-name">{milestone.name}</div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
   
   return (
-    <div className="bare-milestone-progress">
+    <div className="milestone-progress">
       <h3>Next Milestones</h3>
+      
+      {/* In-progress milestones */}
       {milestonesWithProgress.map(({ milestone, resources: reqs, overallProgress }) => (
         <div key={milestone.id} className="milestone-card">
           <div className="milestone-header">
             <span className="milestone-name">{milestone.name}</span>
             <span className="milestone-percentage">{Math.floor(overallProgress)}%</span>
           </div>
+          
+          <div className="milestone-description">{milestone.description}</div>
           
           <div className="milestone-progress-bar">
             <div 
@@ -139,7 +205,10 @@ const MilestoneProgress: React.FC<MilestoneProgressProps> = ({ limit = 3 }) => {
           
           <ul className="milestone-requirements">
             {reqs.map(req => (
-              <li key={req.resourceId} className="resource-requirement">
+              <li 
+                key={req.resourceId} 
+                className={`resource-requirement ${req.progress >= 100 ? 'completed' : ''}`}
+              >
                 <div className="requirement-header">
                   <span>{req.resourceName}</span>
                   <span>
@@ -165,6 +234,19 @@ const MilestoneProgress: React.FC<MilestoneProgressProps> = ({ limit = 3 }) => {
           </ul>
         </div>
       ))}
+      
+      {/* Milestone completion notifications */}
+      <div className="milestone-notifications">
+        {completedMilestones.map(milestone => (
+          <div key={milestone.id} className="milestone-notification">
+            <div className="notification-icon">🏆</div>
+            <div className="notification-content">
+              <div className="notification-title">Milestone Completed!</div>
+              <div className="notification-name">{milestone.name}</div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

@@ -75,6 +75,17 @@ const resourcesSlice = createSlice({
         }
       }
     },
+    
+    // Update click power for a resource
+    updateClickPower: (
+      state,
+      action: PayloadAction<{ id: string; clickPower: number }>
+    ) => {
+      const { id, clickPower } = action.payload;
+      if (state[id]) {
+        state[id].clickPower = clickPower;
+      }
+    },
   },
 });
 
@@ -86,6 +97,7 @@ export const {
   toggleResourceUnlocked,
   resetResources,
   deductResources,
+  updateClickPower,
 } = resourcesSlice.actions;
 
 export default resourcesSlice.reducer;

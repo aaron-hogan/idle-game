@@ -17,6 +17,9 @@ export interface Resource {
   /** Rate of generation per second */
   perSecond: number;
   
+  /** Amount of resource gained per click */
+  clickPower?: number;
+  
   /** Description of the resource and its purpose */
   description: string;
   

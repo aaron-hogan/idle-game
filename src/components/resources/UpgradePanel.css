@@ -1,0 +1,119 @@
+.upgrade-panel {
+  background-color: #2c3e50;
+  border-radius: 8px;
+  padding: 15px;
+  margin: 15px 0;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.upgrade-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.upgrade-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: #ecf0f1;
+}
+
+.current-power {
+  font-size: 16px;
+  font-weight: bold;
+  color: #3498db;
+  background: rgba(52, 152, 219, 0.1);
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.upgrade-button {
+  background: linear-gradient(135deg, #34495e, #2c3e50);
+  border: none;
+  border-radius: 6px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.upgrade-button.affordable {
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+}
+
+.upgrade-button.expensive {
+  background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+.upgrade-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.upgrade-button:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.upgrade-button-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.upgrade-icon {
+  font-size: 16px;
+}
+
+.upgrade-label {
+  font-weight: bold;
+  color: white;
+  font-size: 14px;
+}
+
+.upgrade-cost {
+  font-size: 12px;
+  color: #ecf0f1;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.upgrade-effect {
+  font-size: 12px;
+  color: #ecf0f1;
+  opacity: 0.8;
+  text-align: center;
+  padding-top: 5px;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .upgrade-panel {
+    padding: 10px;
+  }
+  
+  .upgrade-title,
+  .upgrade-label {
+    font-size: 12px;
+  }
+  
+  .current-power {
+    font-size: 14px;
+  }
+  
+  .upgrade-cost,
+  .upgrade-effect {
+    font-size: 10px;
+  }
+}

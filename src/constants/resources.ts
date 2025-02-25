@@ -10,6 +10,7 @@ export const INITIAL_RESOURCES: Record<string, Resource> = {
     amount: 0,
     maxAmount: 1000,
     perSecond: 0.1, // Small starting amount
+    clickPower: 1, // Initial click power
     description: 'The core resource representing the movement\'s ability to negotiate and demand change',
     unlocked: true, // Available from the start
     category: 'PRIMARY',

@@ -99,7 +99,7 @@ export class ProgressionManager {
           
           // Get resource amount from state
           try {
-            const resources = state.resources.byId;
+            const resources = state.resources;
             if (!resources || !target) {
               this.debugLog(`Warning: Resources not available or target is undefined`);
               return false;
@@ -533,6 +533,35 @@ export class ProgressionManager {
     }
     
     return itemsUpdated;
+  }
+  
+  /**
+   * Check milestone progress after resource changes
+   * This is used by clicking and other resource-changing actions
+   * @returns Number of milestones that were completed
+   */
+  public checkMilestoneProgress(): number {
+    let milestonesCompleted = 0;
+    
+    try {
+      const state = store.getState();
+      const visibleMilestones = selectVisibleMilestones(state);
+      
+      // Check only milestones
+      for (const milestone of visibleMilestones) {
+        if (!milestone.completed && this.completeMilestone(milestone.id)) {
+          milestonesCompleted++;
+        }
+      }
+    } catch (error) {
+      console.error('Error checking milestone progress:', error);
+    }
+    
+    if (milestonesCompleted > 0) {
+      this.debugLog(`Completed ${milestonesCompleted} milestones from resource changes`);
+    }
+    
+    return milestonesCompleted;
   }
 
   /**
