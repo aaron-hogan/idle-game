@@ -17,6 +17,8 @@ import GameDebugger from '../debug/GameDebugger';
 import ProgressionTracker from './progression/ProgressionTracker';
 import { ResourceList } from './resources';
 import { SaveControls } from './save';
+import EventPanel from './events/EventPanel';
+import { initializeEventSystem } from '../systems/eventInitializer';
 import { TaskManager } from '../managers/TaskManager';
 import './App.css';
 
@@ -81,6 +83,9 @@ const App: React.FC = () => {
     // Initialize task manager
     const taskManager = TaskManager.getInstance();
     taskManager.initialize();
+    
+    // Initialize event system
+    initializeEventSystem();
     
     // Reset game time if it's suspiciously large (over 1 hour)
     const state = store.getState();
@@ -151,6 +156,9 @@ const App: React.FC = () => {
             <div className="progression-display">
               <ProgressionTracker />
             </div>
+            
+            {/* Event panel for displaying events */}
+            <EventPanel />
           </div>
           
           {/* Debug panel toggle */}
