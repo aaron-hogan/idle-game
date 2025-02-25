@@ -1,146 +1,228 @@
 # Event System
 
 ## Overview
-
-The event system manages in-game events, notifications, and special gameplay occurrences in the anti-capitalist idle game. Events can be triggered based on various game conditions and can have consequences that affect the game state.
+The Event System provides a framework for creating, managing, and displaying in-game events that offer players narrative choices and gameplay consequences. This system is designed to enhance the anti-capitalist idle game with storytelling elements, strategic decisions, and dynamic content delivery.
 
 ## Core Components
 
 ### Data Models
-
-- **EventType Enum**: Categorizes events into types (story, resource, achievement, task, notification)
-- **IEvent Interface**: Core event structure with properties like title, description, conditions, consequences, and choices
-- **EventCondition Interface**: Defines conditions for when events can trigger
-- **EventConsequence Interface**: Defines effects that occur when an event is triggered
-- **EventChoice Interface**: Represents player choices within events
+- **Event Interface**: Defines the structure for game events with properties like id, title, description, choices, and consequences
+- **EventCategory Enum**: Classifies events as OPPORTUNITY, CRISIS, RANDOM, or STORY
+- **EventStatus Enum**: Tracks event state as PENDING, ACTIVE, RESOLVED, or EXPIRED
+- **EventCondition Interface**: Defines triggering requirements like resource thresholds
+- **EventConsequence Interface**: Specifies effects on game state when events resolve
+- **EventChoice Interface**: Structures player options within events
 
 ### State Management
-
-- **eventsSlice**: Redux slice for managing event state:
-  - `availableEvents`: All registered events indexed by ID
-  - `activeEvents`: Currently triggered events
-  - `eventHistory`: Record of past events
+- **eventsSlice**: Redux slice for managing event state with actions for:
+  - Adding events
+  - Triggering events
+  - Resolving events with choices
+  - Tracking event history
+  - Expiring events
+  - Updating event properties
 
 ### Components
+- **EventManager**: Singleton service that controls all event functionality:
+  - Registration of available events
+  - Condition evaluation
+  - Automatic triggering based on game state
+  - Event status management
+  - Event consequence application
+  - Processing and prioritizing events
 
-- **EventCard**: Displays a single event with its details and choices
-- **EventPanel**: Container for displaying active events as floating notifications
-- **EventLog**: Historical view of past events with filtering options
-
-### Services
-
-- **EventManager**: Singleton service that manages the event lifecycle:
-  - Registering events
-  - Checking conditions
-  - Triggering events
-  - Resolving events with player choices
-  - Managing event history
+### UI Components
+- **EventPanel**: Container component for displaying active events
+- **EventCard**: Renders individual events with choices
+- **EventLog**: Shows history of past events and choices
+- **EventDebugTab**: Developer interface for testing and managing events
 
 ## Usage Guide
 
-### Creating New Events
+### Creating a New Event
 
 ```typescript
-// Example event definition
-const myEvent: IEvent = {
-  id: 'unique-event-id',
-  title: 'Event Title',
-  description: 'Event description text...',
+// Using the factory method
+const eventManager = EventManager.getInstance();
+const newEvent = eventManager.createEvent({
+  title: 'Community Decision',
+  description: 'Your community needs to decide on its next focus.',
   type: EventType.STORY,
-  conditions: [
-    {
-      type: 'resourceAmount',
-      target: 'wood',
-      value: 50,
-      operator: '>='
-    }
-  ],
-  consequences: [
-    {
-      type: 'addResource',
-      target: 'knowledge',
-      value: 10
-    }
-  ],
+  category: EventCategory.OPPORTUNITY,
   choices: [
     {
       id: 'choice1',
-      text: 'Accept the offer',
+      text: 'Focus on mutual aid',
       consequences: [
         {
           type: 'addResource',
-          target: 'happiness',
-          value: 5
+          target: 'community-support',
+          value: 20
         }
       ]
     },
     {
       id: 'choice2',
-      text: 'Decline the offer'
+      text: 'Focus on organizing',
+      consequences: [
+        {
+          type: 'addResource',
+          target: 'organization',
+          value: 15
+        }
+      ]
     }
   ],
-  priority: 50,
-  seen: false,
-  repeatable: false
+  conditions: [
+    {
+      type: 'resourceAmount',
+      target: 'community-support',
+      value: 50,
+      operator: '>='
+    }
+  ],
+  priority: 80,
+  repeatable: false,
+  tags: ['decision', 'community']
+});
+
+// Register the event
+eventManager.registerEvent(newEvent);
+```
+
+### Defining Event Conditions
+
+```typescript
+// Resource-based condition
+const resourceCondition: EventCondition = {
+  type: 'resourceAmount',
+  target: 'community-support',
+  value: 100,
+  operator: '>='
+};
+
+// Game stage condition
+const stageCondition: EventCondition = {
+  type: 'gameStage',
+  value: 2,
+  operator: '='
+};
+
+// Time-based condition (seconds of gameplay)
+const timeCondition: EventCondition = {
+  type: 'gameTime',
+  value: 300, // 5 minutes
+  operator: '>'
+};
+
+// Structure-based condition
+const structureCondition: EventCondition = {
+  type: 'structureCount',
+  target: 'community-center',
+  value: 1,
+  operator: '>='
 };
 ```
 
-### Registering Events
-
-Events can be registered programmatically through the EventManager:
+### Defining Event Consequences
 
 ```typescript
-// Get the EventManager instance
+// Add a resource
+const addResourceConsequence: EventConsequence = {
+  type: 'addResource',
+  target: 'solidarity',
+  value: 25
+};
+
+// Unlock a structure
+const unlockStructureConsequence: EventConsequence = {
+  type: 'unlockStructure',
+  target: 'mutual-aid-kitchen',
+  value: true
+};
+
+// Change game stage
+const changeStageConsequence: EventConsequence = {
+  type: 'setGameStage',
+  target: 'gameStage',
+  value: 2
+};
+```
+
+### Manually Triggering an Event
+
+```typescript
 const eventManager = EventManager.getInstance();
 
-// Register the event
-eventManager.registerEvent(myEvent);
+// Check if event conditions are met
+const triggerableEvents = eventManager.checkEventConditions();
+console.log(`Events that can be triggered: ${triggerableEvents.join(', ')}`);
+
+// Trigger a specific event
+if (eventManager.triggerEvent('community-decision')) {
+  console.log('Event triggered successfully');
+}
 ```
-
-Or by dispatching actions directly:
-
-```typescript
-// Add a single event
-store.dispatch(addEvent(myEvent));
-
-// Add multiple events at once
-store.dispatch(addEvents([event1, event2, event3]));
-```
-
-### Condition Types
-
-The event system supports various condition types:
-
-- `resourceAmount`: Checks if a resource has reached a certain amount
-- `structureCount`: Checks if a structure has reached a certain count
-- `gameTime`: Checks if the game has been played for a certain time
-- `gameStage`: Checks if the game has reached a certain stage
-
-### Consequence Types
-
-The event system supports various consequence types:
-
-- `addResource`: Adds a specified amount to a resource
-- `unlockStructure`: Unlocks a specific structure
-- `setGameStage`: Changes the game stage
 
 ## Integration
 
-The event system integrates with the game loop to periodically check conditions and trigger events. The EventPanel component is integrated into the main layout to display active events to the player.
+The Event System integrates with other game systems:
 
-## Creating Custom Event Types
+1. **Resource System**:
+   - Events can check resource amounts as conditions
+   - Event consequences can modify resource quantities
+   - Resource milestones can trigger events
 
-To extend the event system with new condition or consequence types:
+2. **Progression System**:
+   - Events can be tied to game stages
+   - Event choices can affect progression
+   - Unlocking content via event consequences
 
-1. Update the `evaluateConditions` method in EventManager to handle the new condition type
-2. Update the `applyConsequences` method in EventManager to handle the new consequence type
-3. Register events using the new condition/consequence types
+3. **Game Loop**:
+   - Regular checking for event conditions
+   - Throttled event processing for performance
+   - Automatic event expiration
+   - Named callback registration for modular system integration
+
+4. **UI System**:
+   - Event cards displayed based on priority
+   - Type and category-specific styling
+   - Modal-like display for player choices
 
 ## Best Practices
 
-- Use meaningful IDs for events and choices
-- Set appropriate priorities (higher numbers = higher priority)
-- Use conditions to ensure events trigger at appropriate moments
-- Keep descriptions clear and concise
-- Set `repeatable: true` with a reasonable `cooldown` for recurring events
-- Use `nextEventId` in choices to create event chains
+### Event Design
+- **Make choices meaningful**: Each option should have distinct consequences
+- **Balance crisis and opportunity events**: Mix positive and challenging scenarios
+- **Keep descriptions concise**: 2-3 sentences for descriptions, 1 for choices
+- **Use appropriate categories**: Correctly categorize events for proper styling and prioritization
+- **Set appropriate priorities**: Critical story events should have higher priority (75-100)
+
+### Event Conditions
+- **Layer multiple conditions**: Combine resource, time, and stage conditions for precision
+- **Use appropriate operators**: Not just >= but also =, >, <, <= as needed
+- **Set reasonable resource thresholds**: Don't require excessive resource accumulation
+- **Consider repeatable events**: Use the repeatable flag and cooldown for recurring events
+
+### Consequence Design
+- **Balance risk and reward**: Higher risk choices should offer greater rewards
+- **Mix resource types**: Affect multiple resource types for interesting decisions
+- **Chain events when appropriate**: Use nextEventId for sequential storytelling
+- **Avoid extreme penalties**: Don't completely deplete resources with negative consequences
+
+### Code Maintenance
+- **Group related events in separate files**: Organize events by theme or game stage
+- **Use factory methods**: Create events with the factory method for consistent structure
+- **Document event purpose**: Add comments explaining the narrative purpose of each event
+- **Use tags consistently**: Develop a tagging system for easier filtering and organization
+- **Ensure type safety**: Always check types when accessing resources or properties to prevent runtime errors
+- **Use proper validation**: Validate action types and properties before accessing them
+- **Register callbacks properly**: Use the named callback registration pattern for better clarity
+
+## Related Documentation
+- [Event System Implementation Summary](./summary.md)
+- [Anti-Capitalist Events Reference](./event-reference.md)
+
+## Navigation
+- [Back to Features](../Features.md)
+- [Back to Home](../Home.md)
