@@ -1,7 +1,7 @@
 {
-  "name": "eat-the-rich",
+  "name": "idle-game",
   "version": "0.1.0",
-  "description": "A newspaper-styled idle game with anti-capitalist themes",
+  "description": "A minimalist idle game",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --mode development --open",

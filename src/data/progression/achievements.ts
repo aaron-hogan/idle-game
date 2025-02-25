@@ -10,7 +10,7 @@ export const resourceAchievements: Achievement[] = [
   {
     id: 'first-collective-power',
     name: 'Power in Numbers',
-    description: 'Begin your journey by accumulating initial collective bargaining power.',
+    description: 'Begin your journey by accumulating initial community influence.',
     type: AchievementType.RESOURCE,
     unlocked: false,
     requirements: [
@@ -28,7 +28,7 @@ export const resourceAchievements: Achievement[] = [
       }
     ],
     hidden: false,
-    hint: 'Start gathering collective power resources'
+    hint: 'Start gathering community influence resources'
   },
   {
     id: 'resource-gatherer',
@@ -78,8 +78,8 @@ export const resourceAchievements: Achievement[] = [
   },
   {
     id: 'organized-movement',
-    name: 'Organized Movement',
-    description: 'Develop substantial organizational capacity for your movement.',
+    name: 'Community Organization',
+    description: 'Develop substantial organizational capacity for your community.',
     type: AchievementType.RESOURCE,
     unlocked: false,
     requirements: [
@@ -108,7 +108,7 @@ export const strategicAchievements: Achievement[] = [
   {
     id: 'strategic-planning',
     name: 'Strategic Vision',
-    description: 'Complete 3 milestones demonstrating strategic capacity.',
+    description: 'Complete 3 milestones demonstrating strategic planning ability.',
     type: AchievementType.STRATEGIC,
     unlocked: false,
     requirements: [
@@ -129,8 +129,8 @@ export const strategicAchievements: Achievement[] = [
   },
   {
     id: 'movement-builder',
-    name: 'Movement Builder',
-    description: 'Complete movement-related milestones to build collective power.',
+    name: 'Community Builder',
+    description: 'Complete community-related milestones to strengthen collective bonds.',
     type: AchievementType.STRATEGIC,
     unlocked: false,
     requirements: [
@@ -148,7 +148,7 @@ export const strategicAchievements: Achievement[] = [
       }
     ],
     hidden: false,
-    hint: 'Focus on building movement milestones'
+    hint: 'Focus on building community milestones'
   },
   {
     id: 'resource-strategist',
@@ -181,8 +181,8 @@ export const strategicAchievements: Achievement[] = [
 export const ethicalAchievements: Achievement[] = [
   {
     id: 'solidarity-principles',
-    name: 'Solidarity Principles',
-    description: 'Maintain consistently ethical choices in movement building.',
+    name: 'Community Principles',
+    description: 'Maintain consistently ethical choices in community building.',
     type: AchievementType.ETHICAL,
     unlocked: false,
     requirements: [
@@ -213,7 +213,7 @@ export const ethicalAchievements: Achievement[] = [
   {
     id: 'community-care',
     name: 'Community Care',
-    description: 'Demonstrate principles of mutual aid and community support.',
+    description: 'Demonstrate principles of mutual support and community assistance.',
     type: AchievementType.ETHICAL,
     unlocked: false,
     requirements: [
@@ -247,7 +247,7 @@ export const communityAchievements: Achievement[] = [
   {
     id: 'community-organizer',
     name: 'Community Organizer',
-    description: 'Build strong community ties and organizing structures.',
+    description: 'Build strong community ties and leadership structures.',
     type: AchievementType.COMMUNITY,
     unlocked: false,
     requirements: [
@@ -274,7 +274,7 @@ export const communityAchievements: Achievement[] = [
   },
   {
     id: 'solidarity-network',
-    name: 'Solidarity Network',
+    name: 'Support Network',
     description: 'Create a powerful network of interconnected community support.',
     type: AchievementType.COMMUNITY,
     unlocked: false,
@@ -308,8 +308,8 @@ export const communityAchievements: Achievement[] = [
 export const resistanceAchievements: Achievement[] = [
   {
     id: 'first-resistance',
-    name: 'First Resistance',
-    description: 'Begin building strategies to overcome economic challenges.',
+    name: 'First Challenge',
+    description: 'Begin building strategies to overcome social challenges.',
     type: AchievementType.RESISTANCE,
     unlocked: false,
     requirements: [
@@ -327,12 +327,12 @@ export const resistanceAchievements: Achievement[] = [
       }
     ],
     hidden: false,
-    hint: 'Complete resistance-focused milestones'
+    hint: 'Complete challenge-focused milestones'
   },
   {
     id: 'solidarity-forever',
-    name: 'Solidarity Forever',
-    description: 'Build enduring solidarity structures resistant to opposition.',
+    name: 'Community Forever',
+    description: 'Build enduring community structures that overcome challenges.',
     type: AchievementType.RESISTANCE,
     unlocked: false,
     requirements: [
@@ -355,7 +355,7 @@ export const resistanceAchievements: Achievement[] = [
       }
     ],
     hidden: true,
-    hint: 'Focus on both organization and resistance'
+    hint: 'Focus on both organization and challenges'
   }
 ];
 
@@ -366,7 +366,7 @@ export const timedAchievements: Achievement[] = [
   {
     id: 'early-bird',
     name: 'Early Bird',
-    description: 'Make quick progress in the early stages of your movement.',
+    description: 'Make quick progress in the early stages of your community.',
     type: AchievementType.TIMED,
     unlocked: false,
     requirements: [
@@ -397,8 +397,8 @@ export const timedAchievements: Achievement[] = [
   },
   {
     id: 'persistent-organizer',
-    name: 'Persistent Organizer',
-    description: 'Demonstrate long-term commitment to the movement.',
+    name: 'Persistent Builder',
+    description: 'Demonstrate long-term commitment to community building.',
     type: AchievementType.TIMED,
     unlocked: false,
     requirements: [
@@ -435,7 +435,7 @@ export const timedAchievements: Achievement[] = [
 export const specialAchievements: Achievement[] = [
   {
     id: 'new-world-vision',
-    name: 'New World Vision',
+    name: 'New Community Vision',
     description: 'See new possibilities for community development by reaching mid-game.',
     type: AchievementType.SPECIAL,
     unlocked: false,
@@ -457,8 +457,8 @@ export const specialAchievements: Achievement[] = [
   },
   {
     id: 'revolutionary-potential',
-    name: 'Revolutionary Potential',
-    description: 'Develop the capacity for fundamental social transformation.',
+    name: 'Innovation Potential',
+    description: 'Develop the capacity for fundamental social innovation.',
     type: AchievementType.SPECIAL,
     unlocked: false,
     requirements: [
@@ -479,8 +479,8 @@ export const specialAchievements: Achievement[] = [
   },
   {
     id: 'another-world-is-possible',
-    name: 'Another World Is Possible',
-    description: 'Demonstrate that communities can thrive through cooperation and collective effort.',
+    name: 'A Better Future Is Possible',
+    description: 'Demonstrate that communities can thrive through cooperation and collaborative effort.',
     type: AchievementType.SPECIAL,
     unlocked: false,
     requirements: [

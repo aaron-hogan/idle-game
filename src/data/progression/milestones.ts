@@ -9,8 +9,8 @@ import { GameStage, Milestone, MilestoneType } from '../../interfaces/progressio
 export const earlyGameMilestones: Milestone[] = [
   {
     id: 'first-collective-power',
-    name: 'First Collective Power',
-    description: 'Begin your journey by gathering initial collective bargaining power.',
+    name: 'First Community Power',
+    description: 'Begin your journey by gathering initial community influence.',
     stage: GameStage.EARLY,
     type: MilestoneType.AWARENESS,
     completed: false,
@@ -27,8 +27,8 @@ export const earlyGameMilestones: Milestone[] = [
   },
   {
     id: 'growing-power',
-    name: 'Growing Power',
-    description: 'Build up your collective bargaining power to increase your influence.',
+    name: 'Growing Influence',
+    description: 'Build up your community influence to increase your impact.',
     stage: GameStage.EARLY,
     type: MilestoneType.ORGANIZATION,
     completed: false,
@@ -45,8 +45,8 @@ export const earlyGameMilestones: Milestone[] = [
   },
   {
     id: 'resource-sharing',
-    name: 'Resource Sharing Network',
-    description: 'Create a small network for efficiently sharing resources within the community.',
+    name: 'Resource Network',
+    description: 'Create a small network for efficiently sharing resources and knowledge.',
     stage: GameStage.EARLY,
     type: MilestoneType.RESOURCE,
     completed: false,
@@ -68,8 +68,8 @@ export const earlyGameMilestones: Milestone[] = [
   },
   {
     id: 'study-circle',
-    name: 'Study Circle Formation',
-    description: 'Form a group to study economic theory and community-building tactics together.',
+    name: 'Study Group Formation',
+    description: 'Form a group to study and develop new ideas together.',
     stage: GameStage.EARLY,
     type: MilestoneType.AWARENESS,
     completed: false,
@@ -91,8 +91,8 @@ export const earlyGameMilestones: Milestone[] = [
   },
   {
     id: 'first-protest',
-    name: 'First Collective Action',
-    description: 'Organize your first small protest or community action.',
+    name: 'First Community Action',
+    description: 'Organize your first small community project or event.',
     stage: GameStage.EARLY,
     type: MilestoneType.MOVEMENT,
     completed: false,
@@ -125,8 +125,8 @@ export const earlyGameMilestones: Milestone[] = [
 export const midGameMilestones: Milestone[] = [
   {
     id: 'cooperative-formation',
-    name: 'Cooperative Formation',
-    description: 'Establish a worker-owned cooperative as an alternative economic model.',
+    name: 'Community Business Formation',
+    description: 'Establish a community-based business model.',
     stage: GameStage.MID,
     type: MilestoneType.ORGANIZATION,
     completed: false,
@@ -154,7 +154,7 @@ export const midGameMilestones: Milestone[] = [
   {
     id: 'community-garden',
     name: 'Community Garden Network',
-    description: 'Create a network of community gardens for local food sovereignty.',
+    description: 'Create a network of community gardens for local food production.',
     stage: GameStage.MID,
     type: MilestoneType.RESOURCE,
     completed: false,
@@ -176,8 +176,8 @@ export const midGameMilestones: Milestone[] = [
   },
   {
     id: 'mutual-aid-network',
-    name: 'Mutual Aid Network',
-    description: 'Establish a robust mutual aid network to support community needs.',
+    name: 'Community Support Network',
+    description: 'Establish a robust support network to address community needs.',
     stage: GameStage.MID,
     type: MilestoneType.MOVEMENT,
     completed: false,
@@ -204,8 +204,8 @@ export const midGameMilestones: Milestone[] = [
   },
   {
     id: 'alternative-education',
-    name: 'Alternative Education Program',
-    description: 'Create education programs outside mainstream institutions.',
+    name: 'Community Education Program',
+    description: 'Create supplementary education programs for community members.',
     stage: GameStage.MID,
     type: MilestoneType.AWARENESS,
     completed: false,
@@ -227,8 +227,8 @@ export const midGameMilestones: Milestone[] = [
   },
   {
     id: 'legal-defense-fund',
-    name: 'Movement Legal Defense',
-    description: 'Establish resources to protect activists and community members from legal challenges.',
+    name: 'Community Legal Resources',
+    description: 'Establish resources to provide legal assistance to community members.',
     stage: GameStage.MID,
     type: MilestoneType.RESISTANCE,
     completed: false,
@@ -256,8 +256,8 @@ export const midGameMilestones: Milestone[] = [
 export const lateGameMilestones: Milestone[] = [
   {
     id: 'community-currency',
-    name: 'Alternative Currency System',
-    description: 'Implement a community currency system that supports local trading and exchange.',
+    name: 'Community Rewards System',
+    description: 'Implement a community rewards system that supports local trading and exchange.',
     stage: GameStage.LATE,
     type: MilestoneType.TRANSFORMATION,
     completed: false,
@@ -284,8 +284,8 @@ export const lateGameMilestones: Milestone[] = [
   },
   {
     id: 'housing-collective',
-    name: 'Housing Justice Movement',
-    description: 'Create community-controlled housing systems and tenant protections.',
+    name: 'Community Housing Initiative',
+    description: 'Create community-focused housing solutions and support systems.',
     stage: GameStage.LATE,
     type: MilestoneType.MOVEMENT,
     completed: false,
@@ -312,7 +312,7 @@ export const lateGameMilestones: Milestone[] = [
   },
   {
     id: 'regional-network',
-    name: 'Regional Solidarity Network',
+    name: 'Regional Community Network',
     description: 'Connect multiple communities in a regional cooperation network.',
     stage: GameStage.LATE,
     type: MilestoneType.ORGANIZATION,
@@ -335,8 +335,8 @@ export const lateGameMilestones: Milestone[] = [
   },
   {
     id: 'democratic-workplaces',
-    name: 'Democratic Workplace Movement',
-    description: 'Transform workplaces through democratic control and worker ownership.',
+    name: 'Collaborative Workplace Initiative',
+    description: 'Create more inclusive and collaborative workplaces.',
     stage: GameStage.LATE,
     type: MilestoneType.TRANSFORMATION,
     completed: false,
@@ -363,8 +363,8 @@ export const lateGameMilestones: Milestone[] = [
   },
   {
     id: 'popular-assembly',
-    name: 'Popular Assembly Formation',
-    description: 'Create direct democratic decision-making structures for community governance.',
+    name: 'Community Assembly Formation',
+    description: 'Create inclusive decision-making structures for community governance.',
     stage: GameStage.LATE,
     type: MilestoneType.TRANSFORMATION,
     completed: false,
@@ -397,8 +397,8 @@ export const lateGameMilestones: Milestone[] = [
 export const endGameMilestones: Milestone[] = [
   {
     id: 'autonomous-zone',
-    name: 'Autonomous Community Zone',
-    description: 'Establish a self-governed community zone with alternative social structures.',
+    name: 'Integrated Community Zone',
+    description: 'Establish a self-sustaining community zone with innovative social structures.',
     stage: GameStage.END_GAME,
     type: MilestoneType.TRANSFORMATION,
     completed: false,
@@ -430,8 +430,8 @@ export const endGameMilestones: Milestone[] = [
   },
   {
     id: 'systemic-alternative',
-    name: 'Systemic Alternative',
-    description: 'Implement a comprehensive community-based economic system across multiple domains.',
+    name: 'Community Innovation Network',
+    description: 'Implement a comprehensive community-based social innovation system.',
     stage: GameStage.END_GAME,
     type: MilestoneType.TRANSFORMATION,
     completed: false,
