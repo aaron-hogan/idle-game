@@ -1,0 +1,180 @@
+/* Base counter component styling */
+.counter {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  font-family: monospace;
+  margin-right: 4px;
+  position: relative;
+}
+
+.counter-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.counter-display {
+  display: flex;
+  align-items: center;
+  background-color: #181818;
+  border-radius: 3px;
+  padding: 3px 6px;
+  height: 24px;
+  box-sizing: border-box;
+  min-width: 120px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Progress bar for counters that fill up */
+.counter-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: rgba(46, 125, 50, 0.15);
+  z-index: 0;
+  transition: width 0.5s linear;
+}
+
+/* Counter icon (left side) */
+.counter-icon {
+  margin-right: 5px;
+  font-size: 13px;
+  min-width: 15px;
+  text-align: center;
+  z-index: 1;
+}
+
+/* Main counter value */
+.counter-value {
+  font-size: 12px;
+  color: #ddd;
+  font-family: monospace;
+  min-width: 70px;
+  text-align: left;
+  white-space: pre;
+  z-index: 1;
+}
+
+/* Rate indicator (right side) */
+.counter-rate {
+  font-size: 12px;
+  margin-left: 5px;
+  color: #aaa;
+  font-family: monospace;
+  padding: 1px 3px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  z-index: 1;
+}
+
+.counter-rate:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Color variants */
+.counter-rate.positive {
+  color: #81c784;
+}
+
+.counter-rate.negative {
+  color: #e57373;
+}
+
+.counter-rate.neutral {
+  color: #aaa;
+}
+
+/* Icon color variants */
+.counter-icon.day {
+  color: #FFD54F; /* Sunny yellow */
+}
+
+.counter-icon.power {
+  color: #64B5F6; /* Electric blue */
+}
+
+.counter-icon.knowledge {
+  color: #BA68C8; /* Purple */
+}
+
+.counter-icon.materials {
+  color: #A1887F; /* Brown */
+}
+
+.counter-icon.community {
+  color: #81C784; /* Green */
+}
+
+.counter-icon.currency {
+  color: #FFD54F; /* Gold */
+}
+
+/* Tooltip for counters */
+.counter-tooltip {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  z-index: 1000;
+  min-width: 180px;
+  max-width: 250px;
+  background-color: #222;
+  border: 1px solid #444;
+  border-radius: 4px;
+  padding: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  font-size: 12px;
+  color: #eee;
+  pointer-events: none;
+  animation: counter-tooltip-fade-in 0.15s ease forwards;
+}
+
+@keyframes counter-tooltip-fade-in {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.tooltip-title {
+  font-weight: bold;
+  margin-bottom: 4px;
+  color: #fff;
+  border-bottom: 1px solid #444;
+  padding-bottom: 3px;
+}
+
+.tooltip-description {
+  font-size: 11px;
+  color: #bbb;
+  margin-bottom: 6px;
+}
+
+.tooltip-details {
+  font-size: 11px;
+  color: #ddd;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+}
+
+/* Mobile responsive design */
+@media (max-width: 480px) {
+  .counter-display {
+    padding: 3px 6px;
+  }
+  
+  .counter-icon {
+    font-size: 12px;
+    margin-right: 3px;
+  }
+  
+  .counter-value {
+    font-size: 11px;
+  }
+  
+  .counter-rate {
+    display: none; /* Hide rate on small screens to save space */
+  }
+}
