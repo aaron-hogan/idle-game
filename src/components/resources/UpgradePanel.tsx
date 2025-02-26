@@ -58,7 +58,7 @@ const UpgradePanel: React.FC<UpgradePanelProps> = ({
   return (
     <div className="upgrade-panel">
       <div className="upgrade-info">
-        <div className="upgrade-title">Power Per Click</div>
+        <div className="upgrade-title">POWER PER CLICK</div>
         <div className="current-power">{clickPower.toFixed(1)}</div>
       </div>
       
@@ -68,11 +68,11 @@ const UpgradePanel: React.FC<UpgradePanelProps> = ({
         disabled={!canAfford}
       >
         <div className="upgrade-button-content">
-          <span className="upgrade-icon">⬆️</span>
-          <span className="upgrade-label">Upgrade</span>
-          <span className="upgrade-cost">{upgradeCost} {resource.name}</span>
+          <span className="upgrade-icon">[+]</span>
+          <span className="upgrade-label">UPGRADE</span>
+          <span className="upgrade-cost">{upgradeCost} CBP</span>
         </div>
-        <div className="upgrade-effect">+1 per click</div>
+        <div className="upgrade-effect">+1.0 power per click</div>
       </button>
     </div>
   );

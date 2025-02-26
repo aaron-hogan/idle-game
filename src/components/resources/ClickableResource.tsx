@@ -111,8 +111,8 @@ const ClickableResource: React.FC<ClickableResourceProps> = ({
         className={`clickable-resource ${isClicking ? 'clicking' : ''}`}
         onClick={handleClick}
       >
-        <div className="click-icon">💪</div>
-        <div className="click-text">Click to generate Collective Power!</div>
+        <div className="click-icon">[ + ]</div>
+        <div className="click-text">CLICK TO GENERATE COLLECTIVE POWER</div>
       </div>
       
       {/* Particles that appear on click */}

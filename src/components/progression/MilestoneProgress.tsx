@@ -170,9 +170,9 @@ const MilestoneProgress: React.FC<MilestoneProgressProps> = ({ limit = 3 }) => {
         <div className="milestone-notifications">
           {completedMilestones.map(milestone => (
             <div key={milestone.id} className="milestone-notification">
-              <div className="notification-icon">🏆</div>
+              <div className="notification-icon">[✓]</div>
               <div className="notification-content">
-                <div className="notification-title">Milestone Completed!</div>
+                <div className="notification-title">MILESTONE COMPLETED</div>
                 <div className="notification-name">{milestone.name}</div>
               </div>
             </div>
@@ -239,9 +239,9 @@ const MilestoneProgress: React.FC<MilestoneProgressProps> = ({ limit = 3 }) => {
       <div className="milestone-notifications">
         {completedMilestones.map(milestone => (
           <div key={milestone.id} className="milestone-notification">
-            <div className="notification-icon">🏆</div>
+            <div className="notification-icon">[✓]</div>
             <div className="notification-content">
-              <div className="notification-title">Milestone Completed!</div>
+              <div className="notification-title">MILESTONE COMPLETED</div>
               <div className="notification-name">{milestone.name}</div>
             </div>
           </div>
