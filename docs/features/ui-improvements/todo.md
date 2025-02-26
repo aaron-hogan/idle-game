@@ -32,6 +32,8 @@
 - [x] Fix z-index and visibility issues
 - [x] Extend portal approach to all toolips
 - [x] Ensure consistent animation for all dropdowns
+- [x] Add tests to verify dropdown styling and functionality
+- [x] Fix dropdown styling with inline styles as backup
 - [ ] Add proper focus management for keyboard users
 
 ## Milestone Progression Strip
