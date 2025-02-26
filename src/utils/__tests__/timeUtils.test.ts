@@ -49,12 +49,24 @@ describe('timeUtils', () => {
       expect(result).toBe(7);
     });
     
-    it('should cap offline time at maximum', () => {
+    it('should cap offline time at maximum with default safe limit', () => {
+      const lastSaveTime = 1000;
+      // Set current time to far in the future (over any reasonable limits)
+      const currentTime = lastSaveTime + (2 * 24 * 60 * 60 * 1000);
+      
+      const result = calculateOfflineTime(currentTime, lastSaveTime);
+      
+      // By default, it uses the REASONABLE_MAX_OFFLINE_TIME (5 minutes)
+      // REASONABLE_MAX_OFFLINE_TIME * 0.7 efficiency / 1000 = 210 seconds
+      expect(result).toBe(210);
+    });
+    
+    it('should cap offline time at absolute maximum when safe limit is disabled', () => {
       const lastSaveTime = 1000;
       // Set current time to 2 days later (over the max of 24 hours)
       const currentTime = lastSaveTime + (2 * 24 * 60 * 60 * 1000);
       
-      const result = calculateOfflineTime(currentTime, lastSaveTime);
+      const result = calculateOfflineTime(currentTime, lastSaveTime, { useSafeLimit: false });
       
       // MAX_OFFLINE_TIME (24 hours in ms) * 0.7 efficiency / 1000 = 60480 seconds
       const expectedSeconds = (MAX_OFFLINE_TIME * OFFLINE_EFFICIENCY) / 1000;
