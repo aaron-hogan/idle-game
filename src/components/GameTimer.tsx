@@ -25,8 +25,9 @@ const GameTimer: React.FC<GameTimerProps> = ({ className = '' }) => {
   const isRunning = useAppSelector(selectIsGameRunning);
   const gameTimeScale = useAppSelector(selectGameTimeScale);
   
-  // CRITICAL FIX: Use local state with self-updating counter
-  const [localTime, setLocalTime] = React.useState(totalPlayTime > 0 ? totalPlayTime : 30);
+  // FIX: Set initial time to 0 instead of 30 to align with game logic
+  // Previously this was initialized to 30 seconds, causing Day 1 to start at 50% progress
+  const [localTime, setLocalTime] = React.useState(totalPlayTime > 0 ? totalPlayTime : 0);
   const [localDay, setLocalDay] = React.useState(1);
   const [localProgress, setLocalProgress] = React.useState(0);
   

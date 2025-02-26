@@ -4,6 +4,7 @@ import { selectTotalPlayTime, selectGameTimeScale } from '../../state/selectors'
 import { setTotalPlayTime } from '../../state/gameSlice';
 import { GameLoop } from '../../core/GameLoop';
 import MetricsPanel, { MetricItem } from '../components/MetricsPanel';
+import { SECONDS_PER_DAY } from '../../utils/timeUtils';
 
 /**
  * Game Loop debugging tab
@@ -73,48 +74,72 @@ const GameLoopDebugTab: React.FC = () => {
     }
   };
 
-  // Update stats every 200ms
+  // Update stats more frequently (60fps) for smoother display
   useEffect(() => {
-    const updateInterval = setInterval(() => {
+    let animationFrameId: number;
+    let lastUpdateTime = performance.now();
+    
+    const updateStats = (time: number) => {
       try {
-        // Get current time
-        const now = performance.now() / 1000;
-        const realTimeElapsed = now - startTime;
+        // Throttle updates to approximately 60fps (16.7ms)
+        if (time - lastUpdateTime >= 16) {
+          lastUpdateTime = time;
+          
+          // Get current time
+          const now = performance.now() / 1000;
+          const realTimeElapsed = now - startTime;
+          
+          // Get GameLoop stats
+          const gameLoop = GameLoop.getInstance();
+          const loopStats = gameLoop.getStats();
+          const gameTimer = gameLoop.getGameTimer();
+          
+          // Get timer time from game timer directly
+          const timerTime = gameTimer.getTotalGameTime();
+          
+          // Calculate time ratio using timer time instead of game time
+          const actualTimeRatio = realTimeElapsed > 0 ? 
+            timerTime / realTimeElapsed : 
+            gameTimeScale;
+          
+          // Update stats
+          setStats({
+            fps: loopStats.fps,
+            gameLoopTime: timerTime,
+            realTime: realTimeElapsed,
+            timeRatio: actualTimeRatio,
+            timeScale: loopStats.timeScale,
+            lastUpdate: now
+          });
+        }
         
-        // Get GameLoop stats
-        const gameLoop = GameLoop.getInstance();
-        const loopStats = gameLoop.getStats();
-        const gameTimer = gameLoop.getGameTimer();
-        
-        // Get timer time from game timer directly
-        const timerTime = gameTimer.getTotalGameTime();
-        
-        // Calculate time ratio using timer time instead of game time
-        const actualTimeRatio = realTimeElapsed > 0 ? 
-          timerTime / realTimeElapsed : 
-          gameTimeScale;
-        
-        // Update stats
-        setStats({
-          fps: loopStats.fps,
-          gameLoopTime: timerTime,
-          realTime: realTimeElapsed,
-          timeRatio: actualTimeRatio,
-          timeScale: loopStats.timeScale,
-          lastUpdate: now
-        });
+        // Continue animation loop
+        animationFrameId = requestAnimationFrame(updateStats);
       } catch (error) {
         console.error("Error updating debug stats:", error);
+        animationFrameId = requestAnimationFrame(updateStats);
       }
-    }, 200);
+    };
     
-    return () => clearInterval(updateInterval);
+    // Start animation frame loop
+    animationFrameId = requestAnimationFrame(updateStats);
+    
+    // Cleanup on unmount
+    return () => {
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
+    };
   }, [gameTimeScale, startTime]);
 
-  // Get current day and progress information
-  const secondsPerDay = 60; // Same as SECONDS_PER_DAY in timeUtils.ts
-  const currentDay = Math.floor(gameTime / secondsPerDay) + 1;
-  const dayProgress = (gameTime % secondsPerDay) / secondsPerDay;
+  // Import the same constant used by the GameTimer component
+  const secondsPerDay = SECONDS_PER_DAY; // From timeUtils.ts (60 seconds)
+  
+  // Initialize day tracking variables
+  let currentDay = 1;
+  let dayProgress = 0;
+  
+  // We'll set these in real-time during the render phase
   
   // Generate metrics for display
   const timeMetrics: MetricItem[] = [
@@ -181,15 +206,87 @@ const GameLoopDebugTab: React.FC = () => {
   ];
 
   // Generate day information metrics 
+  // Create a special test section to diagnose the issue
+  const [diagnosticInfo, setDiagnosticInfo] = useState({
+    componentTimestamp: Date.now(),
+    timerGameTime: 0,
+    localDay: 0,
+    localDayProgress: 0,
+    reduxTime: gameTime,
+    calculatedDay: 0,
+    calculatedProgress: 0,
+    isDiagnosticMode: true
+  });
+  
+  // Update diagnostics every frame
+  React.useEffect(() => {
+    if (!diagnosticInfo.isDiagnosticMode) return;
+    
+    let animationFrameId: number;
+    const updateDiagnostics = () => {
+      try {
+        // Get all possible time sources
+        const gameLoop = GameLoop.getInstance();
+        const gameTimer = gameLoop.getGameTimer();
+        const timerTime = gameTimer.getTotalGameTime();
+        
+        // GameTimer.tsx now initializes with 0 seconds as we fixed it
+        // This aligns with the debug panel's correct values
+        
+        // Get time values directly from the timer
+        const adjustedTime = timerTime;
+                
+        // Calculate days exactly as GameTimer does
+        const calculatedDay = Math.floor(adjustedTime / SECONDS_PER_DAY) + 1;
+        const calculatedProgress = (adjustedTime % SECONDS_PER_DAY) / SECONDS_PER_DAY;
+        
+        // Update diagnostics
+        setDiagnosticInfo({
+          componentTimestamp: Date.now(),
+          timerGameTime: timerTime,
+          localDay: calculatedDay,
+          localDayProgress: calculatedProgress,
+          reduxTime: gameTime,
+          calculatedDay,
+          calculatedProgress,
+          isDiagnosticMode: true
+        });
+        
+        // Log useful diagnostic info occasionally
+        if (Math.random() < 0.01) {
+          console.log(`DIAGNOSTIC: timer=${timerTime.toFixed(2)}s, ` +
+                      `day=${calculatedDay}, ` +
+                      `progress=${(calculatedProgress*100).toFixed(1)}%`);
+        }
+      } catch (error) {
+        console.error("Error in diagnostics:", error);
+      }
+      
+      animationFrameId = requestAnimationFrame(updateDiagnostics);
+    };
+    
+    animationFrameId = requestAnimationFrame(updateDiagnostics);
+    
+    return () => {
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
+    };
+  }, [gameTime, diagnosticInfo.isDiagnosticMode]);
+  
+  // Use diagnostic info for metrics display
+  const currentDayInfo = diagnosticInfo.localDay;
+  const dayProgressInfo = diagnosticInfo.localDayProgress;
+  
   const dayMetrics: MetricItem[] = [
     {
       name: "Current Day",
-      value: currentDay,
+      value: currentDayInfo,
       status: 'special'
     },
     {
       name: "Day Progress",
-      value: `${(dayProgress * 100).toFixed(1)}%`,
+      value: `${(dayProgressInfo * 100).toFixed(1)}%`,
       status: 'neutral'
     },
     {
@@ -199,13 +296,24 @@ const GameLoopDebugTab: React.FC = () => {
     },
     {
       name: "Time until next day",
-      value: `${((1 - dayProgress) * secondsPerDay).toFixed(1)}s`,
+      value: `${((1 - dayProgressInfo) * secondsPerDay).toFixed(1)}s`,
       status: 'neutral'
     },
     {
       name: "Real time until next day",
-      value: `${((1 - dayProgress) * secondsPerDay / gameTimeScale).toFixed(1)}s`,
+      value: `${((1 - dayProgressInfo) * secondsPerDay / gameTimeScale).toFixed(1)}s`,
       status: 'neutral'
+    },
+    // Add raw timer value for debugging
+    {
+      name: "Raw Game Time",
+      value: `${diagnosticInfo.timerGameTime.toFixed(1)}s`,
+      status: 'warning'
+    },
+    {
+      name: "Redux Time",
+      value: `${gameTime.toFixed(1)}s`,
+      status: 'warning'
     }
   ];
 
