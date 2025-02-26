@@ -3,9 +3,7 @@ import { useAppSelector } from '../../state/hooks';
 import { useSelector } from 'react-redux';
 import { 
   selectUnlockedResources, 
-  selectAllResources, 
-  selectProgressionState,
-  selectGeneratableResources 
+  selectAllResources
 } from '../../state/selectors';
 import { Resource } from '../../models/resource';
 import { ResourceManager } from '../../systems/resourceManager';
@@ -28,9 +26,8 @@ const ResourceGenerator: React.FC<ResourceGeneratorProps> = ({ resource, onClick
   // Click result feedback
   const [lastClickAmount, setLastClickAmount] = useState<number | null>(null);
   
-  // Get progression state to find next milestone using memoized selectors
+  // Get resources to find next milestone
   const resources = useAppSelector(selectAllResources);
-  const progression = useAppSelector(selectProgressionState);
   
   // Handle click with animation and cooldown
   const handleClick = () => {
@@ -67,16 +64,11 @@ const ResourceGenerator: React.FC<ResourceGeneratorProps> = ({ resource, onClick
   const { milestoneProgress, nextMilestoneName } = useMemo(() => {
     // Default values
     let progress = 0;
-    let milestoneName = "Progress";
+    let milestoneName = "Efficiency";
     
     try {
-      // Find next milestone that needs this resource
+      // Find the next milestone that requires this resource
       const nextMilestone = allMilestones.find(milestone => {
-        // Skip completed milestones
-        if (progression?.milestones?.[milestone.id]?.completed) {
-          return false;
-        }
-        
         // Check if any requirement uses this resource
         return milestone.requirements.some(req => 
           req.type === 'resourceAmount' && 
@@ -102,16 +94,10 @@ const ResourceGenerator: React.FC<ResourceGeneratorProps> = ({ resource, onClick
       }
     } catch (error) {
       console.error("Error calculating milestone progress:", error);
-      
-      // Fallback to efficiency calculation
-      const clickPower = resource.clickPower || 1;
-      progress = resource.perSecond > 0 
-        ? Math.min(100, (resource.perSecond / clickPower) * 10)
-        : 0;
     }
     
     if (progress === 0 || isNaN(progress)) {
-      // If no progress from milestones, use regular efficiency calculation
+      // If no progress from milestones, use efficiency calculation
       const clickPower = resource.clickPower || 1;
       progress = resource.perSecond > 0 
         ? Math.min(100, (resource.perSecond / clickPower) * 10)
@@ -119,7 +105,7 @@ const ResourceGenerator: React.FC<ResourceGeneratorProps> = ({ resource, onClick
     }
     
     return { milestoneProgress: progress, nextMilestoneName: milestoneName };
-  }, [resource, progression, resources]);
+  }, [resource, resources]);
   
   // Format numbers for display
   const formatNumber = (num: number): string => {
@@ -186,8 +172,12 @@ const ResourceGenerator: React.FC<ResourceGeneratorProps> = ({ resource, onClick
 const ResourceGenerators: React.FC = () => {
   const unlockedResources = useAppSelector(selectUnlockedResources);
   
-  // Use the memoized selector for resources that can be generated
-  const generatableResources = useAppSelector(selectGeneratableResources);
+  // Get resources that can be generated (those with clickPower > 0)
+  const generatableResources = useMemo(() => {
+    return Object.values(unlockedResources).filter(resource => 
+      resource.clickPower && resource.clickPower > 0
+    );
+  }, [unlockedResources]);
   
   // Handle click on generator
   const handleGeneratorClick = (resourceId: string) => {
