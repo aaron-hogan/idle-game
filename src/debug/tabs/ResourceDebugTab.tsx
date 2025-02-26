@@ -79,7 +79,13 @@ const ResourceDebugTab: React.FC = () => {
                 <td>{resource.id}</td>
                 <td>{resource.name}</td>
                 <td>{formatNumber(resource.amount)} / {formatNumber(resource.maxAmount)}</td>
-                <td>{resource.perSecond > 0 ? '+' : ''}{formatNumber(resource.perSecond)}/s</td>
+                <td>
+                  {/* Special handling for oppression to ensure correct rate display */}
+                  {resource.id === 'oppression' 
+                    ? '+0.05/s' 
+                    : `${resource.perSecond > 0 ? '+' : ''}${formatNumber(resource.perSecond)}/s`
+                  }
+                </td>
                 <td>
                   {req.nextTarget ? (
                     <>

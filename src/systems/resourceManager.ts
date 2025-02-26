@@ -111,12 +111,19 @@ export class ResourceManager {
     const oppression = resources.byId ? resources.byId[ResourceId.OPPRESSION] : resources[ResourceId.OPPRESSION];
     
     if (oppression) {
-      // Always generate oppression according to its rate (use basePerSecond as fallback)
-      const generationRate = typeof oppression.perSecond === 'number' && oppression.perSecond > 0 
-        ? oppression.perSecond 
-        : (typeof oppression.basePerSecond === 'number' ? oppression.basePerSecond : 0.05);
+      // Fix for oppression rate - always use the constant 0.05 from INITIAL_RESOURCES
+      // This ensures consistency between display and actual generation
+      const OPPRESSION_RATE = 0.05;
       
-      const oppressionAmount = generationRate * gameTimeInSeconds;
+      // If the perSecond value is incorrect, update it
+      if (oppression.perSecond !== OPPRESSION_RATE) {
+        this.dispatch!(updateResourcePerSecond({
+          id: ResourceId.OPPRESSION,
+          perSecond: OPPRESSION_RATE,
+        }));
+      }
+      
+      const oppressionAmount = OPPRESSION_RATE * gameTimeInSeconds;
       
       // Only dispatch if we have a positive amount to add
       if (oppressionAmount > 0) {
@@ -217,6 +224,16 @@ export class ResourceManager {
     
     // Update each resource's basePerSecond value and recalculate total perSecond
     Object.keys(baseRates).forEach(resourceId => {
+      // Skip oppression resource - it should always keep its original rate
+      if (resourceId === ResourceId.OPPRESSION) {
+        // Force oppression rate to constant value
+        this.dispatch!(updateResourcePerSecond({
+          id: resourceId,
+          perSecond: 0.05,
+        }));
+        return;
+      }
+      
       const baseRate = baseRates[resourceId];
       if (typeof baseRate === 'number' && !isNaN(baseRate)) {
         // Get the current resource
@@ -502,6 +519,12 @@ export class ResourceManager {
    */
   upgradePassiveGeneration(resourceId: string): boolean {
     this.ensureInitialized();
+    
+    // Prevent upgrading oppression - it should always generate at constant rate
+    if (resourceId === ResourceId.OPPRESSION) {
+      console.warn('Cannot upgrade oppression resource - it has a fixed generation rate');
+      return false;
+    }
     
     const state = this.getState!();
     const resource = state.resources[resourceId];
