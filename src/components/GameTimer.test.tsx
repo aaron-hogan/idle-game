@@ -3,110 +3,106 @@ import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import GameTimer from './GameTimer';
-import { formatTime } from '../utils/timeUtils';
-import { addPlayTime } from '../state/gameSlice';
+import { formatTimeAsDays, getDayProgress } from '../utils/timeUtils';
+
+// Mock the timeUtils functions
+jest.mock('../utils/timeUtils', () => ({
+  formatTimeAsDays: jest.fn(seconds => `Day ${Math.floor(seconds / 60) + 1}`),
+  getDayProgress: jest.fn(seconds => (seconds % 60) / 60),
+  SECONDS_PER_DAY: 60
+}));
+
+// Mock the Counter component
+jest.mock('./common/Counter', () => {
+  return function MockCounter(props: any) {
+    return (
+      <div data-testid="counter">
+        <div data-testid="counter-value">{props.value}</div>
+        <div data-testid="counter-rate">{props.rate}</div>
+        {props.hasDropdown && <div data-testid="counter-dropdown">Dropdown</div>}
+      </div>
+    );
+  };
+});
 
 // Set up mock store
 const mockStore = configureStore([]);
 
 describe('GameTimer', () => {
-  let store: any;
-  
-  beforeEach(() => {
-    // Create initial mock state
-    store = mockStore({
+  it('renders day counter with correct values', () => {
+    const store = mockStore({
       game: {
-        totalPlayTime: 0,
+        totalPlayTime: 120, // Day 3
         isRunning: true,
         gameTimeScale: 1
       }
     });
-    
-    // Mock store.getState to be accessible within the component
-    store.getState = () => ({
-      game: {
-        totalPlayTime: store.getActions().reduce((time: number, action: any) => {
-          if (action.type === 'game/addPlayTime') {
-            return time + action.payload;
-          }
-          return time;
-        }, 0),
-        isRunning: true,
-        gameTimeScale: 1
-      }
-    });
-  });
-  
-  test('displays initial time of 0s', () => {
+
     render(
       <Provider store={store}>
         <GameTimer />
       </Provider>
     );
-    
-    // Check if "0s" is displayed
-    expect(screen.getByText(/0s/i)).toBeInTheDocument();
+
+    // Check that Counter component received correct props
+    expect(screen.getByTestId('counter-value')).toHaveTextContent('Day 3');
+    expect(screen.getByTestId('counter-rate')).toHaveTextContent('1x');
   });
-  
-  test('updates display when total play time changes', () => {
-    // Render with initial time
-    const { rerender } = render(
-      <Provider store={store}>
-        <GameTimer />
-      </Provider>
-    );
-    
-    // Update store to simulate time passing
-    store.dispatch(addPlayTime(65)); // 1m 5s
-    
-    // Re-render with updated time
-    rerender(
-      <Provider store={store}>
-        <GameTimer />
-      </Provider>
-    );
-    
-    // Check if time display is updated (should now show "1m 5s")
-    const formattedTime = formatTime(65);
-    expect(screen.getByText(new RegExp(formattedTime, 'i'))).toBeInTheDocument();
-  });
-  
-  test('shows pause/play button based on game state', () => {
-    // Start with game running
-    store = mockStore({
+
+  it('shows correct rate formatting based on game state', () => {
+    const store = mockStore({
       game: {
-        totalPlayTime: 0,
+        totalPlayTime: 60,
+        isRunning: false, // Paused
+        gameTimeScale: 1
+      }
+    });
+
+    render(
+      <Provider store={store}>
+        <GameTimer />
+      </Provider>
+    );
+
+    // Should show 0x when paused
+    expect(screen.getByTestId('counter-rate')).toHaveTextContent('0x');
+  });
+
+  it('renders with faster time scale correctly', () => {
+    const store = mockStore({
+      game: {
+        totalPlayTime: 60,
+        isRunning: true,
+        gameTimeScale: 5 // 5x speed
+      }
+    });
+
+    render(
+      <Provider store={store}>
+        <GameTimer />
+      </Provider>
+    );
+
+    // Should show 5x speed
+    expect(screen.getByTestId('counter-rate')).toHaveTextContent('5x');
+  });
+
+  it('includes dropdown for speed control', () => {
+    const store = mockStore({
+      game: {
+        totalPlayTime: 60,
         isRunning: true,
         gameTimeScale: 1
       }
     });
-    
-    const { rerender } = render(
+
+    render(
       <Provider store={store}>
         <GameTimer />
       </Provider>
     );
-    
-    // Should show pause button when game is running
-    expect(screen.getByText('PAUSE')).toBeInTheDocument();
-    
-    // Update store to paused state
-    store = mockStore({
-      game: {
-        totalPlayTime: 0,
-        isRunning: false,
-        gameTimeScale: 1
-      }
-    });
-    
-    // Re-render with game paused
-    rerender(
-      <Provider store={store}>
-        <GameTimer />
-      </Provider>
-    );
-    
-    // Should show play button when game is paused
-    expect(screen.getByText('PLAY')).toBeInTheDocument();
+
+    // Should have dropdown element
+    expect(screen.getByTestId('counter-dropdown')).toBeInTheDocument();
   });
 });
