@@ -25,6 +25,7 @@ import {
   selectVisibleAchievements
 } from '../../redux/progressionSlice';
 import { getCurrentTime } from '../../utils/timeUtils';
+import { updateResourcePerSecond } from '../../state/resourcesSlice';
 
 // Type safety for resources
 // Removing problematic type declaration that was causing build errors
@@ -367,7 +368,7 @@ export class ProgressionManager {
    * Apply a single milestone reward
    * @param reward The reward to apply
    */
-  private applyMilestoneReward(reward: MilestoneReward): void {
+  private applyMilestoneReward(reward: any): void {
     try {
       const { type, target, value } = reward;
       
@@ -395,13 +396,14 @@ export class ProgressionManager {
           }
           
           // Apply boost to resource production
-          store.dispatch({
-            type: 'resources/addResourcePerSecond',
-            payload: {
+          store.dispatch(
+            // Use updateResourcePerSecond instead of custom actions
+            updateResourcePerSecond({
               id: target,
-              perSecond: Number(value)
-            }
-          });
+              // Get current rate and add the boost
+              perSecond: (store.getState().resources[target]?.perSecond || 0) + Number(value)
+            })
+          );
           break;
           
         case 'multiplier':
@@ -411,13 +413,14 @@ export class ProgressionManager {
           }
           
           // Apply multiplier to resource production
-          store.dispatch({
-            type: 'resources/multiplyResourcePerSecond',
-            payload: {
+          const currentRate = store.getState().resources[target]?.perSecond || 0;
+          store.dispatch(
+            // Use updateResourcePerSecond instead of custom actions
+            updateResourcePerSecond({
               id: target,
-              multiplier: Number(value)
-            }
-          });
+              perSecond: currentRate * Number(value)
+            })
+          );
           break;
           
         case 'unlockFeature':
