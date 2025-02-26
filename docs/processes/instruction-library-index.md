@@ -16,6 +16,7 @@ Standards and processes for documentation:
 
 - [Documentation Standards](/docs/processes/documentation/documentation-standards.md) - Guidelines for creating and maintaining documentation
 - [Instruction Library Extraction Plan](/docs/processes/documentation/instruction-library-plan.md) - Plan for building the instruction library
+- [CLAUDE.md Enhancements](/docs/processes/documentation/claude-md-enhancements.md) - Improvements for better process enforcement
 
 ## Development Processes
 
