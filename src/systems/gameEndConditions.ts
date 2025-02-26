@@ -5,6 +5,7 @@
 import { Store } from '@reduxjs/toolkit';
 import { ResourceId } from '../constants/resources';
 import { endGame } from '../state/gameSlice';
+import { GameEndConditions } from '../config/gameBalance';
 
 /**
  * Check if any game end conditions have been met
@@ -30,7 +31,8 @@ export const checkGameEndConditions = (store: Store): boolean => {
   }
   
   // Win condition: Collective power reaches maximum
-  if (power.amount >= power.maxAmount) {
+  const powerThreshold = GameEndConditions.WIN.POWER_THRESHOLD;
+  if (power.amount >= powerThreshold || power.amount >= power.maxAmount) {
     store.dispatch(endGame({ 
       won: true, 
       reason: 'Your movement has reached maximum collective power and successfully created lasting change!' 
@@ -38,8 +40,9 @@ export const checkGameEndConditions = (store: Store): boolean => {
     return true;
   }
   
-  // Lose condition: Oppression exceeds collective power by 50%
-  if (oppression.amount > power.amount * 1.5) {
+  // Lose condition: Oppression exceeds collective power by the configured ratio
+  const oppressionRatio = GameEndConditions.LOSE.OPPRESSION_POWER_RATIO;
+  if (oppression.amount > power.amount * oppressionRatio) {
     store.dispatch(endGame({ 
       won: false, 
       reason: 'Corporate oppression has overwhelmed your movement. The struggle continues elsewhere...' 

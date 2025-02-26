@@ -17,6 +17,14 @@ import { invariant } from '../utils/errorUtils';
 import { validateObject } from '../utils/validationUtils';
 import { GameLoop } from '../core/GameLoop';
 import { UpgradeType } from '../models/resource';
+import { 
+  ResourceGeneration, 
+  UpgradeSettings, 
+  StructureSettings,
+  calculateClickPower,
+  calculatePassiveGeneration,
+  calculateUpgradeCost
+} from '../config/gameBalance';
 
 /**
  * Manages all resource-related operations
@@ -111,9 +119,8 @@ export class ResourceManager {
     const oppression = resources.byId ? resources.byId[ResourceId.OPPRESSION] : resources[ResourceId.OPPRESSION];
     
     if (oppression) {
-      // Fix for oppression rate - always use the constant 0.05 from INITIAL_RESOURCES
-      // This ensures consistency between display and actual generation
-      const OPPRESSION_RATE = 0.05;
+      // Get the oppression rate from game balance config
+      const OPPRESSION_RATE = ResourceGeneration.BASE_RATES[ResourceId.OPPRESSION];
       
       // If the perSecond value is incorrect, update it
       if (oppression.perSecond !== OPPRESSION_RATE) {
@@ -200,7 +207,7 @@ export class ResourceManager {
       // Calculate efficiency based on worker assignment
       const workers = typeof structure.workers === 'number' ? structure.workers : 0;
       const maxWorkers = typeof structure.maxWorkers === 'number' ? structure.maxWorkers : 1;
-      const efficiency = workers > 0 ? workers / maxWorkers : 0.1;
+      const efficiency = workers > 0 ? workers / maxWorkers : StructureSettings.MIN_EFFICIENCY;
       
       // Ensure production exists and is an object before getting entries
       if (structure.production && typeof structure.production === 'object') {
@@ -213,7 +220,7 @@ export class ResourceManager {
           
           // Scale production by level and worker efficiency
           const level = typeof structure.level === 'number' ? structure.level : 0;
-          const levelMultiplier = 1 + (level * 0.25);
+          const levelMultiplier = 1 + (level * StructureSettings.LEVEL_MULTIPLIER);
           const actualProduction = baseProduction * levelMultiplier * efficiency;
           
           // Add to the base rate (or initialize if it doesn't exist)
@@ -496,10 +503,12 @@ export class ResourceManager {
     // Get current upgrade level from the upgrades object
     const currentLevel = resource.upgrades?.[UpgradeType.CLICK_POWER] || 0;
     
-    // Calculate the cost of the upgrade (exponential scaling)
-    const baseCost = 10; // Starting cost
-    const scaleFactor = 1.5; // Cost increases by this factor each time
-    const cost = Math.floor(baseCost * Math.pow(scaleFactor, currentLevel));
+    // Use the game balance configuration for upgrade costs
+    const cost = calculateUpgradeCost(
+      UpgradeSettings.CLICK_POWER.BASE_COST,
+      UpgradeSettings.CLICK_POWER.COST_SCALE_FACTOR,
+      currentLevel
+    );
     
     // Only log occasionally to reduce console spam
     if (Math.random() < 0.05) { // Only log 5% of the time
@@ -593,10 +602,12 @@ export class ResourceManager {
     // Get current upgrade level from the upgrades object
     const currentLevel = resource.upgrades?.[UpgradeType.PASSIVE_GENERATION] || 0;
     
-    // Calculate the cost of the upgrade (exponential scaling)
-    const baseCost = 20; // Starting cost (higher than click upgrade)
-    const scaleFactor = 1.8; // Cost increases faster than click upgrades
-    const cost = Math.floor(baseCost * Math.pow(scaleFactor, currentLevel));
+    // Use the game balance configuration for upgrade costs
+    const cost = calculateUpgradeCost(
+      UpgradeSettings.PASSIVE_GENERATION.BASE_COST,
+      UpgradeSettings.PASSIVE_GENERATION.COST_SCALE_FACTOR,
+      currentLevel
+    );
     
     // Only log occasionally to reduce console spam
     if (Math.random() < 0.05) { // Log only 5% of the time

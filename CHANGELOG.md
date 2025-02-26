@@ -15,11 +15,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Game state tracking for win/lose conditions
 - Enhanced documentation for preventing direct work on main branch
 - New AI assistant guide for safe repository workflows
+- Centralized game balance configuration system with `/src/config/gameBalance.ts`
+- Documentation for game balance configuration in `/docs/features/game-balance/`
+- Helper functions for calculating resource generation, upgrade costs and click power
 
 ### Changed
 - Redesigned movement balance display - now integrated directly into the top resource bar
 - Updated styling for the Power and Oppression counters with appropriate green/red progress bars
 - Improved header layout for better visibility of critical resources
+- Refactored resource manager to use centralized game balance configuration
+- Modified game end conditions to use configurable thresholds
+- Extracted hardcoded game balance values to configuration file
 
 ### Fixed
 - Day counter not advancing and progress bar not showing progress
