@@ -10,8 +10,17 @@ We recently recovered from a major issue where UI improvements broke passive res
 4. Document changes thoroughly
 5. When updating type definitions, ensure all imports are updated across files
 
-Recovery process documented in: `/docs/features/ui-improvements/recovery-process.md`
-Upgrade system fix documented in: `/docs/features/ui-improvements/resource-upgrade-fix.md`
+IMPORTANT: All recovery-related documentation must follow this structure:
+- Recovery overview: `/docs/features/ui-improvements/recovery-process.md`
+- Specific fixes must have their own dedicated documentation files with clear names
+  - Example: `/docs/features/ui-improvements/resource-upgrade-fix.md`
+- Each fix document must include:
+  - Issue description
+  - Root cause
+  - Fix implementation details
+  - Testing verification
+  - Lessons learned
+  - Links to related files
 
 Stable work is now in the `ui-improvements-recovery` branch.
 
@@ -119,6 +128,41 @@ The documentation is organized into the following directories:
      - Purpose: Tracks ongoing and future work for the feature
      - Content: Checklist of completed and remaining tasks, organized by category
      - Use the format from `/docs/processes/documentation/templates/docs-template.md`
+
+### Bug Fix Documentation
+- **ALWAYS** document significant bug fixes with a dedicated markdown file
+- File naming convention: `/docs/features/affected-feature/[issue-name]-fix.md`
+- Example: `/docs/features/resources/passive-generation-fix.md`
+
+**Required sections for bug fix documentation:**
+1. **Issue Description**
+   - Clear description of the bug/issue
+   - Error messages, stack traces, or screenshots if applicable
+   - Steps to reproduce (if known)
+
+2. **Root Cause Analysis**
+   - Technical explanation of what caused the issue
+   - Code examples showing the problematic code
+   - Explanation of why the issue occurred
+
+3. **Fix Implementation**
+   - Code changes made to fix the issue
+   - Explanation of why this approach was chosen
+   - Any alternative approaches considered
+
+4. **Testing Verification**
+   - How the fix was tested
+   - Confirmation that the issue is resolved
+   - Any regression testing performed
+
+5. **Lessons Learned**
+   - What can be done to prevent similar issues
+   - Changes to development practices, if any
+   - Links to related PRs or commits
+
+6. **Related Documentation**
+   - Links to other relevant documentation
+   - Any documentation that was updated as a result
 
 ### Documentation Validation
 - **ALWAYS validate documentation** using the script:
