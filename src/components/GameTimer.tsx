@@ -37,32 +37,52 @@ const GameTimer: React.FC<GameTimerProps> = ({ className = '' }) => {
       setLocalTime(totalPlayTime);
     }
     
-    // Set up interval to advance time locally every second
-    const tickInterval = setInterval(() => {
-      setLocalTime(prevTime => {
-        const newTime = prevTime + (isRunning ? gameTimeScale : 0);
-        
-        // Calculate new day and progress
-        const newDay = Math.floor(newTime / SECONDS_PER_DAY) + 1;
-        const newProgress = (newTime % SECONDS_PER_DAY) / SECONDS_PER_DAY;
-        
-        // Update day and progress state if changed
-        if (newDay !== localDay) {
-          setLocalDay(newDay);
-          console.log(`GameTimer: Advanced to Day ${newDay}`);
-        }
-        
-        setLocalProgress(newProgress);
-        
-        // Log detailed info
-        console.log(`GameTimer timer tick: localTime=${newTime.toFixed(2)}, Redux time=${totalPlayTime.toFixed(2)}, isRunning=${isRunning}, scale=${gameTimeScale}`);
-        
-        return newTime;
-      });
-    }, 1000);
+    // Use requestAnimationFrame for smoother progress updates
+    let lastFrameTime = performance.now();
+    let animationFrameId: number;
     
-    return () => clearInterval(tickInterval);
-  }, [totalPlayTime, isRunning, gameTimeScale]);
+    const updateFrame = (currentTime: number) => {
+      // Calculate time elapsed since last frame in seconds
+      const deltaTime = (currentTime - lastFrameTime) / 1000;
+      lastFrameTime = currentTime;
+      
+      // Only update time if the game is running
+      if (isRunning) {
+        setLocalTime(prevTime => {
+          // Apply scaled time increment (smaller increments for smoother animation)
+          const scaledDelta = deltaTime * gameTimeScale;
+          const newTime = prevTime + scaledDelta;
+          
+          // Calculate new day and progress
+          const newDay = Math.floor(newTime / SECONDS_PER_DAY) + 1;
+          const newProgress = (newTime % SECONDS_PER_DAY) / SECONDS_PER_DAY;
+          
+          // Update day and progress state if changed
+          if (newDay !== localDay) {
+            setLocalDay(newDay);
+          }
+          
+          // Always update progress for smooth animation
+          setLocalProgress(newProgress);
+          
+          return newTime;
+        });
+      }
+      
+      // Continue animation loop
+      animationFrameId = requestAnimationFrame(updateFrame);
+    };
+    
+    // Start animation loop
+    animationFrameId = requestAnimationFrame(updateFrame);
+    
+    // Cleanup function
+    return () => {
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
+    };
+  }, [totalPlayTime, isRunning, gameTimeScale, localDay]);
   
   // Calculate day progress for progress bar
   const dayProgress = getDayProgress(totalPlayTime);
