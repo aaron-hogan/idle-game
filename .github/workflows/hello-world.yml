@@ -27,3 +27,8 @@ jobs:
           node --version
           echo "NPM version:"
           npm --version
+          echo "GitHub Actions info:"
+          echo "  Runner: $RUNNER_OS"
+          echo "  Workflow: $GITHUB_WORKFLOW"
+          echo "  Event: $GITHUB_EVENT_NAME"
+          echo "  Ref: $GITHUB_REF"
