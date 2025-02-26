@@ -16,7 +16,7 @@ import { addPlayTime } from '../state/gameSlice';
 import { GameManager } from '../core/GameManager';
 import GameDebugger from '../debug/GameDebugger';
 import TopResourceBar from './resources/TopResourceBar';
-import PowerOppressionIndicator from './resources/PowerOppressionIndicator';
+// Removed the unused CompactMovementBalance import
 import EndGameModal from './EndGameModal';
 import { TabNavigation, DEFAULT_TABS } from './navigation';
 
@@ -186,11 +186,6 @@ const App: React.FC = () => {
               </div>
               <TopResourceBar />
               <MenuButton />
-            </div>
-            
-            {/* Power vs Oppression indicator */}
-            <div className="power-oppression-container">
-              <PowerOppressionIndicator resources={resources} />
             </div>
             
             {/* Main content area with routes */}

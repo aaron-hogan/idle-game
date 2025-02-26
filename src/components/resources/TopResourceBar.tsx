@@ -113,21 +113,23 @@ const ResourceItem: React.FC<ResourceItemProps> = ({ resource }) => {
   }
 
   return (
-    <Counter 
-      icon={getIcon()}
-      iconType={getIconType()}
-      value={formatNumber(resource.amount)}
-      rate={formattedRateText}
-      rateType={displayRate > 0 ? 'positive' : displayRate < 0 ? 'negative' : 'neutral'}
-      progress={getProgressValue()}
-      className={isNearCapacity ? 'near-capacity' : ''}
-      tooltip={{
-        title: resource.name,
-        description: resource.description,
-        details: tooltipDetails
-      }}
-      minWidth="80px"
-    />
+    <div data-resource-id={resource.id}>
+      <Counter 
+        icon={getIcon()}
+        iconType={getIconType()}
+        value={formatNumber(resource.amount)}
+        rate={formattedRateText}
+        rateType={displayRate > 0 ? 'positive' : displayRate < 0 ? 'negative' : 'neutral'}
+        progress={getProgressValue()}
+        className={isNearCapacity ? 'near-capacity' : ''}
+        tooltip={{
+          title: resource.name,
+          description: resource.description,
+          details: tooltipDetails
+        }}
+        minWidth={resource.id === 'collective-power' || resource.id === 'oppression' ? "70px" : "80px"}
+      />
+    </div>
   );
 };
 

@@ -14,6 +14,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - End game modal for both victory and defeat scenarios
 - Game state tracking for win/lose conditions
 
+### Changed
+- Redesigned movement balance display - now integrated directly into the top resource bar
+- Updated styling for the Power and Oppression counters with appropriate green/red progress bars
+- Improved header layout for better visibility of critical resources
+
 ### Fixed
 - Day counter not advancing and progress bar not showing progress
 - Choppy progress bar animation in day counter

@@ -1,10 +1,11 @@
 .top-resource-bar {
-  flex: 2;
+  flex: 1;
   padding: 0;
   display: flex;
   overflow: visible; /* Allow dropdowns to be visible */
   white-space: nowrap;
   min-width: 200px;
+  margin-right: auto; /* Push to left, allowing menu to right-align */
 }
 
 .resource-items {
@@ -24,7 +25,7 @@
 .top-resource-bar .counter-display {
   height: 24px; /* Fixed height to match timer */
   padding: 3px 6px;
-  min-width: 80px; /* Smaller than default */
+  min-width: 70px; /* Smaller than default */
 }
 
 .top-resource-bar .counter-icon {
@@ -51,6 +52,19 @@
 
 .top-resource-bar .near-capacity:hover .counter-display {
   background-color: #4e342e;
+}
+
+/* Add special styling for power and oppression resources */
+.top-resource-bar [data-resource-id="collective-power"] .counter-progress {
+  background-color: rgba(76, 175, 80, 0.2) !important; /* Green tint */
+}
+
+.top-resource-bar [data-resource-id="oppression"] .counter-progress {
+  background-color: rgba(244, 67, 54, 0.2) !important; /* Red tint */
+}
+
+.top-resource-bar [data-resource-id="oppression"] .counter-icon {
+  color: #F44336;
 }
 
 .no-resources {

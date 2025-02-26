@@ -44,7 +44,7 @@
 }
 
 .counter-progress.power {
-  background-color: rgba(100, 181, 246, 0.15); /* Blue tint */
+  background-color: rgba(76, 175, 80, 0.15); /* Green tint - changed from blue */
 }
 
 .counter-progress.knowledge {
@@ -61,6 +61,10 @@
 
 .counter-progress.currency {
   background-color: rgba(255, 213, 79, 0.15); /* Gold tint */
+}
+
+.counter-progress.oppression {
+  background-color: rgba(244, 67, 54, 0.15); /* Red tint */
 }
 
 /* Counter icon (left side) */
@@ -120,7 +124,7 @@
 }
 
 .counter-icon.power {
-  color: #64B5F6; /* Electric blue */
+  color: #4CAF50; /* Green for power - changed from blue */
 }
 
 .counter-icon.knowledge {
@@ -137,6 +141,10 @@
 
 .counter-icon.currency {
   color: #FFD54F; /* Gold */
+}
+
+.counter-icon.oppression {
+  color: #F44336; /* Red for oppression */
 }
 
 /* Tooltip for counters */

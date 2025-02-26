@@ -10,28 +10,21 @@
   color: #e0e0e0;
 }
 
-/* Top bar with timer and resources */
+/* Top bar with timer, resources and movement balance */
 .top-bar {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 8px 15px;
   background-color: #121212;
   border-bottom: 1px solid #333;
   z-index: 100;
+  gap: 15px;
 }
 
-/* Power-Oppression container */
-.power-oppression-container {
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto 10px auto;
-  padding: 10px 15px;
-}
+/* Remove the Power-Oppression container as it's now integrated in the top bar */
 
 .game-timer {
   flex: 0 0 auto;
-  margin-right: 15px;
 }
 
 .menu-button {
@@ -43,7 +36,6 @@
   font-size: 12px;
   padding: 5px 10px;
   font-family: monospace;
-  margin-left: 15px;
 }
 
 .menu-button:hover {
