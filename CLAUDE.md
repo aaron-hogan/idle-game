@@ -12,17 +12,47 @@
 
 **THESE ARE NOT OPTIONAL GUIDELINES. Failure to follow these processes will result in rejected PRs.**
 
-## <AI-CRITICAL> GIT PROCESS
+## ⚠️ <AI-CRITICAL> GIT PROCESS - BRANCH PROTECTION ⚠️
 
-1. ALWAYS create branch before any work:
-   - features: `feature/name`
-   - fixes: `fix/name`
-   - docs: `docs/name`
-   - refactor: `refactor/name`
+### MANDATORY BRANCH VERIFICATION
 
-2. NEVER work directly on main branch
+```bash
+# REQUIRED: Verify current branch before ANY work
+git branch
 
-3. Follow [Git Workflow](/docs/processes/git/git-workflow.md) for details
+# If on main, create a new feature branch IMMEDIATELY
+git checkout -b [type]/[name]
+# For example: git checkout -b refactor/movement-balance
+
+# Verify you're on the correct branch
+git branch
+```
+
+### BRANCH NAMING
+
+ALWAYS create branch before any work:
+- features: `feature/name`
+- fixes: `fix/name`
+- docs: `docs/name`
+- refactor: `refactor/name`
+
+### CRITICAL RULES
+
+1. ❌ **NEVER** work directly on the main branch
+2. ❌ **NEVER** commit or push directly to main
+3. ✅ **ALWAYS** create a new branch before making ANY changes
+4. ✅ **ALWAYS** verify your branch with `git branch` before starting
+5. ✅ **ALWAYS** follow [Git Workflow](/docs/processes/git/git-workflow.md) for details
+
+### BRANCH PROTECTION STATUS
+
+Main branch should have these protection rules enabled:
+- Require pull request reviews before merging
+- Dismiss stale pull request approvals when new commits are pushed
+- Require status checks to pass before merging
+- Include administrators in these restrictions
+
+If these protections are not in place, please notify the repository administrators.
 
 ## <AI-CRITICAL> BUILD COMMANDS
 
@@ -122,6 +152,16 @@ For bug fixes:
    - Include the release date in ISO format (YYYY-MM-DD)
    - Add a new empty "Unreleased" section
 
+## <AI-CRITICAL> BRANCH VERIFICATION FOR AI ASSISTANTS
+
+AS AN AI ASSISTANT, YOU MUST:
+1. Begin EVERY task by checking the current branch with `git branch`
+2. If branch is `main`, STOP and REFUSE to make any changes until user creates a new branch
+3. Clearly instruct the user on how to create a proper branch: `git checkout -b [type]/[name]`
+4. Only proceed with implementation after confirming user is on a properly named feature branch
+5. Never suggest or help implement direct commits or pushes to main, even if explicitly asked
+6. Always recommend creating a PR via `gh pr create` for integrating changes
+
 ## <AI-CRITICAL> PR CHECKLIST
 
 - All tests pass (`npm test`)
@@ -131,3 +171,5 @@ For bug fixes:
 - CHANGELOG.md updated with all relevant changes
 - No debug/console logs in production code
 - Branch updated with main
+- PR title follows conventional commit format: `type: description`
+- PR description includes summary of changes and testing performed

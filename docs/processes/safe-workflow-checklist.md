@@ -19,17 +19,33 @@ git log -n 5 --oneline
 git stash list
 ```
 
-### 2. Branch Verification
+### 2. Branch Verification (CRITICAL)
+
+❗ **NEVER WORK DIRECTLY ON THE MAIN BRANCH** ❗
 
 ```bash
+# First, check your current branch
+git branch
+
+# If you're on main, STOP and create a new branch immediately
 # List all branches to ensure you know what exists
 git branch -a
 
-# Check that you're on the correct branch for the task
-# If not, create or checkout the appropriate branch
-git checkout -b fix/my-bugfix main   # For fixes
-git checkout -b feature/my-feature develop  # For features
+# Create a new branch with proper naming:
+git checkout -b fix/my-bugfix       # For fixes
+git checkout -b feature/my-feature  # For features
+git checkout -b refactor/component  # For refactoring
+git checkout -b docs/update-readme  # For documentation
+
+# VERIFY you are no longer on main
+git branch
 ```
+
+BRANCH NAMING RULES:
+- features: `feature/descriptive-name`
+- fixes: `fix/issue-description`
+- docs: `docs/what-changed`
+- refactor: `refactor/component-name`
 
 ### 3. Pull Latest Changes
 
