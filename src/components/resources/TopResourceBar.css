@@ -1,0 +1,91 @@
+.top-resource-bar {
+  flex: 2;
+  padding: 0;
+  display: flex;
+  overflow: visible; /* Allow dropdowns to be visible */
+  white-space: nowrap;
+  min-width: 200px;
+}
+
+.resource-items {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 4px;
+  justify-content: flex-start;
+  align-items: center;
+  margin-left: 0;
+}
+
+/* Counter component specific styling for resource bar */
+.top-resource-bar .counter {
+  margin-right: 4px;
+}
+
+.top-resource-bar .counter-display {
+  height: 24px; /* Fixed height to match timer */
+  padding: 3px 6px;
+  min-width: 80px; /* Smaller than default */
+}
+
+.top-resource-bar .counter-icon {
+  margin-right: 4px;
+  font-size: 13px;
+  min-width: 15px;
+}
+
+.top-resource-bar .counter-value {
+  font-size: 12px;
+  color: #ddd;
+  min-width: 40px; /* Smaller than default */
+}
+
+.top-resource-bar .counter-rate {
+  font-size: 11px;
+  margin-left: 3px;
+}
+
+/* Use consistent near-capacity styling */
+.top-resource-bar .near-capacity .counter-display {
+  background-color: #3e2723;
+}
+
+.top-resource-bar .near-capacity:hover .counter-display {
+  background-color: #4e342e;
+}
+
+.no-resources {
+  color: #999;
+  font-style: italic;
+  font-size: 13px;
+  text-align: center;
+  padding: 5px 0;
+}
+
+/* Mobile responsive design */
+@media (max-width: 480px) {
+  .top-resource-bar {
+    padding: 4px 6px;
+  }
+  
+  .resource-items {
+    gap: 6px;
+  }
+  
+  .top-resource-bar .counter-display {
+    padding: 3px 5px;
+    min-width: 60px;
+  }
+  
+  .top-resource-bar .counter-icon {
+    font-size: 12px;
+    margin-right: 3px;
+  }
+  
+  .top-resource-bar .counter-value {
+    font-size: 11px;
+  }
+  
+  .top-resource-bar .counter-rate {
+    display: none; /* Hide rate on small screens */
+  }
+}

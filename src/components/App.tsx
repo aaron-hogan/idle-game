@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../state/hooks';
 import { 
   selectAllResources, 
@@ -14,8 +15,15 @@ import ErrorBoundary from './error/ErrorBoundary';
 import { addPlayTime } from '../state/gameSlice';
 import { GameManager } from '../core/GameManager';
 import GameDebugger from '../debug/GameDebugger';
-import ProgressionTracker from './progression/ProgressionTracker';
-import { ResourceList } from './resources';
+import TopResourceBar from './resources/TopResourceBar';
+import { TabNavigation, DEFAULT_TABS } from './navigation';
+
+// Import pages
+import MainGame from '../pages/MainGame';
+import Upgrades from '../pages/Upgrades';
+import Progression from '../pages/Progression';
+import Settings from '../pages/Settings';
+
 import { SaveControls } from './save';
 import EventPanel from './events/EventPanel';
 import { initializeEventSystem } from '../systems/eventInitializer';
@@ -139,42 +147,48 @@ const App: React.FC = () => {
   return (
     <ErrorBoundary>
       <SaveProvider>
-        <div className="bare-layout">
-          {/* Minimal top controls */}
-          <div className="controls-bar">
-            <div className="game-timer">
-              <GameTimer />
+        <Router>
+          <div className="game-layout">
+            {/* Top bar with timer and resources */}
+            <div className="top-bar">
+              <div className="game-timer">
+                <GameTimer />
+              </div>
+              <TopResourceBar />
+              <MenuButton />
             </div>
-            <MenuButton />
-          </div>
-          
-          {/* Core content area with resources and progression */}
-          <div className="core-content">
-            <div className="resource-display">
-              <ResourceList />
+            
+            {/* Main content area with routes */}
+            <div className="main-content-container">
+              <Routes>
+                <Route path="/" element={<MainGame />} />
+                <Route path="/upgrades" element={<Upgrades />} />
+                <Route path="/progression" element={<Progression />} />
+                <Route path="/settings" element={<Settings />} />
+              </Routes>
             </div>
-            <div className="progression-display">
-              <ProgressionTracker />
+            
+            {/* Bottom navigation */}
+            <TabNavigation tabs={DEFAULT_TABS} />
+            
+            {/* Debug panel toggle */}
+            <button 
+              className="debug-toggle-btn"
+              onClick={() => setIsDebugExpanded(!isDebugExpanded)}
+            >
+              {isDebugExpanded ? "HIDE DEBUG DATA" : "SHOW DEBUG DATA"}
+            </button>
+            
+            {/* Collapsible debug panel with resize handle */}
+            <div className={`debug-panel ${isDebugExpanded ? 'expanded' : 'collapsed'}`}>
+              {isDebugExpanded && <div className="debug-resize-handle" />}
+              <GameDebugger />
             </div>
             
             {/* Event panel for displaying events */}
             <EventPanel />
           </div>
-          
-          {/* Debug panel toggle */}
-          <button 
-            className="debug-toggle-btn"
-            onClick={() => setIsDebugExpanded(!isDebugExpanded)}
-          >
-            {isDebugExpanded ? "HIDE DEBUG DATA" : "SHOW DEBUG DATA"}
-          </button>
-          
-          {/* Collapsible debug panel with resize handle */}
-          <div className={`debug-panel ${isDebugExpanded ? 'expanded' : 'collapsed'}`}>
-            {isDebugExpanded && <div className="debug-resize-handle" />}
-            <GameDebugger />
-          </div>
-        </div>
+        </Router>
       </SaveProvider>
     </ErrorBoundary>
   );

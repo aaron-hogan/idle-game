@@ -7,6 +7,10 @@ export const OFFLINE_EFFICIENCY = 0.7; // 70% efficiency while away
 export const MAX_OFFLINE_TIME = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 export const REASONABLE_MAX_OFFLINE_TIME = 5 * 60 * 1000; // 5 minutes max for regular play
 
+// Constants for day-based time system
+export const SECONDS_PER_DAY = 60; // Each game day is 60 seconds of real time
+export const MAX_DAYS = 999; // Maximum number of days to display
+
 /**
  * Centralized function to get the current time in milliseconds
  * This ensures all parts of the app use the same time source
@@ -112,4 +116,39 @@ export function gameToRealTime(gameSeconds: number, timeScale: number = 1): numb
  */
 export function realToGameTime(realSeconds: number, timeScale: number = 1): number {
   return realSeconds * timeScale;
+}
+
+/**
+ * Calculate game day from total seconds
+ * Day 1 is the first day (not day 0)
+ */
+export function getDayFromSeconds(totalSeconds: number): number {
+  return Math.floor(totalSeconds / SECONDS_PER_DAY) + 1;
+}
+
+/**
+ * Calculate progress within the current day (0 to 1)
+ */
+export function getDayProgress(totalSeconds: number): number {
+  return (totalSeconds % SECONDS_PER_DAY) / SECONDS_PER_DAY;
+}
+
+/**
+ * Format time as day display (e.g., "Day 42")
+ */
+export function formatTimeAsDays(seconds: number): string {
+  const day = getDayFromSeconds(seconds);
+  // Cap at max days
+  return `Day ${Math.min(day, MAX_DAYS)}`;
+}
+
+/**
+ * Format day with leading zeros to ensure consistent width
+ * Used to prevent layout shifts in UI
+ */
+export function formatDayWithPadding(seconds: number): string {
+  const day = getDayFromSeconds(seconds);
+  const cappedDay = Math.min(day, MAX_DAYS);
+  // Pad with spaces to ensure consistent width (3 digits)
+  return cappedDay.toString().padStart(3, ' ');
 }
