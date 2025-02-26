@@ -21,6 +21,8 @@
 - [x] Implement tooltips for all counter elements
 - [x] Create consistent hover effects
 - [x] Ensure all text sizes match across counters
+- [x] Make progress bar color match icon color
+- [x] Increase text size for better readability
 
 ## Dropdown Improvements
 
