@@ -1,5 +1,6 @@
 /**
  * Horizontal milestone strip component that displays completed, active and locked milestones
+ * Allows smooth scrolling with active milestone centered in the display
  */
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useSelector } from 'react-redux';
@@ -102,30 +103,26 @@ const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({
       });
     });
     
-    // Sort by completion status and then by order
+    // Sort by game progression order (not by completion status)
+    // This ensures a consistent left-to-right timeline view
     return result.sort((a, b) => {
-      // First sort by completion status
-      if (a.status === MilestoneStatus.COMPLETED && b.status !== MilestoneStatus.COMPLETED) {
-        return -1;
-      }
-      if (a.status !== MilestoneStatus.COMPLETED && b.status === MilestoneStatus.COMPLETED) {
-        return 1;
-      }
-      
-      // Then sort by progress (for active milestones)
-      if (a.status === MilestoneStatus.ACTIVE && b.status === MilestoneStatus.ACTIVE) {
-        return b.progress - a.progress;
-      }
-      
-      // Finally sort by order
       return a.milestone.order - b.milestone.order;
     });
   }, [resources, progression]);
   
   // Find the active milestone (first non-completed with highest progress)
   const activeMilestone = useMemo(() => {
-    const active = milestoneCards.find(card => card.status === MilestoneStatus.ACTIVE);
-    return active || null;
+    // Filter to only active milestones
+    const activeMilestones = milestoneCards.filter(card => card.status === MilestoneStatus.ACTIVE);
+    
+    if (activeMilestones.length === 0) {
+      // If no active milestones, find the first locked one
+      const lockedMilestone = milestoneCards.find(card => card.status === MilestoneStatus.LOCKED);
+      return lockedMilestone || null;
+    }
+    
+    // Sort by progress descending to get the one closest to completion
+    return activeMilestones.sort((a, b) => b.progress - a.progress)[0];
   }, [milestoneCards]);
   
   // Update active milestone when it changes
@@ -136,6 +133,7 @@ const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({
   }, [activeMilestone]);
   
   // Scroll to center active milestone when it changes
+  // Center the active milestone whenever it changes
   useEffect(() => {
     if (!stripRef.current || !activeMilestoneId) return;
     
@@ -145,15 +143,57 @@ const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({
     ) as HTMLElement;
     
     if (activeMilestoneElement) {
-      // Calculate the center position
+      // Always center the active milestone (exact center positioning)
       const containerWidth = stripRef.current.offsetWidth;
       const cardWidth = activeMilestoneElement.offsetWidth;
       const cardLeft = activeMilestoneElement.offsetLeft;
       
-      // Scroll to center the card
-      stripRef.current.scrollLeft = cardLeft - (containerWidth / 2) + (cardWidth / 2);
+      // Scroll to center the card with smooth animation
+      stripRef.current.scrollTo({
+        left: cardLeft - (containerWidth / 2) + (cardWidth / 2),
+        behavior: 'smooth'
+      });
     }
   }, [activeMilestoneId]);
+  
+  // Listen for milestone completion events to trigger animation to the next active milestone
+  useEffect(() => {
+    const handleMilestoneComplete = () => {
+      // Find the previously completed milestone (if any)
+      const previouslyCompletedMilestones = Object.entries(progression?.milestones || {})
+        .filter(([_, data]) => data.completed)
+        .map(([id]) => id);
+      
+      // Store previous active milestone ID for comparison
+      const prevActiveMilestoneId = activeMilestoneId;
+      
+      // After a slight delay to allow state updates, animate to the new active milestone
+      setTimeout(() => {
+        if (activeMilestone && stripRef.current && activeMilestoneId !== prevActiveMilestoneId) {
+          const newActiveMilestoneElement = stripRef.current.querySelector(
+            `[data-milestone-id="${activeMilestone.milestone.id}"]`
+          ) as HTMLElement;
+          
+          if (newActiveMilestoneElement) {
+            const containerWidth = stripRef.current.offsetWidth;
+            const cardWidth = newActiveMilestoneElement.offsetWidth;
+            const cardLeft = newActiveMilestoneElement.offsetLeft;
+            
+            // Smooth scroll animation to center the new active milestone
+            stripRef.current.scrollTo({
+              left: cardLeft - (containerWidth / 2) + (cardWidth / 2),
+              behavior: 'smooth'
+            });
+          }
+        }
+      }, 500); // Slightly longer delay to ensure smooth transition
+    };
+
+    // Check for milestone completion by monitoring progression state changes
+    if (progression?.milestones) {
+      handleMilestoneComplete();
+    }
+  }, [progression?.milestones, activeMilestone, activeMilestoneId]);
   
   // If no milestones to display
   if (milestoneCards.length === 0) {
@@ -170,40 +210,20 @@ const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({
     ? milestoneCards.findIndex(card => card.milestone.id === activeMilestone.milestone.id)
     : 0;
   
-  // Calculate range of milestones to display (with side count on each side)
-  const startIndex = Math.max(0, activeMilestoneIndex - sideCount);
-  const endIndex = Math.min(milestoneCards.length - 1, activeMilestoneIndex + sideCount);
-  
-  // Get the visible milestone cards
-  const visibleMilestones = milestoneCards.slice(startIndex, endIndex + 1);
+  // Display all milestones in a horizontal strip to allow smooth scrolling
+  // This ensures we can scroll through the complete milestone history 
+  const visibleMilestones = milestoneCards;
   
   return (
     <div className="milestone-progress-strip">
-      <div className="milestone-strip-header">
-        <h3>Community Progress</h3>
-        <Link to="/progression" className="view-all-link">View All</Link>
-      </div>
-      
       <div className="milestone-cards-container" ref={stripRef}>
-        {/* Timeline connector line with indicators */}
-        <div className="milestone-timeline">
-          <div className="timeline-connector"></div>
-          {visibleMilestones.map((card, index) => (
-            <div 
-              key={`dot-${card.milestone.id}`}
-              className={`timeline-dot ${card.status}`}
-              style={{ left: `${(index / (visibleMilestones.length - 1)) * 100}%` }}
-            ></div>
-          ))}
-        </div>
-        
         {/* Milestone cards */}
         <div className="milestone-cards">
           {visibleMilestones.map(card => (
             <div 
               key={card.milestone.id}
               data-milestone-id={card.milestone.id}
-              className={`milestone-card ${card.status}`}
+              className={`milestone-card ${card.status} ${card.milestone.id === activeMilestoneId ? 'active-center' : ''}`}
             >
               <div className="milestone-state-indicator"></div>
               
@@ -245,18 +265,6 @@ const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({
                 </div>
               </div>
             </div>
-          ))}
-        </div>
-      </div>
-      
-      {/* Navigation indicators */}
-      <div className="milestone-navigation-indicators">
-        <div className="navigation-dots">
-          {milestoneCards.length > 1 && Array.from({ length: milestoneCards.length }).map((_, idx) => (
-            <div 
-              key={`nav-${idx}`}
-              className={`navigation-dot ${idx === activeMilestoneIndex ? 'active' : ''}`}
-            ></div>
           ))}
         </div>
       </div>
