@@ -1,90 +1,71 @@
 .resource-display {
+  width: 100%;
+  position: relative;
+  transition: all 0.3s ease;
+  margin-bottom: 0.8rem;
+}
+
+/* Animation states for Counter integration */
+.resource-display.gain .counter-value {
+  color: #7DCC75;
+  animation: pulse-green 1.5s ease-out;
+}
+
+.resource-display.loss .counter-value {
+  color: #D94949;
+  animation: pulse-red 1.5s ease-out;
+}
+
+/* Custom resource counter states */
+.resource-increasing .counter-value {
+  animation: pulse-green 1.5s ease-out;
+}
+
+.resource-decreasing .counter-value {
+  animation: pulse-red 1.5s ease-out;
+}
+
+/* Make counter component adapt to our resource display styling */
+.resource-display .counter {
+  width: 100%;
+}
+
+.resource-display .counter-display {
   background-color: #262020;
   border: 1px solid #363030;
   border-radius: 6px;
   padding: 0.8rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  transition: box-shadow 0.2s, transform 0.2s;
-  position: relative;
-  overflow: hidden;
+  height: auto;
+  min-height: 36px;
+  width: 100%;
 }
 
-.resource-display:hover {
+.resource-display .counter:hover .counter-display {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-.resource-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.6rem;
+.resource-display .counter-progress {
+  background-color: rgba(100, 167, 159, 0.2);
 }
 
-.resource-name {
-  font-weight: 600;
+.resource-display .counter-icon {
   color: #B09E9E;
   font-size: 1rem;
 }
 
-.resource-amount {
-  font-weight: 500;
+.resource-display .counter-value {
   color: #B09E9E;
   font-size: 0.9rem;
-  position: relative;
-  transition: color 0.3s;
+  font-weight: 500;
 }
 
-.resource-amount.gain {
-  color: #7DCC75;
-  animation: pulse-green 1.5s ease-out;
-}
-
-.resource-amount.loss {
-  color: #D94949;
-  animation: pulse-red 1.5s ease-out;
-}
-
-.resource-delta {
-  position: absolute;
-  top: -1.2rem;
-  right: 0;
-  font-size: 0.85rem;
-  font-weight: bold;
-  opacity: 0;
-  animation: float-up 1.5s ease-out;
-}
-
-.resource-delta.positive {
-  color: #A1F497;
-}
-
-.resource-delta.negative {
-  color: #FF6B6B;
-}
-
-.resource-progress-container {
-  width: 100%;
-  height: 8px;
-  background-color: #15131A;
-  border-radius: 4px;
-  overflow: hidden;
-  margin-bottom: 0.6rem;
-  border: 1px solid #363030;
-}
-
-.resource-progress-bar {
-  height: 100%;
-  background-color: #64A79F;
-  border-radius: 4px;
-  transition: width 0.5s ease-out;
-}
-
-.resource-rate {
-  text-align: right;
+.resource-display .counter-rate {
   font-size: 0.8rem;
   color: #9789AC;
 }
 
+/* Keyframe animations */
 @keyframes pulse-green {
   0% { color: #A1F497; }
   50% { color: #7DCC75; }

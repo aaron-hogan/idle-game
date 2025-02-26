@@ -15,7 +15,7 @@
 
 - [x] Create/update base counter component
 - [x] Extract common styling into shared CSS classes
-- [ ] Update all resource counters to use base component
+- [x] Update all resource counters to use base component
 - [x] Standardize all icon sizes and placements
 - [x] Make all counters same height and layout
 - [x] Implement tooltips for all counter elements

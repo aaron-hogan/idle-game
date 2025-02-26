@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useAppSelector } from '../../state/hooks';
 import { selectUnlockedResources } from '../../state/selectors';
 import { Resource } from '../../models/resource';
+import Counter from '../common/Counter';
 import './TopResourceBar.css';
 
 // Unicode icons for different resource types - minimalist design
@@ -22,11 +23,9 @@ interface ResourceItemProps {
 }
 
 /**
- * Individual resource item for the top resource bar
+ * Individual resource item for the top resource bar using standardized Counter component
  */
 const ResourceItem: React.FC<ResourceItemProps> = ({ resource }) => {
-  const [showTooltip, setShowTooltip] = useState(false);
-  
   // Get icon from resource or use default based on category/id
   const getIcon = () => {
     if (resource.icon) return resource.icon;
@@ -62,38 +61,58 @@ const ResourceItem: React.FC<ResourceItemProps> = ({ resource }) => {
   // Determine if resource is near capacity
   const isNearCapacity = showMaxAmount && (resource.amount / resource.maxAmount) > 0.9;
   
+  // Determine counter icon type based on resource ID or category
+  const getIconType = () => {
+    if (resource.id.includes('power')) return 'power';
+    if (resource.id.includes('knowledge')) return 'knowledge';
+    if (resource.id.includes('awareness')) return 'knowledge';
+    if (resource.id.includes('connection')) return 'community';
+    if (resource.id.includes('community')) return 'community';
+    if (resource.id.includes('currency')) return 'currency';
+    if (resource.id.includes('material')) return 'materials';
+    if (resource.category === 'primary') return 'power';
+    return 'default';
+  };
+  
+  // Calculate progress value for fill (if applicable)
+  const getProgressValue = () => {
+    if (showMaxAmount) {
+      return resource.amount / resource.maxAmount;
+    }
+    return 0; // No progress bar for resources without max
+  };
+  
+  // Create tooltip details
+  const tooltipDetails = [];
+  
+  if (showMaxAmount) {
+    tooltipDetails.push({ label: 'Maximum', value: resource.maxAmount.toFixed(2) });
+  }
+  
+  if (resource.perSecond !== 0) {
+    tooltipDetails.push({ label: 'Per Second', value: resource.perSecond.toFixed(2) });
+  }
+  
+  if (resource.clickPower) {
+    tooltipDetails.push({ label: 'Click Value', value: `+${resource.clickPower.toFixed(2)}` });
+  }
+  
   return (
-    <div 
-      className={`resource-item ${isNearCapacity ? 'near-capacity' : ''}`}
-      onMouseEnter={() => setShowTooltip(true)}
-      onMouseLeave={() => setShowTooltip(false)}
-    >
-      <span className="resource-icon">{getIcon()}</span>
-      <span className="resource-amount">
-        {formatNumber(resource.amount)}
-      </span>
-      
-      {/* Rate indicator - only show if significant */}
-      {Math.abs(resource.perSecond) > 0.01 && (
-        <span className={`resource-rate ${resource.perSecond >= 0 ? 'positive' : 'negative'}`}>
-          {resource.perSecond > 0 ? '+' : ''}{formatNumber(resource.perSecond)}/s
-        </span>
-      )}
-      
-      {/* Tooltip */}
-      {showTooltip && (
-        <div className="resource-tooltip">
-          <div className="tooltip-title">{resource.name}</div>
-          <div className="tooltip-description">{resource.description}</div>
-          <div className="tooltip-details">
-            <div>Amount: {resource.amount.toFixed(2)}</div>
-            {showMaxAmount && <div>Max: {resource.maxAmount.toFixed(2)}</div>}
-            <div>Rate: {resource.perSecond.toFixed(2)}/sec</div>
-            {resource.clickPower && <div>Click: +{resource.clickPower.toFixed(2)}</div>}
-          </div>
-        </div>
-      )}
-    </div>
+    <Counter 
+      icon={getIcon()}
+      iconType={getIconType()}
+      value={formatNumber(resource.amount)}
+      rate={Math.abs(resource.perSecond) > 0.01 ? `${resource.perSecond > 0 ? '+' : ''}${formatNumber(resource.perSecond)}/s` : undefined}
+      rateType={resource.perSecond > 0 ? 'positive' : resource.perSecond < 0 ? 'negative' : 'neutral'}
+      progress={getProgressValue()}
+      className={isNearCapacity ? 'near-capacity' : ''}
+      tooltip={{
+        title: resource.name,
+        description: resource.description,
+        details: tooltipDetails
+      }}
+      minWidth="80px"
+    />
   );
 };
 

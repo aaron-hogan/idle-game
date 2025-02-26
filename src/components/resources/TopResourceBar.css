@@ -2,7 +2,7 @@
   flex: 2;
   padding: 0;
   display: flex;
-  overflow: visible; /* Changed from overflow-x: auto to allow dropdowns to be visible */
+  overflow: visible; /* Allow dropdowns to be visible */
   white-space: nowrap;
   min-width: 200px;
 }
@@ -16,113 +16,41 @@
   margin-left: 0;
 }
 
-.resource-item {
-  display: flex;
-  align-items: center;
-  background-color: #181818;
-  border-radius: 3px;
+/* Counter component specific styling for resource bar */
+.top-resource-bar .counter {
+  margin-right: 4px;
+}
+
+.top-resource-bar .counter-display {
+  height: 24px; /* Fixed height to match timer */
   padding: 3px 6px;
-  position: relative;
-  cursor: default;
-  transition: background-color 0.2s ease;
-  font-family: monospace;
-  height: 24px; /* Fixed height to match time display */
-  box-sizing: border-box;
+  min-width: 80px; /* Smaller than default */
 }
 
-.resource-item:hover {
-  background-color: #222;
+.top-resource-bar .counter-icon {
+  margin-right: 4px;
+  font-size: 13px;
+  min-width: 15px;
 }
 
-.resource-item.near-capacity {
+.top-resource-bar .counter-value {
+  font-size: 12px;
+  color: #ddd;
+  min-width: 40px; /* Smaller than default */
+}
+
+.top-resource-bar .counter-rate {
+  font-size: 11px;
+  margin-left: 3px;
+}
+
+/* Use consistent near-capacity styling */
+.top-resource-bar .near-capacity .counter-display {
   background-color: #3e2723;
 }
 
-.resource-item.near-capacity:hover {
+.top-resource-bar .near-capacity:hover .counter-display {
   background-color: #4e342e;
-}
-
-.resource-icon {
-  margin-right: 5px;
-  font-size: 13px;
-  min-width: 15px;
-  text-align: center;
-}
-
-.resource-amount {
-  font-size: 12px;
-  color: #ddd;
-  font-family: monospace;
-}
-
-.resource-rate {
-  font-size: 12px;
-  margin-left: 5px;
-  color: #aaa;
-  font-family: monospace;
-  /* Add consistent indicator styling */
-  padding: 1px 3px;
-  border-radius: 2px;
-  cursor: pointer;
-  transition: color 0.2s ease;
-}
-
-.resource-rate.positive {
-  color: #81c784;
-}
-
-.resource-rate.negative {
-  color: #e57373;
-}
-
-.resource-rate:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.resource-tooltip {
-  position: absolute;
-  top: calc(100% + 5px);
-  left: 0;
-  z-index: 1000; /* Ensure it's always visible */
-  min-width: 180px;
-  max-width: 250px;
-  background-color: #222;
-  border: 1px solid #444;
-  border-radius: 4px;
-  padding: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  font-size: 12px;
-  color: #eee;
-  pointer-events: none;
-  animation: fadeIn 0.15s ease forwards; /* Add animation for consistency */
-}
-
-/* Animation for tooltips and dropdowns */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-5px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.tooltip-title {
-  font-weight: bold;
-  margin-bottom: 4px;
-  color: #fff;
-  border-bottom: 1px solid #444;
-  padding-bottom: 3px;
-}
-
-.tooltip-description {
-  font-size: 11px;
-  color: #bbb;
-  margin-bottom: 6px;
-}
-
-.tooltip-details {
-  font-size: 11px;
-  color: #ddd;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3px;
 }
 
 .no-resources {
@@ -143,27 +71,21 @@
     gap: 6px;
   }
   
-  .resource-item {
-    padding: 3px 6px;
+  .top-resource-bar .counter-display {
+    padding: 3px 5px;
+    min-width: 60px;
   }
   
-  .resource-icon {
+  .top-resource-bar .counter-icon {
     font-size: 12px;
     margin-right: 3px;
   }
   
-  .resource-amount {
+  .top-resource-bar .counter-value {
     font-size: 11px;
   }
   
-  .resource-rate {
-    display: none; /* Hide rate on small screens to save space */
-  }
-  
-  /* Ensure tooltip doesn't go offscreen */
-  .resource-tooltip {
-    left: auto;
-    right: 0;
-    max-width: 200px;
+  .top-resource-bar .counter-rate {
+    display: none; /* Hide rate on small screens */
   }
 }
