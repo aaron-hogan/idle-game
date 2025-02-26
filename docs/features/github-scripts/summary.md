@@ -48,6 +48,7 @@ By centralizing git operations in these scripts and documenting them in CLAUDE.m
 **Options:**
 - `--draft` - Create a draft PR (not ready for review)
 - `--base <branch>` - Set a different base branch (default: main)
+- `--skip-check` - Skip uncommitted changes warning
 
 **Features:**
 - Prevents PR creation from main branch

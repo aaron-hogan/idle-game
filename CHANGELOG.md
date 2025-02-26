@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Custom base branch support with `create-pr.sh --base <branch>`
   - Improved CI integration in `check-pr.sh` with detailed status and ability to re-run checks
   - Conflict detection and resolution in `merge-pr.sh --resolve-conflicts`
+  - Protection against uncommitted changes
+  - Warnings and confirmations for working directory modifications
+  - Option to stay on current branch after merging
 - GitHub automation scripts specifically designed for AI pair programming:
   - `create-branch.sh` - Safely creates properly named feature branches
   - `create-pr.sh` - Creates standardized pull requests from feature branches

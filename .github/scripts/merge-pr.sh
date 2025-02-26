@@ -73,6 +73,14 @@ if [ "$MERGEABLE" != "MERGEABLE" ]; then
     # Get current branch to return to later
     ORIGINAL_BRANCH=$(git branch --show-current)
     
+    # Check for unsaved changes before proceeding
+    if ! git diff --quiet || ! git diff --cached --quiet; then
+      echo "ERROR: You have unsaved changes in your working directory."
+      echo "Please commit or stash your changes before proceeding:"
+      echo "  git stash save \"Work in progress\""
+      exit 1
+    fi
+    
     # Checkout PR branch
     git fetch origin "$HEAD_BRANCH":"$HEAD_BRANCH" || { echo "Failed to fetch PR branch"; exit 1; }
     git checkout "$HEAD_BRANCH" || { echo "Failed to checkout PR branch"; exit 1; }
@@ -165,6 +173,17 @@ else
 fi
 
 if [[ "$CONFIRM" =~ ^[Yy]$ ]]; then
+  # Check for unsaved changes before proceeding
+  if ! git diff --quiet || ! git diff --cached --quiet; then
+    echo "ERROR: You have unsaved changes in your working directory."
+    echo "Please commit or stash your changes before proceeding:"
+    echo "  git stash save \"Work in progress\""
+    exit 1
+  fi
+
+  # Record current branch to restore if requested
+  CURRENT_BRANCH=$(git branch --show-current)
+  
   # Perform the merge
   echo "Merging PR..."
   gh pr merge $PR_NUMBER --merge --delete-branch
@@ -172,9 +191,28 @@ if [[ "$CONFIRM" =~ ^[Yy]$ ]]; then
   if [ $? -eq 0 ]; then
     echo "✅ PR #$PR_NUMBER successfully merged and branch deleted"
     
-    # Optional: checkout main and pull latest changes
-    git checkout $BASE_BRANCH
-    git pull
+    # Ask if user wants to switch to base branch
+    if [ "$AUTO_YES" = true ]; then
+      SWITCH_BRANCH="y"
+    else
+      echo "Would you like to switch to the $BASE_BRANCH branch? (y/n)"
+      read -r SWITCH_BRANCH
+    fi
+    
+    if [[ "$SWITCH_BRANCH" =~ ^[Yy]$ ]]; then
+      # Checkout base branch and pull latest changes
+      git checkout $BASE_BRANCH
+      git pull
+    else
+      echo "Remaining on current branch: $CURRENT_BRANCH"
+      # If the current branch was deleted during merge, switch to base branch
+      if [[ "$CURRENT_BRANCH" = "$HEAD_BRANCH" ]]; then
+        echo "Note: Your previous branch was deleted during the merge."
+        echo "Switching to $BASE_BRANCH instead."
+        git checkout $BASE_BRANCH
+        git pull
+      fi
+    fi
   else
     echo "❌ ERROR: Failed to merge PR #$PR_NUMBER"
     exit 1

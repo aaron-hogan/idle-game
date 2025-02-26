@@ -4,6 +4,7 @@
 # Default values
 DRAFT=false
 BASE_BRANCH="main"
+SKIP_STASH_CHECK=false
 
 # Parse command line arguments
 while [[ $# -gt 0 ]]; do
@@ -15,6 +16,10 @@ while [[ $# -gt 0 ]]; do
     --base)
       BASE_BRANCH="$2"
       shift 2
+      ;;
+    --skip-check)
+      SKIP_STASH_CHECK=true
+      shift
       ;;
     *)
       # Skip unknown options
@@ -34,6 +39,22 @@ fi
 if [[ ! "$CURRENT_BRANCH" =~ ^(feature|fix|docs|refactor|ci|chore|test)/[a-z0-9-]+$ ]]; then
   echo "ERROR: Branch name doesn't follow required pattern"
   exit 1
+fi
+
+# Check for uncommitted changes
+if [ "$SKIP_STASH_CHECK" = false ]; then
+  if ! git diff --quiet || ! git diff --cached --quiet; then
+    echo "WARNING: You have uncommitted changes that won't be included in this PR."
+    echo "Do you want to continue without including these changes? (y/n)"
+    read -r CONTINUE
+    
+    if [[ ! "$CONTINUE" =~ ^[Yy]$ ]]; then
+      echo "PR creation canceled. Please commit your changes first."
+      exit 1
+    fi
+    
+    echo "Proceeding without uncommitted changes..."
+  fi
 fi
 
 # Create PR with standardized format

@@ -26,6 +26,20 @@ if [ "$CURRENT_BRANCH" != "main" ]; then
   echo "WARNING: Not on main branch. Creating branch from $CURRENT_BRANCH instead of main."
 fi
 
+# Check for unsaved changes before proceeding
+if ! git diff --quiet || ! git diff --cached --quiet; then
+  echo "WARNING: You have unsaved changes in your working directory."
+  echo "Do you want to continue anyway? Changes will be carried to the new branch. (y/n)"
+  read -r CONTINUE
+  
+  if [[ ! "$CONTINUE" =~ ^[Yy]$ ]]; then
+    echo "Branch creation canceled. Please commit or stash your changes first."
+    exit 1
+  fi
+  
+  echo "Proceeding with uncommitted changes..."
+fi
+
 # Create and checkout branch
 git checkout -b "$BRANCH_NAME"
 echo "Created and switched to branch: $BRANCH_NAME"
