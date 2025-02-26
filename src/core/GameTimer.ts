@@ -231,13 +231,30 @@ export class GameTimer {
       // Calculate elapsed game time using time scale
       // Use precise time scale calculation with fixed 2-decimal precision to prevent tiny rounding errors
       const timeScale = Math.round(this.config.timeScale * 100) / 100;
-      this.elapsedGameTime = this.elapsedRealTime * timeScale;
+      
+      // Ensure time scale is at least 0.1 and not zero to prevent stuck timer
+      const safeTimeScale = Math.max(0.1, timeScale);
+      this.elapsedGameTime = this.elapsedRealTime * safeTimeScale;
+      
+      // CRITICAL FIX: Ensure we always have at least some minimal time progress
+      // This prevents the day counter from appearing stuck due to small time values
+      const minTimeIncrement = 0.001; // Minimum 1ms game time increment per frame
+      this.elapsedGameTime = Math.max(this.elapsedGameTime, minTimeIncrement);
       
       // Update total game time - use precise time accumulation
       this.totalGameTime += this.elapsedGameTime;
       
       // Update last time for next frame
       this.lastRealTime = currentTime;
+      
+      // Log detailed update info occasionally (0.1% of updates)
+      if (this.config.debugMode && Math.random() < 0.001) {
+        console.log(
+          `GameTimer: update - elapsed real=${this.elapsedRealTime.toFixed(5)}s, ` +
+          `scale=${safeTimeScale.toFixed(2)}x, ` +
+          `game time=${this.totalGameTime.toFixed(2)}s`
+        );
+      }
       
       // Timer updated successfully
     } catch (error) {

@@ -187,7 +187,15 @@ export class GameLoop {
       
       while (this.accumulatedTime >= fixedTimeStep && updateCount < this.config.maxUpdatesPerFrame) {
         // Process fixed update with the consistent time step
-        this.processFixedUpdate(fixedTimeStep, fixedTimeStep * this.gameTimer.getTimeScale());
+        // CRITICAL FIX: Ensure time scale is applied correctly for day counting
+        const currentTimeScale = this.gameTimer.getTimeScale();
+        const scaledTime = fixedTimeStep * currentTimeScale;
+        
+        // Ensure minimum progress even with extremely small time scale
+        const minScaledTime = 0.001; // Minimum 1ms game time per tick
+        const effectiveScaledTime = Math.max(scaledTime, minScaledTime);
+        
+        this.processFixedUpdate(fixedTimeStep, effectiveScaledTime);
         
         // Reduce accumulated time
         this.accumulatedTime -= fixedTimeStep;
@@ -286,7 +294,16 @@ export class GameLoop {
     timeScale: number;
     timeRatio: number;
     accumulator: number;
+    totalGameTime: number;
+    currentDay: number;
+    dayProgress: number;
   } {
+    // Calculate day information based on total game time
+    const totalGameTime = this.gameTimer.getTotalGameTime();
+    const secondsPerDay = 60; // Same as SECONDS_PER_DAY from timeUtils
+    const currentDay = Math.floor(totalGameTime / secondsPerDay) + 1;
+    const dayProgress = (totalGameTime % secondsPerDay) / secondsPerDay;
+    
     return {
       tickRate: this.config.tickRate,
       tickCount: this.tickCount,
@@ -295,7 +312,10 @@ export class GameLoop {
       timeStep: 1.0 / this.config.tickRate,
       timeScale: this.gameTimer.getTimeScale(),
       timeRatio: this.gameTimer.getTimeRatio(),
-      accumulator: this.accumulatedTime
+      accumulator: this.accumulatedTime,
+      totalGameTime: totalGameTime,
+      currentDay: currentDay,
+      dayProgress: dayProgress
     };
   }
   

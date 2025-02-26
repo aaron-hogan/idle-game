@@ -353,13 +353,24 @@ export class GameManager {
       const state = this.store.getState();
       const reduxTime = state.game.totalPlayTime;
       
+      // Critical issue fix: ensure timer time is always incremented at least slightly
+      // This ensures that even with rounding errors, the time always moves forward
+      const minIncrement = 0.1; // Increased to 0.1 second increment (100ms) for more noticeable progress
+      const newTime = Math.max(timerTime, reduxTime + minIncrement);
+      
+      // Detailed logging removed after fix
+      
       // Always update to keep the UI synchronized with the game timer
       // This ensures the timer display updates smoothly
-      this.store.dispatch(setTotalPlayTime(timerTime));
+      this.store.dispatch(setTotalPlayTime(newTime));
+      
+      // Force time scale to match Redux - this is critical for day counting
+      const timeScale = state.game.gameTimeScale || 1.0;
+      this.gameLoop.setTimeScale(timeScale);
         
       // Only log significant time differences to avoid console spam
-      if (this.config.debugMode && Math.abs(reduxTime - timerTime) > 0.5) {
-        console.log(`GameManager: Synced Redux time (${reduxTime.toFixed(2)}s) to match timer time (${timerTime.toFixed(2)}s)`);
+      if (this.config.debugMode && Math.abs(reduxTime - newTime) > 0.5) {
+        console.log(`GameManager: Synced Redux time (${reduxTime.toFixed(2)}s) to new time (${newTime.toFixed(2)}s), scale: ${timeScale.toFixed(2)}x`);
       }
     } catch (error) {
       console.error("GameManager: Error during Redux time sync:", error);
@@ -380,6 +391,17 @@ export class GameManager {
       // BEST PRACTICE: Use scaled time consistently for both timer and resources
       // This follows standard game development patterns where game time and systems
       // all use the same time scale consistently
+      
+      // Ensure time scale is synchronized with Redux
+      const reduxTimeScale = state.game.gameTimeScale || 1.0;
+      const currentTimeScale = this.gameLoop.getTimeScale();
+      
+      // Update time scale immediately if it's different
+      if (Math.abs(reduxTimeScale - currentTimeScale) > 0.001) {
+        this.gameLoop.setTimeScale(reduxTimeScale);
+        // Log the scale change
+        console.log(`GameManager: Updated time scale to match Redux: ${reduxTimeScale.toFixed(2)}x`);
+      }
       
       // Log debug info about time values
       if (this.config.debugMode && Math.random() < 0.01) {
@@ -408,7 +430,17 @@ export class GameManager {
       // Log debug info occasionally
       if (this.config.debugMode && Math.random() < 0.01) {
         const gameTimeScale = state.game.gameTimeScale || 1;
-        console.log(`GameManager: realDelta=${deltaTime.toFixed(3)}s, gameDelta=${scaledDeltaTime.toFixed(3)}s, scale=${gameTimeScale.toFixed(1)}x, gameTime=${state.game.totalPlayTime.toFixed(1)}s`);
+        const totalTime = state.game.totalPlayTime;
+        const dayNumber = Math.floor(totalTime / 60) + 1; // Using SECONDS_PER_DAY = 60
+        const dayProgress = ((totalTime % 60) / 60 * 100).toFixed(1); // Calculate day progress percentage
+        
+        console.log(
+          `GameManager: realDelta=${deltaTime.toFixed(3)}s, ` +
+          `gameDelta=${scaledDeltaTime.toFixed(3)}s, ` + 
+          `scale=${gameTimeScale.toFixed(1)}x, ` + 
+          `gameTime=${totalTime.toFixed(1)}s, ` +
+          `day=${dayNumber}, progress=${dayProgress}%`
+        );
       }
     } catch (error) {
       console.error("GameManager: Error in update:", error);
