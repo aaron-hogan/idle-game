@@ -100,15 +100,13 @@ export class ResourceManager {
       // Even if elapsed time is 0, we'll add a tiny amount to ensure progress
       // This is mainly for debugging the issue with game not ticking
       gameTimeInSeconds = 0.01;
-      console.log("ResourceManager: Applying minimum tick time of 0.01s");
+      // Removed excessive logging here
     }
     
     const state = this.getState!();
     const resources = state.resources;
     
-    // Debug logging for resource update
-    const resourceCount = Object.keys(resources).length;
-    console.log(`ResourceManager: Updating ${resourceCount} resources for ${gameTimeInSeconds.toFixed(3)}s of game time`);
+    // Removed excessive logging for resource updates
     
     // For each resource, add the generated amount based on the game time that passed
     Object.values(resources).forEach((resource: unknown) => {
@@ -125,13 +123,12 @@ export class ResourceManager {
             amount: generatedAmount,
           }));
           
-          // Debug log for significant resources
-          if (generatedAmount > 0.1) {
-            console.log(`ResourceManager: Added ${generatedAmount.toFixed(2)} to ${resource.id}`);
-          }
+          // Removed excessive logging for resource updates
         } else if (!('name' in resource) || !resource.name) {
-          // Log any malformed resources
-          console.warn(`ResourceManager: Found malformed resource with id ${resource.id}`);
+          // Log only occasionally to reduce console spam
+          if (Math.random() < 0.01) { // Only log 1% of the time
+            console.warn(`ResourceManager: Found malformed resource with id ${resource.id}`);
+          }
         }
       }
     });
@@ -209,12 +206,7 @@ export class ResourceManager {
             basePerSecond: baseRate,
           }));
           
-          // Log for debugging
-          console.log(
-            `ResourceManager: Updated ${resourceId} generation: base=${baseRate.toFixed(2)}, ` +
-            `upgrades=${passiveLevel} (${(passiveLevel * 0.1).toFixed(1)}), ` +
-            `total=${(baseRate + passiveLevel * 0.1).toFixed(2)}`
-          );
+          // Removed excessive logging
         } else {
           // If the resource doesn't exist yet, just set the base rate
           // This will automatically set perSecond to the same value
@@ -434,8 +426,10 @@ export class ResourceManager {
       level: newLevel,
     }));
     
-    // Log for debugging
-    console.log(`ResourceManager: Upgraded ${resourceId} click power to level ${newLevel} (+${newLevel})`);
+    // Log important gameplay progress less frequently
+    if (Math.random() < 0.5) { // 50% chance to log upgrades
+      console.log(`ResourceManager: Upgraded ${resourceId} click power to level ${newLevel}`);
+    }
     
     return true;
   }
@@ -464,11 +458,13 @@ export class ResourceManager {
     const scaleFactor = 1.5; // Cost increases by this factor each time
     const cost = Math.floor(baseCost * Math.pow(scaleFactor, currentLevel));
     
-    // Log for debugging
-    console.log(
-      `ResourceManager: Calculating click upgrade cost for ${resourceId}: ` +
-      `current level=${currentLevel}, cost=${cost}`
-    );
+    // Only log occasionally to reduce console spam
+    if (Math.random() < 0.05) { // Only log 5% of the time
+      console.log(
+        `ResourceManager: Calculating click upgrade cost for ${resourceId}: ` +
+        `current level=${currentLevel}, cost=${cost}`
+      );
+    }
     
     return cost;
   }
@@ -521,16 +517,10 @@ export class ResourceManager {
       level: newLevel,
     }));
     
-    // Calculate new generation rate for logging
-    const baseRate = resource.basePerSecond || 0;
-    const newRate = baseRate + (newLevel * 0.1);
-    
-    // Log for debugging
-    console.log(
-      `ResourceManager: Upgraded ${resourceId} passive generation to level ${newLevel}: ` +
-      `base=${baseRate.toFixed(2)}, upgrade bonus=${(newLevel * 0.1).toFixed(1)}, ` +
-      `total=${newRate.toFixed(2)}`
-    );
+    // Log important gameplay progress less frequently
+    if (Math.random() < 0.5) { // 50% chance to log upgrades
+      console.log(`ResourceManager: Upgraded ${resourceId} passive generation to level ${newLevel}`);
+    }
     
     return true;
   }
@@ -559,11 +549,13 @@ export class ResourceManager {
     const scaleFactor = 1.8; // Cost increases faster than click upgrades
     const cost = Math.floor(baseCost * Math.pow(scaleFactor, currentLevel));
     
-    // Log for debugging
-    console.log(
-      `ResourceManager: Calculating passive upgrade cost for ${resourceId}: ` +
-      `current level=${currentLevel}, cost=${cost}`
-    );
+    // Only log occasionally to reduce console spam
+    if (Math.random() < 0.05) { // Log only 5% of the time
+      console.log(
+        `ResourceManager: Calculating passive upgrade cost for ${resourceId}: ` +
+        `current level=${currentLevel}, cost=${cost}`
+      );
+    }
     
     return cost;
   }

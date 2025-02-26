@@ -80,7 +80,7 @@ const App: React.FC = () => {
   // Debug panel state
   const [isDebugExpanded, setIsDebugExpanded] = useState(false);
   
-  // Initialize resources and game loop when the app first loads
+  // Initialize resources and game loop when the app first loads - only once on mount
   useEffect(() => {
     // Get singleton instances
     const resourceManager = ResourceManager.getInstance();
@@ -111,17 +111,20 @@ const App: React.FC = () => {
     }
     
     // Initialize and start the game manager (which controls the game loop)
-    gameManagerRef.current = GameManager.getInstance(store, { 
-      debugMode: true, 
-      processOfflineProgress: true 
-    });
-    
-    // Initialize and start the game
-    gameManagerRef.current.initialize();
-    gameManagerRef.current.start();
-    
-    // Add a small initial time to kickstart the display
-    dispatch(addPlayTime(0.1));
+    // Only initialize if not already initialized
+    if (!gameManagerRef.current) {
+      gameManagerRef.current = GameManager.getInstance(store, { 
+        debugMode: true, 
+        processOfflineProgress: true 
+      });
+      
+      // Initialize and start the game
+      gameManagerRef.current.initialize();
+      gameManagerRef.current.start();
+      
+      // Add a small initial time to kickstart the display
+      dispatch(addPlayTime(0.1));
+    }
     
     // Clean up the game when component unmounts
     return () => {
@@ -129,7 +132,8 @@ const App: React.FC = () => {
         gameManagerRef.current.stop(true);
       }
     };
-  }, [dispatch, lastSaveTime, resources]);
+  // Empty dependency array ensures this only runs once at mount
+  }, []);
   
   // Handle game running state changes
   useEffect(() => {
