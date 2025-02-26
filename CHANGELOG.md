@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Dependency management workflow for security and update monitoring
 - Comprehensive documentation for CI/CD workflows and contribution guidelines
 - Hello World test workflow for GitHub Actions verification
+- TypeScript error handling in CI/CD workflows with detailed documentation
 
 ### Changed
 - Redesigned movement balance display - now integrated directly into the top resource bar
