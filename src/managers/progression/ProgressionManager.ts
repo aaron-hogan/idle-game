@@ -106,7 +106,9 @@ export class ProgressionManager {
             }
             
             // Get resource using properly typed access
-            const resource = resources[target as string];
+            // Use safe access for indexing with type assertion
+            const resource = (typeof target === 'string' && target in resources) ? 
+              (resources as Record<string, any>)[target] : undefined;
             if (!resource) {
               this.debugLog(`Warning: Resource ${target} not found`);
               return false;

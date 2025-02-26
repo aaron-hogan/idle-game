@@ -27,7 +27,7 @@ const EventCard: React.FC<EventCardProps> = ({ event, onChoiceSelected, onClose 
   
   // Show event information
   return (
-    <Card className={`event-card event-card--${event.type.toLowerCase()}`}>
+    <Card className={`event-card event-card--${event.type.toLowerCase()} event-card--${event.category?.toLowerCase() || ''}`}>
       <div className="event-card__header">
         <h3 className="event-card__title">{event.title}</h3>
         {!event.choices && onClose && (

@@ -7,6 +7,7 @@ import { RootState } from '../../state/store';
 import { Milestone } from '../../interfaces/progression';
 import { allMilestones } from '../../data/progression/milestones';
 import './MilestoneProgress.css';
+import { Resource } from '../../models/resource';
 
 interface ResourceRequirement {
   resourceId: string;
@@ -107,7 +108,7 @@ const MilestoneProgress: React.FC<MilestoneProgressProps> = ({
       // Process each requirement in the milestone
       milestone.requirements.forEach(req => {
         if (req.type === 'resourceAmount' && req.target && resources[req.target]) {
-          const resource = resources[req.target];
+          const resource = resources[req.target] as Resource;
           const currentAmount = resource.amount;
           const requiredAmount = typeof req.value === 'number' ? req.value : parseFloat(req.value.toString());
           const progress = Math.min(100, (currentAmount / requiredAmount) * 100);

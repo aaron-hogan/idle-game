@@ -2,6 +2,8 @@ import { store } from '../state/store';
 import { EventManager } from './eventManager';
 import { addEvents } from '../state/eventsSlice';
 import { sampleEvents } from '../data/sampleEvents';
+import { antiCapitalistEvents } from '../data/events/antiCapitalistEvents';
+import { ErrorLogger } from '../utils/errorUtils';
 
 // Track initialization to prevent duplicate setup
 let initialized = false;
@@ -18,17 +20,32 @@ export function initializeEventSystem() {
   
   console.log('Initializing event system...');
   
-  // Register events in the store
-  store.dispatch(addEvents(sampleEvents));
-  
-  // Initialize the EventManager
-  const eventManager = EventManager.getInstance();
-  eventManager.initialize(store);
-  
-  console.log(`Initialized event system with ${sampleEvents.length} events`);
-  
-  // Mark as initialized
-  initialized = true;
-  
-  return eventManager;
+  try {
+    // Register events in the store
+    // First the sample demo events
+    store.dispatch(addEvents(sampleEvents));
+    
+    // Then the anti-capitalist themed events
+    store.dispatch(addEvents(antiCapitalistEvents));
+    
+    // Initialize the EventManager
+    const eventManager = EventManager.getInstance();
+    eventManager.initialize(store);
+    
+    const totalEvents = sampleEvents.length + antiCapitalistEvents.length;
+    console.log(`Initialized event system with ${totalEvents} events (${sampleEvents.length} sample, ${antiCapitalistEvents.length} themed)`);
+    
+    // Mark as initialized
+    initialized = true;
+    
+    return eventManager;
+  } catch (error) {
+    const logger = ErrorLogger.getInstance();
+    logger.logError(
+      error instanceof Error ? error : new Error(String(error)),
+      'initializeEventSystem'
+    );
+    console.error('Failed to initialize event system:', error);
+    return EventManager.getInstance();
+  }
 }
