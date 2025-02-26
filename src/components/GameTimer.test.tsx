@@ -44,7 +44,9 @@ describe('GameTimer', () => {
       </Provider>
     );
 
-    // Check that Counter component received correct props
+    // Note: Our fix changed the initial value from 30 to 0 seconds,
+    // but the test uses a mock store with totalPlayTime: 120,
+    // so it should still show Day 3 (since 120/60 + 1 = 3)
     expect(screen.getByTestId('counter-value')).toHaveTextContent('Day 3');
     expect(screen.getByTestId('counter-rate')).toHaveTextContent('1x');
   });
