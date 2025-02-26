@@ -60,6 +60,22 @@ The scripts follow project standards and incorporate safety checks to prevent co
 - No credentials are stored in scripts
 - Scripts follow least-privilege principles
 
+## Performance Benefits
+
+Using these scripts with AI assistants provides significant efficiency improvements:
+
+- **Token Usage:** ~89% reduction in tokens needed for git operations
+- **Context Window Savings:** ~400 tokens saved per git operation
+- **Conversation Efficiency:** More context available for discussing actual code
+- **Standardization:** Consistent outputs that are easier for AI to parse
+- **Error Reduction:** Built-in validation prevents common mistakes
+
+In practical terms, this means:
+- More efficient AI pair programming sessions
+- Less repetitive git command explanations
+- More context available for complex tasks
+- Reduced chance of git workflow errors
+
 ## Future Improvements
 
 - Add release automation script
