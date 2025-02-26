@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
+import './Dropdown.css';
 
 interface DropdownProps {
   isOpen: boolean;
@@ -109,11 +110,21 @@ const Dropdown: React.FC<DropdownProps> = ({
   if (!isOpen) return null;
 
   // Render dropdown through portal
+  // Explicit inline styles to ensure dropdown always has some styling
+  const baseStyle = {
+    backgroundColor: '#191919',
+    border: '1px solid #333',
+    borderRadius: '4px',
+    boxShadow: '0 6px 16px rgba(0, 0, 0, 0.5)',
+    padding: '8px',
+    ...getDropdownStyle()
+  };
+
   return ReactDOM.createPortal(
     <div 
       ref={dropdownRef}
       className={`portal-dropdown ${className}`}
-      style={getDropdownStyle()}
+      style={baseStyle}
     >
       {children}
     </div>,

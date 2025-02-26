@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import Dropdown from '../ui/Dropdown';
 import './Counter.css';
+import '../ui/Dropdown.css'; // Import the dropdown styles explicitly
 
 export interface CounterProps {
   // Basic properties
@@ -147,17 +148,52 @@ const Counter: React.FC<CounterProps> = ({
             position="bottom-right"
             className="counter-dropdown"
           >
-            <div className="dropdown-header">{dropdownTitle}</div>
+            <div 
+              className="dropdown-header"
+              style={{
+                fontSize: '10px',
+                color: '#888',
+                marginBottom: '5px',
+                paddingBottom: '2px',
+                borderBottom: '1px solid #333',
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+                fontFamily: 'monospace'
+              }}
+            >
+              {dropdownTitle}
+            </div>
             <div className="dropdown-group">
-              {dropdownItems.map((item, index) => (
-                <button
-                  key={index}
-                  className={`dropdown-item ${item.isActive ? 'active' : ''}`}
-                  onClick={item.onClick}
-                >
-                  {item.label}
-                </button>
-              ))}
+              {dropdownItems.map((item, index) => {
+                // Apply inline styles to ensure dropdown items have styling
+                const itemStyle: React.CSSProperties = {
+                  padding: '5px 8px',
+                  cursor: 'pointer',
+                  borderRadius: '3px',
+                  transition: 'all 0.2s ease',
+                  background: item.isActive ? '#2E7D32' : '#222',
+                  border: item.isActive ? '1px solid #388E3C' : '1px solid #333',
+                  color: item.isActive ? '#fff' : '#aaa',
+                  fontSize: '11px',
+                  textAlign: 'center',
+                  width: '100%',
+                  margin: '2px 0',
+                  fontFamily: 'monospace',
+                  fontWeight: 500,
+                  boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.05)'
+                };
+                
+                return (
+                  <button
+                    key={index}
+                    className={`dropdown-item ${item.isActive ? 'active' : ''}`}
+                    style={itemStyle}
+                    onClick={item.onClick}
+                  >
+                    {item.label}
+                  </button>
+                );
+              })}
             </div>
           </Dropdown>
         )}

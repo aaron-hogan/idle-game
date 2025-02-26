@@ -13,6 +13,7 @@ import {
 import { startGame, stopGame, setGameTimeScale } from '../state/gameSlice';
 import Counter from './common/Counter';
 import './GameTimer.css';
+import './ui/Dropdown.css'; // Ensure dropdown styles are loaded
 
 interface GameTimerProps {
   className?: string;
