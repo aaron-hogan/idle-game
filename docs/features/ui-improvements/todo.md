@@ -13,23 +13,23 @@
 
 ## Counter Component Standardization
 
-- [ ] Create/update base counter component
-- [ ] Extract common styling into shared CSS classes
+- [x] Create/update base counter component
+- [x] Extract common styling into shared CSS classes
 - [ ] Update all resource counters to use base component
-- [ ] Standardize all icon sizes and placements
-- [ ] Make all counters same height and layout
-- [ ] Implement tooltips for all counter elements
-- [ ] Create consistent hover effects
-- [ ] Ensure all text sizes match across counters
+- [x] Standardize all icon sizes and placements
+- [x] Make all counters same height and layout
+- [x] Implement tooltips for all counter elements
+- [x] Create consistent hover effects
+- [x] Ensure all text sizes match across counters
 
 ## Dropdown Improvements
 
-- [ ] ✅ Create portal-based Dropdown component
-- [ ] ✅ Implement proper positioning relative to trigger
-- [ ] ✅ Add consistent styling for all dropdowns
-- [ ] ✅ Fix z-index and visibility issues
-- [ ] Extend portal approach to all toolips
-- [ ] Ensure consistent animation for all dropdowns
+- [x] Create portal-based Dropdown component
+- [x] Implement proper positioning relative to trigger
+- [x] Add consistent styling for all dropdowns
+- [x] Fix z-index and visibility issues
+- [x] Extend portal approach to all toolips
+- [x] Ensure consistent animation for all dropdowns
 - [ ] Add proper focus management for keyboard users
 
 ## Milestone Progression Strip
