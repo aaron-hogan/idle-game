@@ -38,9 +38,9 @@ This file serves as a quick reference and process enforcer for all development w
 
 ## Documentation Resources
 
-### Main Documentation
+### Main Documentation Index
 
-All project documentation is maintained in the [Instruction Library](/docs/processes/instruction-library-index.md). This is your primary resource for all development guidelines, processes, and standards.
+All project documentation is categorized below. The complete index is maintained in the [Instruction Library](/docs/processes/instruction-library-index.md).
 
 ### Getting Started
 
@@ -48,7 +48,18 @@ All project documentation is maintained in the [Instruction Library](/docs/proce
 - [Getting Started Guide](/docs/guides/getting-started.md) - Guide for new developers
 - [Contributing Guidelines](/docs/guides/contributing.md) - How to contribute to the project
 
-### Key Process Documentation
+### Feature Documentation
+
+- [Core Game Loop](/docs/features/core-game-loop/core-game-loop.md) - Main game mechanics
+- [Debug Panel](/docs/features/debug-panel/debug-panel.md) - Game debugging tools
+- [Event System](/docs/features/event-system/event-system.md) - Event handling architecture
+- [Milestone Tracking](/docs/features/milestone-tracking/milestone-tracking.md) - Player progression tracking
+- [Progression System](/docs/features/progression-system/progression-system.md) - Player advancement mechanics
+- [Resource Earning](/docs/features/resource-earning-mechanics/implementation-guide.md) - Resource acquisition systems
+- [Timer System](/docs/features/timer/timer.md) - Game timing implementation
+- [Visual Design](/docs/features/visual-design/visual-design.md) - Game aesthetics and UI principles
+
+### Process Documentation
 
 - [Code Style Guide](/docs/processes/code-quality/code-style-guide.md) - Coding standards
 - [Architecture Guidelines](/docs/processes/code-quality/architecture-guidelines.md) - System design principles
@@ -58,9 +69,12 @@ All project documentation is maintained in the [Instruction Library](/docs/proce
 - [PR Workflow](/docs/processes/pr-workflow.md) - Pull request creation and review
 - [Feature Development Process](/docs/processes/feature-development-process.md) - Feature development lifecycle
 - [CI/CD Pipeline](/docs/processes/ci-cd-pipeline.md) - Automated build and test processes
+- [Safe Workflow Checklist](/docs/processes/safe-workflow-checklist.md) - Important safety procedures
 
-### Project Status
+### Project Status & Specifications
 
+- [Game Specification](/docs/specifications/game-specification.md) - Complete game design specification
+- [Implementation Plan](/docs/specifications/implementation-plan.md) - Overall development roadmap
 - [Critical Fixes Log](/docs/project/critical-fixes.md) - Log of critical fixes and lessons learned
 - [Project Overview](/docs/project/overview.md) - Project vision and goals
 - [Project Status](/docs/project/status.md) - Current development status
@@ -96,5 +110,6 @@ Before making any changes:
 2. Ensure you understand our [Git Workflow](/docs/processes/git/git-workflow.md)
 3. Follow our [Documentation Standards](/docs/processes/documentation/documentation-standards.md)
 4. Review our [Feature Development Process](/docs/processes/feature-development-process.md)
+5. Consult relevant feature documentation in the appropriate section above
 
 For any questions or clarifications, please reach out to the project maintainers.
