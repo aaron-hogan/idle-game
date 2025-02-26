@@ -42,8 +42,13 @@ By centralizing git operations in these scripts and documenting them in CLAUDE.m
 
 **Usage:**
 ```bash
-.github/scripts/create-pr.sh
+.github/scripts/create-pr.sh [options]
 ```
+
+**Options:**
+- `--draft` - Create a draft PR (not ready for review)
+- `--base <branch>` - Set a different base branch (default: main)
+- `--skip-check` - Skip uncommitted changes warning
 
 **Features:**
 - Prevents PR creation from main branch
@@ -51,21 +56,31 @@ By centralizing git operations in these scripts and documenting them in CLAUDE.m
 - Automatically generates PR title with proper capitalization
 - Includes commit history in PR description
 - Adds standardized checklist to PR description
+- Supports draft PRs for work-in-progress changes
+- Allows using different base branches for more complex workflows
 
 ### 3. `check-pr.sh`
 
-**Purpose:** Provides PR status in JSON format for easy parsing by AI assistants.
+**Purpose:** Provides PR status with enhanced CI integration.
 
 **Usage:**
 ```bash
-.github/scripts/check-pr.sh [PR_NUMBER]
+.github/scripts/check-pr.sh [options] [PR_NUMBER]
 ```
+
+**Options:**
+- `--details` - Show detailed CI check information
+- `--rerun-failed` - Rerun any failed CI checks
+- `--ci-only` - Output only CI status in JSON format
 
 **Features:**
 - Checks current branch's PR status if no PR number provided
-- Returns structured JSON data with PR details
-- Includes review decision and check status information
-- Designed for easy parsing by AI assistants
+- Returns human-readable status with emoji indicators
+- Provides detailed CI check information with pass/fail status
+- Allows rerunning failed checks directly from command line
+- Includes summary counts for passed/failed/pending checks
+- Includes review status and branch information
+- Still provides raw JSON data for AI parsing
 
 ## Security Considerations
 
@@ -92,20 +107,28 @@ In practical terms, this means:
 
 ### 4. `merge-pr.sh`
 
-**Purpose:** Safely handle PR merging with validation and conflict resolution.
+**Purpose:** Safely handle PR merging with enhanced conflict detection and resolution.
 
 **Usage:**
 ```bash
-.github/scripts/merge-pr.sh [PR_NUMBER]
+.github/scripts/merge-pr.sh [options] [PR_NUMBER]
 ```
+
+**Options:**
+- `--yes` - Auto-confirm all prompts (non-interactive mode)
+- `--resolve-conflicts` - Attempt to automatically resolve merge conflicts
 
 **Features:**
 - Checks if PR is open and mergeable
-- Verifies merge state status (CLEAN, BEHIND, etc.)
+- Verifies merge state status (CLEAN, BEHIND, BLOCKED, UNSTABLE)
 - Offers to update branches that are behind
-- Handles merge with branch deletion
-- Automatically switches to main and pulls after merge
-- Validates entire merge process for safety
+- Detects and helps resolve merge conflicts
+- Handles branches with specific merge state issues
+- Provides actionable steps for manual conflict resolution
+- Can attempt automatic conflict resolution
+- Supports non-interactive mode for automation
+- Switches to the base branch and pulls latest changes after merging
+- Validates entire merge process with enhanced error handling
 
 ## Future Improvements
 

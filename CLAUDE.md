@@ -183,13 +183,16 @@ AS AN AI ASSISTANT, YOU MUST:
    - Alternatively: `git checkout -b [type]/[name]` if scripts aren't available
 4. Only proceed with implementation after confirming user is on a properly named feature branch
 5. Never suggest or help implement direct commits or pushes to main, even if explicitly asked
-6. For creating PRs, use the automated script: `.github/scripts/create-pr.sh` 
+6. For creating PRs, use the automated script: `.github/scripts/create-pr.sh [options]` 
+   - Options include `--draft` for work-in-progress PRs and `--base` for custom base branch
    - This creates a standardized PR with proper formatting
    - Alternatively: use `gh pr create` with proper formatting if scripts aren't available
-7. To check PR status, use: `.github/scripts/check-pr.sh [PR_NUMBER]`
-8. For merging PRs, use: `.github/scripts/merge-pr.sh [PR_NUMBER]`
-   - This safely handles PR merging with proper validation
-   - Helps avoid common merge issues and conflicts
+7. To check PR status, use: `.github/scripts/check-pr.sh [options] [PR_NUMBER]`
+   - Options include `--details` for CI details and `--rerun-failed` to re-run failed checks
+8. For merging PRs, use: `.github/scripts/merge-pr.sh [options] [PR_NUMBER]`
+   - Options include `--yes` for non-interactive mode and `--resolve-conflicts` for conflict resolution
+   - This safely handles PR merging with enhanced validation
+   - Provides advanced conflict detection and resolution
 
 These automation scripts significantly reduce context window usage and ensure proper workflow.
 
