@@ -168,8 +168,8 @@ run_test "PR-8: Skip check flag with validation error" \
 header "Testing check-pr.sh"
 
 run_test "CP-5: No PR for current branch" \
-  "$SCRIPT_DIR/create-branch.sh test $TEST_BRANCH_PREFIX-no-pr && git checkout $TEST_BRANCH_PREFIX-no-pr && $SCRIPT_DIR/check-pr.sh" \
-  false
+  "$SCRIPT_DIR/create-branch.sh test $TEST_BRANCH_PREFIX-no-pr && $SCRIPT_DIR/check-pr.sh 2>&1 | grep -q 'No open PR found'" \
+  true
 
 run_test "CP-6: Invalid PR number" \
   "$SCRIPT_DIR/check-pr.sh 99999999" \
@@ -181,10 +181,11 @@ header "Testing merge-pr.sh"
 # Create a branch with uncommitted changes to test MP-5
 git checkout "$ORIGINAL_BRANCH" &> /dev/null
 echo "Uncommitted for merge" > test-file-merge.txt
+git add test-file-merge.txt  # Add the file so it's tracked
 
 run_test "MP-5: Uncommitted changes" \
-  "$SCRIPT_DIR/merge-pr.sh 25" \
-  false
+  "$SCRIPT_DIR/merge-pr.sh 25 2>&1 | grep -q 'ERROR: You have unsaved changes'" \
+  true
 
 # Clean up explicitly before exit handler runs
 git checkout "$ORIGINAL_BRANCH" &> /dev/null
