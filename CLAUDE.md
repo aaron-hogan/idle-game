@@ -8,8 +8,10 @@ We recently recovered from a major issue where UI improvements broke passive res
 2. Make small, focused commits with proper testing
 3. Be cautious when modifying core game loop or resource systems
 4. Document changes thoroughly
+5. When updating type definitions, ensure all imports are updated across files
 
 Recovery process documented in: `/docs/features/ui-improvements/recovery-process.md`
+Upgrade system fix documented in: `/docs/features/ui-improvements/resource-upgrade-fix.md`
 
 Stable work is now in the `ui-improvements-recovery` branch.
 
