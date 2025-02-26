@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../state/hooks';
 import { 
   selectAllResources, 
@@ -14,19 +15,15 @@ import ErrorBoundary from './error/ErrorBoundary';
 import { addPlayTime } from '../state/gameSlice';
 import { GameManager } from '../core/GameManager';
 import GameDebugger from '../debug/GameDebugger';
-import { 
-  ProgressionTracker, 
-  MilestoneProgress,
-  ProgressBar 
-} from './progression';
-import { 
-  ResourceList, 
-  ClickableResource, 
-  UpgradePanel,
-  TopResourceBar,
-  ResourceGenerators 
-} from './resources';
-import { ResourceId } from '../constants/resources';
+import TopResourceBar from './resources/TopResourceBar';
+import { TabNavigation, DEFAULT_TABS } from './navigation';
+
+// Import pages
+import MainGame from '../pages/MainGame';
+import Upgrades from '../pages/Upgrades';
+import Progression from '../pages/Progression';
+import Settings from '../pages/Settings';
+
 import { SaveControls } from './save';
 import { TaskManager } from '../managers/TaskManager';
 import './App.css';
@@ -145,54 +142,45 @@ const App: React.FC = () => {
   return (
     <ErrorBoundary>
       <SaveProvider>
-        <div className="game-layout">
-          {/* Top bar with timer and resources */}
-          <div className="top-bar">
-            <div className="game-timer">
-              <GameTimer />
-            </div>
-            <TopResourceBar />
-            <MenuButton />
-          </div>
-          
-          {/* Main content in a 3-column grid */}
-          <div className="main-content">
-            {/* Left column - Resource generators */}
-            <div className="left-column">
-              <ResourceGenerators />
+        <Router>
+          <div className="game-layout">
+            {/* Top bar with timer and resources */}
+            <div className="top-bar">
+              <div className="game-timer">
+                <GameTimer />
+              </div>
+              <TopResourceBar />
+              <MenuButton />
             </div>
             
-            {/* Center column - Clickable area and upgrades */}
-            <div className="center-column">
-              <div className="click-section">
-                <ClickableResource resourceId={ResourceId.COLLECTIVE_POWER} />
-                <UpgradePanel resourceId={ResourceId.COLLECTIVE_POWER} />
-              </div>
+            {/* Main content area with routes */}
+            <div className="main-content-container">
+              <Routes>
+                <Route path="/" element={<MainGame />} />
+                <Route path="/upgrades" element={<Upgrades />} />
+                <Route path="/progression" element={<Progression />} />
+                <Route path="/settings" element={<Settings />} />
+              </Routes>
             </div>
             
-            {/* Right column - Progression tracking */}
-            <div className="right-column">
-              <div className="progression-display">
-                <ProgressionTracker />
-                <MilestoneProgress limit={3} horizontalLayout={true} />
-              </div>
+            {/* Bottom navigation */}
+            <TabNavigation tabs={DEFAULT_TABS} />
+            
+            {/* Debug panel toggle */}
+            <button 
+              className="debug-toggle-btn"
+              onClick={() => setIsDebugExpanded(!isDebugExpanded)}
+            >
+              {isDebugExpanded ? "HIDE DEBUG DATA" : "SHOW DEBUG DATA"}
+            </button>
+            
+            {/* Collapsible debug panel with resize handle */}
+            <div className={`debug-panel ${isDebugExpanded ? 'expanded' : 'collapsed'}`}>
+              {isDebugExpanded && <div className="debug-resize-handle" />}
+              <GameDebugger />
             </div>
           </div>
-          
-          {/* Debug panel toggle */}
-          <button 
-            className="debug-toggle-btn"
-            onClick={() => setIsDebugExpanded(!isDebugExpanded)}
-          >
-            {isDebugExpanded ? "HIDE DEBUG DATA" : "SHOW DEBUG DATA"}
-          </button>
-          
-          {/* Collapsible debug panel with resize handle */}
-          <div className={`debug-panel ${isDebugExpanded ? 'expanded' : 'collapsed'}`}>
-            {isDebugExpanded && <div className="debug-resize-handle" />}
-            <GameDebugger />
-          </div>
-        </div>
+        </Router>
       </SaveProvider>
     </ErrorBoundary>
   );
