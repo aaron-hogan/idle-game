@@ -1,5 +1,26 @@
 # Anti-Capitalist Idle Game - Developer Guidelines
 
+## Recent Recovery Work (2025-02-26)
+
+We recently recovered from a major issue where UI improvements broke passive resource generation. Key lessons:
+
+1. Keep UI changes separate from system changes
+2. Make small, focused commits with proper testing
+3. Be cautious when modifying core game loop or resource systems
+4. Document changes thoroughly
+
+Recovery process documented in: `/docs/features/ui-improvements/recovery-process.md`
+
+Stable work is now in the `ui-improvements-recovery` branch.
+
+### UI Improvements Added:
+
+- 3-column grid layout for better organization
+- Resource generator cards with efficiency indicators
+- Horizontal milestone progress tracking
+- Tab-based navigation system - see `/docs/features/ui-improvements/navigation-system.md`
+- Dedicated pages for main gameplay, upgrades, progression, and settings
+
 ## Build Commands
 - `npm install` - Install dependencies
 - `npm start` - Start development server
