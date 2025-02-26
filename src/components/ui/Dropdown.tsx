@@ -69,15 +69,36 @@ const Dropdown: React.FC<DropdownProps> = ({
       zIndex: 2000,
     };
 
+    // Calculate position
     if (position.includes('bottom')) {
       style.top = `${triggerRect.bottom + 5}px`;
     } else {
       style.bottom = `${window.innerHeight - triggerRect.top + 5}px`;
     }
 
+    // Calculate horizontal position
     if (position.includes('right')) {
       style.right = `${window.innerWidth - triggerRect.right}px`;
     } else {
+      style.left = `${triggerRect.left}px`;
+    }
+
+    // Check if dropdown would go offscreen and adjust
+    // We'll need window dimensions and estimated dropdown dimensions
+    // Using the triggerRect and a bit of extra width for safety
+    const estimatedWidth = Math.max(triggerRect.width * 3, 130); // Minimum dropdown width
+    
+    // Check right edge overflow
+    if (!position.includes('right') && triggerRect.left + estimatedWidth > window.innerWidth) {
+      // Switch to right alignment
+      delete style.left;
+      style.right = `${window.innerWidth - triggerRect.right}px`;
+    }
+
+    // Check left edge overflow
+    if (position.includes('right') && window.innerWidth - triggerRect.right < estimatedWidth) {
+      // Switch to left alignment
+      delete style.right;
       style.left = `${triggerRect.left}px`;
     }
 
