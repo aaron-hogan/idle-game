@@ -7,6 +7,7 @@
  * Uses GameTimer as the authoritative source of time.
  */
 import { GameTimer } from './GameTimer';
+import { checkGameEndConditions } from '../systems/gameEndConditions';
 
 /**
  * Type for tick handlers that receive both real and scaled time
@@ -55,6 +56,7 @@ export class GameLoop {
   private lastFpsUpdateTime: number = 0;
   private currentFps: number = 0;
   private gameTimer: GameTimer;
+  private store: any | null = null;
 
   /**
    * Private constructor for singleton pattern
@@ -247,6 +249,31 @@ export class GameLoop {
         // Continue with other handlers despite errors
       }
     }
+    
+    // Check for game end conditions if store is available
+    if (this.store) {
+      // Check every 10 ticks to avoid overhead
+      if (this.tickCount % 10 === 0) {
+        try {
+          const gameEnded = checkGameEndConditions(this.store);
+          
+          // If game ended, stop the game loop
+          if (gameEnded) {
+            this.stop();
+          }
+        } catch (error) {
+          console.error('GameLoop: Error checking game end conditions:', error);
+        }
+      }
+    }
+  }
+  
+  /**
+   * Set the Redux store to enable game end condition checks
+   * @param store The Redux store
+   */
+  public setStore(store: any): void {
+    this.store = store;
   }
   
   /**

@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Win and lose conditions for a complete gameplay loop
+- New "Corporate Oppression" resource that increases over time
+- Visual indicator showing power vs. oppression balance
+- End game modal for both victory and defeat scenarios
+- Game state tracking for win/lose conditions
+
 ### Fixed
 - Day counter not advancing and progress bar not showing progress
 - Choppy progress bar animation in day counter

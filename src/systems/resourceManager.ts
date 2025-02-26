@@ -104,15 +104,30 @@ export class ResourceManager {
     }
     
     const state = this.getState!();
-    const resources = state.resources;
+    const resources = state.resources.byId;
     
-    // Removed excessive logging for resource updates
+    // Special handling for oppression resource - always ensure it's generated
+    const oppression = resources['oppression'];
+    if (oppression && typeof oppression.perSecond === 'number') {
+      // Always generate oppression according to its rate
+      const oppressionAmount = oppression.perSecond * gameTimeInSeconds;
+      
+      this.dispatch!(addResourceAmount({
+        id: 'oppression',
+        amount: oppressionAmount,
+      }));
+    }
     
     // For each resource, add the generated amount based on the game time that passed
     Object.values(resources).forEach((resource: unknown) => {
       if (resource && typeof resource === 'object' && 
           'perSecond' in resource && typeof resource.perSecond === 'number' && 
           'id' in resource && typeof resource.id === 'string') {
+            
+        // Skip oppression since we already handled it
+        if (resource.id === 'oppression') {
+          return;
+        }
             
         if (resource.perSecond > 0) {
           // Calculate generation based on scaled game time

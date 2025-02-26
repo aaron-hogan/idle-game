@@ -16,6 +16,8 @@ import { addPlayTime } from '../state/gameSlice';
 import { GameManager } from '../core/GameManager';
 import GameDebugger from '../debug/GameDebugger';
 import TopResourceBar from './resources/TopResourceBar';
+import PowerOppressionIndicator from './resources/PowerOppressionIndicator';
+import EndGameModal from './EndGameModal';
 import { TabNavigation, DEFAULT_TABS } from './navigation';
 
 // Import pages
@@ -118,6 +120,10 @@ const App: React.FC = () => {
         processOfflineProgress: true 
       });
       
+      // Set the Redux store for the GameLoop to enable win/lose checks
+      const gameLoop = GameManager.getInstance().getGameLoop();
+      gameLoop.setStore(store);
+      
       // Initialize and start the game
       gameManagerRef.current.initialize();
       gameManagerRef.current.start();
@@ -182,6 +188,11 @@ const App: React.FC = () => {
               <MenuButton />
             </div>
             
+            {/* Power vs Oppression indicator */}
+            <div className="power-oppression-container">
+              <PowerOppressionIndicator resources={resources} />
+            </div>
+            
             {/* Main content area with routes */}
             <div className="main-content-container">
               <Routes>
@@ -211,6 +222,9 @@ const App: React.FC = () => {
             
             {/* Event panel for displaying events */}
             <EventPanel />
+            
+            {/* Game end modal */}
+            <EndGameModal />
           </div>
         </Router>
       </SaveProvider>

@@ -1,0 +1,70 @@
+.power-oppression-indicator {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 15px;
+  margin: 10px 0;
+  background-color: #f8f8f8;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.power-oppression-indicator h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  text-align: center;
+  color: #333;
+  font-size: 18px;
+}
+
+.power-bar, .oppression-bar {
+  margin-bottom: 12px;
+}
+
+.resource-label {
+  font-weight: bold;
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+.balance-status {
+  margin-top: 15px;
+  padding: 8px;
+  text-align: center;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.balance-status.winning {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.balance-status.advantage {
+  background-color: #8BC34A;
+  color: white;
+}
+
+.balance-status.balanced {
+  background-color: #FFEB3B;
+  color: #333;
+}
+
+.balance-status.disadvantage {
+  background-color: #FF9800;
+  color: white;
+}
+
+.balance-status.losing {
+  background-color: #F44336;
+  color: white;
+}
+
+.balance-info {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #666;
+  text-align: center;
+}
+
+.balance-info p {
+  margin: 5px 0;
+}

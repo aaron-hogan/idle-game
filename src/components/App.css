@@ -21,6 +21,14 @@
   z-index: 100;
 }
 
+/* Power-Oppression container */
+.power-oppression-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 10px auto;
+  padding: 10px 15px;
+}
+
 .game-timer {
   flex: 0 0 auto;
   margin-right: 15px;
