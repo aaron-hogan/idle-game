@@ -103,7 +103,22 @@ This document outlines a comprehensive test plan for the AI assistant GitHub aut
 2. **Isolation**: Test each script in isolation first, then in combination
 3. **Edge Cases**: Pay special attention to error handling and unexpected inputs
 4. **Documentation**: Document any unexpected behavior for future improvements
-5. **Automation**: Consider automating these tests with a test runner script
+
+## Automated Testing
+
+Run the automated test script to validate the core functionality:
+
+```bash
+.github/scripts/test-scripts.sh
+```
+
+The script will:
+- Run a subset of tests that can be safely automated
+- Generate a detailed test report with pass/fail status
+- Clean up after itself, leaving the repository in its original state
+- Exit with a non-zero code if any tests fail
+
+Some tests requiring interactive user input or that would create actual PRs are limited in the automated script. Manual testing is still recommended for these specific scenarios.
 
 ## Continuous Testing
 
