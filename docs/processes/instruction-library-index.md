@@ -17,13 +17,20 @@ Standards and processes for documentation:
 - [Documentation Standards](/docs/processes/documentation/documentation-standards.md) - Guidelines for creating and maintaining documentation
 - [Instruction Library Extraction Plan](/docs/processes/documentation/instruction-library-plan.md) - Plan for building the instruction library
 
-## Git and Workflow
+## Development Processes
 
-Processes for version control and development workflow:
+Guidelines for feature development and workflows:
+
+- [Feature Development Process](/docs/processes/feature-development-process.md) - Structured approach to feature implementation
+- [Safe Workflow Checklist](/docs/processes/safe-workflow-checklist.md) - Pre-development safety checks
+
+## Git and CI/CD
+
+Processes for version control and continuous integration:
 
 - [Git Workflow](/docs/processes/git/git-workflow.md) - Branch strategy and git best practices
 - [PR Workflow](/docs/processes/pr-workflow.md) - Process for creating, reviewing, and merging pull requests
-- [Safe Workflow Checklist](/docs/processes/safe-workflow-checklist.md) - Pre-development safety checks
+- [CI/CD Pipeline](/docs/processes/ci-cd-pipeline.md) - Automated build, test, and deployment processes
 
 ## Project Management
 
