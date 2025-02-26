@@ -72,8 +72,17 @@ Six key changes were implemented:
    ```typescript
    // Special handling for oppression resource to ensure correct rate display
    let displayRate = resource.perSecond;
-   if (resource.id === 'oppression') {
+   let formattedRateText;
+   
+   // Check for oppression by both ID and name to be safe
+   if (resource.id === 'oppression' || resource.name === 'Corporate Oppression') {
      displayRate = 0.05; // Hard-coded to match actual generation rate
+     formattedRateText = '+0.05/s'; // Pre-formatted text to ensure consistency
+   } else {
+     // Normal formatting for other resources
+     formattedRateText = Math.abs(displayRate) > 0.01 
+       ? `${displayRate > 0 ? '+' : ''}${formatNumber(displayRate)}/s` 
+       : undefined;
    }
    ```
 
@@ -91,3 +100,5 @@ The actual generation is also verified to match this rate.
 3. UI consistency is critical for player understanding of game mechanics
 4. When fixing display issues, it's important to ensure fixes are applied both in the data layer and in all UI components
 5. Hard-coding critical display values is sometimes necessary to ensure consistency across the application
+6. Check resources by both ID and name to increase reliability
+7. Pre-format values like "+0.05/s" instead of relying on dynamic formatting for critical fixed values

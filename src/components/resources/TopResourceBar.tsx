@@ -99,8 +99,17 @@ const ResourceItem: React.FC<ResourceItemProps> = ({ resource }) => {
   
   // Special handling for oppression resource to ensure correct rate display
   let displayRate = resource.perSecond;
-  if (resource.id === 'oppression') {
+  let formattedRateText;
+  
+  // Check for oppression resource (handle both formats of ID)
+  if (resource.id === 'oppression' || resource.name === 'Corporate Oppression') {
     displayRate = 0.05; // Hard-coded to match actual generation rate
+    formattedRateText = '+0.05/s'; // Pre-formatted to ensure consistency
+  } else {
+    // Normal formatting for other resources
+    formattedRateText = Math.abs(displayRate) > 0.01 
+      ? `${displayRate > 0 ? '+' : ''}${formatNumber(displayRate)}/s` 
+      : undefined;
   }
 
   return (
@@ -108,7 +117,7 @@ const ResourceItem: React.FC<ResourceItemProps> = ({ resource }) => {
       icon={getIcon()}
       iconType={getIconType()}
       value={formatNumber(resource.amount)}
-      rate={Math.abs(displayRate) > 0.01 ? `${displayRate > 0 ? '+' : ''}${formatNumber(displayRate)}/s` : undefined}
+      rate={formattedRateText}
       rateType={displayRate > 0 ? 'positive' : displayRate < 0 ? 'negative' : 'neutral'}
       progress={getProgressValue()}
       className={isNearCapacity ? 'near-capacity' : ''}

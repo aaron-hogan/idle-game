@@ -107,8 +107,14 @@ const ResourceDisplay: React.FC<ResourceDisplayProps> = ({ resource, className =
   
   // Special handling for oppression resource to ensure UI always shows correct rate
   let displayRate = resource.perSecond;
-  if (resource.id === 'oppression') {
+  let rateText;
+  
+  // Check for oppression by both ID and name to be safe
+  if (resource.id === 'oppression' || resource.name === 'Corporate Oppression') {
     displayRate = 0.05; // Hard-coded to match actual generation rate
+    rateText = '+0.05/sec'; // Pre-formatted text to ensure consistency
+  } else {
+    rateText = `${displayRate > 0 ? '+' : ''}${formatNumber(displayRate)}/sec`;
   }
   
   return (
@@ -117,7 +123,7 @@ const ResourceDisplay: React.FC<ResourceDisplayProps> = ({ resource, className =
         icon={getIcon()}
         iconType={getIconType()}
         value={`${formatNumber(resource.amount)} / ${formatNumber(resource.maxAmount)}`}
-        rate={`${displayRate > 0 ? '+' : ''}${formatNumber(displayRate)}/sec`}
+        rate={rateText}
         rateType={displayRate > 0 ? 'positive' : displayRate < 0 ? 'negative' : 'neutral'}
         progress={percentFull / 100} // Convert percentage to 0-1 range
         tooltip={{

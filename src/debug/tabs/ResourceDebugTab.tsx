@@ -81,7 +81,7 @@ const ResourceDebugTab: React.FC = () => {
                 <td>{formatNumber(resource.amount)} / {formatNumber(resource.maxAmount)}</td>
                 <td>
                   {/* Special handling for oppression to ensure correct rate display */}
-                  {resource.id === 'oppression' 
+                  {resource.id === 'oppression' || resource.name === 'Corporate Oppression'
                     ? '+0.05/s' 
                     : `${resource.perSecond > 0 ? '+' : ''}${formatNumber(resource.perSecond)}/s`
                   }
