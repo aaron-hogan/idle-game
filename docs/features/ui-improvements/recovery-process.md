@@ -60,3 +60,15 @@ We followed these steps to recover:
 2. Consider adding automated tests for passive resource generation
 3. Once stable, merge into main and use as foundation for future improvements
 4. Document the approach for future reference
+
+## Additional Fixes
+
+### Resource System Import Fix (2025-02-26)
+
+After implementing the upgrade tracking system, we encountered a runtime error related to missing imports in the ResourceManager. For details, see:
+- `/docs/features/ui-improvements/resource-upgrade-fix.md`
+
+Key fixes included:
+1. Adding missing imports for `updateBaseResourcePerSecond` and `updateUpgradeLevel`
+2. Updating Resource type imports to use the new model with upgrade tracking
+3. Properly importing the `UpgradeType` enum

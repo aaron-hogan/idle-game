@@ -1,4 +1,5 @@
-import { Resource, Structure, NULL_RESOURCE } from '../models/types';
+import { Structure, NULL_RESOURCE } from '../models/types';
+import { Resource } from '../models/resource';
 import { INITIAL_RESOURCES } from '../constants/resources';
 import { AppDispatch, RootState } from '../state/store';
 import { Store } from 'redux';
@@ -9,10 +10,13 @@ import {
   updateResourcePerSecond,
   toggleResourceUnlocked,
   updateClickPower,
+  updateUpgradeLevel,
+  updateBaseResourcePerSecond,
 } from '../state/resourcesSlice';
 import { invariant } from '../utils/errorUtils';
 import { validateObject } from '../utils/validationUtils';
 import { GameLoop } from '../core/GameLoop';
+import { UpgradeType } from '../models/resource';
 
 /**
  * Manages all resource-related operations
