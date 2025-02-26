@@ -91,7 +91,8 @@ describe('Redux selectors', () => {
     category: 'MEDIA',
   };
   
-  const mockState: RootState = {
+  // Type assertion to fix missing properties without changing the mock state
+  const mockState = {
     resources: {
       'collective-power': resource1,
       'solidarity': resource2,
@@ -110,7 +111,21 @@ describe('Redux selectors', () => {
       tickRate: 1000,
       gameTimeScale: 1
     },
-  } as RootState;
+    // Add minimal required stub properties to satisfy TypeScript
+    tasks: {},
+    events: {},
+    progression: {
+      currentStage: 'early',
+      milestones: {},
+      achievements: {},
+      milestoneIds: [],
+      achievementIds: [],
+      milestonesByStage: {},
+      milestonesByType: {},
+      achievementsByType: {},
+      stageReachedAt: {}
+    }
+  } as unknown as RootState;
 
   // Resource selectors
   test('selectAllResources returns all resources', () => {

@@ -20,7 +20,8 @@ const mockGameState: Partial<RootState> = {
     totalPlayTime: 3600,
     isRunning: true,
     tickRate: 1000,
-    gameTimeScale: 1
+    gameTimeScale: 1,
+    startDate: 1612345678000 // Add missing property
   },
   resources: {
     'resource1': {

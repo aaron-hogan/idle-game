@@ -42,6 +42,7 @@ describe('Game Core Systems Integration', () => {
           lastSaveTimestamp: Date.now(),
           gameStartTimestamp: Date.now(),
           totalPlayTime: 0,
+          startDate: Date.now(), // Add missing required property
         },
         resources: {},
         structures: {}

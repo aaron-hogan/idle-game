@@ -5,6 +5,7 @@ import resourcesReducer, { addResource } from '../../state/resourcesSlice';
 import gameReducer, { updateLastSaveTime } from '../../state/gameSlice';
 import structuresReducer from '../../state/structuresSlice';
 import { resetSingleton } from '../../utils/testUtils';
+import { GameStage } from '../../interfaces/progression';
 
 // Mock setInterval and clearInterval
 jest.useFakeTimers();
@@ -35,11 +36,43 @@ window.dispatchEvent = jest.fn((event) => {
 
 // Create a test store
 const createTestStore = () => {
+  // Create an empty progression reducer for type compatibility
+  const mockProgressionReducer = (state = {
+    currentStage: GameStage.EARLY,
+    milestones: {},
+    achievements: {},
+    milestoneIds: [],
+    achievementIds: [],
+    milestonesByStage: {},
+    milestonesByType: {},
+    achievementsByType: {},
+    stageReachedAt: {
+      [GameStage.EARLY]: Date.now(),
+      [GameStage.MID]: null,
+      [GameStage.LATE]: null,
+      [GameStage.END_GAME]: null
+    }
+  }, action: any) => state;
+  
+  // Create empty reducers for tasks and events with proper shape
+  const mockTasksReducer = (state = {
+    tasks: {},
+    activeTaskId: null
+  }, action: any) => state;
+  const mockEventsReducer = (state = {
+    availableEvents: {},
+    activeEvents: [],
+    eventHistory: []
+  }, action: any) => state;
+
   const store = configureStore({
     reducer: {
       resources: resourcesReducer,
       game: gameReducer,
       structures: structuresReducer,
+      progression: mockProgressionReducer,
+      tasks: mockTasksReducer,
+      events: mockEventsReducer
     },
   });
   

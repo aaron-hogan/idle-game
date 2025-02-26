@@ -10,6 +10,11 @@ import {
   formatResourceAmount
 } from './resourceUtils';
 import { store } from '../state/store';
+import { Resource, Structure } from '../models/types';
+
+// Helper functions for type casting in tests
+const asResourceRecord = (obj: any): Record<string, Resource> => obj as unknown as Record<string, Resource>;
+const asStructureRecord = (obj: any): Record<string, Structure> => obj as unknown as Record<string, Structure>;
 
 // Mock store
 jest.mock('../state/store', () => ({
@@ -95,7 +100,7 @@ jest.mock('./errorUtils', () => ({
 
 describe('resourceUtils', () => {
   describe('safeGetResource', () => {
-    const resources = {
+    const resources = asResourceRecord({
       'solidarity': {
         id: 'solidarity',
         name: 'Solidarity',
@@ -106,7 +111,7 @@ describe('resourceUtils', () => {
         unlocked: true,
         category: 'social'
       }
-    };
+    });
     
     test('should return the resource if found', () => {
       const result = safeGetResource(resources, 'solidarity');
@@ -130,7 +135,7 @@ describe('resourceUtils', () => {
   });
   
   describe('safeGetStructure', () => {
-    const structures = {
+    const structures = asStructureRecord({
       'community_center': {
         id: 'community_center',
         name: 'Community Center',
@@ -144,7 +149,7 @@ describe('resourceUtils', () => {
         maxWorkers: 10,
         category: 'social'
       }
-    };
+    });
     
     test('should return the structure if found', () => {
       const result = safeGetStructure(structures, 'community_center');
@@ -162,7 +167,7 @@ describe('resourceUtils', () => {
   describe('getResourcesByCategory', () => {
     // Using store mock for this test
     const state = store.getState();
-    const resources = state.resources.resources;
+    const resources = asResourceRecord(state.resources.resources);
     
     test('should filter resources by category', () => {
       const socialResources = getResourcesByCategory(resources, 'social');
@@ -180,7 +185,7 @@ describe('resourceUtils', () => {
   describe('getStructuresByCategory', () => {
     // Using store mock for this test
     const state = store.getState();
-    const structures = state.structures.structures;
+    const structures = asStructureRecord(state.structures.structures);
     
     test('should filter structures by category', () => {
       const organizingStructures = getStructuresByCategory(structures, 'organizing');
@@ -197,7 +202,7 @@ describe('resourceUtils', () => {
   describe('getTotalProductionByCategory', () => {
     // Using store mock for this test
     const state = store.getState();
-    const resources = state.resources.resources;
+    const resources = asResourceRecord(state.resources.resources);
     
     test('should calculate total production for a category', () => {
       const socialProduction = getTotalProductionByCategory(resources, 'social');
@@ -214,7 +219,7 @@ describe('resourceUtils', () => {
   describe('canAffordCost', () => {
     // Using store mock for this test
     const state = store.getState();
-    const resources = state.resources.resources;
+    const resources = asResourceRecord(state.resources.resources);
     
     test('should return true if all resources are available', () => {
       const cost = {

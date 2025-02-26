@@ -8,17 +8,41 @@ import { EventManager } from '../eventManager';
 import { EventType, IEvent } from '../../interfaces/Event';
 import { Resource } from '../../models/resource';
 
+import { GameStage } from '../../interfaces/progression';
+
 describe('EventManager', () => {
+
   // Mock store for testing
-  const createTestStore = () => configureStore({
-    reducer: {
-      resources: resourcesReducer,
-      structures: structuresReducer,
-      game: gameReducer,
-      tasks: tasksReducer,
-      events: eventsReducer,
-    }
-  });
+  const createTestStore = () => {
+    // Create an empty progression reducer for type compatibility
+    const mockProgressionReducer = (state = {
+      currentStage: GameStage.EARLY,
+      milestones: {},
+      achievements: {},
+      milestoneIds: [],
+      achievementIds: [],
+      milestonesByStage: {},
+      milestonesByType: {},
+      achievementsByType: {},
+      stageReachedAt: {
+        [GameStage.EARLY]: Date.now(),
+        [GameStage.MID]: null,
+        [GameStage.LATE]: null,
+        [GameStage.END_GAME]: null
+      }
+    }, action: any) => state;
+
+    return configureStore({
+      reducer: {
+        resources: resourcesReducer,
+        structures: structuresReducer,
+        game: gameReducer,
+        tasks: tasksReducer,
+        events: eventsReducer,
+        progression: mockProgressionReducer,
+      }
+    });
+  };
   
   // Create test event
   const createTestEvent = (overrides = {}): IEvent => ({
