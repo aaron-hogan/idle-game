@@ -133,7 +133,7 @@ const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({
   }, [activeMilestone]);
   
   // Scroll to center active milestone when it changes
-  // Center the active milestone whenever it changes
+  // Initial position and center the active milestone whenever it changes
   useEffect(() => {
     if (!stripRef.current || !activeMilestoneId) return;
     
@@ -148,13 +148,34 @@ const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({
       const cardWidth = activeMilestoneElement.offsetWidth;
       const cardLeft = activeMilestoneElement.offsetLeft;
       
-      // Scroll to center the card with smooth animation
+      // Calculate center position
+      const scrollPosition = cardLeft - (containerWidth / 2) + (cardWidth / 2);
+      
+      // Scroll to center the card
       stripRef.current.scrollTo({
-        left: cardLeft - (containerWidth / 2) + (cardWidth / 2),
+        left: scrollPosition,
         behavior: 'smooth'
       });
     }
   }, [activeMilestoneId]);
+  
+  // Ensure correct initial positioning on component mount
+  useEffect(() => {
+    if (!stripRef.current || !activeMilestoneId) return;
+    
+    // Initial positioning without animation for immediate centering on load
+    const activeMilestoneElement = stripRef.current.querySelector(
+      `[data-milestone-id="${activeMilestoneId}"]`
+    ) as HTMLElement;
+    
+    if (activeMilestoneElement) {
+      const containerWidth = stripRef.current.offsetWidth;
+      const cardWidth = activeMilestoneElement.offsetWidth;
+      const cardLeft = activeMilestoneElement.offsetLeft;
+      
+      stripRef.current.scrollLeft = cardLeft - (containerWidth / 2) + (cardWidth / 2);
+    }
+  }, []); // Empty dependency array for run-once on mount
   
   // Listen for milestone completion events to trigger animation to the next active milestone
   useEffect(() => {
