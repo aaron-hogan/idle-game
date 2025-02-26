@@ -4,7 +4,9 @@
 
 We recently recovered from major issues including console spam and missing files. See the [Critical Fixes Log](/docs/project/critical-fixes.md) for details.
 
-To prevent similar issues, we've created a [Safe Workflow Checklist](/docs/processes/safe-workflow-checklist.md) that should be followed for all development.
+To prevent similar issues, we've created the following process documentation:
+- [Safe Workflow Checklist](/docs/processes/safe-workflow-checklist.md) - Steps to verify before making changes
+- [Pull Request Workflow](/docs/processes/pr-workflow.md) - Comprehensive PR creation and merge process
 
 Key lessons from recent fixes:
 
