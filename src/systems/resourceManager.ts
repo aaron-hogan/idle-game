@@ -1,6 +1,6 @@
 import { Structure, NULL_RESOURCE } from '../models/types';
 import { Resource } from '../models/resource';
-import { INITIAL_RESOURCES } from '../constants/resources';
+import { INITIAL_RESOURCES, ResourceId } from '../constants/resources';
 import { AppDispatch, RootState } from '../state/store';
 import { Store } from 'redux';
 import { 
@@ -104,28 +104,39 @@ export class ResourceManager {
     }
     
     const state = this.getState!();
-    const resources = state.resources.byId;
+    // Use any type to work with both state formats
+    const resources: any = state.resources;
     
     // Special handling for oppression resource - always ensure it's generated
-    const oppression = resources['oppression'];
-    if (oppression && typeof oppression.perSecond === 'number') {
-      // Always generate oppression according to its rate
-      const oppressionAmount = oppression.perSecond * gameTimeInSeconds;
+    const oppression = resources.byId ? resources.byId[ResourceId.OPPRESSION] : resources[ResourceId.OPPRESSION];
+    
+    if (oppression) {
+      // Always generate oppression according to its rate (use basePerSecond as fallback)
+      const generationRate = typeof oppression.perSecond === 'number' && oppression.perSecond > 0 
+        ? oppression.perSecond 
+        : (typeof oppression.basePerSecond === 'number' ? oppression.basePerSecond : 0.05);
       
-      this.dispatch!(addResourceAmount({
-        id: 'oppression',
-        amount: oppressionAmount,
-      }));
+      const oppressionAmount = generationRate * gameTimeInSeconds;
+      
+      // Only dispatch if we have a positive amount to add
+      if (oppressionAmount > 0) {
+        this.dispatch!(addResourceAmount({
+          id: ResourceId.OPPRESSION,
+          amount: oppressionAmount,
+        }));
+      }
     }
     
     // For each resource, add the generated amount based on the game time that passed
-    Object.values(resources).forEach((resource: unknown) => {
+    // Handle both formats of resources (direct object or byId structure)
+    const resourceValues = resources.byId ? Object.values(resources.byId) : Object.values(resources);
+    resourceValues.forEach((resource: unknown) => {
       if (resource && typeof resource === 'object' && 
           'perSecond' in resource && typeof resource.perSecond === 'number' && 
           'id' in resource && typeof resource.id === 'string') {
             
         // Skip oppression since we already handled it
-        if (resource.id === 'oppression') {
+        if (resource.id === ResourceId.OPPRESSION) {
           return;
         }
             
