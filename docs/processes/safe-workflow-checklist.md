@@ -93,6 +93,8 @@ Before committing, verify:
 - [ ] Linting passes
 - [ ] The application still builds and runs correctly
 - [ ] Documentation is updated if necessary
+- [ ] CHANGELOG.md is updated for user-facing changes
+- [ ] Commit message follows our commit message conventions
 
 ## Pre-Push Checklist
 
