@@ -1,0 +1,31 @@
+.debug-tab {
+  padding: 16px;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.debug-tab-content {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.debug-section {
+  margin-bottom: 16px;
+}
+
+.debug-section h3 {
+  margin-bottom: 8px;
+}
+
+.event-list {
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.event-item {
+  margin-bottom: 4px;
+  padding: 4px;
+  border-bottom: 1px solid #eee;
+}
