@@ -96,6 +96,33 @@
   gap: 20px;
 }
 
+.upgrade-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.upgrade-card {
+  background-color: #222;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.upgrade-card h4 {
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-size: 15px;
+  color: #ccc;
+}
+
+.upgrade-description {
+  font-size: 12px;
+  color: #999;
+  margin-bottom: 15px;
+}
+
 /* Progression page styles */
 .progression-container {
   display: flex;

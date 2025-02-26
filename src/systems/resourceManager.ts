@@ -435,4 +435,83 @@ export class ResourceManager {
     const currentLevel = Math.floor(currentClickPower);
     return Math.floor(baseCost * Math.pow(scaleFactor, currentLevel - 1));
   }
+  
+  /**
+   * Upgrade the passive generation rate for a resource
+   * @param resourceId The ID of the resource to upgrade
+   * @returns True if the upgrade was successful
+   */
+  upgradePassiveGeneration(resourceId: string): boolean {
+    this.ensureInitialized();
+    
+    const state = this.getState!();
+    const resource = state.resources[resourceId];
+    
+    // Can't upgrade a resource that doesn't exist or isn't unlocked
+    if (!resource || !resource.unlocked) {
+      return false;
+    }
+    
+    // Get current generation rate
+    const currentRate = resource.perSecond || 0;
+    
+    // Calculate the cost of the upgrade (exponential scaling)
+    const upgradeCost = this.getPassiveUpgradeCost(resourceId);
+    
+    if (upgradeCost <= 0) {
+      return false;
+    }
+    
+    // Check if player can afford the upgrade
+    const costs = {
+      [resourceId]: upgradeCost
+    };
+    
+    if (!this.canAfford(costs)) {
+      return false;
+    }
+    
+    // Apply the cost
+    this.applyResourceCost(costs);
+    
+    // Calculate new generation rate (increase by 0.1 per upgrade)
+    const upgradeAmount = 0.1;
+    const newRate = currentRate + upgradeAmount;
+    
+    // Update the generation rate
+    this.dispatch!(updateResourcePerSecond({
+      id: resourceId,
+      perSecond: newRate,
+    }));
+    
+    return true;
+  }
+  
+  /**
+   * Get the cost to upgrade passive generation for a resource
+   * @param resourceId The ID of the resource
+   * @returns The cost to upgrade or -1 if resource doesn't exist
+   */
+  getPassiveUpgradeCost(resourceId: string): number {
+    this.ensureInitialized();
+    
+    const state = this.getState!();
+    const resource = state.resources[resourceId];
+    
+    // Can't get cost for a resource that doesn't exist
+    if (!resource) {
+      return -1;
+    }
+    
+    // Get current generation rate or default to 0
+    const currentRate = resource.perSecond || 0;
+    
+    // Calculate upgrade level based on generation rate (each 0.1 is one level)
+    const currentLevel = Math.floor(currentRate / 0.1);
+    
+    // Calculate the cost of the upgrade (exponential scaling)
+    const baseCost = 20; // Starting cost (higher than click upgrade)
+    const scaleFactor = 1.8; // Cost increases faster than click upgrades
+    return Math.floor(baseCost * Math.pow(scaleFactor, currentLevel));
+  }
 }
