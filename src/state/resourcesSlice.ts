@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Resource } from '../models/resource';
+import { Resource, UpgradeType } from '../models/resource';
 
 type ResourcesState = Record<string, Resource>;
 
@@ -12,6 +12,20 @@ const resourcesSlice = createSlice({
     // Add a new resource
     addResource: (state, action: PayloadAction<Resource>) => {
       const resource = action.payload;
+      
+      // Initialize upgrades object if not provided
+      if (!resource.upgrades) {
+        resource.upgrades = {
+          [UpgradeType.CLICK_POWER]: 0,
+          [UpgradeType.PASSIVE_GENERATION]: 0,
+        };
+      }
+      
+      // Initialize basePerSecond if not provided
+      if (resource.basePerSecond === undefined) {
+        resource.basePerSecond = resource.perSecond;
+      }
+      
       state[resource.id] = resource;
     },
     
@@ -38,7 +52,23 @@ const resourcesSlice = createSlice({
       }
     },
     
-    // Update resource generation rate
+    // Update resource base generation rate
+    updateBaseResourcePerSecond: (
+      state,
+      action: PayloadAction<{ id: string; basePerSecond: number }>
+    ) => {
+      const { id, basePerSecond } = action.payload;
+      if (state[id]) {
+        state[id].basePerSecond = basePerSecond;
+        
+        // Recalculate total perSecond by adding passive generation upgrades
+        const upgradeLevel = state[id].upgrades?.[UpgradeType.PASSIVE_GENERATION] || 0;
+        const upgradeBonus = upgradeLevel * 0.1; // Each upgrade adds 0.1
+        state[id].perSecond = basePerSecond + upgradeBonus;
+      }
+    },
+    
+    // Update resource total generation rate
     updateResourcePerSecond: (
       state,
       action: PayloadAction<{ id: string; perSecond: number }>
@@ -76,6 +106,34 @@ const resourcesSlice = createSlice({
       }
     },
     
+    // Update upgrade level for a resource
+    updateUpgradeLevel: (
+      state,
+      action: PayloadAction<{ id: string; upgradeType: UpgradeType; level: number }>
+    ) => {
+      const { id, upgradeType, level } = action.payload;
+      if (state[id]) {
+        // Initialize upgrades object if it doesn't exist
+        if (!state[id].upgrades) {
+          state[id].upgrades = {};
+        }
+        
+        // Update the upgrade level
+        state[id].upgrades![upgradeType] = level;
+        
+        // Update derived value based on upgrade type
+        if (upgradeType === UpgradeType.CLICK_POWER) {
+          // Click power is 1 + level (level 0 = 1, level 1 = 2, etc.)
+          state[id].clickPower = 1 + level;
+        } else if (upgradeType === UpgradeType.PASSIVE_GENERATION) {
+          // Update perSecond based on basePerSecond plus upgrades
+          const baseRate = state[id].basePerSecond || 0;
+          const upgradeBonus = level * 0.1; // Each level adds 0.1
+          state[id].perSecond = baseRate + upgradeBonus;
+        }
+      }
+    },
+    
     // Update click power for a resource
     updateClickPower: (
       state,
@@ -84,6 +142,14 @@ const resourcesSlice = createSlice({
       const { id, clickPower } = action.payload;
       if (state[id]) {
         state[id].clickPower = clickPower;
+        
+        // Update the upgrade level based on click power
+        if (!state[id].upgrades) {
+          state[id].upgrades = {};
+        }
+        
+        // Click power level is clickPower - 1 (level 0 = 1 power, level 1 = 2 power, etc.)
+        state[id].upgrades![UpgradeType.CLICK_POWER] = clickPower - 1;
       }
     },
   },
@@ -94,10 +160,12 @@ export const {
   updateResourceAmount,
   addResourceAmount,
   updateResourcePerSecond,
+  updateBaseResourcePerSecond,
   toggleResourceUnlocked,
   resetResources,
   deductResources,
   updateClickPower,
+  updateUpgradeLevel,
 } = resourcesSlice.actions;
 
 export default resourcesSlice.reducer;

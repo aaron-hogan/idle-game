@@ -2,6 +2,7 @@ import React, { useCallback, useState, useEffect } from 'react';
 import { useAppSelector } from '../../state/hooks';
 import { ResourceManager } from '../../systems/resourceManager';
 import { ResourceId } from '../../constants/resources';
+import { UpgradeType } from '../../models/resource';
 import './UpgradePanel.css';
 
 interface UpgradePanelProps {
@@ -52,14 +53,22 @@ const UpgradePanel: React.FC<UpgradePanelProps> = ({
     return null;
   }
   
-  // Get current click power or default to 1
+  // Get current click power and upgrade level
   const clickPower = resource.clickPower || 1;
+  const upgradeLevel = resource.upgrades?.[UpgradeType.CLICK_POWER] || 0;
   
   return (
     <div className="upgrade-panel">
       <div className="upgrade-info">
         <div className="upgrade-title">POWER PER CLICK</div>
-        <div className="current-power">{clickPower.toFixed(1)}</div>
+        <div className="current-power">
+          {clickPower.toFixed(1)}
+          <span className="upgrade-level">Level {upgradeLevel}</span>
+        </div>
+        <div className="upgrade-details">
+          <span className="upgrade-detail">Base: 1.0</span>
+          <span className="upgrade-detail">Bonus: +{upgradeLevel.toFixed(1)}</span>
+        </div>
       </div>
       
       <button 

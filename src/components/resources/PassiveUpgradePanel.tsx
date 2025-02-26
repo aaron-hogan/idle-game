@@ -2,6 +2,7 @@ import React, { useCallback, useState, useEffect } from 'react';
 import { useAppSelector } from '../../state/hooks';
 import { ResourceManager } from '../../systems/resourceManager';
 import { ResourceId } from '../../constants/resources';
+import { UpgradeType } from '../../models/resource';
 import './UpgradePanel.css'; // Reuse the same styling
 
 interface PassiveUpgradePanelProps {
@@ -52,14 +53,24 @@ const PassiveUpgradePanel: React.FC<PassiveUpgradePanelProps> = ({
     return null;
   }
   
-  // Get current generation rate
+  // Get current generation rate and upgrade level
   const generationRate = resource.perSecond || 0;
+  const upgradeLevel = resource.upgrades?.[UpgradeType.PASSIVE_GENERATION] || 0;
+  const baseRate = resource.basePerSecond || 0;
+  const upgradeBonus = upgradeLevel * 0.1;
   
   return (
     <div className="upgrade-panel">
       <div className="upgrade-info">
         <div className="upgrade-title">POWER PER SECOND</div>
-        <div className="current-power">{generationRate.toFixed(1)}</div>
+        <div className="current-power">
+          {generationRate.toFixed(1)}
+          <span className="upgrade-level">Level {upgradeLevel}</span>
+        </div>
+        <div className="upgrade-details">
+          <span className="upgrade-detail">Base: {baseRate.toFixed(1)}</span>
+          <span className="upgrade-detail">Bonus: +{upgradeBonus.toFixed(1)}</span>
+        </div>
       </div>
       
       <button 

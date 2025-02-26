@@ -143,7 +143,7 @@ export class ResourceManager {
     const resources = state.resources;
     const structures = state.structures;
     
-    // First, reset all resources to base generation (usually 0 except for initial resources)
+    // First, calculate base generation rates (from structures and initial values)
     const baseRates: Record<string, number> = {};
     
     // Set base rates from initial resource definitions
@@ -188,40 +188,35 @@ export class ResourceManager {
       }
     });
     
-    // Update each resource's perSecond value in the store,
-    // BUT preserve any upgrades that have been applied
+    // Update each resource's basePerSecond value and recalculate total perSecond
     Object.keys(baseRates).forEach(resourceId => {
       const baseRate = baseRates[resourceId];
       if (typeof baseRate === 'number' && !isNaN(baseRate)) {
-        // Get the current resource to check for existing upgrades
+        // Get the current resource
         const resource = resources[resourceId];
+        
         if (resource) {
-          // Calculate how much of the current rate is from upgrades
-          // We're using a heuristic: assume the base rate is always a fraction ending in .1
-          // (like 0.1, 0.2, 0.3) and upgrades add tenths (0.1 each time)
-          const baseAmount = Math.floor(baseRate * 10) / 10; // Round down to nearest 0.1
-          const currentAmount = resource.perSecond;
+          // Get the current upgrade level for passive generation
+          const passiveLevel = resource.upgrades?.passiveGeneration || 0;
           
-          // If the current amount is higher than base + initial 0.1, we have upgrades
-          const upgradeAmount = Math.max(0, currentAmount - baseAmount);
-          
-          // Apply the base rate plus any upgrades
-          const newRate = baseRate + upgradeAmount;
-          
-          this.dispatch!(updateResourcePerSecond({
+          // Update base rate
+          this.dispatch!(updateBaseResourcePerSecond({
             id: resourceId,
-            perSecond: newRate,
+            basePerSecond: baseRate,
           }));
           
           // Log for debugging
-          if (Math.abs(newRate - currentAmount) > 0.01) {
-            console.log(`ResourceManager: Updating ${resourceId} generation rate: ${currentAmount.toFixed(2)} -> ${newRate.toFixed(2)} (base=${baseRate.toFixed(2)}, upgrades=${upgradeAmount.toFixed(2)})`);
-          }
+          console.log(
+            `ResourceManager: Updated ${resourceId} generation: base=${baseRate.toFixed(2)}, ` +
+            `upgrades=${passiveLevel} (${(passiveLevel * 0.1).toFixed(1)}), ` +
+            `total=${(baseRate + passiveLevel * 0.1).toFixed(2)}`
+          );
         } else {
           // If the resource doesn't exist yet, just set the base rate
-          this.dispatch!(updateResourcePerSecond({
+          // This will automatically set perSecond to the same value
+          this.dispatch!(updateBaseResourcePerSecond({
             id: resourceId,
-            perSecond: baseRate,
+            basePerSecond: baseRate,
           }));
         }
       }
@@ -405,14 +400,13 @@ export class ResourceManager {
       return false;
     }
     
-    // Get current click power or default to 1
-    const currentClickPower = resource.clickPower || 1;
+    // Get current upgrade level
+    const currentLevel = resource.upgrades?.[UpgradeType.CLICK_POWER] || 0;
     
     // Calculate the cost of the upgrade (exponential scaling)
     const baseCost = 10; // Starting cost
     const scaleFactor = 1.5; // Cost increases by this factor each time
-    const currentLevel = Math.floor(currentClickPower);
-    const upgradeCost = Math.floor(baseCost * Math.pow(scaleFactor, currentLevel - 1));
+    const upgradeCost = Math.floor(baseCost * Math.pow(scaleFactor, currentLevel));
     
     // Check if player can afford the upgrade
     const costs = {
@@ -426,14 +420,18 @@ export class ResourceManager {
     // Apply the cost
     this.applyResourceCost(costs);
     
-    // Calculate new click power (increase by 1)
-    const newClickPower = currentClickPower + 1;
+    // Increment the upgrade level
+    const newLevel = currentLevel + 1;
     
-    // Update the click power
-    this.dispatch!(updateClickPower({
+    // Update the upgrade level (this will also update clickPower)
+    this.dispatch!(updateUpgradeLevel({
       id: resourceId,
-      clickPower: newClickPower,
+      upgradeType: UpgradeType.CLICK_POWER,
+      level: newLevel,
     }));
+    
+    // Log for debugging
+    console.log(`ResourceManager: Upgraded ${resourceId} click power to level ${newLevel} (+${newLevel})`);
     
     return true;
   }
@@ -454,14 +452,21 @@ export class ResourceManager {
       return -1;
     }
     
-    // Get current click power or default to 1
-    const currentClickPower = resource.clickPower || 1;
+    // Get current upgrade level from the upgrades object
+    const currentLevel = resource.upgrades?.[UpgradeType.CLICK_POWER] || 0;
     
     // Calculate the cost of the upgrade (exponential scaling)
     const baseCost = 10; // Starting cost
     const scaleFactor = 1.5; // Cost increases by this factor each time
-    const currentLevel = Math.floor(currentClickPower);
-    return Math.floor(baseCost * Math.pow(scaleFactor, currentLevel - 1));
+    const cost = Math.floor(baseCost * Math.pow(scaleFactor, currentLevel));
+    
+    // Log for debugging
+    console.log(
+      `ResourceManager: Calculating click upgrade cost for ${resourceId}: ` +
+      `current level=${currentLevel}, cost=${cost}`
+    );
+    
+    return cost;
   }
   
   /**
@@ -480,8 +485,8 @@ export class ResourceManager {
       return false;
     }
     
-    // Get current generation rate
-    const currentRate = resource.perSecond || 0;
+    // Get current upgrade level
+    const currentLevel = resource.upgrades?.[UpgradeType.PASSIVE_GENERATION] || 0;
     
     // Calculate the cost of the upgrade (exponential scaling)
     const upgradeCost = this.getPassiveUpgradeCost(resourceId);
@@ -502,18 +507,26 @@ export class ResourceManager {
     // Apply the cost
     this.applyResourceCost(costs);
     
-    // Calculate new generation rate (increase by 0.1 per upgrade)
-    const upgradeAmount = 0.1;
-    const newRate = currentRate + upgradeAmount;
+    // Increment the upgrade level
+    const newLevel = currentLevel + 1;
     
-    // Update the generation rate
-    this.dispatch!(updateResourcePerSecond({
+    // Update the upgrade level (this will also update perSecond based on basePerSecond)
+    this.dispatch!(updateUpgradeLevel({
       id: resourceId,
-      perSecond: newRate,
+      upgradeType: UpgradeType.PASSIVE_GENERATION,
+      level: newLevel,
     }));
     
+    // Calculate new generation rate for logging
+    const baseRate = resource.basePerSecond || 0;
+    const newRate = baseRate + (newLevel * 0.1);
+    
     // Log for debugging
-    console.log(`ResourceManager: Upgraded ${resourceId} generation rate: ${currentRate.toFixed(2)} -> ${newRate.toFixed(2)} (+${upgradeAmount.toFixed(1)})`);
+    console.log(
+      `ResourceManager: Upgraded ${resourceId} passive generation to level ${newLevel}: ` +
+      `base=${baseRate.toFixed(2)}, upgrade bonus=${(newLevel * 0.1).toFixed(1)}, ` +
+      `total=${newRate.toFixed(2)}`
+    );
     
     return true;
   }
@@ -534,29 +547,20 @@ export class ResourceManager {
       return -1;
     }
     
-    // Get current generation rate or default to 0
-    const currentRate = resource.perSecond || 0;
-    
-    // Get the initial resource definition
-    const initialResource = INITIAL_RESOURCES[resourceId];
-    const initialRate = initialResource ? initialResource.perSecond : 0;
-    
-    // Calculate the initial base rate (rounded down to the nearest 0.1)
-    const baseAmount = Math.floor(initialRate * 10) / 10;
-    
-    // Calculate extra amount from upgrades (the difference, then divide by upgrade size 0.1)
-    // This returns how many times we've bought the upgrade
-    const upgradeLevel = Math.round((currentRate - baseAmount) / 0.1);
+    // Get current upgrade level from the upgrades object
+    const currentLevel = resource.upgrades?.[UpgradeType.PASSIVE_GENERATION] || 0;
     
     // Calculate the cost of the upgrade (exponential scaling)
     const baseCost = 20; // Starting cost (higher than click upgrade)
     const scaleFactor = 1.8; // Cost increases faster than click upgrades
+    const cost = Math.floor(baseCost * Math.pow(scaleFactor, currentLevel));
     
     // Log for debugging
-    console.log(`ResourceManager: Calculating passive upgrade cost for ${resourceId}: ` +
-                `rate=${currentRate.toFixed(2)}, base=${baseAmount.toFixed(1)}, ` +
-                `upgradeLevel=${upgradeLevel}, cost=${Math.floor(baseCost * Math.pow(scaleFactor, upgradeLevel))}`);
+    console.log(
+      `ResourceManager: Calculating passive upgrade cost for ${resourceId}: ` +
+      `current level=${currentLevel}, cost=${cost}`
+    );
     
-    return Math.floor(baseCost * Math.pow(scaleFactor, upgradeLevel));
+    return cost;
   }
 }

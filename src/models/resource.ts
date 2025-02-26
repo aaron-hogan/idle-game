@@ -1,4 +1,23 @@
 /**
+ * Types of resource upgrades available
+ */
+export enum UpgradeType {
+  CLICK_POWER = 'clickPower',
+  PASSIVE_GENERATION = 'passiveGeneration',
+}
+
+/**
+ * Tracks upgrades for a resource
+ */
+export interface ResourceUpgrades {
+  /** Click power upgrade level */
+  [UpgradeType.CLICK_POWER]?: number;
+  
+  /** Passive generation upgrade level */
+  [UpgradeType.PASSIVE_GENERATION]?: number;
+}
+
+/**
  * Represents a resource in the game that players can collect or spend
  */
 export interface Resource {
@@ -17,6 +36,9 @@ export interface Resource {
   /** Rate of generation per second */
   perSecond: number;
   
+  /** Base rate of generation without upgrades */
+  basePerSecond?: number;
+  
   /** Amount of resource gained per click */
   clickPower?: number;
   
@@ -31,4 +53,7 @@ export interface Resource {
   
   /** Optional icon for the resource */
   icon?: string;
+  
+  /** Tracks upgrade levels for this resource */
+  upgrades?: ResourceUpgrades;
 }
