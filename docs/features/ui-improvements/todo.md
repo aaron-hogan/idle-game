@@ -2,14 +2,14 @@
 
 ## Time System Changes
 
-- [ ] Create day calculation utility function
-- [ ] Update time tracking to use day concept (1 day = 60s)
-- [ ] Create day progress calculation (percentage within current day)
-- [ ] Update GameTimer component with day format
-- [ ] Add sun icon (☀︎) to timer
-- [ ] Implement background fill progress indicator
-- [ ] Update speed controls to include 0x (pause) option
-- [ ] Ensure consistent width across day values (1-999)
+- [x] Create day calculation utility function
+- [x] Update time tracking to use day concept (1 day = 60s)
+- [x] Create day progress calculation (percentage within current day)
+- [x] Update GameTimer component with day format
+- [x] Add sun icon (☀︎) to timer
+- [x] Implement background fill progress indicator
+- [x] Update speed controls to include 0x (pause) option
+- [x] Ensure consistent width across day values (1-999)
 
 ## Counter Component Standardization
 
