@@ -1,77 +1,95 @@
-# CI/CD Pipeline
+# Continuous Integration and Deployment Pipeline
 
-This document outlines our Continuous Integration and Continuous Deployment (CI/CD) pipeline configuration and best practices.
+This document provides an overview of our CI/CD pipeline implemented with GitHub Actions.
 
-## Overview
+## CI Pipeline Overview
 
-We use automated CI/CD pipelines to ensure code quality and consistency. Our pipeline automatically runs checks on all pull requests and pushes to main branches.
+Our CI/CD pipeline consists of three main workflows:
 
-## Pipeline Configuration
+1. **Main CI Workflow (`ci.yml`)** - Runs on all PRs and pushes to main
+   - Build and test the application
+   - Run linting and type checking
+   - Perform security scanning
 
-### GitHub Actions
+2. **PR Validation Workflow (`pr-validation.yml`)** - Runs on all PRs
+   - Validate PR title format
+   - Check branch naming conventions
+   - Verify CHANGELOG.md updates
 
-Our CI/CD pipeline is implemented using GitHub Actions, with workflows defined in the `.github/workflows` directory.
+3. **Dependency Management Workflow (`dependencies.yml`)** - Runs on schedule
+   - Check for dependency updates
+   - Run security audits
+   - Generate dependency reports
 
-Key workflows include:
+## Workflow Details
 
-- **Build**: Compiles the codebase to verify it builds successfully
-- **Test**: Runs the full test suite to catch regressions
-- **Lint**: Checks code style and formatting compliance
-- **Type Check**: Verifies TypeScript typing is correct
+### Main CI Workflow
 
-### Workflow Triggers
+The main workflow runs the following jobs:
 
-Workflows are triggered by:
+1. **Build and Test**:
+   - Installs dependencies
+   - Runs linting with ESLint
+   - Performs TypeScript type checking
+   - Executes tests with Jest
+   - Builds the application
+   - Uploads coverage reports
 
-- Pull requests to `main` or `develop` branches
-- Direct pushes to `main` or `develop` branches
-- Scheduled runs (weekly) to ensure ongoing health checks
+2. **Security Scan**:
+   - Runs npm audit for package vulnerabilities
+   - Uses Gitleaks to scan for credential leaks
 
-## Pipeline Checks
+This workflow runs automatically on:
+- Pull requests to main
+- Pushes to main
+- Weekly schedule (Sunday at midnight)
 
-### Linting
+### PR Validation Workflow
 
-- ESLint checks for code style compliance
-- Configuration in `eslint.config.js`
-- Helps maintain consistent code style across the project
+This workflow ensures all PRs follow project standards:
 
-### Type Checking
+1. **Validate PR Format**:
+   - Checks PR title follows semantic versioning format
+   - Verifies branch naming follows conventions
+   - Ensures CHANGELOG.md is updated appropriately
 
-- TypeScript type checking ensures type safety
-- Strict mode is enabled in `tsconfig.json`
-- Catches potential type-related bugs before they reach production
+Runs automatically on:
+- PR creation
+- PR edits
+- PR synchronization
 
-### Testing
+### Dependency Management Workflow
 
-- Jest runs all unit and integration tests
-- Test coverage reports are generated
-- Minimum coverage thresholds are enforced
+This workflow monitors project dependencies:
 
-### Build Validation
+1. **Dependency Audit**:
+   - Checks for outdated dependencies
+   - Scans for security vulnerabilities
+   - Generates reports for review
 
-- Full production build is created
-- Verifies that the code can be built without errors
-- Ensures the application will deploy correctly
+Runs automatically on:
+- Weekly schedule (Monday at midnight)
+- Manual trigger (workflow_dispatch)
 
-## Pipeline Standards
+## Local Development
 
-### Safety Guidelines
+Before submitting a PR, ensure your changes will pass CI by running:
 
-- **NEVER** disable security checks or code quality validations
-- **ALWAYS** get explicit permission before modifying CI workflows
-- **ALWAYS** test workflow changes in a feature branch first
-- **NEVER** merge PRs that fail pipeline checks without proper review and approval
+```bash
+npm run lint        # Check code style
+npm run typecheck   # Verify types
+npm test            # Run all tests
+npm run build       # Verify build
+```
 
-### Workflow Maintenance
+## Handling CI Failures
 
-- Keep dependencies in CI workflows up-to-date
-- Review and optimize workflow performance periodically
-- Document any special considerations for CI in relevant feature documentation
+If CI fails on your PR:
 
-## Related Documentation
+1. Check the error logs on GitHub
+2. Fix any issues locally and push again
+3. Verify the CI passes before requesting review
 
-- [Git Workflow](/docs/processes/git/git-workflow.md)
-- [PR Workflow](/docs/processes/pr-workflow.md)
-- [Testing Standards](/docs/processes/code-quality/testing-standards.md)
-
-By maintaining a robust CI/CD pipeline, we ensure consistent code quality and reduce the likelihood of issues reaching production.
+For more detailed information on working with our CI system, see:
+- [GitHub Actions Documentation](/docs/features/github-actions/summary.md)
+- [Contributing with CI](/docs/features/github-actions/contributing-with-ci.md)

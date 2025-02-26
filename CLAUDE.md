@@ -66,6 +66,24 @@ npm run lint        # Run ESLint
 npm run typecheck   # Type checking
 ```
 
+## <AI-CRITICAL> CI/CD WORKFLOW
+
+This project uses GitHub Actions for CI/CD. The following workflows are in place:
+
+```bash
+.github/workflows/ci.yml           # Main CI workflow for builds, tests, and security
+.github/workflows/pr-validation.yml # Enforces standards for PRs
+.github/workflows/dependencies.yml  # Monitors dependency updates and security
+```
+
+Before submitting a PR, ensure:
+1. All tests pass locally
+2. TypeScript type checking passes
+3. ESLint checks pass
+4. The CHANGELOG.md is updated with your changes
+5. Branch name follows conventions: feature/, fix/, docs/, etc.
+6. PR title follows semantic convention: type: description
+
 ## <AI-CRITICAL> CODE STANDARDS
 
 - TypeScript with strict typing
@@ -102,6 +120,9 @@ npm run typecheck   # Type checking
 - [Documentation Standards](/docs/processes/documentation/documentation-standards.md)
 - [Testing Standards](/docs/processes/code-quality/testing-standards.md)
 - [Architecture Guidelines](/docs/processes/code-quality/architecture-guidelines.md)
+- [CI/CD Pipeline](/docs/processes/ci-cd-pipeline.md)
+- [GitHub Actions](/docs/features/github-actions/summary.md)
+- [Contributing with CI](/docs/features/github-actions/contributing-with-ci.md)
 
 ## <AI-CRITICAL> DOCUMENTATION RULES
 
