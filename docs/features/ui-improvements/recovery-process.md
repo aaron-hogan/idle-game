@@ -72,3 +72,14 @@ Key fixes included:
 1. Adding missing imports for `updateBaseResourcePerSecond` and `updateUpgradeLevel`
 2. Updating Resource type imports to use the new model with upgrade tracking
 3. Properly importing the `UpgradeType` enum
+
+### Console Spam and Offline Progress Fix (2025-02-26)
+
+After completing TypeScript fixes, we encountered issues with excessive console logging and a React infinite update loop. For details, see:
+- `/docs/features/ui-improvements/excessive-logging-fix.md`
+
+Key fixes included:
+1. Reducing excessive console logging in ResourceManager
+2. Fixing a React infinite update loop in App.tsx
+3. Adding proper timestamp validation for offline progress
+4. Correcting the initialization lifecycle to prevent component remounting
