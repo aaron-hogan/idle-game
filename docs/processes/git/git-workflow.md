@@ -104,6 +104,8 @@ Follow these commit message conventions to maintain a clear and informative hist
   - `refactor:` - Code changes that neither fix bugs nor add features
   - `perf:` - Performance improvements
   - `chore:` - Maintenance tasks, dependencies
+  - `style:` - Code style/formatting changes (no functional change)
+  - `ci:` - CI/CD configuration changes
 
 Examples:
 ```
@@ -112,14 +114,18 @@ fix: correct overflow error in resource display
 docs: update API documentation for resource system
 test: add unit tests for resource manager
 refactor: simplify resource calculation logic
+style: format code according to style guide
+ci: add changelog verification to PR workflow
 ```
 
 Guidelines for commits:
 - Keep commits atomic and focused on single changes
 - Write commit messages in imperative, present tense
 - Include a brief description of the change
-- Reference issue numbers when applicable
+- Reference issue numbers when applicable (e.g., "fixes #123")
 - Separate subject from body with a blank line for detailed explanations
+- Update CHANGELOG.md for user-facing changes
+- For co-authored commits, add "Co-authored-by: Name <email>" at the end
 
 ### 3. Pull Requests
 
@@ -182,18 +188,25 @@ To create a new release:
    git checkout -b release/vX.Y.Z
    ```
 3. Make only version bump and minor fixes on this branch
-4. Verify all tests pass on the release branch
-5. Create a PR from release branch to `main`
-6. After approval, merge to `main`
-7. Tag the release with semantic versioning:
+4. Update CHANGELOG.md:
+   - Move "Unreleased" changes to new version section
+   - Add the release date in ISO format (YYYY-MM-DD)
+   - Create a new empty "Unreleased" section
+5. Verify all tests pass on the release branch
+6. Create a PR from release branch to `main`
+7. After approval, merge to `main`
+8. Tag the release with semantic versioning:
    ```bash
    git checkout main
    git pull
    git tag -a v1.0.0 -m "Release v1.0.0"
    git push origin v1.0.0
    ```
-8. Create release notes using GitHub releases
-9. Merge `main` back to `develop` to sync version changes:
+9. Create release notes using GitHub releases:
+   - Use the content from CHANGELOG.md as a basis
+   - Add any additional context or highlights
+   - Include links to key PRs or issues
+10. Merge `main` back to `develop` to sync version changes:
    ```bash
    git checkout develop
    git pull
