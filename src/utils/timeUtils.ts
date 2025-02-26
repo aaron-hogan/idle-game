@@ -123,14 +123,42 @@ export function realToGameTime(realSeconds: number, timeScale: number = 1): numb
  * Day 1 is the first day (not day 0)
  */
 export function getDayFromSeconds(totalSeconds: number): number {
-  return Math.floor(totalSeconds / SECONDS_PER_DAY) + 1;
+  // Ensure we have positive seconds (handle edge cases)
+  if (totalSeconds < 0) {
+    console.warn("timeUtils: Negative time value in getDayFromSeconds, using 1");
+    return 1;
+  }
+  
+  // Calculate day number (starting from 1)
+  // e.g., 0-59 seconds = day 1, 60-119 seconds = day 2, etc.
+  const day = Math.floor(totalSeconds / SECONDS_PER_DAY) + 1;
+  
+  // DEBUG: Log day calculation details
+  console.log(`getDayFromSeconds: seconds=${totalSeconds.toFixed(2)}, SECONDS_PER_DAY=${SECONDS_PER_DAY}, calculation=${Math.floor(totalSeconds / SECONDS_PER_DAY)}, day=${day}`);
+  
+  // Log if we have an abnormal day value (for debugging)
+  if (day > 9999) {
+    console.warn(`timeUtils: Unusually high day value: ${day}, from ${totalSeconds} seconds`);
+  }
+  
+  return day;
 }
 
 /**
  * Calculate progress within the current day (0 to 1)
  */
 export function getDayProgress(totalSeconds: number): number {
-  return (totalSeconds % SECONDS_PER_DAY) / SECONDS_PER_DAY;
+  // Ensure we have positive seconds (handle edge cases)
+  if (totalSeconds < 0) {
+    console.warn("timeUtils: Negative time value in getDayProgress, using 0");
+    return 0;
+  }
+  
+  // Calculate progress within the day (0 to 1)
+  const dayProgress = (totalSeconds % SECONDS_PER_DAY) / SECONDS_PER_DAY;
+  
+  // Ensure it's in the valid range [0, 1]
+  return Math.min(Math.max(dayProgress, 0), 1);
 }
 
 /**
@@ -138,6 +166,10 @@ export function getDayProgress(totalSeconds: number): number {
  */
 export function formatTimeAsDays(seconds: number): string {
   const day = getDayFromSeconds(seconds);
+  
+  // DEBUG: Log the day calculation details
+  console.log(`formatTimeAsDays: seconds=${seconds.toFixed(2)}, day=${day}, SECONDS_PER_DAY=${SECONDS_PER_DAY}`);
+  
   // Cap at max days
   return `Day ${Math.min(day, MAX_DAYS)}`;
 }

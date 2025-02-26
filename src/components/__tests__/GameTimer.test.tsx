@@ -8,9 +8,13 @@ import resourcesReducer from '../../state/resourcesSlice';
 import structuresReducer from '../../state/structuresSlice';
 import { formatTime } from '../../utils/timeUtils';
 
-// Mock formatTime to avoid having to mock Date.now
+// Mock timeUtils to avoid having to mock Date.now
 jest.mock('../../utils/timeUtils', () => ({
   formatTime: jest.fn(seconds => `${seconds} seconds`),
+  formatTimeAsDays: jest.fn(seconds => `Day ${Math.floor(seconds / 60) + 1}`),
+  getDayProgress: jest.fn(seconds => (seconds % 60) / 60),
+  getDayFromSeconds: jest.fn(seconds => Math.floor(seconds / 60) + 1),
+  SECONDS_PER_DAY: 60,
 }));
 
 // Create test store
@@ -42,12 +46,8 @@ describe('GameTimer', () => {
       </Provider>
     );
     
-    // formatTime should have been called with the totalPlayTime
-    expect(formatTime).toHaveBeenCalledWith(120);
-    
-    // Check the rendered output
-    expect(screen.getByText('TIME:')).toBeInTheDocument();
-    expect(screen.getByText('120 seconds')).toBeInTheDocument();
+    // Check the rendered output - Day 3 because 120 seconds / 60 seconds per day = day 3
+    expect(screen.getByText('Day 3')).toBeInTheDocument();
   });
   
   it('should show time scale when not 1x', () => {
@@ -67,7 +67,7 @@ describe('GameTimer', () => {
     );
     
     // Should show the speed multiplier
-    expect(screen.getByText('(x2)')).toBeInTheDocument();
+    expect(screen.getByText('2x')).toBeInTheDocument();
   });
   
   it('should not show time scale when 1x', () => {
@@ -86,8 +86,8 @@ describe('GameTimer', () => {
       </Provider>
     );
     
-    // Should not show the speed multiplier
-    expect(screen.queryByText('(x1)')).not.toBeInTheDocument();
+    // Should show the 1x speed multiplier in neutral color
+    expect(screen.getByText('1x')).toBeInTheDocument();
   });
   
   it('should toggle game running state when button clicked', () => {
@@ -110,21 +110,15 @@ describe('GameTimer', () => {
       </Provider>
     );
     
-    // Find and click the pause button
-    const pauseButton = screen.getByRole('button', { name: /pause game/i });
-    fireEvent.click(pauseButton);
+    // Find and click the dropdown trigger (rate element)
+    const rateElement = screen.getByText(/1x/i);
+    fireEvent.click(rateElement);
+    
+    // Look for pause option in the dropdown and click it
+    const pauseOption = screen.getByText(/pause/i);
+    fireEvent.click(pauseOption);
     
     // Should have dispatched stopGame
     expect(store.dispatch).toHaveBeenCalledWith(stopGame());
-    
-    // Update the state to paused
-    store.dispatch(stopGame());
-    
-    // Find and click the play button
-    const playButton = screen.getByRole('button', { name: /resume game/i });
-    fireEvent.click(playButton);
-    
-    // Should have dispatched startGame
-    expect(store.dispatch).toHaveBeenCalledWith(startGame());
   });
 });

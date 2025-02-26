@@ -111,6 +111,11 @@ const GameLoopDebugTab: React.FC = () => {
     return () => clearInterval(updateInterval);
   }, [gameTimeScale, startTime]);
 
+  // Get current day and progress information
+  const secondsPerDay = 60; // Same as SECONDS_PER_DAY in timeUtils.ts
+  const currentDay = Math.floor(gameTime / secondsPerDay) + 1;
+  const dayProgress = (gameTime % secondsPerDay) / secondsPerDay;
+  
   // Generate metrics for display
   const timeMetrics: MetricItem[] = [
     { 
@@ -121,6 +126,16 @@ const GameLoopDebugTab: React.FC = () => {
     { 
       name: "Game Time", 
       value: gameTime,
+      status: 'neutral'
+    },
+    { 
+      name: "Current Day", 
+      value: currentDay,
+      status: 'special'
+    },
+    { 
+      name: "Day Progress", 
+      value: `${(dayProgress * 100).toFixed(1)}%`,
       status: 'neutral'
     },
     { 
@@ -165,9 +180,41 @@ const GameLoopDebugTab: React.FC = () => {
     }
   ];
 
+  // Generate day information metrics 
+  const dayMetrics: MetricItem[] = [
+    {
+      name: "Current Day",
+      value: currentDay,
+      status: 'special'
+    },
+    {
+      name: "Day Progress",
+      value: `${(dayProgress * 100).toFixed(1)}%`,
+      status: 'neutral'
+    },
+    {
+      name: "Seconds per Day",
+      value: secondsPerDay,
+      status: 'neutral'
+    },
+    {
+      name: "Time until next day",
+      value: `${((1 - dayProgress) * secondsPerDay).toFixed(1)}s`,
+      status: 'neutral'
+    },
+    {
+      name: "Real time until next day",
+      value: `${((1 - dayProgress) * secondsPerDay / gameTimeScale).toFixed(1)}s`,
+      status: 'neutral'
+    }
+  ];
+
   return (
     <div>
       <h3 style={{ margin: '0 0 10px 0', fontSize: '14px' }}>Game Loop Statistics</h3>
+      
+      {/* Day information panel */}
+      <MetricsPanel title="Day Information" metrics={dayMetrics} />
       
       {/* Time metrics panel */}
       <MetricsPanel title="Time Metrics" metrics={timeMetrics} />
