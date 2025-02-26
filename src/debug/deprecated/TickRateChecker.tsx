@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { GameLoop } from '../core/GameLoop';
-import { useAppSelector } from '../state/hooks';
-import { selectTotalPlayTime, selectGameTimeScale } from '../state/selectors';
+import { GameLoop } from '../../core/GameLoop';
+import { useAppSelector } from '../../state/hooks';
+import { selectTotalPlayTime, selectGameTimeScale } from '../../state/selectors';
 
 /**
  * A simple component that tracks and displays game loop metrics

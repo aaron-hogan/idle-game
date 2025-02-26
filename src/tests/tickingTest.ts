@@ -58,6 +58,13 @@ export function runTickingTest() {
   return { test1Success, test2Success };
 }
 
+// Add type declaration to window object
+declare global {
+  interface Window {
+    runTickingTest: typeof runTickingTest;
+  }
+}
+
 // Optional: Run the test if this file is executed directly
 if (typeof window !== 'undefined') {
   window.runTickingTest = runTickingTest;

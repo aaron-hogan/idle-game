@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useAppSelector, useAppDispatch } from '../state/hooks';
-import { selectTotalPlayTime } from '../state/selectors';
-import { formatTime } from '../utils/timeUtils';
-import { GameLoop } from '../core/GameLoop';
+import { useAppSelector, useAppDispatch } from '../../state/hooks';
+import { selectTotalPlayTime } from '../../state/selectors';
+import { formatTime } from '../../utils/timeUtils';
+import { GameLoop } from '../../core/GameLoop';
 
 /**
  * TickRateTest component for verifying the game loop runs at the expected rate

@@ -7,7 +7,7 @@ import { useAppSelector } from '../../state/hooks';
 const ProgressionDebugTab: React.FC = () => {
   // Get progression state from Redux
   const progression = useAppSelector(state => state.progression);
-  const { gameStage, milestones, achievements } = progression || { gameStage: 'LOADING', milestones: {}, achievements: {} };
+  const { currentStage, milestones, achievements } = progression || { currentStage: 'LOADING', milestones: {}, achievements: {} };
   
   // Get counts
   const totalMilestones = Object.keys(milestones || {}).length;
@@ -20,7 +20,7 @@ const ProgressionDebugTab: React.FC = () => {
       <h3>Progression Debug Information</h3>
       
       <div className="debug-section">
-        <h4>Game Stage: <span className="highlight">{gameStage}</span></h4>
+        <h4>Game Stage: <span className="highlight">{currentStage}</span></h4>
         <div className="debug-stats">
           <div className="stat-item">
             <div className="stat-label">Milestones</div>

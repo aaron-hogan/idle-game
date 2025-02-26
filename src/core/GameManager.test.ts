@@ -102,7 +102,7 @@ describe('GameManager', () => {
     expect(mockResourceManager.updateResources).toHaveBeenCalledWith(unscaledDelta * 1.0);
     
     // Calculate actual ratio - should be 1.0 since both use the same delta
-    const timerDelta = (addPlayTime as jest.Mock).mock.calls[0][0];
+    const timerDelta = (addPlayTime as unknown as jest.Mock).mock.calls[0][0];
     const resourceDelta = (mockResourceManager.updateResources as jest.Mock).mock.calls[0][0];
     const ratio = resourceDelta / timerDelta;
     

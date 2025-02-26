@@ -223,11 +223,18 @@ export const stateValidationMiddleware: Middleware = store => next => action => 
   
   // Only validate state for specific critical actions, not on every state change
   // This prevents console spam and improves performance
+  // Check if action is a valid Redux action with a type property
   if (
-    action.type.includes('init') || 
-    action.type.includes('reset') || 
-    action.type.includes('load') ||
-    action.type.includes('add') && !action.type.includes('addResourceAmount')
+    action && 
+    typeof action === 'object' && 
+    'type' in action && 
+    typeof action.type === 'string' && 
+    (
+      action.type.includes('init') || 
+      action.type.includes('reset') || 
+      action.type.includes('load') ||
+      (action.type.includes('add') && !action.type.includes('addResourceAmount'))
+    )
   ) {
     const state = store.getState() as RootState;
     validateState(state);

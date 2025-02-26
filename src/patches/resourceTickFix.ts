@@ -84,8 +84,8 @@ export function stopDirectResourceTick() {
     return;
   }
   
-  window.clearInterval(tickIntervalId);
-  tickIntervalId = null as unknown as number; // Type coercion to fix TypeScript error
+  window.clearInterval(tickIntervalId as unknown as NodeJS.Timeout);
+  tickIntervalId = null;
   
   console.log('Direct resource tick stopped');
 }

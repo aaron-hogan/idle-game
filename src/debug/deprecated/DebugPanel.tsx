@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { useAppSelector, useAppDispatch } from '../state/hooks';
-import { selectTotalPlayTime, selectGameTimeScale } from '../state/selectors';
-import { GameLoop } from '../core/GameLoop';
-import { setTotalPlayTime } from '../state/gameSlice';
+import { useAppSelector, useAppDispatch } from '../../state/hooks';
+import { selectTotalPlayTime, selectGameTimeScale } from '../../state/selectors';
+import { GameLoop } from '../../core/GameLoop';
+import { setTotalPlayTime } from '../../state/gameSlice';
 
 /**
  * Debug panel for game development
