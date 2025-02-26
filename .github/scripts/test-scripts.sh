@@ -160,9 +160,9 @@ run_test "PR-4: PR from main" \
   "git checkout main && $SCRIPT_DIR/create-pr.sh" \
   false
 
-run_test "PR-8: Skip check flag" \
-  "echo 'Test file' > test-file-skip.txt && $SCRIPT_DIR/create-pr.sh --skip-check || echo 'Expected PR creation to fail with existing PR'" \
-  false
+run_test "PR-8: Skip check flag with validation error" \
+  "echo 'Test file' > test-file-skip.txt && ($SCRIPT_DIR/create-pr.sh --skip-check 2>&1 || true) | grep -q 'ERROR: Cannot create PR from main'" \
+  true
 
 # Test check-pr.sh (limited)
 header "Testing check-pr.sh"
