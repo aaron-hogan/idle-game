@@ -109,7 +109,7 @@ const Counter: React.FC<CounterProps> = ({
           {/* Progress indicator (if specified) */}
           {progress > 0 && (
             <div 
-              className="counter-progress" 
+              className={`counter-progress ${iconType}`}
               style={progressStyle}
               aria-hidden="true"
             />

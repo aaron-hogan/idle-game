@@ -45,7 +45,7 @@ const GameTimer: React.FC<GameTimerProps> = ({ className = '' }) => {
   const dropdownItems = [
     // Pause option
     {
-      label: 'Pause (0x)',
+      label: 'Pause',
       onClick: () => {
         if (isRunning) toggleGameRunning();
       },

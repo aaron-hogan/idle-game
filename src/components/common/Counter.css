@@ -33,29 +33,55 @@
   top: 0;
   left: 0;
   height: 100%;
-  background-color: rgba(46, 125, 50, 0.15);
+  background-color: rgba(46, 125, 50, 0.15); /* Default green tint */
   z-index: 0;
   transition: width 0.5s linear;
 }
 
+/* Progress color variants to match icons */
+.counter-progress.day {
+  background-color: rgba(255, 213, 79, 0.15); /* Yellow tint */
+}
+
+.counter-progress.power {
+  background-color: rgba(100, 181, 246, 0.15); /* Blue tint */
+}
+
+.counter-progress.knowledge {
+  background-color: rgba(186, 104, 200, 0.15); /* Purple tint */
+}
+
+.counter-progress.materials {
+  background-color: rgba(161, 136, 127, 0.15); /* Brown tint */
+}
+
+.counter-progress.community {
+  background-color: rgba(129, 199, 132, 0.15); /* Green tint */
+}
+
+.counter-progress.currency {
+  background-color: rgba(255, 213, 79, 0.15); /* Gold tint */
+}
+
 /* Counter icon (left side) */
 .counter-icon {
-  margin-right: 5px;
-  font-size: 13px;
-  min-width: 15px;
+  margin-right: 6px;
+  font-size: 15px;
+  min-width: 18px;
   text-align: center;
   z-index: 1;
 }
 
 /* Main counter value */
 .counter-value {
-  font-size: 12px;
+  font-size: 13px;
   color: #ddd;
   font-family: monospace;
   min-width: 70px;
   text-align: left;
   white-space: pre;
   z-index: 1;
+  font-weight: 500; /* Slightly bolder */
 }
 
 /* Rate indicator (right side) */
@@ -149,6 +175,8 @@
   font-size: 11px;
   color: #bbb;
   margin-bottom: 6px;
+  white-space: normal;
+  line-height: 1.4;
 }
 
 .tooltip-details {
