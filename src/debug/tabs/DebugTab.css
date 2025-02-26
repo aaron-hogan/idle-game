@@ -1,0 +1,89 @@
+/* Debug Tab common styles */
+.debug-tab {
+  padding: 10px;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.debug-tab-header {
+  margin-bottom: 8px;
+  border-bottom: 1px solid #333;
+  padding-bottom: 5px;
+}
+
+.debug-tab-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #d1c4e9;
+  margin: 0 0 5px 0;
+}
+
+.debug-tab-description {
+  font-size: 12px;
+  color: #aaa;
+  margin: 0;
+}
+
+.debug-tab-section {
+  margin-bottom: 12px;
+  padding: 8px;
+  background-color: rgba(30, 30, 30, 0.4);
+  border-radius: 4px;
+}
+
+.debug-tab-section-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: #b388ff;
+  margin: 0 0 5px 0;
+}
+
+.debug-section-content {
+  font-family: monospace;
+  font-size: 12px;
+  white-space: pre-wrap;
+  overflow-x: auto;
+  padding: 3px;
+}
+
+.debug-tab button {
+  background-color: #444;
+  border: 1px solid #666;
+  color: #ddd;
+  border-radius: 3px;
+  padding: 4px 8px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background-color 0.2s;
+}
+
+.debug-tab button:hover {
+  background-color: #555;
+}
+
+.debug-tab button:active {
+  background-color: #333;
+}
+
+.debug-tab input, .debug-tab select {
+  background-color: #333;
+  border: 1px solid #555;
+  color: #ddd;
+  border-radius: 3px;
+  padding: 4px 8px;
+  margin-right: 5px;
+  font-size: 12px;
+}
+
+.debug-tab .input-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.debug-tab .input-label {
+  margin-right: 8px;
+  min-width: 80px;
+}

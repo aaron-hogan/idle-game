@@ -450,12 +450,19 @@ export class GameManager {
       const currentTime = getCurrentTime();
       const lastSaveTime = state.game.lastSaveTime;
       
+      // Make sure we have valid timestamps before proceeding
+      if (!lastSaveTime || lastSaveTime <= 0) {
+        console.log("GameManager: No valid last save time found, skipping offline progress");
+        this.updateLastSaveTime(); // Update the timestamp for future calculations
+        return;
+      }
+      
       // Use the game's actual time scale for consistent behavior
       const gameTimeScale = state.game.gameTimeScale || 1.0;
       
-      // Calculate offline time (real time elapsed)
+      // Calculate offline time (real time elapsed) with safety limits
       const offlineSeconds = calculateOfflineTime(currentTime, lastSaveTime, {
-        useSafeLimit: false, // Use the full limit for proper offline progress
+        useSafeLimit: true, // Use safe limits to prevent excessive resource generation
         applyEfficiency: true
       });
       
@@ -466,10 +473,16 @@ export class GameManager {
         console.log(`GameManager: Processing ${offlineSeconds.toFixed(1)}s of real time (${scaledOfflineSeconds.toFixed(1)}s game time)`);
       }
       
-      // If significant time has passed
-      if (offlineSeconds > 1) {
-        // Update resources with consistently scaled time
+      // Only process if we have a reasonable amount of time (1-3600 seconds)
+      if (offlineSeconds > 1 && offlineSeconds < 3600) {
+        // Make sure the ResourceManager is initialized before using it
         const resourceManager = ResourceManager.getInstance();
+        if (!resourceManager) {
+          console.error("GameManager: ResourceManager not available");
+          return;
+        }
+        
+        // Update resources with consistently scaled time
         resourceManager.updateResources(scaledOfflineSeconds);
         
         // Update total play time with the SAME scaled time
@@ -481,6 +494,16 @@ export class GameManager {
             `and processed ${scaledOfflineSeconds.toFixed(1)}s of game time for resources`
           );
         }
+      } else if (offlineSeconds >= 3600) {
+        // Cap extremely long offline periods
+        console.log(`GameManager: Capping offline progress at 1 hour (actual: ${(offlineSeconds/3600).toFixed(2)} hours)`);
+        
+        // Add capped time (1 hour)
+        this.store.dispatch(addPlayTime(3600 * gameTimeScale));
+        
+        // Process resources with capped time
+        const resourceManager = ResourceManager.getInstance();
+        resourceManager.updateResources(3600 * gameTimeScale);
       }
       
       // Update last save time
