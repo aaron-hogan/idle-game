@@ -27,6 +27,8 @@ interface MilestoneRequirements {
 interface MilestoneProgressProps {
   /** Maximum number of milestones to show at once */
   limit?: number;
+  /** Whether to display milestones in a horizontal layout */
+  horizontalLayout?: boolean;
 }
 
 interface CompletedMilestone {
@@ -39,7 +41,10 @@ interface CompletedMilestone {
  * Component to display detailed milestone progress with resource contributions
  * and visual feedback for milestone completion
  */
-const MilestoneProgress: React.FC<MilestoneProgressProps> = ({ limit = 3 }) => {
+const MilestoneProgress: React.FC<MilestoneProgressProps> = ({ 
+  limit = 3, 
+  horizontalLayout = false 
+}) => {
   // Track completed milestones for animations
   const [completedMilestones, setCompletedMilestones] = useState<CompletedMilestone[]>([]);
   // Previously completed milestone IDs to detect new completions
@@ -183,57 +188,60 @@ const MilestoneProgress: React.FC<MilestoneProgressProps> = ({ limit = 3 }) => {
   }
   
   return (
-    <div className="milestone-progress">
+    <div className={`milestone-progress ${horizontalLayout ? 'horizontal' : 'vertical'}`}>
       <h3>Next Milestones</h3>
       
-      {/* In-progress milestones */}
-      {milestonesWithProgress.map(({ milestone, resources: reqs, overallProgress }) => (
-        <div key={milestone.id} className="milestone-card">
-          <div className="milestone-header">
-            <span className="milestone-name">{milestone.name}</span>
-            <span className="milestone-percentage">{Math.floor(overallProgress)}%</span>
+      {/* Milestone list container with layout */}
+      <div className="milestone-list-container">
+        {/* In-progress milestones */}
+        {milestonesWithProgress.map(({ milestone, resources: reqs, overallProgress }) => (
+          <div key={milestone.id} className="milestone-card">
+            <div className="milestone-header">
+              <span className="milestone-name">{milestone.name}</span>
+              <span className="milestone-percentage">{Math.floor(overallProgress)}%</span>
+            </div>
+            
+            <div className="milestone-description">{milestone.description}</div>
+            
+            <div className="milestone-progress-bar">
+              <div 
+                className="milestone-progress-fill" 
+                style={{ width: `${overallProgress}%` }}
+              />
+            </div>
+            
+            <ul className="milestone-requirements">
+              {reqs.map(req => (
+                <li 
+                  key={req.resourceId} 
+                  className={`resource-requirement ${req.progress >= 100 ? 'completed' : ''}`}
+                >
+                  <div className="requirement-header">
+                    <span>{req.resourceName}</span>
+                    <span>
+                      {req.currentAmount.toFixed(1)} / {req.requiredAmount.toFixed(1)}
+                    </span>
+                  </div>
+                  
+                  <div className="requirement-progress-bar">
+                    <div 
+                      className="requirement-progress-fill"
+                      style={{ width: `${req.progress}%` }}
+                    />
+                  </div>
+                  
+                  <div className="requirement-info">
+                    <span>{req.perSecond > 0 ? '+' : ''}{req.perSecond.toFixed(2)}/sec</span>
+                    {req.timeToComplete !== null && (
+                      <span>ETA: {formatTimeRemaining(req.timeToComplete)}</span>
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ul>
           </div>
-          
-          <div className="milestone-description">{milestone.description}</div>
-          
-          <div className="milestone-progress-bar">
-            <div 
-              className="milestone-progress-fill" 
-              style={{ width: `${overallProgress}%` }}
-            />
-          </div>
-          
-          <ul className="milestone-requirements">
-            {reqs.map(req => (
-              <li 
-                key={req.resourceId} 
-                className={`resource-requirement ${req.progress >= 100 ? 'completed' : ''}`}
-              >
-                <div className="requirement-header">
-                  <span>{req.resourceName}</span>
-                  <span>
-                    {req.currentAmount.toFixed(1)} / {req.requiredAmount.toFixed(1)}
-                  </span>
-                </div>
-                
-                <div className="requirement-progress-bar">
-                  <div 
-                    className="requirement-progress-fill"
-                    style={{ width: `${req.progress}%` }}
-                  />
-                </div>
-                
-                <div className="requirement-info">
-                  <span>{req.perSecond > 0 ? '+' : ''}{req.perSecond.toFixed(2)}/sec</span>
-                  {req.timeToComplete !== null && (
-                    <span>ETA: {formatTimeRemaining(req.timeToComplete)}</span>
-                  )}
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
+        ))}
+      </div>
       
       {/* Milestone completion notifications */}
       <div className="milestone-notifications">

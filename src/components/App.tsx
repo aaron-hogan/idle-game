@@ -14,9 +14,18 @@ import ErrorBoundary from './error/ErrorBoundary';
 import { addPlayTime } from '../state/gameSlice';
 import { GameManager } from '../core/GameManager';
 import GameDebugger from '../debug/GameDebugger';
-import ProgressionTracker from './progression/ProgressionTracker';
-import MilestoneProgress from './progression/MilestoneProgress';
-import { ResourceList, ClickableResource, UpgradePanel } from './resources';
+import { 
+  ProgressionTracker, 
+  MilestoneProgress,
+  ProgressBar 
+} from './progression';
+import { 
+  ResourceList, 
+  ClickableResource, 
+  UpgradePanel,
+  TopResourceBar,
+  ResourceGenerators 
+} from './resources';
 import { ResourceId } from '../constants/resources';
 import { SaveControls } from './save';
 import { TaskManager } from '../managers/TaskManager';
@@ -136,30 +145,37 @@ const App: React.FC = () => {
   return (
     <ErrorBoundary>
       <SaveProvider>
-        <div className="bare-layout">
-          {/* Minimal top controls */}
-          <div className="controls-bar">
+        <div className="game-layout">
+          {/* Top bar with timer and resources */}
+          <div className="top-bar">
             <div className="game-timer">
               <GameTimer />
             </div>
+            <TopResourceBar />
             <MenuButton />
           </div>
           
-          {/* Core content area with resources, clicking, and progression */}
-          <div className="core-content">
-            <div className="resource-display">
-              <ResourceList />
+          {/* Main content in a 3-column grid */}
+          <div className="main-content">
+            {/* Left column - Resource generators */}
+            <div className="left-column">
+              <ResourceGenerators />
             </div>
             
-            {/* Clickable resource and upgrade panel */}
-            <div className="click-section">
-              <ClickableResource resourceId={ResourceId.COLLECTIVE_POWER} />
-              <UpgradePanel resourceId={ResourceId.COLLECTIVE_POWER} />
+            {/* Center column - Clickable area and upgrades */}
+            <div className="center-column">
+              <div className="click-section">
+                <ClickableResource resourceId={ResourceId.COLLECTIVE_POWER} />
+                <UpgradePanel resourceId={ResourceId.COLLECTIVE_POWER} />
+              </div>
             </div>
             
-            <div className="progression-display">
-              <ProgressionTracker />
-              <MilestoneProgress limit={2} />
+            {/* Right column - Progression tracking */}
+            <div className="right-column">
+              <div className="progression-display">
+                <ProgressionTracker />
+                <MilestoneProgress limit={3} horizontalLayout={true} />
+              </div>
             </div>
           </div>
           

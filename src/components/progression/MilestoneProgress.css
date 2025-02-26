@@ -9,6 +9,26 @@
   font-family: monospace;
 }
 
+/* Horizontal layout container */
+.milestone-progress.horizontal .milestone-list-container {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+}
+
+.milestone-progress.horizontal .milestone-card {
+  min-width: 300px;
+  max-width: 320px;
+  margin-bottom: 0;
+}
+
+.milestone-progress.vertical .milestone-list-container {
+  display: flex;
+  flex-direction: column;
+}
+
 .milestone-progress h3 {
   margin-top: 0;
   margin-bottom: 12px;
@@ -217,5 +237,17 @@
   
   .notification-name {
     font-size: 12px;
+  }
+  
+  /* Horizontal layout adjustments for mobile */
+  .milestone-progress.horizontal .milestone-list-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 5px;
+  }
+  
+  .milestone-progress.horizontal .milestone-card {
+    min-width: 260px;
+    max-width: 280px;
   }
 }
