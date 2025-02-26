@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `create-branch.sh` - Safely creates properly named feature branches
   - `create-pr.sh` - Creates standardized pull requests from feature branches
   - `check-pr.sh` - Checks PR status in JSON format for easy parsing
+  - `merge-pr.sh` - Safely handles PR merging with validation
 - Win and lose conditions for a complete gameplay loop
 - New "Corporate Oppression" resource that increases over time
 - Visual indicator showing power vs. oppression balance

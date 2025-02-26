@@ -90,6 +90,23 @@ In practical terms, this means:
 - More context available for complex tasks
 - Reduced chance of git workflow errors
 
+### 4. `merge-pr.sh`
+
+**Purpose:** Safely handle PR merging with validation and conflict resolution.
+
+**Usage:**
+```bash
+.github/scripts/merge-pr.sh [PR_NUMBER]
+```
+
+**Features:**
+- Checks if PR is open and mergeable
+- Verifies merge state status (CLEAN, BEHIND, etc.)
+- Offers to update branches that are behind
+- Handles merge with branch deletion
+- Automatically switches to main and pulls after merge
+- Validates entire merge process for safety
+
 ## Future Improvements
 
 - Add release automation script

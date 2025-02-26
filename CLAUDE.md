@@ -187,6 +187,9 @@ AS AN AI ASSISTANT, YOU MUST:
    - This creates a standardized PR with proper formatting
    - Alternatively: use `gh pr create` with proper formatting if scripts aren't available
 7. To check PR status, use: `.github/scripts/check-pr.sh [PR_NUMBER]`
+8. For merging PRs, use: `.github/scripts/merge-pr.sh [PR_NUMBER]`
+   - This safely handles PR merging with proper validation
+   - Helps avoid common merge issues and conflicts
 
 These automation scripts significantly reduce context window usage and ensure proper workflow.
 
