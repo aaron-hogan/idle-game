@@ -19,6 +19,9 @@ interface GameState {
   tickRate: number; // milliseconds per tick
   gameTimeScale: number; // how much faster game time runs compared to real time
   startDate: number; // when the game was first started
+  gameEnded: boolean; // indicates if game has ended (win or lose)
+  gameWon: boolean; // true if player won, false if lost
+  endReason: string | null; // explanation of win/lose
 }
 
 const initialState: GameState = {
@@ -29,6 +32,9 @@ const initialState: GameState = {
   isRunning: true,
   tickRate: 1000, // 1 second per tick
   gameTimeScale: 1, // real time
+  gameEnded: false,
+  gameWon: false,
+  endReason: null,
 };
 
 const gameSlice = createSlice({
@@ -90,6 +96,14 @@ const gameSlice = createSlice({
       // The actual logic is in the game loop system
     },
     
+    // End the game (win or lose)
+    endGame: (state, action: PayloadAction<{ won: boolean; reason: string }>) => {
+      state.gameEnded = true;
+      state.gameWon = action.payload.won;
+      state.endReason = action.payload.reason;
+      state.isRunning = false;
+    },
+    
     // Reset game state
     resetGame: () => initialState,
   },
@@ -105,6 +119,7 @@ export const {
   setTickRate,
   setGameTimeScale,
   processOfflineProgress,
+  endGame,
   resetGame,
 } = gameSlice.actions;
 

@@ -21,6 +21,22 @@ export const INITIAL_RESOURCES: Record<string, Resource> = {
     }
   },
   
+  'oppression': {
+    id: 'oppression',
+    name: 'Corporate Oppression',
+    amount: 0,
+    maxAmount: 1000, // Same as collective power
+    perSecond: 0.05, // Consistent passive generation
+    basePerSecond: 0.05, // Base generation rate (static)
+    description: 'Represents the opposition to your movement. If this exceeds your collective power, you will lose.',
+    unlocked: true, // Available from the start
+    category: 'THREAT',
+    upgrades: {
+      [UpgradeType.CLICK_POWER]: 0,
+      [UpgradeType.PASSIVE_GENERATION]: 0,
+    }
+  },
+  
   'solidarity': {
     id: 'solidarity',
     name: 'Solidarity',
@@ -59,6 +75,7 @@ export const INITIAL_RESOURCES: Record<string, Resource> = {
  */
 export enum ResourceId {
   COLLECTIVE_POWER = 'collective-power',
+  OPPRESSION = 'oppression',
   SOLIDARITY = 'solidarity',
   COMMUNITY_TRUST = 'community-trust',
 }

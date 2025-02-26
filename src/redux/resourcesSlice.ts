@@ -18,7 +18,8 @@ const initialState: ResourcesState = {
     [ResourceCategory.PRIMARY]: [],
     [ResourceCategory.SECONDARY]: [],
     [ResourceCategory.ADVANCED]: [],
-    [ResourceCategory.SPECIAL]: []
+    [ResourceCategory.SPECIAL]: [],
+    [ResourceCategory.THREAT]: []
   }
 };
 

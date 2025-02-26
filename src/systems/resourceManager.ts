@@ -1,6 +1,6 @@
 import { Structure, NULL_RESOURCE } from '../models/types';
 import { Resource } from '../models/resource';
-import { INITIAL_RESOURCES } from '../constants/resources';
+import { INITIAL_RESOURCES, ResourceId } from '../constants/resources';
 import { AppDispatch, RootState } from '../state/store';
 import { Store } from 'redux';
 import { 
@@ -104,15 +104,48 @@ export class ResourceManager {
     }
     
     const state = this.getState!();
-    const resources = state.resources;
+    // Use any type to work with both state formats
+    const resources: any = state.resources;
     
-    // Removed excessive logging for resource updates
+    // Special handling for oppression resource - always ensure it's generated
+    const oppression = resources.byId ? resources.byId[ResourceId.OPPRESSION] : resources[ResourceId.OPPRESSION];
+    
+    if (oppression) {
+      // Fix for oppression rate - always use the constant 0.05 from INITIAL_RESOURCES
+      // This ensures consistency between display and actual generation
+      const OPPRESSION_RATE = 0.05;
+      
+      // If the perSecond value is incorrect, update it
+      if (oppression.perSecond !== OPPRESSION_RATE) {
+        this.dispatch!(updateResourcePerSecond({
+          id: ResourceId.OPPRESSION,
+          perSecond: OPPRESSION_RATE,
+        }));
+      }
+      
+      const oppressionAmount = OPPRESSION_RATE * gameTimeInSeconds;
+      
+      // Only dispatch if we have a positive amount to add
+      if (oppressionAmount > 0) {
+        this.dispatch!(addResourceAmount({
+          id: ResourceId.OPPRESSION,
+          amount: oppressionAmount,
+        }));
+      }
+    }
     
     // For each resource, add the generated amount based on the game time that passed
-    Object.values(resources).forEach((resource: unknown) => {
+    // Handle both formats of resources (direct object or byId structure)
+    const resourceValues = resources.byId ? Object.values(resources.byId) : Object.values(resources);
+    resourceValues.forEach((resource: unknown) => {
       if (resource && typeof resource === 'object' && 
           'perSecond' in resource && typeof resource.perSecond === 'number' && 
           'id' in resource && typeof resource.id === 'string') {
+            
+        // Skip oppression since we already handled it
+        if (resource.id === ResourceId.OPPRESSION) {
+          return;
+        }
             
         if (resource.perSecond > 0) {
           // Calculate generation based on scaled game time
@@ -191,6 +224,16 @@ export class ResourceManager {
     
     // Update each resource's basePerSecond value and recalculate total perSecond
     Object.keys(baseRates).forEach(resourceId => {
+      // Skip oppression resource - it should always keep its original rate
+      if (resourceId === ResourceId.OPPRESSION) {
+        // Force oppression rate to constant value
+        this.dispatch!(updateResourcePerSecond({
+          id: resourceId,
+          perSecond: 0.05,
+        }));
+        return;
+      }
+      
       const baseRate = baseRates[resourceId];
       if (typeof baseRate === 'number' && !isNaN(baseRate)) {
         // Get the current resource
@@ -476,6 +519,12 @@ export class ResourceManager {
    */
   upgradePassiveGeneration(resourceId: string): boolean {
     this.ensureInitialized();
+    
+    // Prevent upgrading oppression - it should always generate at constant rate
+    if (resourceId === ResourceId.OPPRESSION) {
+      console.warn('Cannot upgrade oppression resource - it has a fixed generation rate');
+      return false;
+    }
     
     const state = this.getState!();
     const resource = state.resources[resourceId];

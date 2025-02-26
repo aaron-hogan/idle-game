@@ -57,7 +57,8 @@ export enum ResourceCategory {
   PRIMARY = 'primary',
   SECONDARY = 'secondary',
   ADVANCED = 'advanced',
-  SPECIAL = 'special'
+  SPECIAL = 'special',
+  THREAT = 'threat'
 }
 
 /**
