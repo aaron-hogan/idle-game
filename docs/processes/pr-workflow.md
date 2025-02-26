@@ -2,6 +2,15 @@
 
 This document outlines our comprehensive process for creating, validating, and merging pull requests. Following this process helps ensure code quality, proper documentation, and a stable codebase.
 
+## ⚠️ CRITICAL: NEVER WORK DIRECTLY ON MAIN BRANCH ⚠️
+
+Direct pushes to the main branch bypass critical safety measures including:
+- Code reviews
+- Automated testing
+- Type checking
+- Documentation verification
+- Change tracking
+
 ## PR Creation Process
 
 ### 1. Pre-Development Setup
@@ -9,14 +18,20 @@ This document outlines our comprehensive process for creating, validating, and m
 ```bash
 # Start by verifying the current state
 git status
+git branch  # ⚠️ VERIFY CURRENT BRANCH FIRST
 git log -n 5 --oneline
 
-# Make sure you're on the main branch and up-to-date
+# If you're already on main, IMMEDIATELY create a feature branch
+# before making ANY changes
+git checkout -b fix/descriptive-branch-name
+
+# If not on main, pull latest main and create a fresh branch
 git checkout main
 git pull origin main
-
-# Create a new branch for your task
 git checkout -b fix/descriptive-branch-name
+
+# VERIFY you are now on the correct branch
+git branch
 ```
 
 ### 2. Development Phase
