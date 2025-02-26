@@ -155,6 +155,35 @@ const resourcesSlice = createSlice({
   },
 });
 
+// Add new actions for milestone rewards
+const resourcesSliceActions = resourcesSlice.actions;
+
+// New action to add to resource generation rate (for milestone rewards)
+export const addResourcePerSecond = (
+  state: ResourcesState,
+  action: PayloadAction<{ id: string; perSecond: number }>
+) => {
+  const { id, perSecond } = action.payload;
+  if (state[id]) {
+    state[id].perSecond += perSecond;
+  }
+};
+
+// New action to multiply resource generation rate (for milestone rewards)
+export const multiplyResourcePerSecond = (
+  state: ResourcesState,
+  action: PayloadAction<{ id: string; multiplier: number }>
+) => {
+  const { id, multiplier } = action.payload;
+  if (state[id]) {
+    state[id].perSecond *= multiplier;
+  }
+};
+
+// Add the new actions to the exported actions
+resourcesSlice.actions.addResourcePerSecond = addResourcePerSecond;
+resourcesSlice.actions.multiplyResourcePerSecond = multiplyResourcePerSecond;
+
 export const {
   addResource,
   updateResourceAmount,
@@ -166,6 +195,9 @@ export const {
   deductResources,
   updateClickPower,
   updateUpgradeLevel,
+  // New actions
+  addResourcePerSecond,
+  multiplyResourcePerSecond,
 } = resourcesSlice.actions;
 
 export default resourcesSlice.reducer;

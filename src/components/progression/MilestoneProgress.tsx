@@ -4,10 +4,11 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../state/store';
-import { Milestone } from '../../interfaces/progression';
+import { Milestone, RewardType } from '../../interfaces/progression';
 import { allMilestones } from '../../data/progression/milestones';
 import './MilestoneProgress.css';
 import { Resource } from '../../models/resource';
+import { ProgressionManager } from '../../managers/progression/ProgressionManager';
 
 interface ResourceRequirement {
   resourceId: string;
@@ -91,7 +92,23 @@ const MilestoneProgress: React.FC<MilestoneProgressProps> = ({
       prev.filter(m => currentTime - m.timeVisible < 5000));
   }, [progression?.milestones]);
 
-  // Calculate progress for each milestone
+  // Get the progression manager instance
+  const progressionManager = useMemo(() => {
+    return ProgressionManager.getInstance();
+  }, []);
+
+  // Helper function to get icon for reward type
+  const getRewardIcon = (rewardType: RewardType) => {
+    switch (rewardType) {
+      case 'resource': return '📦';
+      case 'boost': return '🚀';
+      case 'multiplier': return '✖️';
+      case 'unlockFeature': return '🔓';
+      default: return '🎁';
+    }
+  };
+
+  // Calculate progress for each milestone using the progression manager
   const milestonesWithProgress = useMemo(() => {
     const result: MilestoneRequirements[] = [];
     
@@ -103,15 +120,17 @@ const MilestoneProgress: React.FC<MilestoneProgressProps> = ({
       }
       
       const resourceReqs: ResourceRequirement[] = [];
-      let totalProgress = 0;
       
-      // Process each requirement in the milestone
+      // Process each requirement in the milestone for display
       milestone.requirements.forEach(req => {
-        if (req.type === 'resourceAmount' && req.target && resources[req.target]) {
+        // Only display resource amount requirements, not maintenance requirements
+        if (req.type === 'resourceAmount' && !req.maintenance && req.target && resources[req.target]) {
           const resource = resources[req.target] as Resource;
           const currentAmount = resource.amount;
           const requiredAmount = typeof req.value === 'number' ? req.value : parseFloat(req.value.toString());
-          const progress = Math.min(100, (currentAmount / requiredAmount) * 100);
+          
+          // Calculate progress using the standard formula
+          const rawProgress = Math.min(100, (currentAmount / requiredAmount) * 100);
           
           // If resource generation rate is positive, calculate time to completion
           const timeToComplete = resource.perSecond > 0 
@@ -123,20 +142,15 @@ const MilestoneProgress: React.FC<MilestoneProgressProps> = ({
             resourceName: resource.name,
             currentAmount,
             requiredAmount,
-            progress,
+            progress: rawProgress,
             perSecond: resource.perSecond,
             timeToComplete
           });
-          
-          // Add to total progress calculation
-          totalProgress += progress;
         }
       });
       
-      // Calculate overall progress as average of all requirements
-      const overallProgress = resourceReqs.length > 0 
-        ? totalProgress / resourceReqs.length 
-        : 0;
+      // Use the progression manager to calculate overall progress with oppression effects
+      const overallProgress = progressionManager.calculateMilestoneProgress(milestone.id);
       
       result.push({
         milestone,
@@ -149,7 +163,7 @@ const MilestoneProgress: React.FC<MilestoneProgressProps> = ({
     return result
       .sort((a, b) => b.overallProgress - a.overallProgress)
       .slice(0, limit);
-  }, [resources, progression, limit]);
+  }, [resources, progression, progressionManager, limit]);
   
   // Format time remaining (seconds to HH:MM:SS or MM:SS)
   const formatTimeRemaining = (seconds: number): string => {
@@ -211,6 +225,7 @@ const MilestoneProgress: React.FC<MilestoneProgressProps> = ({
               />
             </div>
             
+            {/* Resource requirements with tooltips */}
             <ul className="milestone-requirements">
               {reqs.map(req => (
                 <li 
@@ -240,6 +255,29 @@ const MilestoneProgress: React.FC<MilestoneProgressProps> = ({
                 </li>
               ))}
             </ul>
+            
+            {/* Display milestone rewards if available */}
+            {milestone.rewards && milestone.rewards.length > 0 && (
+              <div className="milestone-rewards">
+                <h4>Rewards:</h4>
+                <ul className="rewards-list">
+                  {milestone.rewards.map((reward, index) => (
+                    <li key={index} className="reward-item">
+                      {getRewardIcon(reward.type)} {reward.description}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            
+            {/* Maintenance requirements warning */}
+            {milestone.requirements.some(req => req.maintenance) && (
+              <div className="maintenance-requirements">
+                <p className="maintenance-note">
+                  ⚠️ Requires minimum resource generation rates to progress
+                </p>
+              </div>
+            )}
           </div>
         ))}
       </div>
