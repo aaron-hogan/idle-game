@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Day counter not advancing and progress bar not showing progress
 - Choppy progress bar animation in day counter
+- Day counter and debug panel showing different day values
+- Day 1 incorrectly starting at 50% progress
 
 ## [0.2.0] - 2025-02-26
 
