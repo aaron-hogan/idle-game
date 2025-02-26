@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Dependency management workflow for security and update monitoring
 - Comprehensive documentation for CI/CD workflows and contribution guidelines
 - Temporary CI workarounds for existing codebase issues with migration plan
+- Updated CLAUDE.md with CI/CD workflow information and links to documentation
 
 ### Changed
 - Redesigned movement balance display - now integrated directly into the top resource bar
