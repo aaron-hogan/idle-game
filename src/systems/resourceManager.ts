@@ -188,14 +188,42 @@ export class ResourceManager {
       }
     });
     
-    // Update each resource's perSecond value in the store
+    // Update each resource's perSecond value in the store,
+    // BUT preserve any upgrades that have been applied
     Object.keys(baseRates).forEach(resourceId => {
-      const rate = baseRates[resourceId];
-      if (typeof rate === 'number' && !isNaN(rate)) {
-        this.dispatch!(updateResourcePerSecond({
-          id: resourceId,
-          perSecond: rate,
-        }));
+      const baseRate = baseRates[resourceId];
+      if (typeof baseRate === 'number' && !isNaN(baseRate)) {
+        // Get the current resource to check for existing upgrades
+        const resource = resources[resourceId];
+        if (resource) {
+          // Calculate how much of the current rate is from upgrades
+          // We're using a heuristic: assume the base rate is always a fraction ending in .1
+          // (like 0.1, 0.2, 0.3) and upgrades add tenths (0.1 each time)
+          const baseAmount = Math.floor(baseRate * 10) / 10; // Round down to nearest 0.1
+          const currentAmount = resource.perSecond;
+          
+          // If the current amount is higher than base + initial 0.1, we have upgrades
+          const upgradeAmount = Math.max(0, currentAmount - baseAmount);
+          
+          // Apply the base rate plus any upgrades
+          const newRate = baseRate + upgradeAmount;
+          
+          this.dispatch!(updateResourcePerSecond({
+            id: resourceId,
+            perSecond: newRate,
+          }));
+          
+          // Log for debugging
+          if (Math.abs(newRate - currentAmount) > 0.01) {
+            console.log(`ResourceManager: Updating ${resourceId} generation rate: ${currentAmount.toFixed(2)} -> ${newRate.toFixed(2)} (base=${baseRate.toFixed(2)}, upgrades=${upgradeAmount.toFixed(2)})`);
+          }
+        } else {
+          // If the resource doesn't exist yet, just set the base rate
+          this.dispatch!(updateResourcePerSecond({
+            id: resourceId,
+            perSecond: baseRate,
+          }));
+        }
       }
     });
   }
@@ -484,6 +512,9 @@ export class ResourceManager {
       perSecond: newRate,
     }));
     
+    // Log for debugging
+    console.log(`ResourceManager: Upgraded ${resourceId} generation rate: ${currentRate.toFixed(2)} -> ${newRate.toFixed(2)} (+${upgradeAmount.toFixed(1)})`);
+    
     return true;
   }
   
@@ -506,12 +537,26 @@ export class ResourceManager {
     // Get current generation rate or default to 0
     const currentRate = resource.perSecond || 0;
     
-    // Calculate upgrade level based on generation rate (each 0.1 is one level)
-    const currentLevel = Math.floor(currentRate / 0.1);
+    // Get the initial resource definition
+    const initialResource = INITIAL_RESOURCES[resourceId];
+    const initialRate = initialResource ? initialResource.perSecond : 0;
+    
+    // Calculate the initial base rate (rounded down to the nearest 0.1)
+    const baseAmount = Math.floor(initialRate * 10) / 10;
+    
+    // Calculate extra amount from upgrades (the difference, then divide by upgrade size 0.1)
+    // This returns how many times we've bought the upgrade
+    const upgradeLevel = Math.round((currentRate - baseAmount) / 0.1);
     
     // Calculate the cost of the upgrade (exponential scaling)
     const baseCost = 20; // Starting cost (higher than click upgrade)
     const scaleFactor = 1.8; // Cost increases faster than click upgrades
-    return Math.floor(baseCost * Math.pow(scaleFactor, currentLevel));
+    
+    // Log for debugging
+    console.log(`ResourceManager: Calculating passive upgrade cost for ${resourceId}: ` +
+                `rate=${currentRate.toFixed(2)}, base=${baseAmount.toFixed(1)}, ` +
+                `upgradeLevel=${upgradeLevel}, cost=${Math.floor(baseCost * Math.pow(scaleFactor, upgradeLevel))}`);
+    
+    return Math.floor(baseCost * Math.pow(scaleFactor, upgradeLevel));
   }
 }
