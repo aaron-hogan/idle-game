@@ -5,6 +5,20 @@
 This feature provides specially designed GitHub automation scripts for use by Claude and other AI assistants. 
 The scripts follow project standards and incorporate safety checks to prevent common mistakes.
 
+### Documentation Consolidation Benefits
+
+These scripts also address a significant documentation issue in our project:
+1. Git workflow documentation was previously spread across 7+ different files
+2. A developer needed to read 5+ different documents to understand the complete git workflow
+3. This fragmentation consumed ~3500 tokens of context window just for understanding git processes
+4. Documentation redundancies created maintenance challenges and potential inconsistencies
+
+By centralizing git operations in these scripts and documenting them in CLAUDE.md, we:
+1. Reduce context window consumption
+2. Ensure consistent application of standards
+3. Simplify the documentation maintenance burden
+4. Create a single source of truth for git operations
+
 ## Scripts
 
 ### 1. `create-branch.sh`

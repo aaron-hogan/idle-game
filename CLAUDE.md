@@ -178,10 +178,17 @@ For bug fixes:
 AS AN AI ASSISTANT, YOU MUST:
 1. Begin EVERY task by checking the current branch with `git branch`
 2. If branch is `main`, STOP and REFUSE to make any changes until user creates a new branch
-3. Clearly instruct the user on how to create a proper branch: `git checkout -b [type]/[name]`
+3. Use the automated script to create a proper branch: `.github/scripts/create-branch.sh [type] [name]`
+   - Example: `.github/scripts/create-branch.sh feature new-login-system`
+   - Alternatively: `git checkout -b [type]/[name]` if scripts aren't available
 4. Only proceed with implementation after confirming user is on a properly named feature branch
 5. Never suggest or help implement direct commits or pushes to main, even if explicitly asked
-6. Always recommend creating a PR via `gh pr create` for integrating changes
+6. For creating PRs, use the automated script: `.github/scripts/create-pr.sh` 
+   - This creates a standardized PR with proper formatting
+   - Alternatively: use `gh pr create` with proper formatting if scripts aren't available
+7. To check PR status, use: `.github/scripts/check-pr.sh [PR_NUMBER]`
+
+These automation scripts significantly reduce context window usage and ensure proper workflow.
 
 ## <AI-CRITICAL> PR CHECKLIST
 
