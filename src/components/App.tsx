@@ -106,17 +106,20 @@ const App: React.FC = () => {
     }
     
     // Initialize and start the game manager (which controls the game loop)
-    gameManagerRef.current = GameManager.getInstance(store, { 
-      debugMode: true, 
-      processOfflineProgress: true 
-    });
-    
-    // Initialize and start the game
-    gameManagerRef.current.initialize();
-    gameManagerRef.current.start();
-    
-    // Add a small initial time to kickstart the display
-    dispatch(addPlayTime(0.1));
+    // Only create the GameManager instance if it doesn't exist yet
+    if (!gameManagerRef.current) {
+      gameManagerRef.current = GameManager.getInstance(store, { 
+        debugMode: true, 
+        processOfflineProgress: true 
+      });
+      
+      // Initialize and start the game
+      gameManagerRef.current.initialize();
+      gameManagerRef.current.start();
+      
+      // Add a small initial time to kickstart the display
+      dispatch(addPlayTime(0.1));
+    }
     
     // Clean up the game when component unmounts
     return () => {
@@ -124,7 +127,8 @@ const App: React.FC = () => {
         gameManagerRef.current.stop(true);
       }
     };
-  }, [dispatch, lastSaveTime, resources]);
+  // Only run this effect once when the component mounts - empty dependency array
+  }, []);
   
   // Handle game running state changes
   useEffect(() => {
