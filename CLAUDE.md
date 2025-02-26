@@ -1,5 +1,16 @@
 # Anti-Capitalist Idle Game - Developer Guidelines
 
+## ⚠️ CRITICAL PROCESS REQUIREMENT ⚠️
+
+**BEFORE BEGINNING ANY WORK, YOU MUST:**
+1. Read and follow the [Safe Workflow Checklist](/docs/processes/safe-workflow-checklist.md)
+2. Create a properly named git branch following our [Git Workflow](/docs/processes/git/git-workflow.md)
+3. Follow our [Documentation Standards](/docs/processes/documentation/documentation-standards.md)
+4. Review the [Feature Development Process](/docs/processes/feature-development-process.md)
+5. Consult relevant feature documentation in the appropriate section below
+
+**THESE ARE NOT OPTIONAL GUIDELINES. Failure to follow these processes will result in rejected PRs.**
+
 ## Instruction Library
 
 This project maintains a comprehensive [Instruction Library](/docs/processes/instruction-library-index.md) with detailed process documentation and standards. Always refer to these documents for the most up-to-date guidelines.
@@ -236,10 +247,17 @@ The documentation is organized into the following directories:
 
 ## Git Workflow
 
-We follow a structured Git workflow to maintain a clean and organized repository. For comprehensive Git guidelines, refer to our [Git Workflow](/docs/processes/git/git-workflow.md) documentation and [PR Workflow](/docs/processes/pr-workflow.md) guide.
+⚠️ **MANDATORY REQUIREMENT**: We follow a structured Git workflow to maintain a clean and organized repository. This workflow is NOT optional and MUST be followed for all work.
+
+**The FIRST step for ANY work is to create a properly named branch from main.**
+
+For comprehensive Git guidelines, refer to our [Git Workflow](/docs/processes/git/git-workflow.md) documentation and [PR Workflow](/docs/processes/pr-workflow.md) guide.
 
 ### IMPORTANT: Safety Guidelines
+- **NEVER** proceed with any work without first creating a properly named branch
 - **NEVER** force push to `main` or `develop` branches
+- **NEVER** make changes directly on the main branch
+- **ALWAYS** create a new branch before beginning any work
 - **ALWAYS** get explicit permission before merging to protected branches
 - **ALWAYS** create a backup branch before performing destructive operations
 - **ALWAYS** double-check branch names before executing commands
