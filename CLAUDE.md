@@ -2,13 +2,19 @@
 
 ## Recent Recovery Work (2025-02-26)
 
-We recently recovered from a major issue where UI improvements broke passive resource generation. Key lessons:
+We recently recovered from major issues including console spam and missing files. See the [Critical Fixes Log](/docs/project/critical-fixes.md) for details.
+
+To prevent similar issues, we've created a [Safe Workflow Checklist](/docs/processes/safe-workflow-checklist.md) that should be followed for all development.
+
+Key lessons from recent fixes:
 
 1. Keep UI changes separate from system changes
 2. Make small, focused commits with proper testing
 3. Be cautious when modifying core game loop or resource systems
 4. Document changes thoroughly
 5. When updating type definitions, ensure all imports are updated across files
+6. Always verify referenced files exist when modifying components
+7. Use proper verification checks before and after making changes
 
 IMPORTANT: All recovery-related documentation must follow this structure:
 - Recovery overview: `/docs/features/ui-improvements/recovery-process.md`
