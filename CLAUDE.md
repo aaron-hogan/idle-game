@@ -1,5 +1,9 @@
 # Anti-Capitalist Idle Game - Developer Guidelines
 
+## Instruction Library
+
+This project maintains a comprehensive [Instruction Library](/docs/processes/instruction-library-index.md) with detailed process documentation and standards. Always refer to these documents for the most up-to-date guidelines.
+
 ## Recent Recovery Work (2025-02-26)
 
 We recently recovered from major issues including console spam and missing files. See the [Critical Fixes Log](/docs/project/critical-fixes.md) for details.
@@ -50,33 +54,42 @@ Stable work is now in the `ui-improvements-recovery` branch.
 - `npm run typecheck` - Run TypeScript type checking
 
 ## Code Style
-- **TypeScript**: Use strict typing and interfaces for all data structures
-- **Components**: Functional React components with hooks
-- **State Management**: Redux with Redux Toolkit for actions/reducers
-- **Imports**: Group imports (React, libraries, local)
-- **Naming**: camelCase for variables/functions, PascalCase for components/classes
-- **Error Handling**: Use error boundaries for React components, try/catch for async operations
+
+We follow strict coding standards to ensure consistency across the project. For detailed guidelines, refer to our [Code Style Guide](/docs/processes/code-quality/code-style-guide.md).
+
+Key points:
+- Use TypeScript with strict typing and interfaces
+- Functional React components with hooks
+- Redux with Redux Toolkit for state management
+- Group imports by source (React, libraries, local)
+- Use consistent naming conventions (camelCase, PascalCase)
+- Proper error handling with boundaries and try/catch
 
 ## Architecture
-- Follow component-based architecture with clear separation of concerns
-- Use data-driven design for game entities and events
-- Maintain modular codebase to allow easy addition of new content
-- Implement observer pattern for event handling and UI updates
+
+Our application follows a component-based architecture with clean separation of concerns. For detailed architectural guidelines, see our [Architecture Guidelines](/docs/processes/code-quality/architecture-guidelines.md).
+
+Key principles:
+- Component-based architecture with clear responsibilities
+- Data-driven design for game entities and events
+- Modular codebase structure for easy extension
+- Observer pattern for event handling and UI updates
 
 ## Testing
 
-- Write tests **early and often** during feature development
-- Every feature must have comprehensive test coverage:
-  - Unit tests for isolated functionality
-  - Integration tests for feature interactions
-  - End-to-end tests for user workflows where appropriate
+Testing is a critical part of our development process to ensure code quality and prevent regressions. For comprehensive testing standards, refer to our [Testing Standards](/docs/processes/code-quality/testing-standards.md).
+
+Key testing requirements:
+- Write tests early and often during development
+- Include unit, integration, and end-to-end tests
 - Test both happy paths and edge cases
-- Use TDD (Test-Driven Development) approach when possible
-- Run relevant tests after every significant change
-- Run full test suite before submitting for review
-- Document test scenarios in the feature documentation
+- Follow TDD approach when possible
+- Run tests frequently during development
+- Document test scenarios in feature documentation
 
 ## Documentation
+
+Documentation is crucial for project maintainability and knowledge sharing. For comprehensive documentation standards, refer to our [Documentation Standards](/docs/processes/documentation/documentation-standards.md).
 
 ### Documentation Structure
 
@@ -223,126 +236,49 @@ The documentation is organized into the following directories:
 
 ## Git Workflow
 
+We follow a structured Git workflow to maintain a clean and organized repository. For comprehensive Git guidelines, refer to our [Git Workflow](/docs/processes/git/git-workflow.md) documentation and [PR Workflow](/docs/processes/pr-workflow.md) guide.
+
 ### IMPORTANT: Safety Guidelines
 - **NEVER** force push to `main` or `develop` branches
-- **ALWAYS** get explicit permission before:
-  - Merging to `develop` or `main`
-  - Rebasing shared branches
-  - Deleting any branch
-  - Creating a release tag
-  - Modifying CI/CD configurations
-- **ALWAYS** create a backup branch before destructive operations
-- **ALWAYS** double-check branch names before destructive operations
-- **NEVER** manually edit commit history of shared branches
+- **ALWAYS** get explicit permission before merging to protected branches
+- **ALWAYS** create a backup branch before performing destructive operations
+- **ALWAYS** double-check branch names before executing commands
 - When in doubt, **ASK** before proceeding with any git operation that might affect others
 
 ### Branch Strategy
+Our branching strategy is based on GitFlow:
 - `main` - Production-ready code, protected branch
 - `develop` - Integration branch for features, protected branch
-- `feature/*` - Feature branches (e.g., `feature/event-system`)
-- `bugfix/*` - Bug fix branches
-- `hotfix/*` - Critical fixes for production
+- `feature/*` - Feature branches (from develop)
+- `bugfix/*` - Bug fix branches (from develop)
+- `hotfix/*` - Critical fixes for production (from main)
 - `docs/*` - Documentation updates
 
-### Development Workflow
-1. **Branch Creation**:
-   - Create branch from `develop` using naming convention above
-   - Example: `git checkout -b feature/resource-system develop`
+See the full [Git Workflow](/docs/processes/git/git-workflow.md) for details on branch naming, commit messages, and merge strategies.
 
-2. **Commit Guidelines**:
-   - Use descriptive commit messages with prefix:
-     - `feat:` - New features
-     - `fix:` - Bug fixes
-     - `docs:` - Documentation changes
-     - `test:` - Adding or modifying tests
-     - `refactor:` - Code changes that neither fix bugs nor add features
-   - Example: `feat: implement resource accumulation algorithm`
-   - Keep commits atomic and focused on single changes
-
-3. **Pull Requests**:
-   - Create PR against `develop` when feature is complete
-   - PR title should match commit message style
-   - Include detailed description with:
-     - What changes were made
-     - Why changes were made
-     - Testing verification
-     - Screenshots if UI changes present
-   - Request review from at least one team member
-   - All CI checks must pass before merging
-   - **ALWAYS** get explicit approval before merging
-
-4. **Code Review**:
-   - Reviewers should check for:
-     - Code quality and standards adherence
-     - Test coverage
-     - Documentation completeness
-     - Performance considerations
-   - Address all review comments before merge
-   - Squash and merge to keep history clean
-
-5. **Release Process**:
-   - **ALWAYS** get explicit permission before releasing
-   - Create a release branch from `develop` named `release/vX.Y.Z`
-   - Verify all tests pass on the release branch
-   - Create a PR from release branch to `main`
-   - After approval, merge to `main`
-   - Tag releases with semantic versioning (`v1.0.0`)
-   - Include release notes in PR description
-   - Merge `main` back to `develop` to sync version changes
 
 ## CI/CD Pipeline
+
+We use automated CI/CD pipelines to ensure code quality and consistency. For details on our pipeline configuration, refer to the [Git Workflow](/docs/processes/git/git-workflow.md#ci-integration) documentation.
+
+Key points:
 - GitHub Actions runs on all PRs and pushes to main branches
-- Pipeline includes:
-  - Linting
-  - Type checking
-  - Unit tests
-  - Integration tests
-  - Build validation
-- PR cannot be merged if any check fails
-- **IMPORTANT**: Get explicit permission before:
-  - Modifying CI/CD workflows
-  - Bypassing CI checks (even temporarily)
-  - Changing branch protection rules
-  - Adding or removing required checks
-- **ALWAYS** test workflow changes in a feature branch first
-- **NEVER** disable security checks or code quality validations
+- Checks include linting, type checking, tests, and build validation
+- PRs cannot be merged if any check fails
+- Get explicit permission before modifying CI workflows
+- Never disable security checks or code quality validations
 
 ## Feature Development Process
-1. **Planning**:
-   - Create feature folder in `/docs/features/feature-name/`
-   - Write detailed `plan.md` including implementation prompt
-   - Plan test coverage and create test stubs
-   - Create feature branch with `feature/feature-name` naming
 
-2. **Implementation**:
-   - Follow TDD approach when possible
-   - Implement core functionality with tests
-   - Document as you go in `feature-name.md`
-   - Track TODOs in `todo.md`
-   - Make regular, atomic commits with descriptive messages
+We follow a structured process for feature development to ensure quality and consistency. For detailed guidelines, refer to our [Documentation Standards](/docs/processes/documentation/documentation-standards.md) for documentation requirements and [Git Workflow](/docs/processes/git/git-workflow.md) for development processes.
 
-3. **Testing**:
-   - Ensure comprehensive test coverage
-   - Test edge cases and integration points
-   - Document test scenarios in the feature documentation
-   - Verify all tests pass locally before creating PR
+The feature development process includes:
 
-4. **Pull Request**:
-   - Create PR against `develop` branch
-   - Ensure CI pipeline passes
-   - Address review feedback
-   - Update documentation as needed
+1. **Planning**: Create documentation folder and plan document before development
+2. **Implementation**: Follow TDD approach and make regular, focused commits
+3. **Testing**: Ensure comprehensive test coverage for all functionality
+4. **Pull Request**: Follow our [PR Workflow](/docs/processes/pr-workflow.md) guidelines
+5. **Documentation**: Complete all required documentation and validate it
+6. **Finalization**: Update project status and wiki documentation as needed
 
-5. **Documentation**:
-   - Complete internal documentation in `/docs/features/`
-   - Write implementation `summary.md`
-   - Validate documentation using validation script
-
-6. **Finalization**:
-   - Merge PR into `develop` branch
-   - Update project status in `/docs/project/status.md`
-   - Request approval to create final wiki documentation
-   - ONLY after explicit approval:
-     - Create final documentation in the wiki
-     - Update wiki Home page with links to new documentation
-     - Request review of wiki documentation
+For each feature, create comprehensive documentation in a dedicated folder at `/docs/features/feature-name/` with all required documents as specified in the [Documentation Standards](/docs/processes/documentation/documentation-standards.md).
