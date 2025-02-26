@@ -12,7 +12,7 @@ The resource was correctly defined in `constants/resources.ts` with a generation
 4. The UI components were directly using the resource's `perSecond` value, which could be incorrect
 
 ## Fix Implementation
-Five key changes were implemented:
+Six key changes were implemented:
 
 1. Modified `updateResources` to use a constant 0.05 rate for oppression and update `perSecond` if it's incorrect:
    ```typescript
@@ -65,6 +65,15 @@ Five key changes were implemented:
    {resource.id === 'oppression' 
      ? '+0.05/s' 
      : `${resource.perSecond > 0 ? '+' : ''}${formatNumber(resource.perSecond)}/s`
+   }
+   ```
+
+6. Fixed the display in the TopResourceBar component to use the correct rate for oppression:
+   ```typescript
+   // Special handling for oppression resource to ensure correct rate display
+   let displayRate = resource.perSecond;
+   if (resource.id === 'oppression') {
+     displayRate = 0.05; // Hard-coded to match actual generation rate
    }
    ```
 

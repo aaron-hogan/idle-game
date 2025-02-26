@@ -97,13 +97,19 @@ const ResourceItem: React.FC<ResourceItemProps> = ({ resource }) => {
     tooltipDetails.push({ label: 'Click Value', value: `+${resource.clickPower.toFixed(2)}` });
   }
   
+  // Special handling for oppression resource to ensure correct rate display
+  let displayRate = resource.perSecond;
+  if (resource.id === 'oppression') {
+    displayRate = 0.05; // Hard-coded to match actual generation rate
+  }
+
   return (
     <Counter 
       icon={getIcon()}
       iconType={getIconType()}
       value={formatNumber(resource.amount)}
-      rate={Math.abs(resource.perSecond) > 0.01 ? `${resource.perSecond > 0 ? '+' : ''}${formatNumber(resource.perSecond)}/s` : undefined}
-      rateType={resource.perSecond > 0 ? 'positive' : resource.perSecond < 0 ? 'negative' : 'neutral'}
+      rate={Math.abs(displayRate) > 0.01 ? `${displayRate > 0 ? '+' : ''}${formatNumber(displayRate)}/s` : undefined}
+      rateType={displayRate > 0 ? 'positive' : displayRate < 0 ? 'negative' : 'neutral'}
       progress={getProgressValue()}
       className={isNearCapacity ? 'near-capacity' : ''}
       tooltip={{
