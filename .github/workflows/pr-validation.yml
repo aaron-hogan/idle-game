@@ -1,0 +1,78 @@
+name: PR Validation
+
+on:
+  pull_request_target:
+    types: [opened, edited, synchronize, reopened]
+    branches: [ main ]
+
+jobs:
+  validate-pr:
+    name: Validate PR
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+      
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Validate PR title
+        uses: amannn/action-semantic-pull-request@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          types:
+            - feat
+            - fix
+            - docs
+            - style
+            - refactor
+            - perf
+            - test
+            - build
+            - ci
+            - chore
+            - revert
+          requireScope: false
+          subjectPattern: ^[A-Z].+$
+          subjectPatternError: |
+            The subject must begin with a capital letter and not end with a period.
+            
+      - name: Verify branch name
+        run: |
+          BRANCH_NAME="${{ github.head_ref }}"
+          if [[ ! "$BRANCH_NAME" =~ ^(feature|fix|docs|refactor|ci|chore|test)/[a-z0-9-]+$ ]]; then
+            echo "::error::Branch name doesn't follow the pattern: (feature|fix|docs|refactor|ci|chore|test)/[a-z0-9-]+"
+            exit 1
+          fi
+        shell: bash
+      
+  check-changelog:
+    name: Check CHANGELOG
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+      
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: Check CHANGELOG.md update
+        run: |
+          # Skip this check for specific PR types
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          if [[ "$PR_TITLE" =~ ^(docs:|chore:|ci:|test:) ]]; then
+            echo "PR type doesn't require CHANGELOG update, skipping check"
+            exit 0
+          fi
+          
+          # Check if CHANGELOG.md was modified
+          git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }} | grep -q "CHANGELOG.md"
+          if [ $? -ne 0 ]; then
+            echo "::error::CHANGELOG.md was not updated. Please add an entry for your changes."
+            exit 1
+          fi
+        shell: bash

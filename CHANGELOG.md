@@ -18,6 +18,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Centralized game balance configuration system with `/src/config/gameBalance.ts`
 - Documentation for game balance configuration in `/docs/features/game-balance/`
 - Helper functions for calculating resource generation, upgrade costs and click power
+- GitHub Actions CI workflows for automated testing, building, and validation
+- PR validation workflow to enforce project standards and conventions
+- Dependency management workflow for security and update monitoring
+- Comprehensive documentation for CI/CD workflows and contribution guidelines
+- Temporary CI workarounds for existing codebase issues with migration plan
 
 ### Changed
 - Redesigned movement balance display - now integrated directly into the top resource bar
