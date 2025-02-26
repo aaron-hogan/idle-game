@@ -8,6 +8,7 @@
 3. Follow our [Documentation Standards](/docs/processes/documentation/documentation-standards.md)
 4. Review the [Feature Development Process](/docs/processes/feature-development-process.md)
 5. Consult relevant feature documentation in the appropriate section below
+6. Review the CHANGELOG.md to understand recent changes
 
 **THESE ARE NOT OPTIONAL GUIDELINES. Failure to follow these processes will result in rejected PRs.**
 
@@ -52,6 +53,7 @@ npm run typecheck   # Type checking
 - [Game Specification](/docs/specifications/game-specification.md)
 - [Implementation Plan](/docs/specifications/implementation-plan.md)
 - [Critical Fixes Log](/docs/project/critical-fixes.md)
+- [Changelog](/CHANGELOG.md)
 
 ### Feature Documentation
 - [Core Game Loop](/docs/features/core-game-loop/core-game-loop.md)
@@ -107,11 +109,25 @@ For bug fixes:
 - Modular codebase structure
 - Observer pattern for UI updates
 
+## <AI-CRITICAL> CHANGELOG MAINTENANCE
+
+1. The project maintains a CHANGELOG.md file in the root directory following the [Keep a Changelog](https://keepachangelog.com/) format.
+2. For EVERY code change:
+   - Update the "Unreleased" section in the appropriate category (Added, Changed, Fixed, Removed)
+   - Use clear, concise descriptions that explain the impact of the change
+   - Reference related issue/PR numbers when applicable
+3. For releases:
+   - Move "Unreleased" changes to a new version section
+   - Follow semantic versioning (MAJOR.MINOR.PATCH)
+   - Include the release date in ISO format (YYYY-MM-DD)
+   - Add a new empty "Unreleased" section
+
 ## <AI-CRITICAL> PR CHECKLIST
 
 - All tests pass (`npm test`)
 - Linting passes (`npm run lint`)
 - Type checking passes (`npm run typecheck`)
 - Documentation complete and follows standards
+- CHANGELOG.md updated with all relevant changes
 - No debug/console logs in production code
 - Branch updated with main
