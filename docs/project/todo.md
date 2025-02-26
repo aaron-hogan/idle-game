@@ -18,6 +18,9 @@
 - [x] Reduce unnecessary re-renders of game components
 - [x] Fix Redux/React maximum update depth error
 - [x] Add error handling to prevent React update loops
+- [x] Fix day counter not advancing and progress bar not showing progress
+- [x] Fix day counter and debug panel showing different values
+- [x] Fix Day 1 incorrectly starting at 50% completion
 
 ### Debug Panel Implementation
 - [x] Create unified GameDebugger component
@@ -139,6 +142,9 @@
 - [ ] Optimize performance bottlenecks
 - [ ] Reduce bundle size
 - [x] Improve error handling in timer and Redux sync systems
+- [ ] Clean up feature branches after merging PRs
+- [ ] Set up automated branch cleanup in GitHub settings
+- [ ] Fix GameTimer.test.tsx failures related to day calculation
 
 ## Documentation
 - [x] Update final-game-specification.md with recent changes
