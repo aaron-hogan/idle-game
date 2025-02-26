@@ -4,6 +4,16 @@ This document tracks critical fixes applied to the codebase, providing a central
 
 ## 2025-02-26
 
+### Test Suite Fixes
+
+- **Issue**: Failing tests in timeUtils and GameTimer preventing test suite from passing
+- **Fix PR**: [#6 - Fix failing timeUtils and GameTimer tests](https://github.com/aaron-hogan/idle-game/pull/6)
+- **Documentation**: [Test Suite Fix](/docs/features/testing/test-suite-fix.md)
+- **Affected Components**:
+  - `timeUtils.test.ts`: Updated tests to handle default safe limit option
+  - `GameTimer.test.tsx`: Rewrote to match new Counter-based implementation
+- **Root Cause**: Tests were not updated when the components were refactored
+
 ### Console Spam and Offline Progress Fix
 
 - **Issue**: Excessive console logging causing performance issues and React infinite update loops
