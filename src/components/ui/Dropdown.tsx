@@ -1,0 +1,103 @@
+import React, { useEffect, useRef } from 'react';
+import ReactDOM from 'react-dom';
+
+interface DropdownProps {
+  isOpen: boolean;
+  onClose: () => void;
+  children: React.ReactNode;
+  triggerRect?: DOMRect | null;
+  position?: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
+  className?: string;
+}
+
+/**
+ * A portal-based dropdown component that renders outside of parent containers
+ * to avoid overflow issues and ensure it's always visible.
+ */
+const Dropdown: React.FC<DropdownProps> = ({
+  isOpen,
+  onClose,
+  children,
+  triggerRect,
+  position = 'bottom-right',
+  className = '',
+}) => {
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Create portal element if it doesn't exist
+  useEffect(() => {
+    if (!document.getElementById('dropdown-portal')) {
+      const portalElement = document.createElement('div');
+      portalElement.id = 'dropdown-portal';
+      document.body.appendChild(portalElement);
+    }
+    
+    return () => {
+      // Clean up portal on unmount
+      const portal = document.getElementById('dropdown-portal');
+      if (portal && portal.childNodes.length === 0) {
+        document.body.removeChild(portal);
+      }
+    };
+  }, []);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    if (!isOpen) return;
+    
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        dropdownRef.current && 
+        !dropdownRef.current.contains(e.target as Node) &&
+        e.target instanceof Element && 
+        !e.target.closest('.dropdown-trigger')
+      ) {
+        onClose();
+      }
+    };
+    
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isOpen, onClose]);
+
+  // Calculate dropdown position based on trigger element
+  const getDropdownStyle = (): React.CSSProperties => {
+    if (!triggerRect) return {};
+
+    const style: React.CSSProperties = {
+      position: 'fixed',
+      zIndex: 2000,
+    };
+
+    if (position.includes('bottom')) {
+      style.top = `${triggerRect.bottom + 5}px`;
+    } else {
+      style.bottom = `${window.innerHeight - triggerRect.top + 5}px`;
+    }
+
+    if (position.includes('right')) {
+      style.right = `${window.innerWidth - triggerRect.right}px`;
+    } else {
+      style.left = `${triggerRect.left}px`;
+    }
+
+    return style;
+  };
+
+  // Don't render if not open
+  if (!isOpen) return null;
+
+  // Render dropdown through portal
+  return ReactDOM.createPortal(
+    <div 
+      ref={dropdownRef}
+      className={`portal-dropdown ${className}`}
+      style={getDropdownStyle()}
+    >
+      {children}
+    </div>,
+    document.getElementById('dropdown-portal') || document.body
+  );
+};
+
+export default Dropdown;

@@ -1,52 +1,72 @@
 .game-timer {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 6px;
   font-family: monospace;
+  flex-shrink: 0;
+  white-space: nowrap;
+  position: relative;
+}
+
+.time-container {
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .time-display {
   display: flex;
   align-items: center;
-  gap: 8px;
-}
-
-.time-label {
-  font-size: 12px;
-  color: #888;
-}
-
-.time-value {
-  font-size: 14px;
-  font-weight: bold;
-  color: #ddd;
-}
-
-.time-scale {
-  font-size: 12px;
-  color: #999;
-}
-
-.game-control-button {
-  background: #222;
-  border: 1px solid #444;
+  background-color: #181818;
   border-radius: 3px;
-  color: #999;
-  font-size: 11px;
-  padding: 4px 8px;
-  cursor: pointer;
-  font-family: monospace;
+  padding: 3px 6px;
+  height: 24px; /* Fixed height to match resource display */
+  box-sizing: border-box;
+  min-width: 116px; /* Prevent width changes when time values change */
 }
 
-.game-control-button:hover {
-  background: #333;
+.play-pause-button {
+  background: transparent;
+  border: none;
+  color: #888;
+  font-size: 13px;
+  padding: 2px;
+  cursor: pointer;
+  margin-right: 5px;
+  min-width: 15px;
+  text-align: center;
+}
+
+.play-pause-button:hover {
   color: #fff;
 }
 
-.game-control-button.pause {
-  color: #999;
+.time-value {
+  font-size: 12px; /* Match resource-amount font size */
+  color: #ddd;
+  font-family: monospace;
+  width: 70px; /* Fixed width */
+  text-align: left;
+  white-space: pre; /* Preserve whitespace for padding */
 }
 
-.game-control-button.play {
-  color: #999;
+.time-rate {
+  font-size: 12px; /* Match resource rate font size */
+  margin-left: 5px;
+  color: #aaa;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  padding: 1px 3px;
+  border-radius: 2px;
+  font-family: monospace;
 }
+
+.time-rate:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.time-rate.active {
+  color: #81c784; /* Same color as resource-rate.positive */
+}
+
+/* Styles for dropdown are now in the Dropdown.css file */
