@@ -1,6 +1,6 @@
 import React from 'react';
 import { ResourceGenerators } from '../components/resources';
-import { MilestoneProgress } from '../components/progression';
+import { MilestoneProgressStrip } from '../components/progression';
 import './PageStyles.css';
 
 /**
@@ -11,7 +11,7 @@ const MainGame: React.FC = () => {
     <div className="page-content">
       {/* Horizontal milestone strip above generators */}
       <div className="horizontal-milestone-strip">
-        <MilestoneProgress limit={3} horizontalLayout={true} />
+        <MilestoneProgressStrip sideCount={2} />
       </div>
       
       {/* Unified resource generators area - populated dynamically as game progresses */}

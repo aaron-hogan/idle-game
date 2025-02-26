@@ -9,3 +9,4 @@ export { default as AchievementDisplay } from './AchievementDisplay';
 export { default as ProgressBar } from './ProgressBar';
 export { default as ClickableMilestone } from './ClickableMilestone';
 export { default as MilestoneProgress } from './MilestoneProgress';
+export { default as MilestoneProgressStrip } from './MilestoneProgressStrip';

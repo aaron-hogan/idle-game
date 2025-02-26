@@ -31,6 +31,11 @@ The UI improvements feature enhances the game's visual consistency and user expe
 - Added visual states for completed, active, and locked milestones
 - Created smooth transition animations between milestone states
 - Added link to full milestone list while keeping focus on current objective
+- Implemented timeline connector with status indicators
+- Added progress percentages and completion badges
+- Created responsive layout for all screen sizes
+- Added navigation dots for visual reference
+- Integrated seamlessly with React Router for milestone detail views
 
 ### Technical Improvements
 - Addressed overflow issues causing hidden dropdowns
