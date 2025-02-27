@@ -28,7 +28,7 @@
   -webkit-overflow-scrolling: touch;
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start; /* Changed from center to ensure scroll starts from left */
   mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
   -webkit-mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
   height: auto;
@@ -46,12 +46,12 @@
   gap: 15px;
   min-height: 140px;
   position: relative;
-  margin: 0 auto;
-  justify-content: flex-start;
   padding: 10px 0;
-  /* Force left alignment regardless of screen width */
-  margin-left: 0;
-  margin-right: auto;
+  /* Ensure proper alignment */
+  margin: 0;
+  justify-content: flex-start;
+  /* DEBUG: Add outline to visualize container */
+  /* outline: 1px solid yellow; */
 }
 
 .milestone-card-spacer {
