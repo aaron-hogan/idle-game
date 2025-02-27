@@ -1,5 +1,0 @@
-﻿2025-02-26T21:24:21.4720474Z ##[group]Run npm audit
-2025-02-26T21:24:21.4721000Z [36;1mnpm audit[0m
-2025-02-26T21:24:21.4787240Z shell: /usr/bin/bash -e {0}
-2025-02-26T21:24:21.4787766Z ##[endgroup]
-2025-02-26T21:24:22.2383592Z found 0 vulnerabilities

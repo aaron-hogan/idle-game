@@ -1,7 +1,0 @@
-﻿2025-02-26T21:47:20.4882145Z ##[group]Run echo "Skipping linting due to ESLint configuration issues with ES modules"
-2025-02-26T21:47:20.4882807Z [36;1mecho "Skipping linting due to ESLint configuration issues with ES modules"[0m
-2025-02-26T21:47:20.4883332Z [36;1mecho "This step will be re-enabled once ESLint configuration is fixed"[0m
-2025-02-26T21:47:20.4934558Z shell: /usr/bin/bash -e {0}
-2025-02-26T21:47:20.4935124Z ##[endgroup]
-2025-02-26T21:47:20.5003854Z Skipping linting due to ESLint configuration issues with ES modules
-2025-02-26T21:47:20.5005360Z This step will be re-enabled once ESLint configuration is fixed
