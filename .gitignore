@@ -10,6 +10,19 @@ node_modules/
 /dist
 /build
 
+# AI Documentation
+*CLAUDE*
+CLAUDE.md
+*claude*
+*ai-*
+*AI-*
+*/ai/*
+*/_claude/*
+*/_ai/*
+*prompt*
+*/claude/*
+*/prompts/*
+
 # Miscellaneous
 .DS_Store
 .env
@@ -45,4 +58,7 @@ logs/
 *.ntvs*
 *.njsproj
 *.sln
-*.sw?idle-game.wiki/
+*.sw?
+
+# Wiki
+idle-game.wiki/
