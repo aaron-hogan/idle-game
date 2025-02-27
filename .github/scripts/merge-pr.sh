@@ -1,223 +1,295 @@
 #!/bin/bash
-# AI-assistant PR merge script with enhanced conflict detection and resolution
+# PR merge script with enhanced conflict detection and resolution
+
+set -e
 
 # Default values
-AUTO_YES=false
+PR_NUMBER=""
+AUTO_MERGE=false
 RESOLVE_CONFLICTS=false
+DELETE_BRANCH=true
+SQUASH=false
+REBASE=false
+MERGE_METHOD="merge"
 
 # Parse command line arguments
 while [[ $# -gt 0 ]]; do
   case $1 in
     --yes)
-      AUTO_YES=true
+      AUTO_MERGE=true
       shift
       ;;
     --resolve-conflicts)
       RESOLVE_CONFLICTS=true
       shift
       ;;
-    --*)
-      # Skip unknown options
+    --no-delete-branch)
+      DELETE_BRANCH=false
       shift
       ;;
+    --squash)
+      SQUASH=true
+      MERGE_METHOD="squash"
+      shift
+      ;;
+    --rebase)
+      REBASE=true
+      MERGE_METHOD="rebase"
+      shift
+      ;;
+    -h|--help)
+      echo "Usage: $0 [options] PR_NUMBER"
+      echo "Options:"
+      echo "  --yes                 Auto-confirm merge"
+      echo "  --resolve-conflicts   Attempt to resolve simple conflicts"
+      echo "  --no-delete-branch    Keep branch after merge"
+      echo "  --squash              Squash commits when merging"
+      echo "  --rebase              Rebase commits when merging"
+      echo "  -h, --help            Show this help message"
+      exit 0
+      ;;
     *)
-      # First non-option is PR number
-      PR_NUMBER_ARG=$1
+      if [[ $1 =~ ^[0-9]+$ ]]; then
+        PR_NUMBER="$1"
+      fi
       shift
       ;;
   esac
 done
 
-# Check if PR number is provided
-if [ -z "$PR_NUMBER_ARG" ]; then
-  # If no PR number, try to get current branch's PR
-  CURRENT_BRANCH=$(git branch --show-current)
-  PR_INFO=$(gh pr list --head "$CURRENT_BRANCH" --json number,title,state,mergeable,mergeStateStatus,headRefName,baseRefName --jq '.[0]')
-  
-  if [ -z "$PR_INFO" ]; then
-    echo "No open PR found for current branch"
-    exit 1
-  fi
-  
-  PR_NUMBER=$(echo "$PR_INFO" | jq -r '.number')
-else
-  # Use provided PR number
-  PR_NUMBER=$PR_NUMBER_ARG
-  PR_INFO=$(gh pr view $PR_NUMBER --json number,title,state,mergeable,mergeStateStatus,headRefName,baseRefName --jq '.')
-fi
-
-# Extract PR information
-MERGEABLE=$(echo "$PR_INFO" | jq -r '.mergeable')
-MERGE_STATE=$(echo "$PR_INFO" | jq -r '.mergeStateStatus')
-PR_STATE=$(echo "$PR_INFO" | jq -r '.state')
-PR_TITLE=$(echo "$PR_INFO" | jq -r '.title')
-HEAD_BRANCH=$(echo "$PR_INFO" | jq -r '.headRefName')
-BASE_BRANCH=$(echo "$PR_INFO" | jq -r '.baseRefName')
-
-echo "PR #$PR_NUMBER: $PR_TITLE"
-echo "Branches: $HEAD_BRANCH → $BASE_BRANCH"
-echo "Status: $PR_STATE, Mergeable: $MERGEABLE, Merge state: $MERGE_STATE"
-
-# Validate PR can be merged
-if [ "$PR_STATE" != "OPEN" ]; then
-  echo "ERROR: PR is not open (current state: $PR_STATE)"
+# Check if gh CLI is installed
+if ! command -v gh &> /dev/null; then
+  echo "❌ Error: GitHub CLI (gh) is not installed. Please install it first:"
+  echo "  https://cli.github.com/manual/installation"
   exit 1
 fi
 
-if [ "$MERGEABLE" != "MERGEABLE" ]; then
-  echo "ERROR: PR is not mergeable (current status: $MERGEABLE)"
+# Get current PR if not specified
+if [ -z "$PR_NUMBER" ]; then
+  # Try to get PR for current branch
+  CURRENT_BRANCH=$(git branch --show-current)
+  PR_INFO=$(gh pr list --head "$CURRENT_BRANCH" --json number,title,state,url,baseRefName,headRefName,mergeable,reviewDecision,statusCheckRollup,isDraft --jq '.[0]')
+  
+  if [ -n "$PR_INFO" ] && [ "$PR_INFO" != "null" ]; then
+    PR_NUMBER=$(echo "$PR_INFO" | jq -r '.number')
+    echo "ℹ️ Using current branch PR #$PR_NUMBER"
+  else
+    # Try to get the current PR view
+    CURRENT_PR=$(gh pr view --json number 2>/dev/null | jq -r .number 2>/dev/null)
+    if [ -n "$CURRENT_PR" ] && [ "$CURRENT_PR" != "null" ]; then
+      PR_NUMBER="$CURRENT_PR"
+      echo "ℹ️ Using current PR #$PR_NUMBER"
+    else
+      echo "❌ Error: No PR number specified and no current PR found"
+      echo "Usage: $0 [options] PR_NUMBER"
+      exit 1
+    fi
+  fi
+fi
+
+# Get PR information
+echo "🔍 Checking PR #$PR_NUMBER..."
+PR_INFO=$(gh pr view "$PR_NUMBER" --json number,title,state,url,baseRefName,headRefName,mergeable,mergeStateStatus,reviewDecision,statusCheckRollup,isDraft)
+
+if [ $? -ne 0 ]; then
+  echo "❌ Error: PR #$PR_NUMBER not found"
+  exit 1
+fi
+
+# Extract information
+PR_TITLE=$(echo "$PR_INFO" | jq -r '.title')
+PR_STATE=$(echo "$PR_INFO" | jq -r '.state')
+PR_URL=$(echo "$PR_INFO" | jq -r '.url')
+PR_BASE=$(echo "$PR_INFO" | jq -r '.baseRefName')
+PR_HEAD=$(echo "$PR_INFO" | jq -r '.headRefName')
+PR_MERGEABLE=$(echo "$PR_INFO" | jq -r '.mergeable')
+PR_MERGE_STATE=$(echo "$PR_INFO" | jq -r '.mergeStateStatus')
+PR_REVIEW_DECISION=$(echo "$PR_INFO" | jq -r '.reviewDecision')
+PR_CHECKS=$(echo "$PR_INFO" | jq -r '.statusCheckRollup')
+PR_IS_DRAFT=$(echo "$PR_INFO" | jq -r '.isDraft')
+
+echo "--------------------------------------"
+echo "PR #$PR_NUMBER: $PR_TITLE"
+echo "--------------------------------------"
+echo "Status: $PR_STATE"
+echo "Branch: $PR_HEAD → $PR_BASE"
+echo "URL: $PR_URL"
+
+# Check if PR is open
+if [ "$PR_STATE" != "OPEN" ]; then
+  echo "❌ Error: PR is not open. Current state: $PR_STATE"
+  exit 1
+fi
+
+# Check if PR is a draft
+if [ "$PR_IS_DRAFT" = "true" ]; then
+  echo "❌ Error: PR is still in draft state"
+  echo "To mark as ready for review, run: gh pr ready $PR_NUMBER"
+  exit 1
+fi
+
+# Check for CI failures
+FAILED_CHECKS=$(echo "$PR_CHECKS" | jq -r '[.[] | select(.conclusion == "FAILURE")] | length')
+if [ "$FAILED_CHECKS" -gt 0 ]; then
+  echo "⚠️ Warning: PR has $FAILED_CHECKS failed checks"
+  if [ "$AUTO_MERGE" = false ]; then
+    read -p "Continue with merge anyway? (y/n) " -n 1 -r
+    echo
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+      echo "Merge aborted."
+      exit 1
+    fi
+  else
+    echo "Continuing with merge due to --yes flag..."
+  fi
+fi
+
+# Check review status
+if [ "$PR_REVIEW_DECISION" = "CHANGES_REQUESTED" ]; then
+  echo "⚠️ Warning: Changes have been requested on this PR"
+  if [ "$AUTO_MERGE" = false ]; then
+    read -p "Continue with merge anyway? (y/n) " -n 1 -r
+    echo
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+      echo "Merge aborted."
+      exit 1
+    fi
+  else
+    echo "Continuing with merge due to --yes flag..."
+  fi
+elif [ "$PR_REVIEW_DECISION" = "REVIEW_REQUIRED" ]; then
+  echo "⚠️ Warning: Required reviews are not complete"
+  if [ "$AUTO_MERGE" = false ]; then
+    read -p "Continue with merge anyway? (y/n) " -n 1 -r
+    echo
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+      echo "Merge aborted."
+      exit 1
+    fi
+  else
+    echo "Continuing with merge due to --yes flag..."
+  fi
+fi
+
+# Check for merge state issues
+if [ "$PR_MERGE_STATE" = "BEHIND" ]; then
+  echo "⚠️ Warning: PR is behind the base branch"
+  echo "Updating branch..."
+  gh pr merge "$PR_NUMBER" --update-only
+  echo "✅ Branch updated"
+fi
+
+# Check for merge conflicts
+if [ "$PR_MERGEABLE" = "CONFLICTING" ]; then
+  echo "⚠️ Warning: PR has merge conflicts"
   
   if [ "$RESOLVE_CONFLICTS" = true ]; then
-    echo "Attempting to resolve conflicts locally..."
+    echo "Attempting to resolve conflicts..."
     
     # Get current branch to return to later
     ORIGINAL_BRANCH=$(git branch --show-current)
     
     # Check for unsaved changes before proceeding
     if ! git diff --quiet || ! git diff --cached --quiet; then
-      echo "ERROR: You have unsaved changes in your working directory."
-      echo "Please commit or stash your changes before proceeding:"
-      echo "  git stash save \"Work in progress\""
+      echo "❌ Error: You have unsaved changes in your working directory"
+      echo "Please commit or stash your changes before proceeding"
       exit 1
     fi
     
     # Checkout PR branch
-    git fetch origin "$HEAD_BRANCH":"$HEAD_BRANCH" || { echo "Failed to fetch PR branch"; exit 1; }
-    git checkout "$HEAD_BRANCH" || { echo "Failed to checkout PR branch"; exit 1; }
+    git fetch origin "$PR_HEAD":"$PR_HEAD" || { echo "Failed to fetch PR branch"; exit 1; }
+    git checkout "$PR_HEAD" || { echo "Failed to checkout PR branch"; exit 1; }
     
     # Try to merge base branch into PR branch
-    echo "Attempting to merge $BASE_BRANCH into $HEAD_BRANCH..."
-    if git merge "origin/$BASE_BRANCH"; then
-      echo "Auto-merge successful! Pushing changes..."
-      git push origin "$HEAD_BRANCH"
-      echo "Conflicts resolved. Please run this script again to verify mergeable status."
+    echo "Attempting to merge $PR_BASE into $PR_HEAD..."
+    if git merge "origin/$PR_BASE"; then
+      echo "✅ Auto-merge successful! Pushing changes..."
+      git push origin "$PR_HEAD"
+      echo "Conflicts resolved. Continuing with merge..."
       
       # Return to original branch
       git checkout "$ORIGINAL_BRANCH"
-      exit 0
-    else
-      echo "Automatic merge failed. Manual conflict resolution needed."
-      echo "Resolve conflicts in your editor, then:"
-      echo "  1. git add <resolved_files>"
-      echo "  2. git commit -m \"Resolve merge conflicts\""
-      echo "  3. git push origin $HEAD_BRANCH"
-      echo "  4. Run this script again"
       
-      # Stay in PR branch for manual resolution
-      echo "Left you on branch $HEAD_BRANCH for conflict resolution."
+      # Refresh PR info
+      PR_INFO=$(gh pr view "$PR_NUMBER" --json mergeable,mergeStateStatus)
+      PR_MERGEABLE=$(echo "$PR_INFO" | jq -r '.mergeable')
+      PR_MERGE_STATE=$(echo "$PR_INFO" | jq -r '.mergeStateStatus')
+      
+      if [ "$PR_MERGEABLE" != "MERGEABLE" ]; then
+        echo "❌ Error: PR still has conflicts after attempted resolution"
+        exit 1
+      fi
+    else
+      echo "❌ Automatic merge failed. Manual conflict resolution needed"
+      git merge --abort
+      git checkout "$ORIGINAL_BRANCH"
       exit 1
     fi
   else
+    echo "❌ Error: Cannot merge due to conflicts"
     echo "Use --resolve-conflicts to attempt automatic conflict resolution"
     exit 1
   fi
 fi
 
-# Handle various merge states
-if [ "$MERGE_STATE" != "CLEAN" ]; then
-  echo "WARNING: PR merge state is not clean (current state: $MERGE_STATE)"
-  
-  # Check specific blocking conditions
-  if [ "$MERGE_STATE" == "BEHIND" ]; then
-    echo "PR is behind the base branch. Would you like to update the branch? (y/n)"
-    if [ "$AUTO_YES" = true ]; then
-      UPDATE_BRANCH="y"
-    else
-      read -r UPDATE_BRANCH
-    fi
-    
-    if [[ "$UPDATE_BRANCH" =~ ^[Yy]$ ]]; then
-      echo "Updating branch..."
-      gh pr merge $PR_NUMBER --update-only
-      echo "Branch updated. Please run this script again to check status."
-      exit 0
-    else
-      exit 1
-    fi
-  elif [ "$MERGE_STATE" == "BLOCKED" ]; then
-    echo "PR is blocked. Checking for failed checks..."
-    gh pr checks $PR_NUMBER
+# Final confirmation
+if [ "$AUTO_MERGE" = false ]; then
+  echo "--------------------------------------"
+  echo "Ready to merge PR #$PR_NUMBER:"
+  echo "From: $PR_HEAD"
+  echo "To: $PR_BASE"
+  echo "Method: $MERGE_METHOD"
+  echo "Delete branch: $([ "$DELETE_BRANCH" = true ] && echo "Yes" || echo "No")"
+  read -p "Proceed with merge? (y/n) " -n 1 -r
+  echo
+  if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    echo "Merge aborted."
     exit 1
-  elif [ "$MERGE_STATE" == "UNSTABLE" ]; then
-    echo "PR is unstable. Checking for pending or failed checks..."
-    gh pr checks $PR_NUMBER
-    
-    if [ "$AUTO_YES" = true ]; then
-      echo "Force merging unstable PR due to --yes flag..."
-    else
-      echo "Do you want to proceed with merging despite unstable status? (y/n)"
-      read -r FORCE_MERGE
-      if [[ ! "$FORCE_MERGE" =~ ^[Yy]$ ]]; then
-        exit 1
-      fi
-    fi
-  else
-    echo "Unknown merge state. Proceed with caution."
-    if [ "$AUTO_YES" != true ]; then
-      echo "Do you want to continue anyway? (y/n)"
-      read -r CONTINUE
-      if [[ ! "$CONTINUE" =~ ^[Yy]$ ]]; then
-        exit 1
-      fi
-    fi
   fi
 fi
 
-# Prompt for merge confirmation (unless --yes flag is used)
-echo "Ready to merge PR #$PR_NUMBER"
-if [ "$AUTO_YES" = true ]; then
-  CONFIRM="y"
-else
-  echo "Would you like to proceed with the merge? (y/n)"
-  read -r CONFIRM
+# Prepare merge command
+MERGE_CMD="gh pr merge $PR_NUMBER --$MERGE_METHOD"
+
+# Add delete branch flag if needed
+if [ "$DELETE_BRANCH" = true ]; then
+  MERGE_CMD="$MERGE_CMD --delete-branch"
 fi
 
-if [[ "$CONFIRM" =~ ^[Yy]$ ]]; then
-  # Check for unsaved changes before proceeding
-  if ! git diff --quiet || ! git diff --cached --quiet; then
-    echo "ERROR: You have unsaved changes in your working directory."
-    echo "Please commit or stash your changes before proceeding:"
-    echo "  git stash save \"Work in progress\""
-    exit 1
-  fi
+# Execute merge
+echo "🔄 Merging PR #$PR_NUMBER..."
+eval "$MERGE_CMD"
 
-  # Record current branch to restore if requested
-  CURRENT_BRANCH=$(git branch --show-current)
+# Verify merge succeeded
+MERGED_PR=$(gh pr view "$PR_NUMBER" --json state -q .state)
+if [ "$MERGED_PR" = "MERGED" ]; then
+  echo "✅ PR #$PR_NUMBER has been successfully merged into $PR_BASE"
   
-  # Perform the merge
-  echo "Merging PR..."
-  gh pr merge $PR_NUMBER --merge --delete-branch
-  
-  if [ $? -eq 0 ]; then
-    echo "✅ PR #$PR_NUMBER successfully merged and branch deleted"
-    
-    # Ask if user wants to switch to base branch
-    if [ "$AUTO_YES" = true ]; then
-      SWITCH_BRANCH="y"
-    else
-      echo "Would you like to switch to the $BASE_BRANCH branch? (y/n)"
-      read -r SWITCH_BRANCH
-    fi
-    
-    if [[ "$SWITCH_BRANCH" =~ ^[Yy]$ ]]; then
-      # Checkout base branch and pull latest changes
-      git checkout $BASE_BRANCH
-      git pull
-    else
-      echo "Remaining on current branch: $CURRENT_BRANCH"
-      # If the current branch was deleted during merge, switch to base branch
-      if [[ "$CURRENT_BRANCH" = "$HEAD_BRANCH" ]]; then
-        echo "Note: Your previous branch was deleted during the merge."
-        echo "Switching to $BASE_BRANCH instead."
-        git checkout $BASE_BRANCH
-        git pull
+  # Check if we should update develop from main
+  if [ "$PR_BASE" = "main" ] && [ "$PR_HEAD" != "develop" ]; then
+    # Check if develop branch exists
+    if git show-ref --verify --quiet refs/heads/develop || git show-ref --verify --quiet refs/remotes/origin/develop; then
+      echo ""
+      echo "Would you like to update develop branch with these changes from main?"
+      if [ "$AUTO_MERGE" = true ]; then
+        SYNC_DEVELOP="y"
+      else
+        read -p "Update develop from main? (y/n) " -n 1 -r SYNC_DEVELOP
+        echo
+      fi
+      
+      if [[ $SYNC_DEVELOP =~ ^[Yy]$ ]]; then
+        echo "🔄 Updating develop from main..."
+        git fetch origin main develop
+        git checkout develop
+        git merge origin/main
+        git push origin develop
+        echo "✅ develop branch updated from main"
       fi
     fi
-  else
-    echo "❌ ERROR: Failed to merge PR #$PR_NUMBER"
-    exit 1
   fi
 else
-  echo "Merge canceled"
-  exit 0
+  echo "❌ Error: Failed to merge PR #$PR_NUMBER"
+  echo "Current state: $MERGED_PR"
+  exit 1
 fi
