@@ -144,11 +144,36 @@ jobs:
       
       - name: Push version bump
         run: |
-          git push origin HEAD:${{ github.event.pull_request.base.ref }}
+          # Fetch the latest changes from the base branch
+          git fetch origin ${{ github.event.pull_request.base.ref }}
+          
+          # Check if base branch is ahead of current HEAD
+          if git merge-base --is-ancestor origin/${{ github.event.pull_request.base.ref }} HEAD; then
+            # Simple push should work if we're ahead of base
+            git push origin HEAD:${{ github.event.pull_request.base.ref }}
+          else
+            echo "Base branch has new commits, applying our changes on top"
+            # Create a temporary branch to save our changes
+            git branch temp-version-branch
+            # Checkout base branch
+            git checkout ${{ github.event.pull_request.base.ref }}
+            # Pull latest changes
+            git pull origin ${{ github.event.pull_request.base.ref }}
+            # Cherry-pick our version bump commit
+            git cherry-pick temp-version-branch
+            # Push the result
+            git push origin HEAD:${{ github.event.pull_request.base.ref }}
+          fi
       
       - name: Create Git tag
         run: |
           NEW_VERSION=$(node -e "console.log(require('./package.json').version)")
+          
+          # Get to the latest HEAD, in case we've cherry-picked
+          git checkout ${{ github.event.pull_request.base.ref }}
+          git pull origin ${{ github.event.pull_request.base.ref }}
+          
+          # Create and push tag
           git tag "v$NEW_VERSION"
           git push origin "v$NEW_VERSION"
       

@@ -2,12 +2,17 @@
 jest.mock('../../interfaces/Resource', () => require('./__mocks__/Resource'));
 
 // Mock the store
-jest.mock('../../state/store', () => ({
-  store: {
+jest.mock('../../state/store', () => {
+  const mockStore = {
     getState: jest.fn(),
-    dispatch: jest.fn()
-  }
-}));
+    dispatch: jest.fn(),
+    subscribe: jest.fn().mockImplementation(() => jest.fn())
+  };
+  
+  return {
+    store: mockStore
+  };
+});
 
 // Mock the progression slice
 jest.mock('../../redux/progressionSlice', () => ({
