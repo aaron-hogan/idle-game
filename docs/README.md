@@ -60,3 +60,14 @@ Documentation is a critical part of our development process. When implementing n
 5. Submit documentation changes as part of your feature PR
 
 For more information, see the [Documentation Processes](/docs/processes/documentation/) section.
+
+## Documentation and Git
+
+**Important**: Most documentation files are excluded from git by default. See [DOCS_MANAGEMENT.md](/DOCS_MANAGEMENT.md) in the root folder for our documentation management approach.
+
+- Only README files and specifically exempted documentation are tracked in git
+- For critical documentation that should be tracked in git, use our exception script:
+  ```bash
+  ./scripts/add-doc-exception.sh path/to/doc.md "Reason for exception"
+  ```
+- See [git_exceptions.md](./git_exceptions.md) for a list of files that are explicitly tracked despite being in excluded paths

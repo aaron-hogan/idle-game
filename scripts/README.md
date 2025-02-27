@@ -23,6 +23,27 @@ The script validates:
 - Required project documentation files
 - CHANGELOG.md in the project root
 
+### Documentation Git Management
+
+`add-doc-exception.sh` - Adds a documentation file to git tracking despite being in an ignored path.
+
+Usage:
+```bash
+./scripts/add-doc-exception.sh path/to/file.md "Reason for exception"
+```
+
+The script:
+- Force-adds a specific documentation file to git
+- Records the exception with a reason in `docs/git_exceptions.md` 
+- Documents your reasoning for including the file
+
+Example:
+```bash
+./scripts/add-doc-exception.sh docs/features/important-feature/critical-info.md "Contains essential API information needed for development"
+```
+
+**When to use**: Only use for documentation that is essential for other developers to have in the repository itself, rather than accessing it through other means. See [DOCS_MANAGEMENT.md](/DOCS_MANAGEMENT.md) for details.
+
 ## Adding New Scripts
 
 When adding new scripts to this directory:
