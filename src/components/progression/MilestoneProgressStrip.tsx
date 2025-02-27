@@ -140,12 +140,17 @@ const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({
     return activeMilestones.sort((a, b) => b.progress - a.progress)[0];
   }, [milestoneCards]);
   
-  // Update active milestone when it changes
-  useEffect(() => {
-    if (activeMilestone) {
-      setActiveMilestoneId(activeMilestone.milestone.id);
-    }
+  // Memoize the active milestone ID to prevent unnecessary updates
+  const memoizedActiveMilestoneId = useMemo(() => {
+    return activeMilestone?.milestone.id || null;
   }, [activeMilestone]);
+  
+  // Update active milestone when it changes - use the memoized value
+  useEffect(() => {
+    if (memoizedActiveMilestoneId) {
+      setActiveMilestoneId(memoizedActiveMilestoneId);
+    }
+  }, [memoizedActiveMilestoneId]);
   
   // TEST FUNCTION: Log card positions for debugging
   const logCardPositions = () => {
@@ -196,9 +201,9 @@ const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({
       // Find active milestone by ID
       let targetElement: HTMLElement | null = null;
       
-      if (activeMilestoneId) {
+      if (memoizedActiveMilestoneId) {
         targetElement = stripRef.current.querySelector(
-          `.milestone-card[data-milestone-id="${activeMilestoneId}"]`
+          `.milestone-card[data-milestone-id="${memoizedActiveMilestoneId}"]`
         ) as HTMLElement;
       }
       
@@ -222,7 +227,7 @@ const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({
     }, 500);
     
     return () => clearTimeout(timer);
-  }, [activeMilestoneId]); // Run when active milestone changes
+  }, [memoizedActiveMilestoneId]); // Run when memoized active milestone changes
   
   // Re-center after user stops scrolling
   useEffect(() => {
@@ -239,11 +244,11 @@ const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({
       
       // Set a new timeout for 2 seconds of inactivity
       scrollTimeout = setTimeout(() => {
-        if (!stripRef.current || !activeMilestoneId) return;
+        if (!stripRef.current || !memoizedActiveMilestoneId) return;
         
         // Find the active milestone element
         const targetElement = stripRef.current.querySelector(
-          `.milestone-card[data-milestone-id="${activeMilestoneId}"]`
+          `.milestone-card[data-milestone-id="${memoizedActiveMilestoneId}"]`
         ) as HTMLElement;
         
         if (targetElement) {
@@ -275,12 +280,12 @@ const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({
         clearTimeout(scrollTimeout);
       }
     };
-  }, [stripRef.current, activeMilestoneId]);
+  }, [memoizedActiveMilestoneId]); // Use memoized ID instead
   
   // Animation for milestone changes with fixed dimensions
   useEffect(() => {
     // Skip initial render since the main centering effect handles that
-    if (!activeMilestone?.milestone.id || !stripRef.current) return;
+    if (!memoizedActiveMilestoneId || !stripRef.current) return;
     
     // Use a short delay to avoid competing with the main centering logic
     const animationTimer = setTimeout(() => {
@@ -288,7 +293,7 @@ const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({
       
       // Get the target element
       const targetElement = stripRef.current.querySelector(
-        `.milestone-card[data-milestone-id="${activeMilestone.milestone.id}"]`
+        `.milestone-card[data-milestone-id="${memoizedActiveMilestoneId}"]`
       ) as HTMLElement;
       
       if (!targetElement) return;
@@ -309,7 +314,7 @@ const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({
     }, 600); // Longer delay to ensure it doesn't compete with initial centering
     
     return () => clearTimeout(animationTimer);
-  }, [activeMilestone?.milestone.id]); // Only trigger on actual milestone ID change
+  }, [memoizedActiveMilestoneId]); // Only trigger on memoized milestone ID change
   
   // If no milestones to display
   if (milestoneCards.length === 0) {
@@ -320,11 +325,6 @@ const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({
       </div>
     );
   }
-  
-  // Find index of active milestone to determine which cards to show
-  const activeMilestoneIndex = activeMilestone 
-    ? milestoneCards.findIndex(card => card.milestone.id === activeMilestone.milestone.id)
-    : 0;
   
   // Calculate scroll limit to prevent scrolling too far
   useEffect(() => {
@@ -366,6 +366,13 @@ const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({
     return () => clearTimeout(timer);
   }, [milestoneCards.length]);
   
+  // Memoize the find index operation to reduce calculations
+  const activeMilestoneIndex = useMemo(() => { 
+    return activeMilestone 
+      ? milestoneCards.findIndex(card => card.milestone.id === activeMilestone.milestone.id)
+      : 0;
+  }, [activeMilestone, milestoneCards]);
+  
   // Define a constant for how many milestones to display
   // This limits the scroll length without completely hiding milestones
   const MILESTONES_TO_SHOW = 10; 
@@ -378,9 +385,9 @@ const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({
       return milestoneCards;
     }
     
-    // Find the index of the active milestone
+    // Find the index of the active milestone - use the memoized ID to prevent dependencies on state
     const activeIndex = milestoneCards.findIndex(
-      card => card.milestone.id === activeMilestoneId
+      card => card.milestone.id === memoizedActiveMilestoneId
     );
     
     // If no active milestone found, show the first few milestones
@@ -402,7 +409,7 @@ const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({
     
     // Return the slice of milestones that are within our visible range
     return milestoneCards.slice(startIndex, endIndex + 1);
-  }, [milestoneCards, activeMilestoneId]);
+  }, [milestoneCards, memoizedActiveMilestoneId]);
   
   return (
     <div className="milestone-progress-strip">
@@ -422,7 +429,7 @@ const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({
               <div 
                 key={card.milestone.id}
                 data-milestone-id={card.milestone.id}
-                className={`milestone-card ${card.status} ${card.milestone.id === activeMilestoneId ? 'active-center' : ''}`}
+                className={`milestone-card ${card.status} ${card.milestone.id === memoizedActiveMilestoneId ? 'active-center' : ''}`}
               >
                 <div className="milestone-state-indicator"></div>
                 
