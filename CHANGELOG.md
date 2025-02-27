@@ -29,7 +29,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Simplified workflow with clearer division between local and remote responsibilities
 
 ### Fixed
-- Fixed YAML syntax issue in PR validation workflow by replacing the third-party action with a custom implementation
+- Fixed YAML syntax issue in PR validation workflow by completely redesigning the workflow structure
+- Removed redundant changelog check workflow to prevent duplication
 
 ## [0.5.0-4] - 2025-02-27
 
