@@ -189,15 +189,17 @@ if [ "$CHANGELOG_HAS_UNRELEASED" = true ]; then
   # Ask for version type if not forced
   if [ "$FORCE" != true ]; then
     echo -e "What type of version bump is needed?"
-    echo -e "  ${BLUE}1) Patch${NC} - Bug fixes (x.y.Z)"
-    echo -e "  ${BLUE}2) Minor${NC} - New features, no breaking changes (x.Y.z)"
-    echo -e "  ${BLUE}3) Major${NC} - Breaking changes (X.y.z)"
-    read -p "Select option (1-3): " VERSION_OPTION
+    echo -e "  ${BLUE}1) Patch level${NC} - Small fixes or tweaks (x.y.z-N)"
+    echo -e "  ${BLUE}2) Patch${NC} - Bug fixes (x.y.Z)"
+    echo -e "  ${BLUE}3) Minor${NC} - New features, no breaking changes (x.Y.z)"
+    echo -e "  ${BLUE}4) Major${NC} - Breaking changes (X.y.z)"
+    read -p "Select option (1-4): " VERSION_OPTION
     
     case $VERSION_OPTION in
-      1) VERSION_TYPE="patch" ;;
-      2) VERSION_TYPE="minor" ;;
-      3) VERSION_TYPE="major" ;;
+      1) VERSION_TYPE="patch_level" ;;
+      2) VERSION_TYPE="patch" ;;
+      3) VERSION_TYPE="minor" ;;
+      4) VERSION_TYPE="major" ;;
       *) 
         echo -e "${RED}Invalid option${NC}"
         exit 1
@@ -210,10 +212,27 @@ if [ "$CHANGELOG_HAS_UNRELEASED" = true ]; then
   
   # Calculate new version
   NEW_VERSION=$(node -e "
-    const [major, minor, patch] = '$CURRENT_VERSION'.split('.').map(Number);
-    if ('$VERSION_TYPE' === 'major') console.log(\`\${major+1}.0.0\`);
-    else if ('$VERSION_TYPE' === 'minor') console.log(\`\${major}.\${minor+1}.0\`);
-    else console.log(\`\${major}.\${minor}.\${patch+1}\`);
+    const version = '$CURRENT_VERSION';
+    const versionParts = version.split('-');
+    const baseParts = versionParts[0].split('.').map(Number);
+    const [major, minor, patch] = baseParts;
+    
+    if ('$VERSION_TYPE' === 'major') {
+      console.log(\`\${major+1}.0.0\`);
+    } else if ('$VERSION_TYPE' === 'minor') {
+      console.log(\`\${major}.\${minor+1}.0\`);
+    } else if ('$VERSION_TYPE' === 'patch') {
+      console.log(\`\${major}.\${minor}.\${patch+1}\`);
+    } else if ('$VERSION_TYPE' === 'patch_level') {
+      // If we already have a patch level version like X.Y.Z-N
+      if (versionParts.length > 1) {
+        const patchLevel = parseInt(versionParts[1], 10);
+        console.log(\`\${versionParts[0]}-\${patchLevel+1}\`);
+      } else {
+        // New patch level for version that doesn't have one yet
+        console.log(\`\${version}-1\`);
+      }
+    }
   ")
   
   echo -e "Bumping version from ${YELLOW}$CURRENT_VERSION${NC} to ${GREEN}$NEW_VERSION${NC}"

@@ -29,6 +29,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated documentation README.md with git exclusion information
 - Expanded scripts/README.md with new automation tools
 
+## [0.5.0-1] - 2025-02-27
+
+### Added
+- Added support for patch-level versioning in CHANGELOG.md (X.Y.Z-N format)
+- Updated bump-version.sh to support patch-level version format
+- Enhanced prepare-for-main.sh with patch-level versioning option
+
+### Changed
+- Improved version calculation logic to handle patch-level increments
+- Updated script documentation to explain patch-level versioning
+
 
 ## [0.4.0] - 2025-02-27
 
