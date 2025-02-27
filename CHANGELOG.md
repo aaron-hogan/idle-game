@@ -12,6 +12,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Detailed examples of complete release workflow
 - Enhanced script documentation with usage examples
 
+### Fixed
+- Updated hello-world.ts message to reference professional release workflow
+
 ## [0.5.0-3] - 2025-02-27
 
 ### Added
