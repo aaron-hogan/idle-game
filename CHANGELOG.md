@@ -7,11 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+*No unreleased changes at this time.*
+
+## [0.6.0] - 2025-02-27
+
 ### Added
 - New script to detect and fix empty versions in CHANGELOG
 - Improved workflow documentation for changelog maintenance
 - Additional changelog validation in CI/CD pipeline
-
 ## [0.5.6] - 2025-02-27
 
 ### Added
