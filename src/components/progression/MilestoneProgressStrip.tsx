@@ -159,25 +159,41 @@ const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({
     }
   }, [activeMilestoneId]);
   
-  // Force initial centering with a longer delay to ensure complete layout
+  // Find the first active milestone and center it
   useEffect(() => {
-    // Initial setup to center the active milestone
+    // Immediately reset scroll position to ensure we're starting fresh
+    if (stripRef.current) {
+      stripRef.current.scrollLeft = 0;
+    }
+    
+    // Wait for the DOM to be fully ready
     const initialCenterTimer = setTimeout(() => {
-      if (!stripRef.current || !activeMilestoneId) return;
+      if (!stripRef.current) return;
       
-      console.log("Executing initial positioning...");
+      console.log("Finding active milestone to center...");
       
-      const activeMilestoneElement = stripRef.current.querySelector(
-        `[data-milestone-id="${activeMilestoneId}"]`
-      ) as HTMLElement;
+      // Get the first active milestone, or first milestone if none active
+      let targetMilestoneElement: HTMLElement | null = null;
       
-      if (activeMilestoneElement) {
+      if (activeMilestoneId) {
+        targetMilestoneElement = stripRef.current.querySelector(
+          `[data-milestone-id="${activeMilestoneId}"]`
+        ) as HTMLElement;
+      } else {
+        // If no active milestone, find the first visible one
+        const firstMilestone = stripRef.current.querySelector('.milestone-card') as HTMLElement;
+        if (firstMilestone) {
+          targetMilestoneElement = firstMilestone;
+        }
+      }
+      
+      if (targetMilestoneElement) {
         const containerWidth = stripRef.current.offsetWidth;
-        const cardWidth = activeMilestoneElement.offsetWidth;
-        const cardLeft = activeMilestoneElement.offsetLeft;
+        const cardWidth = targetMilestoneElement.offsetWidth;
+        const cardLeft = targetMilestoneElement.offsetLeft;
         
-        // Calculate scroll position to center the active milestone
-        const scrollPosition = cardLeft - (containerWidth / 2) + (cardWidth / 2);
+        // Calculate position to center the target milestone
+        const scrollPosition = Math.max(0, cardLeft - (containerWidth / 2) + (cardWidth / 2));
         
         console.log("Initial positioning values:", {
           containerWidth,
@@ -186,29 +202,28 @@ const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({
           scrollPosition
         });
         
-        // Force initial position with direct DOM manipulation
+        // Force immediate positioning
         stripRef.current.scrollLeft = scrollPosition;
         
-        // Additional check and correction after a moment
+        // Double-check with a further delay
         setTimeout(() => {
-          if (stripRef.current && activeMilestoneElement) {
+          if (stripRef.current && targetMilestoneElement) {
             // Re-calculate in case of any layout shifts
-            const cardLeft = activeMilestoneElement.offsetLeft;
-            const containerWidth = stripRef.current.offsetWidth;
-            const cardWidth = activeMilestoneElement.offsetWidth;
-            const idealPosition = cardLeft - (containerWidth / 2) + (cardWidth / 2);
+            const updatedCardLeft = targetMilestoneElement.offsetLeft;
+            const updatedPosition = updatedCardLeft - (containerWidth / 2) + (cardWidth / 2);
             
-            // If position is off by more than 5px, correct it
-            if (Math.abs(stripRef.current.scrollLeft - idealPosition) > 5) {
-              console.log("Correcting position:", idealPosition);
-              stripRef.current.scrollLeft = idealPosition;
+            console.log("Double-check position:", {
+              currentScroll: stripRef.current.scrollLeft,
+              calculatedIdeal: updatedPosition
+            });
+            
+            if (Math.abs(stripRef.current.scrollLeft - updatedPosition) > 10) {
+              stripRef.current.scrollLeft = updatedPosition;
             }
-            
-            console.log("Final scroll position:", stripRef.current.scrollLeft);
           }
-        }, 200);
+        }, 300);
       }
-    }, 200); // Longer delay to ensure complete layout
+    }, 300); // Longer delay to ensure complete layout
     
     return () => clearTimeout(initialCenterTimer);
   }, []); // Empty dependency array to run once on mount
