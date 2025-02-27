@@ -94,15 +94,29 @@ Brief description of the changes
 
 ### 1. Self-Review Checklist
 
-Before requesting reviews, verify:
+⚠️ **CRITICAL**: Before requesting reviews, you MUST complete the [Pre-PR Validation Checklist](/docs/processes/safe-workflow-checklist.md#-pre-pr-validation-checklist-required-) from our safe workflow process.
 
-- [ ] All tests pass
-- [ ] Type checking passes
-- [ ] Linting passes
-- [ ] PR description clearly explains the changes
-- [ ] Documentation is complete and follows standards
-- [ ] Commits are focused and have clear messages
-- [ ] No unintended files are included in the PR
+Following our implementation lessons from the Dependency Injection project, verify:
+
+- [ ] **Build Validation:**
+  - [ ] All tests pass
+  - [ ] Type checking passes
+  - [ ] Linting passes
+  - [ ] Build succeeds
+
+- [ ] **Runtime Validation:**
+  - [ ] Application launches without console errors
+  - [ ] Console remains clear during normal operation
+  - [ ] All user flows work correctly
+  - [ ] No regressions in existing functionality
+
+- [ ] **PR Quality:**
+  - [ ] PR description clearly explains the changes
+  - [ ] Documentation is complete and follows standards
+  - [ ] Commits are focused and have clear messages
+  - [ ] No unintended files are included in the PR
+
+See [Process Failure Analysis](/docs/processes/lessons/process-failure-analysis.md) for detailed requirements.
 
 ### 2. Check for Conflicts
 
