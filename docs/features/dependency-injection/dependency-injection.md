@@ -17,6 +17,11 @@ We've implemented dependency injection in the following manager classes:
 
 1. `TaskManager`
 2. `ProgressionManager`
+3. `ResourceManager`
+4. `BuildingManager`
+5. `EventManager`
+6. `SaveManager`
+7. `WorkerManager`
 
 ## Implementation Approach
 

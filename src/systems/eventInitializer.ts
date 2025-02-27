@@ -24,15 +24,34 @@ export function initializeEventSystem() {
   
   try {
     // Register events in the store
-    // First the sample demo events
+    // First ensure the event structure is initialized in the state
+    store.dispatch({ type: 'events/init' });
+    
+    // Then add sample demo events
     store.dispatch(addEvents(sampleEvents));
     
-    // Then the anti-capitalist themed events
+    // And finally the anti-capitalist themed events
     store.dispatch(addEvents(antiCapitalistEvents));
     
-    // Initialize the EventManager
-    const eventManager = EventManager.getInstance();
-    eventManager.initialize(store);
+    // Import necessary action creators
+    const eventActions = require('../state/eventsSlice');
+    
+    // Initialize the EventManager with dependencies
+    const eventManager = EventManager.getInstance({
+      dispatch: store.dispatch,
+      getState: store.getState,
+      actions: {
+        addEvent: eventActions.addEvent,
+        addEvents: eventActions.addEvents,
+        triggerEvent: eventActions.triggerEvent,
+        resolveEvent: eventActions.resolveEvent,
+        updateEvent: eventActions.updateEvent
+      }
+    });
+    
+    // Register with GameLoop for periodic event checks
+    const gameLoop = require('../core/GameLoop').GameLoop.getInstance();
+    gameLoop.registerCallback('eventManager', () => eventManager.processEvents());
     
     const totalEvents = sampleEvents.length + antiCapitalistEvents.length;
     // Simple log message with event counts

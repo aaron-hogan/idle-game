@@ -126,8 +126,21 @@ const App: React.FC = () => {
     const progressionManager = ProgressionManager.getInstance();
     progressionManager.initialize(store);
     
-    // Initialize event system
+    // Initialize event system - this ensures all events are registered
+    // and event manager is properly initialized
     initializeEventSystem();
+
+    // SaveManager is initialized in SaveContext.tsx
+    
+    // Initialize worker manager with dependencies
+    const workerManager = require('../systems/workerManager').WorkerManager.getInstance({
+      dispatch: store.dispatch,
+      getState: store.getState,
+      actions: {
+        assignWorkers: structureActions.assignWorkers,
+        changeWorkerCount: structureActions.changeWorkerCount
+      }
+    });
     
     // Reset game time if it's suspiciously large (over 1 hour)
     const state = store.getState();

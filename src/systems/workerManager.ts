@@ -1,9 +1,24 @@
 import { Dispatch, Store } from 'redux';
 import { RootState } from '../state/store';
-import { assignWorkers, changeWorkerCount } from '../state/structuresSlice';
 import { Structure } from '../models/structure';
 import { invariant } from '../utils/errorUtils';
 import { validateNumber } from '../utils/validationUtils';
+
+// Import only the types needed for dependency injection
+import type { AppDispatch } from '../state/store';
+import type { assignWorkers, changeWorkerCount } from '../state/structuresSlice';
+
+/**
+ * Dependencies needed by WorkerManager
+ */
+export interface WorkerManagerDependencies {
+  dispatch: AppDispatch;
+  getState: () => RootState;
+  actions: {
+    assignWorkers: typeof assignWorkers;
+    changeWorkerCount: typeof changeWorkerCount;
+  };
+}
 
 /**
  * WorkerManager handles worker allocation and management across buildings
@@ -11,29 +26,55 @@ import { validateNumber } from '../utils/validationUtils';
  */
 export class WorkerManager {
   private static instance: WorkerManager | null = null;
-  private store: Store | null = null;
-  private dispatch: Dispatch | null = null;
-  private getState: (() => RootState) | null = null;
+  private dispatch: AppDispatch;
+  private getState: () => RootState;
+  private actions: WorkerManagerDependencies['actions'];
+  private initialized = false;
   
   /**
-   * Private constructor for singleton pattern
-   * @param storeOrDispatch The Redux store or dispatch function
-   * @param getState Optional getState function (if dispatch is provided)
+   * Constructor that accepts dependencies
+   * @param dependencies The dependencies needed by WorkerManager
    */
-  private constructor(storeOrDispatch?: Store | Dispatch, getState?: () => RootState) {
-    if (storeOrDispatch) {
-      this.initialize(storeOrDispatch, getState);
-    }
+  constructor(dependencies: WorkerManagerDependencies) {
+    this.dispatch = dependencies.dispatch;
+    this.getState = dependencies.getState;
+    this.actions = dependencies.actions;
+    this.initialized = true;
   }
   
   /**
-   * Get the singleton instance of WorkerManager
+   * Get or create the singleton instance of WorkerManager
+   * @param dependenciesOrStore The dependencies needed by WorkerManager or store/dispatch for backward compatibility
+   * @param getState Optional getState function (if dispatch is provided) for backward compatibility
    * @returns The singleton WorkerManager instance
    */
-  public static getInstance(): WorkerManager {
+  public static getInstance(dependenciesOrStore?: WorkerManagerDependencies | Store | Dispatch, getState?: () => RootState): WorkerManager {
     if (!WorkerManager.instance) {
-      WorkerManager.instance = new WorkerManager();
+      if (!dependenciesOrStore) {
+        // Create instance without dependencies, initialize() will be called later
+        WorkerManager.instance = new WorkerManager({
+          dispatch: (() => {}) as any, // Placeholder
+          getState: (() => ({})) as any, // Placeholder
+          actions: {} as any // Placeholder
+        });
+      } else if ('dispatch' in dependenciesOrStore && 'getState' in dependenciesOrStore && 'actions' in dependenciesOrStore) {
+        // If full dependencies are provided
+        WorkerManager.instance = new WorkerManager(dependenciesOrStore as WorkerManagerDependencies);
+      } else {
+        // If a store or dispatch is provided (backward compatibility)
+        const instance = new WorkerManager({
+          dispatch: (() => {}) as any, // Placeholder
+          getState: (() => ({})) as any, // Placeholder  
+          actions: {} as any // Placeholder
+        });
+        instance.initialize(dependenciesOrStore, getState);
+        WorkerManager.instance = instance;
+      }
+    } else if (dependenciesOrStore && !('dispatch' in dependenciesOrStore && 'getState' in dependenciesOrStore && 'actions' in dependenciesOrStore)) {
+      // If instance exists and a store/dispatch is provided, initialize with it (backward compatibility)
+      WorkerManager.instance.initialize(dependenciesOrStore, getState);
     }
+    
     return WorkerManager.instance;
   }
   
@@ -41,22 +82,41 @@ export class WorkerManager {
    * Initialize the manager with store or dispatch
    * @param storeOrDispatch The Redux store or dispatch function
    * @param getState Optional getState function (if dispatch is provided)
+   * @deprecated Use dependency injection through constructor instead
    */
   public initialize(storeOrDispatch: Store | Dispatch, getState?: () => RootState): void {
+    // Check if already initialized properly
+    try {
+      this.ensureInitialized();
+      return; // Already initialized
+    } catch (e) {
+      // Continue with initialization
+    }
+    
+    // Import necessary action creators
+    const structuresActions = require('../state/structuresSlice');
+    
     // Try to determine if it's a store or dispatch function
     const isStore = storeOrDispatch && 'getState' in storeOrDispatch;
     
     if (isStore) {
       // It's a store
-      this.store = storeOrDispatch as Store;
-      this.dispatch = this.store.dispatch;
-      this.getState = this.store.getState as () => RootState;
+      const store = storeOrDispatch as Store;
+      this.dispatch = store.dispatch;
+      this.getState = store.getState as () => RootState;
     } else {
       // It's a dispatch function
-      this.store = null;
       this.dispatch = storeOrDispatch as Dispatch;
-      this.getState = getState || null;
+      this.getState = getState || (() => { throw new Error('getState not provided'); });
     }
+    
+    // Set up actions
+    this.actions = {
+      assignWorkers: structuresActions.assignWorkers,
+      changeWorkerCount: structuresActions.changeWorkerCount,
+    };
+    
+    this.initialized = true;
   }
   
   /**
@@ -65,8 +125,8 @@ export class WorkerManager {
    */
   private ensureInitialized(): void {
     invariant(
-      this.dispatch !== null && this.getState !== null,
-      'WorkerManager not properly initialized with dispatch and getState',
+      this.initialized && this.dispatch !== undefined && this.getState !== undefined && this.actions !== undefined,
+      'WorkerManager not properly initialized with dependencies',
       'WorkerManager'
     );
   }
@@ -128,7 +188,7 @@ export class WorkerManager {
     
     workers = validateNumber(workers, 0);
     
-    const state = this.getState!();
+    const state = this.getState();
     const building = state.structures[buildingId];
     
     if (!building) {
@@ -148,7 +208,7 @@ export class WorkerManager {
     // Limit by building's max worker capacity
     workers = Math.max(0, Math.min(workers, building.maxWorkers));
     
-    this.dispatch!(assignWorkers({
+    this.dispatch(this.actions.assignWorkers({
       id: buildingId,
       workers
     }));
@@ -172,7 +232,7 @@ export class WorkerManager {
     
     delta = validateNumber(delta);
     
-    const state = this.getState!();
+    const state = this.getState();
     const building = state.structures[buildingId];
     
     if (!building) {
@@ -204,7 +264,7 @@ export class WorkerManager {
     }
     
     // Use assignWorkers directly with the new count instead of changeWorkerCount
-    this.dispatch!(assignWorkers({
+    this.dispatch(this.actions.assignWorkers({
       id: buildingId,
       workers: newWorkerCount
     }));
