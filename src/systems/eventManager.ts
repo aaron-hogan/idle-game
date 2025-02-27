@@ -59,10 +59,8 @@ export class EventManager {
     // Initialize with proper event statuses
     this.initializeEventStatuses();
     
-    // Only log in development when debugging
-    if (process.env.NODE_ENV === 'development' && process.env.DEBUG_LOGS === 'true') {
-      console.log('EventManager initialized and registered with GameLoop');
-    }
+    // Simple log message
+    console.log('EventManager initialized and registered with GameLoop');
   }
   
   /**

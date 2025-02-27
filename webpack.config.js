@@ -54,10 +54,7 @@ export default (env, argv) => {
       new HtmlWebpackPlugin({
         template: './src/index.html',
       }),
-      new webpack.DefinePlugin({
-        'process.env.NODE_ENV': JSON.stringify(isProduction ? 'production' : 'development'),
-        'process.env.DEBUG_LOGS': JSON.stringify(false), // Set to true only when debugging is needed
-      }),
+      // Remove process.env variables as they're causing runtime errors in browser
     ],
   };
 };

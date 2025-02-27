@@ -115,7 +115,7 @@ export class GameLoop {
     // Start the animation frame loop
     this.animationFrameId = requestAnimationFrame(this.gameLoop.bind(this));
     
-    if (this.config.debugMode && process.env.NODE_ENV === 'development' && process.env.DEBUG_LOGS === 'true') {
+    if (this.config.debugMode) {
       console.log(`GameLoop: Started with tick rate ${this.config.tickRate}Hz`);
     }
   }
