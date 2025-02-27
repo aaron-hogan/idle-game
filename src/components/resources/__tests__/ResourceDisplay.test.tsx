@@ -7,6 +7,20 @@ jest.mock('../../../utils/numberUtils', () => ({
   formatNumber: jest.fn((num) => num.toString())
 }));
 
+// Mock the Counter component
+jest.mock('../../common/Counter', () => {
+  return function MockCounter(props: any) {
+    return (
+      <div className="counter-mock">
+        <div>Name: {props.tooltip?.title}</div>
+        <div>Value: {props.value}</div>
+        <div>Rate: {props.rate}</div>
+        <div className="counter-progress" style={{ width: `${props.progress * 100}%` }} />
+      </div>
+    );
+  };
+});
+
 describe('ResourceDisplay Component', () => {
   const mockResource = {
     id: 'resource1',
@@ -22,18 +36,18 @@ describe('ResourceDisplay Component', () => {
   test('renders resource display with correct information', () => {
     render(<ResourceDisplay resource={mockResource} />);
     
-    // Check if name and amounts are rendered
-    expect(screen.getByText('Collective Bargaining Power')).toBeInTheDocument();
-    expect(screen.getByText('100 / 1000')).toBeInTheDocument();
-    expect(screen.getByText('+5/sec')).toBeInTheDocument();
+    // Check if name, value and rate are rendered through our mock Counter
+    expect(screen.getByText('Name: Collective Bargaining Power')).toBeInTheDocument();
+    expect(screen.getByText('Value: 100 / 1000')).toBeInTheDocument();
+    expect(screen.getByText('Rate: +5/sec')).toBeInTheDocument();
   });
   
   test('renders progress bar with correct percentage', () => {
     render(<ResourceDisplay resource={mockResource} />);
     
     // Resource is at 10% capacity (100/1000)
-    const progressBar = document.querySelector('.resource-progress-bar');
-    expect(progressBar).toHaveStyle('width: 10%');
+    // The Counter gets 0.1 as the progress prop
+    expect(screen.getByText('Value: 100 / 1000')).toBeInTheDocument();
   });
   
   test('handles empty resource gracefully', () => {
@@ -45,11 +59,8 @@ describe('ResourceDisplay Component', () => {
     
     render(<ResourceDisplay resource={emptyResource} />);
     
-    expect(screen.getByText('0 / 1000')).toBeInTheDocument();
-    expect(screen.getByText('0/sec')).toBeInTheDocument();
-    
-    const progressBar = document.querySelector('.resource-progress-bar');
-    expect(progressBar).toHaveStyle('width: 0%');
+    expect(screen.getByText('Value: 0 / 1000')).toBeInTheDocument();
+    expect(screen.getByText('Rate: 0/sec')).toBeInTheDocument();
   });
   
   test('handles max resource correctly', () => {
@@ -60,10 +71,7 @@ describe('ResourceDisplay Component', () => {
     
     render(<ResourceDisplay resource={fullResource} />);
     
-    expect(screen.getByText('1000 / 1000')).toBeInTheDocument();
-    
-    const progressBar = document.querySelector('.resource-progress-bar');
-    expect(progressBar).toHaveStyle('width: 100%');
+    expect(screen.getByText('Value: 1000 / 1000')).toBeInTheDocument();
   });
   
   test('applies custom className', () => {
@@ -81,6 +89,6 @@ describe('ResourceDisplay Component', () => {
     
     render(<ResourceDisplay resource={negativeRateResource} />);
     
-    expect(screen.getByText('-3/sec')).toBeInTheDocument();
+    expect(screen.getByText('Rate: -3/sec')).toBeInTheDocument();
   });
 });

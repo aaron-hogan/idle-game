@@ -156,7 +156,7 @@ const GameLoopDebugTab: React.FC = () => {
     { 
       name: "Current Day", 
       value: currentDay,
-      status: 'special'
+      status: 'neutral'
     },
     { 
       name: "Day Progress", 
@@ -282,7 +282,7 @@ const GameLoopDebugTab: React.FC = () => {
     {
       name: "Current Day",
       value: currentDayInfo,
-      status: 'special'
+      status: 'neutral'
     },
     {
       name: "Day Progress",

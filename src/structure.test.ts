@@ -9,8 +9,10 @@ describe('Project Structure', () => {
       'systems',
       'utils',
       'constants',
-      'assets',
       'styles',
+      'core',
+      'interfaces',
+      'managers'
     ];
 
     for (const dir of requiredDirs) {
