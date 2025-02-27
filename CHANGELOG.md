@@ -28,6 +28,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Improved PR labeling for version type detection
 - Simplified workflow with clearer division between local and remote responsibilities
 
+### Fixed
+- Fixed YAML syntax issue in PR validation workflow
+
 ## [0.5.0-4] - 2025-02-27
 
 ### Added
