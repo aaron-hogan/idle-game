@@ -122,6 +122,41 @@ Before pushing to the remote, verify:
 - [ ] You've pulled the latest changes from the upstream branch
 - [ ] All tests pass in the final state
 
+## ⚠️ Pre-PR Validation Checklist (REQUIRED) ⚠️
+
+> **CRITICAL**: Following our dependency injection implementation lessons, do NOT consider work complete until thorough runtime validation is performed. TypeScript compilation alone is insufficient.
+
+See [Process Failure Analysis](/docs/processes/lessons/process-failure-analysis.md) for full details.
+
+### 1. Build-Time Validation
+- [ ] TypeScript compilation succeeds (`npm run typecheck`)
+- [ ] Application builds successfully (`npm run build`)
+- [ ] All tests pass (`npm test`)
+- [ ] Linting passes (`npm run lint`)
+
+### 2. Runtime Validation (Critical)
+- [ ] Application launches without errors
+- [ ] **Console is clear of errors during:**
+  - [ ] Initial load
+  - [ ] Component mount/unmount
+  - [ ] User interactions 
+  - [ ] State transitions
+- [ ] Every core user flow functions as expected
+- [ ] Existing features continue to work properly
+
+### 3. Edge Case Testing
+- [ ] Application recovers from invalid states
+- [ ] Error handling functions correctly
+- [ ] Initialization order issues are tested 
+- [ ] Race conditions are addressed
+
+### 4. Documentation Validation
+- [ ] Implementation details are documented
+- [ ] Any remaining issues are explicitly noted
+- [ ] Changelog is updated appropriately
+
+> **Remember**: Work is not "complete" until it functions correctly in the actual runtime environment with no console errors.
+
 ## Special Situation Handling
 
 ### 1. Hot Fixes for Production
