@@ -50,8 +50,21 @@ describe('BuildingManager', () => {
     mockDispatch = mocks.mockDispatch;
     mockGetState = mocks.mockGetState;
     
+    // Mock the store with proper actions
+    const structureActions = require('../../state/structuresSlice');
+    const resourceActions = require('../../state/resourcesSlice');
+    
     // Get new instance and initialize with store
     buildingManager = BuildingManager.getInstance();
+    
+    // Manually set up the actions for testing
+    (buildingManager as any).actions = {
+      addStructure: structureActions.addStructure,
+      upgradeStructure: structureActions.upgradeStructure,
+      updateProduction: structureActions.updateProduction,
+      deductResources: resourceActions.deductResources
+    };
+    
     buildingManager.initialize(store);
     
     // Reset mocks before each test
@@ -67,8 +80,29 @@ describe('BuildingManager', () => {
         'A test building'
       );
       
-      // Mock the getState to return empty structures
-      mockGetState.mockReturnValue({ structures: {} });
+      // Set up a complete mock state that includes structures
+      const mockState = {
+        resources: {},
+        structures: {},
+        game: {
+          gameStage: 1,
+          lastSaveTime: Date.now(),
+          totalPlayTime: 0,
+          isRunning: true,
+          tickRate: 1000,
+          gameTimeScale: 1,
+          startDate: Date.now(),
+          gameEnded: false,
+          gameWon: false,
+          endReason: null
+        },
+        tasks: {},
+        events: {},
+        progression: {},
+        tutorial: {}
+      };
+      
+      mockGetState.mockReturnValue(mockState);
       
       buildingManager.initializeBuilding(testBuilding);
       
@@ -156,6 +190,31 @@ describe('BuildingManager', () => {
     });
     
     it('should correctly validate if player can afford a building', () => {
+      // Set up test state with a building
+      const structures = {
+        test_building: createTestBuilding(
+          'test_building',
+          'Test Building',
+          'A test building'
+        )
+      };
+      
+      // Set up resources
+      const resources = {
+        collective_bargaining_power: {
+          id: 'collective_bargaining_power',
+          name: 'Collective Bargaining Power',
+          amount: 15, // Enough to buy
+          maxAmount: 100,
+          perSecond: 1,
+          description: 'Test resource',
+          unlocked: true,
+          category: 'primary'
+        }
+      };
+      
+      mockGetState.mockReturnValue({ structures, resources });
+      
       // First test with enough resources
       const result1 = buildingManager.canPurchaseBuilding('test_building');
       expect(result1).toBe(true);
@@ -174,16 +233,7 @@ describe('BuildingManager', () => {
         }
       };
       
-      mockGetState.mockReturnValue({ 
-        structures: {
-          test_building: createTestBuilding(
-            'test_building',
-            'Test Building',
-            'A test building'
-          )
-        }, 
-        resources: resourcesWithLess 
-      });
+      mockGetState.mockReturnValue({ structures, resources: resourcesWithLess });
       
       const result2 = buildingManager.canPurchaseBuilding('test_building');
       expect(result2).toBe(false);

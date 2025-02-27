@@ -1,5 +1,6 @@
 import { Store } from 'redux';
 import { ErrorLogger } from './errorUtils';
+import { RootState } from '../state/store';
 
 /**
  * Factory to create a mock Redux store for testing
@@ -7,7 +8,53 @@ import { ErrorLogger } from './errorUtils';
  */
 export const createMockStore = () => {
   const mockDispatch = jest.fn();
-  const mockGetState = jest.fn();
+  
+  // Create a mock state that follows the shape of our Redux store
+  const mockState = {
+    resources: {},
+    structures: {},
+    game: {
+      gameStage: 1,
+      lastSaveTime: Date.now(),
+      totalPlayTime: 0,
+      isRunning: true,
+      tickRate: 1000,
+      gameTimeScale: 1,
+      startDate: Date.now(),
+      gameEnded: false,
+      gameWon: false,
+      endReason: null
+    },
+    tasks: { 
+      tasks: {},
+      activeTasks: [],
+      completedTasks: [],
+      failedTasks: []
+    },
+    events: { 
+      availableEvents: {},
+      activeEvents: [],
+      completedEvents: [],
+      eventHistory: []
+    },
+    progression: { 
+      level: 1, 
+      experience: 0,
+      experienceNeeded: 100,
+      skillPoints: 0,
+      skills: {}
+    },
+    tutorial: { 
+      active: false, 
+      currentStep: null,
+      completedTutorials: [], 
+      tutorialsEnabled: true,
+      firstTimeUser: true,
+      showContextualHelp: true
+    }
+  };
+  
+  const mockGetState = jest.fn().mockReturnValue(mockState);
   
   const mockStore = {
     dispatch: mockDispatch,

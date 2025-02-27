@@ -165,6 +165,6 @@ export class TutorialManager {
     if (!this.store) return false;
     
     const state = this.store.getState();
-    return state.tutorial.completed.includes(tutorialId);
+    return state.tutorial.completedTutorials.includes(tutorialId);
   }
 }
