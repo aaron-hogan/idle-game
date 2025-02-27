@@ -186,7 +186,7 @@ const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({
     }
   };
   
-  // Simplified centering logic with fixed dimensions
+  // Improved centering logic focusing on first milestone positioning
   useEffect(() => {
     // Use a reasonable delay to ensure DOM elements have rendered
     const timer = setTimeout(() => {
@@ -207,18 +207,31 @@ const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({
       }
       
       if (targetElement && stripRef.current) {
-        // Get actual measurements rather than using fixed values
+        // Get actual measurements
         const containerWidth = stripRef.current.offsetWidth;
         const targetWidth = targetElement.offsetWidth;
         const targetLeft = targetElement.offsetLeft;
         
-        // Calculate how far from center
-        const scrollToCenter = Math.max(0, targetLeft - (containerWidth / 2) + (targetWidth / 2));
+        // Special handling for the first milestone on wide screens
+        const isFirstMilestone = targetElement === stripRef.current.querySelector('.milestone-card:not(.milestone-card-spacer)');
+        const isWideScreen = containerWidth > 768;
+        
+        // Calculate positioning with adjustments for first milestone on wide screens
+        let scrollToCenter;
+        
+        if (isFirstMilestone && isWideScreen) {
+          // First milestone on wide screen needs extra centering adjustment
+          // This handles the specific case where the first card is off-center
+          scrollToCenter = Math.max(0, targetLeft - (containerWidth / 2) + (targetWidth / 2) + 16);
+        } else {
+          // Standard centering for all other cases
+          scrollToCenter = Math.max(0, targetLeft - (containerWidth / 2) + (targetWidth / 2));
+        }
         
         // Apply scroll directly
         stripRef.current.scrollLeft = scrollToCenter;
       }
-    }, 500);
+    }, 300);
     
     return () => clearTimeout(timer);
   }, [activeMilestoneId]); // Run when active milestone changes
@@ -251,7 +264,17 @@ const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({
           const targetWidth = targetElement.offsetWidth;
           const targetLeft = targetElement.offsetLeft;
           
-          const scrollToCenter = Math.max(0, targetLeft - (containerWidth / 2) + (targetWidth / 2));
+          // Special handling for the first milestone on wide screens
+          const isFirstMilestone = targetElement === stripRef.current.querySelector('.milestone-card:not(.milestone-card-spacer)');
+          const isWideScreen = containerWidth > 768;
+          
+          // Apply the same adjustment as the main centering logic
+          let scrollToCenter;
+          if (isFirstMilestone && isWideScreen) {
+            scrollToCenter = Math.max(0, targetLeft - (containerWidth / 2) + (targetWidth / 2) + 16);
+          } else {
+            scrollToCenter = Math.max(0, targetLeft - (containerWidth / 2) + (targetWidth / 2));
+          }
           
           // Animate scroll back to center
           stripRef.current.scrollTo({
@@ -276,7 +299,7 @@ const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({
     };
   }, [stripRef.current, activeMilestoneId]);
   
-  // Animation for milestone changes with fixed dimensions
+  // Animation for milestone changes with fixed dimensions and proper centering
   useEffect(() => {
     // Skip initial render since the main centering effect handles that
     if (!activeMilestone?.milestone.id || !stripRef.current) return;
@@ -297,8 +320,17 @@ const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({
       const targetWidth = targetElement.offsetWidth;
       const targetLeft = targetElement.offsetLeft;
       
-      // Calculate scroll position
-      const scrollTo = Math.max(0, targetLeft - (containerWidth / 2) + (targetWidth / 2));
+      // Special handling for the first milestone on wide screens
+      const isFirstMilestone = targetElement === stripRef.current.querySelector('.milestone-card:not(.milestone-card-spacer)');
+      const isWideScreen = containerWidth > 768;
+      
+      // Apply the same adjustment as the main centering logic
+      let scrollTo;
+      if (isFirstMilestone && isWideScreen) {
+        scrollTo = Math.max(0, targetLeft - (containerWidth / 2) + (targetWidth / 2) + 16);
+      } else {
+        scrollTo = Math.max(0, targetLeft - (containerWidth / 2) + (targetWidth / 2));
+      }
       
       // Animate scroll
       stripRef.current.scrollTo({
