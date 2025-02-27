@@ -89,11 +89,17 @@ fi
 echo "🔖 Creating new version: $NEW_VERSION"
 
 # Check if there's content under Unreleased section
-UNRELEASED_CONTENT=$(sed -n '/## \[Unreleased\]/,/## \[/p' CHANGELOG.md | grep -v "## \[" | grep -v "^$" | grep -v "\*No unreleased changes" | wc -l | tr -d ' ')
+UNRELEASED_CONTENT=$(sed -n '/## \[Unreleased\]/,/## \[/p' CHANGELOG.md | grep -v "## \[" | grep -v "^$" | grep -v "\*No unreleased changes" | grep -v "No unreleased changes" | wc -l | tr -d ' ')
 
 if [ "$UNRELEASED_CONTENT" -eq 0 ]; then
-  echo "⚠️ Warning: No content found in the Unreleased section of CHANGELOG.md."
-  echo "Creating empty version section anyway."
+  echo "❌ Error: No changes found in the Unreleased section of CHANGELOG.md."
+  echo "Cannot create a new version with no changes. Please add proper changelog entries first."
+  echo ""
+  echo "For PR #$PR_NUMBER: $PR_TITLE"
+  echo "Version type: $PR_LABEL"
+  echo ""
+  echo "Add appropriate changes to CHANGELOG.md in the Unreleased section before merging."
+  exit 1
 fi
 
 # Create backup

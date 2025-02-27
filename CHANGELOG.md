@@ -31,7 +31,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.5.2] - 2025-02-27
 
-*This was an automated version created during workflow testing.*
+### Changed
+- Test release for validating GitHub Actions workflow
+- Automated version created during workflow testing
 
 ## [0.5.1] - 2025-02-27
 
