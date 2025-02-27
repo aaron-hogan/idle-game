@@ -1,6 +1,6 @@
 {
   "name": "idle-game",
-  "version": "0.5.0-3",
+  "version": "0.5.0-4",
   "description": "A minimalist idle game",
   "main": "index.js",
   "scripts": {
@@ -14,7 +14,14 @@
     "lint:fix": "eslint src --ext .ts,.tsx --fix",
     "typecheck": "tsc --noEmit",
     "validate": "npm run typecheck && npm run lint && npm test",
-    "docs:validate": "node scripts/validate-docs.js || echo \"Documentation validation script not implemented yet\""
+    "docs:validate": "node scripts/validate-docs.js || echo \"Documentation validation script not implemented yet\"",
+    "release": "./scripts/create-release.sh",
+    "release:major": "./scripts/create-release.sh --major --non-interactive",
+    "release:minor": "./scripts/create-release.sh --minor --non-interactive",
+    "release:patch": "./scripts/create-release.sh --patch --non-interactive",
+    "hotfix": "./scripts/create-hotfix.sh",
+    "hotfix:auto": "./scripts/create-hotfix.sh --description",
+    "semantic-release": "semantic-release"
   },
   "keywords": [
     "game",

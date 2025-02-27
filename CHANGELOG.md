@@ -8,7 +8,57 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Added hello-world.ts with test for verifying the automated versioning process
+- Enhanced README.md with additional development commands for linting and type checking
+- Added detailed documentation for PR validation workflow improvements and case-sensitivity fix
+- Non-interactive mode for release and hotfix scripts
+- Command-line parameters for fully automated versioning 
+- AI-friendly automation options to avoid prompt interruptions
+- Enhanced documentation for non-interactive script usage
+- Package.json convenience scripts for common automation tasks
+- New AI-optimized Git scripts with token-efficient JSON output:
+  - `.github/scripts/ai/branch.sh` - Token-efficient branch creation
+  - `.github/scripts/ai/pr.sh` - Token-efficient PR creation 
+  - `.github/scripts/ai/check.sh` - Token-efficient PR status checking
+  - `.github/scripts/ai/merge.sh` - Token-efficient PR merging
+- Documentation for token-efficient Git workflow in CLAUDE.md
+- Updated GitHub process documentation to match current automated workflows
+- Improved instructions for AI assistants when working with PRs and versioning
+
+### Changed
+- Updated release process documentation with automation guidelines
+- Added specific automation instructions for AI assistants
+- Optimized scripts to better integrate with GitHub Actions workflows
+- Refactored release and hotfix scripts to defer versioning to GitHub Actions
+- Improved PR labeling for version type detection
+- Simplified workflow with clearer division between local and remote responsibilities
+- Simplified versioning-and-releases.md to focus on the current automated process
+- Updated PR workflow to include version labels and changelog instructions
+- Modernized CLAUDE.md instructions for GitHub workflows
+- Removed validation tests from auto-versioning workflow to improve reliability
+
+### Fixed
+- Fixed YAML syntax issue in PR validation workflow by completely redesigning the workflow structure
+- Removed redundant changelog check workflow to prevent duplication
+- Fixed regex patterns in PR validation workflow to use more compatible syntax
+- Made PR title validation case-insensitive to accept both "fix:" and "Fix:" format
+- Fixed GitHub Actions workflow permission issue for auto-versioning
+- Fixed auto-version workflow to handle non-fast-forward push errors
+- Enhanced auto-versioning to properly manage tags on latest commits
+- Fixed ProgressionManager tests to properly initialize with store
+
+### Removed
+- Legacy example semantic-release configuration
+- Outdated references to non-existent GitHub scripts
+
+## [0.5.0-4] - 2025-02-27
+
+### Added
+- Comprehensive documentation for professional release process
+- Detailed examples of complete release workflow
+- Enhanced script documentation with usage examples
+
+### Fixed
+- Updated hello-world.ts message to reference professional release workflow
 
 ### Changed
 - Cleaned up GitHub Actions workflows by removing unused example workflows
@@ -19,10 +69,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.5.0-3] - 2025-02-27
 
 ### Added
+- Professional release process with GitFlow-inspired branching strategy
+- Semantic release automation with conventional commits
+- Helper scripts for release and hotfix management 
+- GitHub Actions workflows for automated versioning and releases
+- Enhanced AI-optimized workflow scripts for safe branch and PR management
 - Added support for patch-level versioning (X.Y.Z-N format)
 - Created GitHub Action for automated versioning at merge time
 - Updated versioning documentation with new automated workflow
 - Enhanced PR workflow with version label support
+- Added hello-world.ts with test for verifying the automated versioning process
+- Implemented basic tutorial and help system:
+  - Tutorial modals with step-by-step guidance for new players
+  - Contextual help tooltips for game elements
+  - Tutorial manager singleton for handling tutorial state
+  - Tutorial settings in the Settings page
+  - Redux state management for tutorial progress
+  - First-time user detection and welcome tutorial
 
 ### Changed 
 - Updated script documentation to clarify proper versioning practices
@@ -30,12 +93,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Modified changelog check to enforce format rather than versioning
 - Revised versioning process to keep changes in Unreleased until merge
 
-
 ## [0.5.0-2] - 2025-02-27
 
 ### Fixed
 - Fixed test issue
-
 
 ## [0.5.0] - 2025-02-27
 
@@ -167,6 +228,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed browser errors by removing problematic process.env references
 - Fixed entire test suite to bring all tests to passing status
 
+
 ## [0.2.0] - 2025-02-26
 
 ### Added
@@ -193,4 +255,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Console spam and offline progress errors
 - Resource upgrade calculation issues
-

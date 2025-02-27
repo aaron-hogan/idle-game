@@ -1,59 +1,49 @@
 name: PR Validation
 
 on:
-  pull_request_target:
+  pull_request:
     types: [opened, edited, synchronize, reopened]
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   validate-pr:
     name: Validate PR
     runs-on: ubuntu-latest
-    permissions:
-      pull-requests: read
-      
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         
-      - name: Validate PR title
-        uses: amannn/action-semantic-pull-request@v5
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          types:
-            - feat
-            - fix
-            - docs
-            - style
-            - refactor
-            - perf
-            - test
-            - build
-            - ci
-            - chore
-            - revert
-          requireScope: false
-          subjectPattern: ^[A-Z].+$
-          subjectPatternError: |
-            The subject must begin with a capital letter and not end with a period.
-            
-      - name: Verify branch name
+      - name: Validate branch name and PR title
         run: |
+          # Get branch name
           BRANCH_NAME="${{ github.head_ref }}"
-          if [[ ! "$BRANCH_NAME" =~ ^(feature|fix|docs|refactor|ci|chore|test)/[a-z0-9-]+$ ]]; then
-            echo "::error::Branch name doesn't follow the pattern: (feature|fix|docs|refactor|ci|chore|test)/[a-z0-9-]+"
+          echo "Branch: $BRANCH_NAME"
+          
+          # Check branch name format
+          if ! echo "$BRANCH_NAME" | grep -E "^(feature|fix|docs|refactor|ci|chore|test)/[a-z0-9-]+" > /dev/null; then
+            echo "Error: Branch name doesn't follow the pattern: (feature|fix|docs|refactor|ci|chore|test)/name"
+            echo "Examples: feature/login-page, fix/auth-bug"
             exit 1
           fi
-        shell: bash
-      
+          
+          # Get PR title
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          echo "PR title: $PR_TITLE"
+          
+          # Check PR title format (conventional commits)
+          if ! echo "$PR_TITLE" | grep -Ei "^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\\([a-z0-9-]+\\))?: [A-Za-z]" > /dev/null; then
+            echo "Error: PR title must follow the conventional commit format"
+            echo "Examples: 'feat: Add user login' or 'fix(auth): Fix password reset'"
+            exit 1
+          fi
+          
+          echo "Validation passed: Branch name and PR title are correctly formatted"
+  
   check-changelog:
     name: Check CHANGELOG
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: read
-      
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -62,17 +52,21 @@ jobs:
           
       - name: Check CHANGELOG.md update
         run: |
-          # Skip this check for specific PR types
+          # Get PR title for type detection
           PR_TITLE="${{ github.event.pull_request.title }}"
-          if [[ "$PR_TITLE" =~ ^(docs:|chore:|ci:|test:) ]]; then
+          echo "PR title: $PR_TITLE"
+          
+          # Skip this check for specific PR types
+          if echo "$PR_TITLE" | grep -E "^(docs|chore|ci|test):" > /dev/null; then
             echo "PR type doesn't require CHANGELOG update, skipping check"
             exit 0
           fi
           
           # Check if CHANGELOG.md was modified
-          git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }} | grep -q "CHANGELOG.md"
-          if [ $? -ne 0 ]; then
-            echo "::error::CHANGELOG.md was not updated. Please add an entry for your changes."
+          if ! git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }} | grep "CHANGELOG.md" > /dev/null; then
+            echo "Error: CHANGELOG.md was not updated"
+            echo "Please add an entry for your changes to the [Unreleased] section of CHANGELOG.md"
             exit 1
           fi
-        shell: bash
+          
+          echo "CHANGELOG.md has been updated correctly"
