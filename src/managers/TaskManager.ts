@@ -50,7 +50,7 @@ export class TaskManager {
   public initialize(): boolean {
     try {
       if (this.initialized) {
-        console.warn('TaskManager already initialized');
+        // This is expected behavior in our singleton pattern, so no need for a warning
         return true;
       }
 

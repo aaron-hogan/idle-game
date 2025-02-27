@@ -90,7 +90,8 @@ const App: React.FC = () => {
     // Initialize resource manager with store
     resourceManager.initialize(store);
     
-    // Initialize task manager
+    // Initialize task manager - this is a singleton that's initialized in its constructor,
+    // but we still need to explicitly call initialize() to properly set up tasks
     const taskManager = TaskManager.getInstance();
     taskManager.initialize();
     
