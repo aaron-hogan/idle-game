@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+*No unreleased changes at this time.*
+
 ## [0.5.3] - 2025-02-27
 
 ### Added
@@ -23,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.5.2] - 2025-02-27
 
+*This was an automated version created during workflow testing.*
 
 ## [0.5.1] - 2025-02-27
 
