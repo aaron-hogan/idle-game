@@ -147,6 +147,14 @@ See [Process Failure Analysis](/docs/processes/lessons/process-failure-analysis.
 ### 3. Edge Case Testing
 - [ ] Application recovers from invalid states
 - [ ] Error handling functions correctly
+
+### 4. Release Preparation
+- [ ] If this PR includes user-facing changes, check CHANGELOG.md is updated
+- [ ] For PRs to main, create a proper version section in CHANGELOG.md for any unreleased changes
+- [ ] Use `./scripts/bump-version.sh X.Y.Z` to version changes
+- [ ] Verify package.json version matches CHANGELOG.md version
+
+See [Versioning and Release Process](/docs/processes/versioning-and-releases.md) for details.
 - [ ] Initialization order issues are tested 
 - [ ] Race conditions are addressed
 

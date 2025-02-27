@@ -42,6 +42,8 @@
 ### Documentation and Quality
 - [ ] Documentation is updated as needed
 - [ ] CHANGELOG.md is updated with changes
+- [ ] For PRs to main: Changes are properly versioned using `./scripts/bump-version.sh X.Y.Z`
+- [ ] package.json version matches CHANGELOG.md version
 - [ ] No debug/console logs in production code
 - [ ] Branch is updated with main
 
