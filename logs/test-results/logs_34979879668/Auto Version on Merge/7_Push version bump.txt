@@ -1,7 +1,0 @@
-﻿2025-02-27T15:15:40.9704530Z ##[group]Run git push origin HEAD:main
-2025-02-27T15:15:40.9704861Z [36;1mgit push origin HEAD:main[0m
-2025-02-27T15:15:40.9750668Z shell: /usr/bin/bash -e {0}
-2025-02-27T15:15:40.9750920Z ##[endgroup]
-2025-02-27T15:15:41.1008582Z remote: Permission to aaron-hogan/idle-game.git denied to github-actions[bot].
-2025-02-27T15:15:41.1009623Z fatal: unable to access 'https://github.com/aaron-hogan/idle-game/': The requested URL returned error: 403
-2025-02-27T15:15:41.1035903Z ##[error]Process completed with exit code 128.

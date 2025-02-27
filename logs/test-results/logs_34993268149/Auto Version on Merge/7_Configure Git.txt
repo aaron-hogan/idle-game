@@ -1,5 +1,0 @@
-﻿2025-02-27T19:41:18.0529550Z ##[group]Run git config --global user.name "github-actions[bot]"
-2025-02-27T19:41:18.0530282Z [36;1mgit config --global user.name "github-actions[bot]"[0m
-2025-02-27T19:41:18.0531059Z [36;1mgit config --global user.email "github-actions[bot]@users.noreply.github.com"[0m
-2025-02-27T19:41:18.0598083Z shell: /usr/bin/bash -e {0}
-2025-02-27T19:41:18.0598517Z ##[endgroup]
