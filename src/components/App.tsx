@@ -137,8 +137,8 @@ const App: React.FC = () => {
       dispatch: store.dispatch,
       getState: store.getState,
       actions: {
-        assignWorkers: structuresActions.assignWorkers,
-        changeWorkerCount: structuresActions.changeWorkerCount
+        assignWorkers: structureActions.assignWorkers,
+        changeWorkerCount: structureActions.changeWorkerCount
       }
     });
     

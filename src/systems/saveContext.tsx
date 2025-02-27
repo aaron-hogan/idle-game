@@ -101,7 +101,7 @@ export const SaveProvider: React.FC<SaveProviderProps> = ({
     // Import required action creators
     const gameActions = require('../state/gameSlice');
     const resourcesActions = require('../state/resourcesSlice');
-    const structuresActions = require('../state/structuresSlice');
+    const structureActions = require('../state/structuresSlice');
     
     // Initialize save manager with dependencies
     const manager = SaveManager.getInstance({
@@ -110,7 +110,7 @@ export const SaveProvider: React.FC<SaveProviderProps> = ({
       actions: {
         resetGame: gameActions.resetGame,
         resetResources: resourcesActions.resetResources,
-        resetStructures: structuresActions.resetStructures
+        resetStructures: structureActions.resetStructures
       },
       config: config
     });
