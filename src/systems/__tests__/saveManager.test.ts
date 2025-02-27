@@ -61,6 +61,26 @@ describe('SaveManager', () => {
   let mockDispatch: jest.Mock;
   let mockGetState: jest.Mock;
   
+  // Helper function to create a properly initialized SaveManager
+  const createSaveManager = (config?: any) => {
+    // Import necessary action creators
+    const gameActions = require('../../state/gameSlice');
+    const resourcesActions = require('../../state/resourcesSlice');
+    const structuresActions = require('../../state/structuresSlice');
+    
+    // Create SaveManager with explicit dependencies
+    return SaveManager.getInstance({
+      dispatch: mockDispatch,
+      getState: mockGetState,
+      actions: {
+        resetGame: gameActions.resetGame,
+        resetResources: resourcesActions.resetResources,
+        resetStructures: structuresActions.resetStructures,
+      },
+      config
+    });
+  };
+  
   beforeEach(() => {
     jest.clearAllMocks();
     
@@ -76,9 +96,8 @@ describe('SaveManager', () => {
     // Mock getState to return our test game state
     mockGetState.mockReturnValue(mockGameState);
     
-    // Get the singleton instance
-    saveManager = SaveManager.getInstance();
-    saveManager.initialize(mockStore);
+    // Get the singleton instance with proper dependencies
+    saveManager = createSaveManager();
     
     // Clear any intervals created
     jest.useFakeTimers();
@@ -99,8 +118,7 @@ describe('SaveManager', () => {
     it('should start autosave by default', () => {
       // Reset to ensure clean test
       resetSingleton(SaveManager);
-      saveManager = SaveManager.getInstance();
-      saveManager.initialize(mockStore);
+      saveManager = createSaveManager();
       
       jest.advanceTimersByTime(60000); // 1 minute
       
@@ -111,8 +129,7 @@ describe('SaveManager', () => {
     it('should not start autosave if disabled in config', () => {
       // Reset for clean test
       resetSingleton(SaveManager);
-      saveManager = SaveManager.getInstance();
-      saveManager.initialize(mockStore, { autosaveEnabled: false });
+      saveManager = createSaveManager({ autosaveEnabled: false });
       
       jest.advanceTimersByTime(60000); // 1 minute
       
@@ -311,8 +328,7 @@ describe('SaveManager', () => {
     it('should stop autosave when requested', () => {
       // Reset for clean test
       resetSingleton(SaveManager);
-      saveManager = SaveManager.getInstance();
-      saveManager.initialize(mockStore);
+      saveManager = createSaveManager();
       
       // Act
       saveManager.stopAutosave();
@@ -325,8 +341,7 @@ describe('SaveManager', () => {
     it('should restart autosave when requested', () => {
       // Reset for clean test
       resetSingleton(SaveManager);
-      saveManager = SaveManager.getInstance();
-      saveManager.initialize(mockStore, { autosaveEnabled: false });
+      saveManager = createSaveManager({ autosaveEnabled: false });
       
       // Act
       saveManager.startAutosave();
