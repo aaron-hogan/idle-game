@@ -189,15 +189,11 @@ const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({
     }
   };
   
-  // Super-simplified centering logic with direct approach
+  // Simplified centering logic with fixed dimensions
   useEffect(() => {
+    // Use a reasonable delay to ensure DOM elements have rendered
     const timer = setTimeout(() => {
       if (!stripRef.current) return;
-      
-      // Start with a clean slate
-      stripRef.current.scrollLeft = 0;
-      
-      console.log("SIMPLIFIED TEST: Finding target milestone");
       
       // Find active milestone by ID
       let targetElement: HTMLElement | null = null;
@@ -206,93 +202,62 @@ const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({
         targetElement = stripRef.current.querySelector(
           `.milestone-card[data-milestone-id="${activeMilestoneId}"]`
         ) as HTMLElement;
-        
-        if (targetElement) {
-          console.log("Found active milestone by ID:", activeMilestoneId);
-        }
       }
       
-      // Fallback to first milestone if no active one
+      // Fallback to first milestone if no active one found
       if (!targetElement) {
         targetElement = stripRef.current.querySelector('.milestone-card:not(.milestone-card-spacer)') as HTMLElement;
-        console.log("Using first milestone as fallback");
       }
       
-      if (targetElement) {
-        // Get measurements
+      if (targetElement && stripRef.current) {
+        // Get actual measurements rather than using fixed values
         const containerWidth = stripRef.current.offsetWidth;
         const targetWidth = targetElement.offsetWidth;
         const targetLeft = targetElement.offsetLeft;
         
         // Calculate how far from center
-        const scrollToCenter = targetLeft - (containerWidth / 2) + (targetWidth / 2);
-        
-        console.log("Centering calculation:", {
-          containerWidth,
-          targetWidth,
-          targetLeft,
-          scrollToCenter
-        });
+        const scrollToCenter = Math.max(0, targetLeft - (containerWidth / 2) + (targetWidth / 2));
         
         // Apply scroll directly
         stripRef.current.scrollLeft = scrollToCenter;
-        
-        // Verify final position
-        setTimeout(() => {
-          if (!stripRef.current) return;
-          console.log("Final scroll position:", stripRef.current.scrollLeft);
-          
-          // For debugging - mark a centered card visually
-          const currentCenterX = stripRef.current.scrollLeft + (stripRef.current.offsetWidth / 2);
-          console.log("Current center point X:", currentCenterX);
-          
-          // Find elements that overlap with the center point
-          const cards = stripRef.current.querySelectorAll('.milestone-card:not(.milestone-card-spacer)');
-          cards.forEach((card) => {
-            const element = card as HTMLElement;
-            const cardLeft = element.offsetLeft;
-            const cardRight = cardLeft + element.offsetWidth;
-            
-            // Check if card spans the center point
-            if (cardLeft <= currentCenterX && cardRight >= currentCenterX) {
-              console.log("Card at center:", element.getAttribute('data-milestone-id'));
-            }
-          });
-        }, 100);
       }
     }, 500);
     
     return () => clearTimeout(timer);
   }, [activeMilestoneId]); // Run when active milestone changes
   
-  // Simple animation when active milestone changes
+  // Animation for milestone changes with fixed dimensions
   useEffect(() => {
-    // Skip initial render
-    if (!activeMilestone || !stripRef.current) return;
+    // Skip initial render since the main centering effect handles that
+    if (!activeMilestone?.milestone.id || !stripRef.current) return;
     
-    // Find the element to center on
-    const milestoneElement = stripRef.current.querySelector(
-      `[data-milestone-id="${activeMilestone.milestone.id}"]`
-    ) as HTMLElement;
+    // Use a short delay to avoid competing with the main centering logic
+    const animationTimer = setTimeout(() => {
+      if (!stripRef.current) return;
+      
+      // Get the target element
+      const targetElement = stripRef.current.querySelector(
+        `.milestone-card[data-milestone-id="${activeMilestone.milestone.id}"]`
+      ) as HTMLElement;
+      
+      if (!targetElement) return;
+      
+      // Get actual measurements
+      const containerWidth = stripRef.current.offsetWidth;
+      const targetWidth = targetElement.offsetWidth;
+      const targetLeft = targetElement.offsetLeft;
+      
+      // Calculate scroll position
+      const scrollTo = Math.max(0, targetLeft - (containerWidth / 2) + (targetWidth / 2));
+      
+      // Animate scroll
+      stripRef.current.scrollTo({
+        left: scrollTo,
+        behavior: 'smooth'
+      });
+    }, 600); // Longer delay to ensure it doesn't compete with initial centering
     
-    if (!milestoneElement) return;
-    
-    // Calculate center position 
-    const containerWidth = stripRef.current.offsetWidth;
-    const elementWidth = milestoneElement.offsetWidth;
-    const elementLeft = milestoneElement.offsetLeft;
-    
-    // Smooth scroll to center the element with animation
-    console.log("Animating to new active milestone:", {
-      id: activeMilestone.milestone.id,
-      scrollTo: elementLeft - (containerWidth / 2) + (elementWidth / 2)
-    });
-    
-    stripRef.current.scrollTo({
-      left: elementLeft - (containerWidth / 2) + (elementWidth / 2),
-      behavior: 'smooth'
-    });
-    
+    return () => clearTimeout(animationTimer);
   }, [activeMilestone?.milestone.id]); // Only trigger on actual milestone ID change
   
   // If no milestones to display

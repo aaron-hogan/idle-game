@@ -1,7 +1,7 @@
 .resource-generators-container {
   width: 100%;
   max-width: 1200px; /* Prevent container from getting too wide */
-  margin: 25px auto 15px; /* Increased top margin for gap after milestones */
+  margin: 10px auto 15px; /* Reduced top margin */
   background-color: #222;
   border-radius: 8px;
   padding: 15px 10px;
