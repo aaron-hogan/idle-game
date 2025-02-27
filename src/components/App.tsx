@@ -90,7 +90,8 @@ const App: React.FC = () => {
     // Initialize resource manager with store
     resourceManager.initialize(store);
     
-    // Initialize task manager
+    // Initialize task manager - this is a singleton that's initialized in its constructor,
+    // but we still need to explicitly call initialize() to properly set up tasks
     const taskManager = TaskManager.getInstance();
     taskManager.initialize();
     
@@ -128,24 +129,23 @@ const App: React.FC = () => {
       gameManagerRef.current.initialize();
       gameManagerRef.current.start();
       
-      // CRITICAL DEBUG: Forcibly add significant time and verify in console
-      console.log("App: BEFORE adding initial time, state.game.totalPlayTime =", store.getState().game.totalPlayTime);
-      dispatch(addPlayTime(30)); // Try to add 30 seconds
-      console.log("App: AFTER adding initial time, state.game.totalPlayTime =", store.getState().game.totalPlayTime);
+      // Add initial time to ensure game state is properly started
+      dispatch(addPlayTime(30)); // Add 30 seconds
       
-      // Set up a stronger debug timer to force time updates and verify they're happening
+      // Set up a minimal debug timer (only for development)
       let debugTick = 0;
       const debugInterval = setInterval(() => {
         debugTick++;
         const beforeTime = store.getState().game.totalPlayTime;
-        console.log(`DEBUG TICK ${debugTick}: Before adding time, totalPlayTime=${beforeTime.toFixed(2)}`);
         
         // Force a larger increment (5 seconds)
         dispatch(addPlayTime(5));
         
-        // Verify after dispatch
-        const afterTime = store.getState().game.totalPlayTime;
-        console.log(`DEBUG TICK ${debugTick}: After adding time, totalPlayTime=${afterTime.toFixed(2)}, delta=${(afterTime-beforeTime).toFixed(2)}`);
+        // Only log occasionally to reduce noise
+        if (debugTick % 10 === 0) {
+          const afterTime = store.getState().game.totalPlayTime;
+          console.log(`DEBUG TICK ${debugTick}: time=${afterTime.toFixed(2)}`);
+        }
       }, 1000); // Every 1 second
       
       // Clean up the interval on component unmount

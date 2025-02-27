@@ -8,6 +8,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Fixed
+- Fixed TypeError in GameLoop by adding support for flat resource structure in gameEndConditions.ts
+- Optimized Redux selectors to prevent unnecessary rerenders
+- Resolved "Selector unknown returned a different result when called with the same parameters" warning
+- Added memoization to Object.values calls in selectors to prevent new reference creation
+- Fixed progression selectors to use proper memoization with createSelector
+- Optimized selectAllMilestones, selectAllAchievements, and stage/type selectors
+- Added missing import for selectStageByCurrentStage in ProgressionManager
+- Implemented enhanced memoization for component selectors with useMemoSelector hook
+- Created reusable selector utilities in redux/utils.ts
+- Fixed infinite update loop in MilestoneProgressStrip component by properly handling dependency arrays in useEffect hooks and memoizing values
+- Fixed EventPanel selector warning by implementing proper memoization with createSelector
+- Removed misleading "TaskManager already initialized" warning, as multiple initialization attempts are expected with the singleton pattern
+- Simplified console logs to minimum necessary messages
+- Fixed browser errors by removing problematic process.env references
+- Reduced debug messages to improve console clarity
 - Fixed entire test suite to bring all tests to passing status
   - Fixed GameManager tests with proper mocking of setTotalPlayTime
   - Added null safety checks in gameLoop.ts for tickInterval

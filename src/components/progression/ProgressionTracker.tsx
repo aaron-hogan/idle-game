@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useMemoSelector } from '../../state/hooks';
 import { 
   selectCurrentStage, 
   selectCompletionPercentage
@@ -26,8 +27,8 @@ const getStageDisplayName = (stage: GameStage): string => {
  * Streamlined component for tracking and displaying overall game progression
  */
 const ProgressionTracker: React.FC = () => {
-  const currentStage = useSelector(selectCurrentStage);
-  const completionPercentage = useSelector(selectCompletionPercentage);
+  const currentStage = useMemoSelector(selectCurrentStage);
+  const completionPercentage = useMemoSelector(selectCompletionPercentage);
   
   return (
     <div className="progression-tracker">

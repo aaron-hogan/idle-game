@@ -195,11 +195,22 @@ export const selectMilestoneById = (state: { progression: ProgressionState }, id
 export const selectAchievementById = (state: { progression: ProgressionState }, id: string) => 
   state.progression.achievements[id];
 
-export const selectAllMilestones = (state: { progression: ProgressionState }) => 
-  state.progression.milestoneIds.map(id => state.progression.milestones[id]);
+// Memoized selectors for lists
+const selectMilestoneIds = (state: { progression: ProgressionState }) => state.progression.milestoneIds;
+const selectMilestones = (state: { progression: ProgressionState }) => state.progression.milestones;
+const selectAchievementIds = (state: { progression: ProgressionState }) => state.progression.achievementIds;
+const selectAchievements = (state: { progression: ProgressionState }) => state.progression.achievements;
 
-export const selectAllAchievements = (state: { progression: ProgressionState }) => 
-  state.progression.achievementIds.map(id => state.progression.achievements[id]);
+// Create properly memoized versions of these selectors
+export const selectAllMilestones = createSelector(
+  [selectMilestoneIds, selectMilestones],
+  (ids, milestones) => ids.map(id => milestones[id])
+);
+
+export const selectAllAchievements = createSelector(
+  [selectAchievementIds, selectAchievements],
+  (ids, achievements) => ids.map(id => achievements[id])
+);
 
 // Derived selectors
 export const selectCompletedMilestones = createSelector(
@@ -222,24 +233,50 @@ export const selectVisibleAchievements = createSelector(
   (achievements) => achievements.filter(achievement => !achievement.hidden || achievement.unlocked)
 );
 
-export const selectStageMilestones = (state: { progression: ProgressionState }, stage: GameStage) => {
-  const milestoneIds = state.progression.milestonesByStage[stage] || [];
-  return milestoneIds.map(id => state.progression.milestones[id]);
-};
+// Memoized selectors for stages and types
+export const selectStageMilestones = createSelector(
+  [
+    (state: { progression: ProgressionState }) => state.progression.milestonesByStage,
+    (state: { progression: ProgressionState }) => state.progression.milestones,
+    (state: { progression: ProgressionState }, stage: GameStage) => stage
+  ],
+  (milestonesByStage, milestones, stage) => {
+    const milestoneIds = milestonesByStage[stage] || [];
+    return milestoneIds.map(id => milestones[id]);
+  }
+);
 
-export const selectTypeMilestones = (state: { progression: ProgressionState }, type: MilestoneType) => {
-  const milestoneIds = state.progression.milestonesByType[type] || [];
-  return milestoneIds.map(id => state.progression.milestones[id]);
-};
+export const selectTypeMilestones = createSelector(
+  [
+    (state: { progression: ProgressionState }) => state.progression.milestonesByType,
+    (state: { progression: ProgressionState }) => state.progression.milestones,
+    (state: { progression: ProgressionState }, type: MilestoneType) => type
+  ],
+  (milestonesByType, milestones, type) => {
+    const milestoneIds = milestonesByType[type] || [];
+    return milestoneIds.map(id => milestones[id]);
+  }
+);
 
-export const selectTypeAchievements = (state: { progression: ProgressionState }, type: AchievementType) => {
-  const achievementIds = state.progression.achievementsByType[type] || [];
-  return achievementIds.map(id => state.progression.achievements[id]);
-};
+export const selectTypeAchievements = createSelector(
+  [
+    (state: { progression: ProgressionState }) => state.progression.achievementsByType,
+    (state: { progression: ProgressionState }) => state.progression.achievements,
+    (state: { progression: ProgressionState }, type: AchievementType) => type
+  ],
+  (achievementsByType, achievements, type) => {
+    const achievementIds = achievementsByType[type] || [];
+    return achievementIds.map(id => achievements[id]);
+  }
+);
 
-export const selectCurrentStageMilestones = createSelector(
-  [selectCurrentStage, (state: { progression: ProgressionState }) => state],
-  (currentStage, state) => selectStageMilestones(state, currentStage)
+// Fix the current stage milestones selector to use createSelector properly
+export const selectStageByCurrentStage = createSelector(
+  [selectCurrentStage, (state: { progression: ProgressionState }) => state.progression.milestonesByStage, selectMilestones],
+  (currentStage, milestonesByStage, milestones) => {
+    const milestoneIds = milestonesByStage[currentStage] || [];
+    return milestoneIds.map(id => milestones[id]);
+  }
 );
 
 export const selectCompletionPercentage = createSelector(

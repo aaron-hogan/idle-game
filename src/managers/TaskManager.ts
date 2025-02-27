@@ -50,7 +50,7 @@ export class TaskManager {
   public initialize(): boolean {
     try {
       if (this.initialized) {
-        console.warn('TaskManager already initialized');
+        // This is expected behavior in our singleton pattern, so no need for a warning
         return true;
       }
 
@@ -77,6 +77,7 @@ export class TaskManager {
       // Store unregister function for cleanup if needed
       this.unregisterHandler = gameLoop.registerHandler(boundTickHandler);
       
+      // Simple log message
       console.log('TaskManager: Registered with new GameLoop');
     } catch (error) {
       console.error('Failed to register with GameLoop:', error);

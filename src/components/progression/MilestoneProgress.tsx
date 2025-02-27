@@ -4,6 +4,7 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../state/store';
+import { useMemoSelector } from '../../state/hooks';
 import { Milestone, RewardType } from '../../interfaces/progression';
 import { allMilestones } from '../../data/progression/milestones';
 import './MilestoneProgress.css';
@@ -51,9 +52,9 @@ const MilestoneProgress: React.FC<MilestoneProgressProps> = ({
   const [completedMilestones, setCompletedMilestones] = useState<CompletedMilestone[]>([]);
   // Previously completed milestone IDs to detect new completions
   const [prevCompletedIds, setPrevCompletedIds] = useState<string[]>([]);
-  // Get resources from state
-  const resources = useSelector((state: RootState) => state.resources);
-  const progression = useSelector((state: RootState) => state.progression);
+  // Get resources from state with our enhanced memoized selector
+  const resources = useMemoSelector((state: RootState) => state.resources);
+  const progression = useMemoSelector((state: RootState) => state.progression);
   
   // Check for newly completed milestones and show notifications
   useEffect(() => {

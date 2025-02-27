@@ -21,9 +21,10 @@ export const checkGameEndConditions = (store: Store): boolean => {
   }
   
   // Get the relevant resources
-  const resources = state.resources.byId;
-  const power = resources[ResourceId.COLLECTIVE_POWER];
-  const oppression = resources[ResourceId.OPPRESSION];
+  const resources = state.resources;
+  // Handle both old (byId) and new (flat) structure for backward compatibility
+  const power = resources.byId ? resources.byId[ResourceId.COLLECTIVE_POWER] : resources[ResourceId.COLLECTIVE_POWER];
+  const oppression = resources.byId ? resources.byId[ResourceId.OPPRESSION] : resources[ResourceId.OPPRESSION];
   
   // Skip check if resources aren't loaded yet
   if (!power || !oppression) {
