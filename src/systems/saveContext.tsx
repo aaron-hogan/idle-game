@@ -6,6 +6,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { SaveManager, SaveManagerConfig } from './saveManager';
 import { useAppSelector } from '../state/hooks';
+import { store } from '../state/store';
 import { formatTimeSince } from '../utils/timeUtils';
 import { saveExists, backupExists } from '../utils/saveUtils';
 
@@ -97,8 +98,23 @@ export const SaveProvider: React.FC<SaveProviderProps> = ({
       })
     };
     
-    const manager = SaveManager.getInstance();
-    manager.initialize(storeProxy as any, config);
+    // Import required action creators
+    const gameActions = require('../state/gameSlice');
+    const resourcesActions = require('../state/resourcesSlice');
+    const structuresActions = require('../state/structuresSlice');
+    
+    // Initialize save manager with dependencies
+    const manager = SaveManager.getInstance({
+      dispatch: dispatch,
+      getState: () => store.getState(),
+      actions: {
+        resetGame: gameActions.resetGame,
+        resetResources: resourcesActions.resetResources,
+        resetStructures: structuresActions.resetStructures
+      },
+      config: config
+    });
+    
     setSaveManager(manager);
     
     // Attempt to load saved game on startup
