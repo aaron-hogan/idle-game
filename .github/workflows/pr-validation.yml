@@ -1,7 +1,7 @@
 name: PR Validation
 
 on:
-  pull_request_target:
+  pull_request:
     types: [opened, edited, synchronize, reopened]
     branches: [main]
 
@@ -9,48 +9,46 @@ jobs:
   validate-pr:
     name: Validate PR
     runs-on: ubuntu-latest
-    permissions:
-      pull-requests: read
-      
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         
-      - name: Validate PR title
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          PR_TITLE="${{ github.event.pull_request.title }}"
-          
-          # Check if PR title follows conventional commit format
-          if ! [[ "$PR_TITLE" =~ ^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([a-z0-9-]+\))?: [A-Z].+ ]]; then
-            echo "::error::PR title must follow the pattern: type(scope): Subject"
-            echo "::error::Example: feat: Add user authentication"
-            echo "::error::Valid types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert"
-            exit 1
-          fi
-          
-          echo "PR title is valid: $PR_TITLE"
-        shell: bash
-            
-      - name: Verify branch name
+      - name: Validate branch name
         run: |
           BRANCH_NAME="${{ github.head_ref }}"
+          echo "Checking branch: $BRANCH_NAME"
+          
           if [[ ! "$BRANCH_NAME" =~ ^(feature|fix|docs|refactor|ci|chore|test)/[a-z0-9-]+$ ]]; then
             echo "::error::Branch name doesn't follow the pattern: (feature|fix|docs|refactor|ci|chore|test)/[a-z0-9-]+"
             exit 1
           fi
           
-          echo "Branch name is valid: $BRANCH_NAME"
-        shell: bash
-      
+          echo "Branch name is valid"
+  
+  check-title:
+    name: Check PR Title
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Validate PR title format
+        run: |
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          echo "Checking PR title: $PR_TITLE"
+          
+          # Check for conventional commit format
+          if ! [[ "$PR_TITLE" =~ ^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(:|\([a-z0-9-]+\):) ]]; then
+            echo "::error::PR title must follow the conventional commit format"
+            echo "::error::Examples: 'feat: Add user login' or 'fix(auth): Fix password reset'"
+            exit 1
+          fi
+          
+          echo "PR title format is valid"
+  
   check-changelog:
     name: Check CHANGELOG
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: read
-      
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -74,4 +72,3 @@ jobs:
           fi
           
           echo "CHANGELOG.md has been updated"
-        shell: bash
