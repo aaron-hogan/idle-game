@@ -12,6 +12,8 @@ node_modules/
 
 # Miscellaneous
 .DS_Store
+.env
+.env.*
 .env.local
 .env.development.local
 .env.test.local
@@ -19,11 +21,22 @@ node_modules/
 temp/
 _trash/
 *.backup
+*~
+*.swp
+*.swo
+.history/
+uncommitted-*
+*secret*
+*key*
+.cache/
 
 # Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+*.log
+test-results*.log
+logs/
 
 # Editor directories and files
 .idea/
