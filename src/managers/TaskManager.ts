@@ -213,8 +213,8 @@ export class TaskManager {
           return structure && structure.level >= requirement.value;
           
         case 'gameStage':
-          // Use stage property (renamed from state.stage)
-          return (state.game.stage || 0) >= requirement.value;
+          // Use gameStage property from the game state
+          return (state.game.gameStage || 0) >= requirement.value;
           
         case 'taskCompleted':
           const task = state.tasks.tasks[requirement.id];
