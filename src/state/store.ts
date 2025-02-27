@@ -5,6 +5,7 @@ import gameReducer from './gameSlice';
 import tasksReducer from './tasksSlice';
 import eventsReducer from './eventsSlice';
 import progressionReducer from '../redux/progressionSlice';
+import tutorialReducer from './tutorialSlice';
 import { stateValidationMiddleware } from '../utils/stateValidation';
 import { trackingMiddleware } from './middleware/trackingMiddleware';
 import { taskMiddleware } from './middleware/taskMiddleware';
@@ -18,6 +19,7 @@ type AppReducer = {
   tasks: typeof tasksReducer,
   events: typeof eventsReducer,
   progression: typeof progressionReducer,
+  tutorial: typeof tutorialReducer,
 };
 
 // Configure store with all reducers and middleware
@@ -29,6 +31,7 @@ export const store = configureStore({
     tasks: tasksReducer,
     events: eventsReducer,
     progression: progressionReducer,
+    tutorial: tutorialReducer,
   } as AppReducer,
   // Add custom middleware for validation and tracking
   middleware: (getDefaultMiddleware) => 
@@ -52,6 +55,7 @@ export type RootState = {
   tasks: ReturnType<typeof tasksReducer>,
   events: ReturnType<typeof eventsReducer>,
   progression: ReturnType<typeof progressionReducer>,
+  tutorial: ReturnType<typeof tutorialReducer>,
 };
 export type AppDispatch = typeof store.dispatch;
 

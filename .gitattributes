@@ -1,0 +1,20 @@
+# Git attributes to help with document management
+
+# Mark documentation files as binary to avoid merge conflicts
+docs/** binary
+*CLAUDE* binary
+*claude* binary
+*_claude/** binary
+*/claude/** binary
+*/prompts/** binary
+logs/** binary
+
+# Never diff these files
+*.log -diff
+test-results*.log -diff
+CLAUDE.md -diff
+
+# Handle these files internally to the project, not in git
+docs/* linguist-documentation
+CLAUDE.md linguist-documentation
+uncommitted-* linguist-generated=true

@@ -10,55 +10,62 @@ node_modules/
 /dist
 /build
 
-# AI Documentation
-*CLAUDE*
-CLAUDE.md
-*claude*
-*ai-*
-*AI-*
-*/ai/*
-*/_claude/*
-*/_ai/*
-*prompt*
-*/claude/*
-*/prompts/*
+# Documentation - See DOCS_MANAGEMENT.md for details
+# Note: To add exceptions, use: ./scripts/add-doc-exception.sh path/to/file.md "Reason"
+/docs/                 # All documentation files
+!docs/README.md       # Allow README files
+!docs/*/README.md     # Allow nested README files
+
+# AI Documentation - Not suitable for public repository
+*CLAUDE*              # Claude AI-related files
+CLAUDE.md             # Main Claude instructions file
+*claude*              # Lowercase variations
+*ai-*                 # AI prefixed files
+*AI-*                 # Uppercase AI prefixed
+*/ai/*                # AI subdirectories
+*/_claude/*           # Claude subdirectories with underscore prefix
+*/_ai/*               # AI subdirectories with underscore prefix
+*prompt*              # Prompt-related files
+*/claude/*            # Claude subdirectories
+*/prompts/*           # Prompt directories
+!docs/git_exceptions.md  # Exception log is allowed
 
 # Miscellaneous
-.DS_Store
-.env
-.env.*
+.DS_Store             # macOS folder attributes
+.env                  # Environment variables
+.env.*                # Environment variable variations
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
-temp/
-_trash/
-*.backup
-*~
-*.swp
-*.swo
-.history/
-uncommitted-*
-*secret*
-*key*
-.cache/
+temp/                 # Temporary files
+_trash/               # Files pending removal
+*.backup              # Backup files
+*~                    # Temporary editor files
+*.swp                 # Vim swap files
+*.swo                 # Vim swap files
+.history/             # History files
+uncommitted-*         # Files marked as not to be committed
+*secret*              # Files containing secrets
+*key*                 # Files containing keys
+.cache/               # Cache directories
 
 # Logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-*.log
-test-results*.log
-logs/
+npm-debug.log*        # npm debug logs
+yarn-debug.log*       # Yarn debug logs
+yarn-error.log*       # Yarn error logs
+*.log                 # All log files
+test-results*.log     # Test result logs
+logs/                 # Logs directory
 
 # Editor directories and files
-.idea/
-.vscode/
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+.idea/                # JetBrains IDE files
+.vscode/              # VS Code files
+*.suo                 # Visual Studio files
+*.ntvs*               # Node.js Tools for Visual Studio
+*.njsproj             # Node.js project files
+*.sln                 # Solution files
+*.sw?                 # Vim swap files (pattern)
 
 # Wiki
-idle-game.wiki/
+idle-game.wiki/       # Local wiki clone

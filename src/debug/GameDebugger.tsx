@@ -4,6 +4,7 @@ import GameLoopDebugTab from './tabs/GameLoopDebugTab';
 import ResourceDebugTab from './tabs/ResourceDebugTab';
 import ProgressionDebugTab from './tabs/ProgressionDebugTab';
 import EventDebugTab from './tabs/EventDebugTab';
+import TutorialDebugTab from './tabs/TutorialDebugTab';
 import '../styles/debug.css';
 
 /**
@@ -32,6 +33,11 @@ const GameDebugger: React.FC = () => {
       id: 'events',
       label: 'Events',
       content: <EventDebugTab />
+    },
+    {
+      id: 'tutorial',
+      label: 'Tutorial',
+      content: <TutorialDebugTab />
     }
   ];
 

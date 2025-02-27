@@ -394,3 +394,75 @@
   font-style: italic;
   font-size: 11px;
 }
+
+/* Debug rows for tutorial debug tab */
+.debug-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  font-size: 12px;
+}
+
+.debug-label {
+  color: #999;
+}
+
+.debug-value {
+  font-weight: bold;
+  color: #ddd;
+}
+
+/* Debug buttons for tutorial */
+.debug-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.debug-buttons button {
+  padding: 5px 8px;
+  background-color: #3a3a3a;
+  border: 1px solid #555;
+  color: #eee;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.debug-buttons button:hover {
+  background-color: #444;
+}
+
+.debug-toggles {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.debug-completions {
+  max-height: 100px;
+  overflow-y: auto;
+  background-color: #1a1a1a;
+  border: 1px solid #333;
+  padding: 5px 10px;
+  margin-top: 5px;
+}
+
+.debug-list {
+  list-style-type: disc;
+  margin: 0;
+  padding-left: 20px;
+  font-size: 12px;
+}
+
+.debug-empty {
+  color: #888;
+  font-style: italic;
+  font-size: 12px;
+}
+
+.debug-reset-button {
+  background-color: #aa3333;
+  color: white;
+  margin-top: 10px;
+}
