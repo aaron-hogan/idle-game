@@ -171,6 +171,16 @@ After a release:
 ./scripts/bump-version.sh X.Y.Z-N
 ```
 
+### Changelog Validation
+
+```bash
+# Check for empty versions in CHANGELOG.md
+./scripts/check-empty-versions.sh
+
+# Fix empty versions by adding placeholder content
+./scripts/check-empty-versions.sh --fix
+```
+
 ### Checking for Unreleased Changes
 
 ```bash
