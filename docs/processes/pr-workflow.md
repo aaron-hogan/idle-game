@@ -115,6 +115,7 @@ Following our implementation lessons from the Dependency Injection project, veri
   - [ ] Documentation is complete and follows standards
   - [ ] Commits are focused and have clear messages
   - [ ] No unintended files are included in the PR
+  - [ ] Todo lists are synchronized (see [Todo Management Process](/docs/processes/todo-management.md))
 
 See [Process Failure Analysis](/docs/processes/lessons/process-failure-analysis.md) for detailed requirements.
 
