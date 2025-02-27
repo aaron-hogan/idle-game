@@ -1,6 +1,6 @@
 {
   "name": "idle-game",
-  "version": "0.5.0-4",
+  "version": "0.5.1",
   "description": "A minimalist idle game",
   "main": "index.js",
   "scripts": {

@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.1] - 2025-02-27
+
 ### Added
 - Enhanced README.md with additional development commands for linting and type checking
 - Added detailed documentation for PR validation workflow improvements and case-sensitivity fix
@@ -46,6 +48,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 - Legacy example semantic-release configuration
 - Outdated references to non-existent GitHub scripts
+
 
 ## [0.5.0-4] - 2025-02-27
 
