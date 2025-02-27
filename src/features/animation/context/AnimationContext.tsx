@@ -43,26 +43,29 @@ export const AnimationProvider: React.FC<AnimationProviderProps> = ({
     ...initialConfig
   });
 
-  // Check for user's reduced motion preference
+  // Check for user's reduced motion preference - but only in browser environment
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    
-    const updateReducedMotion = () => {
-      setConfig(prevConfig => ({
-        ...prevConfig,
-        reducedMotion: mediaQuery.matches
-      }));
-    };
-    
-    // Set initial value
-    updateReducedMotion();
-    
-    // Listen for changes
-    mediaQuery.addEventListener('change', updateReducedMotion);
-    
-    return () => {
-      mediaQuery.removeEventListener('change', updateReducedMotion);
-    };
+    // Skip in test environment where window.matchMedia might not be available
+    if (typeof window !== 'undefined' && typeof window.matchMedia === 'function') {
+      const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+      
+      const updateReducedMotion = () => {
+        setConfig(prevConfig => ({
+          ...prevConfig,
+          reducedMotion: mediaQuery.matches
+        }));
+      };
+      
+      // Set initial value
+      updateReducedMotion();
+      
+      // Listen for changes
+      mediaQuery.addEventListener('change', updateReducedMotion);
+      
+      return () => {
+        mediaQuery.removeEventListener('change', updateReducedMotion);
+      };
+    }
   }, []);
 
   // Create context value with performance optimization using useMemo
