@@ -80,6 +80,12 @@ logs/**/*             # All files in logs subdirectories
 # Wiki
 idle-game.wiki/       # Local wiki clone
 idle-game.wiki/**/*   # All files in wiki directory
+!idle-game.wiki/Home.md  # Keep main wiki page
 
 # Temporary files and backups
 package.json.orig     # Package file backup
+*.orig                # All backup files with .orig extension
+
+# GitHub related files
+.github/workflows/temp-*  # Temporary workflow files
+.github/**/*.backup       # Backup files in GitHub directories

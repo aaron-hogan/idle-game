@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Properly enforce gitignore patterns by removing previously tracked files from the repository
 - Clean up project by removing temp, logs, and _trash directories from version control
 - Retain only essential files for directory structure (logs/test-results/README.md)
+- Further enhance gitignore with additional patterns for GitHub workflows and wiki
+- Add tracking for wiki Home.md while excluding other wiki files
 
 ## [0.6.0] - 2025-02-27
 
