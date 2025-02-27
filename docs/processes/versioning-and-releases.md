@@ -2,17 +2,20 @@
 
 This document outlines our process for versioning the application and creating releases. Following this process helps maintain a clear release history and ensures changes are properly documented.
 
-## Semantic Versioning
+## Semantic Versioning with Patch Levels
 
-We follow [Semantic Versioning](https://semver.org/) principles:
+We follow [Semantic Versioning](https://semver.org/) principles with an extension for patch levels:
 
 ```
-MAJOR.MINOR.PATCH (e.g., 1.2.3)
+MAJOR.MINOR.PATCH[-PATCH_LEVEL] (e.g., 1.2.3 or 1.2.3-1)
 ```
 
 - **MAJOR**: Breaking changes
 - **MINOR**: New features without breaking changes
 - **PATCH**: Bug fixes without breaking changes
+- **PATCH_LEVEL**: Small fixes and tweaks within a patch version
+
+This patch level extension allows us to make smaller incremental updates without bumping the full patch version.
 
 ## Changelog Process
 
@@ -42,19 +45,51 @@ Example:
 
 ### Creating a Release
 
-Before merging to main:
+We now use a two-step process with automated versioning:
 
-1. Determine the appropriate version number based on semantic versioning
-2. Run the version bumping script:
-   ```bash
-   ./scripts/bump-version.sh X.Y.Z
-   ```
-3. This script will:
-   - Create a new version section in `CHANGELOG.md`
+#### Step 1: During PR Development
+
+1. Document all your changes in the `[Unreleased]` section of `CHANGELOG.md`
+2. Make sure changes are properly categorized (Added, Changed, Fixed, etc.)
+3. Do NOT version the changes yourself - this happens automatically when merging
+
+#### Step 2: During PR Review and Merge
+
+1. Apply the appropriate version label to your PR:
+   - `version:major` - For breaking changes (X.Y.Z → X+1.0.0)
+   - `version:minor` - For new features (X.Y.Z → X.Y+1.0)
+   - `version:patch` - For bug fixes (X.Y.Z → X.Y.Z+1)
+   - `version:patch_level` - For small tweaks (X.Y.Z → X.Y.Z-1 or X.Y.Z-N → X.Y.Z-N+1)
+
+2. When the PR is merged, GitHub Actions will automatically:
+   - Move changes from `[Unreleased]` to a new version section
    - Set today's date as the release date
    - Update version in `package.json`
-4. Review the changes
-5. Commit the changes with message: `chore: bump version to X.Y.Z`
+   - Commit the version changes
+   - Create a git tag for the release
+
+This automated approach ensures:
+- Changes stay in `[Unreleased]` during review
+- Version numbers are consistent
+- Versioning happens at the right time (when merging)
+- No merge conflicts in `CHANGELOG.md`
+
+#### Manual Versioning (if needed)
+
+For special cases where you need to manually version:
+
+```bash
+# For standard versions
+./scripts/bump-version.sh X.Y.Z
+
+# For patch level versions
+./scripts/bump-version.sh X.Y.Z-N
+```
+
+You can also use the interactive preparation script:
+```bash
+./scripts/prepare-for-main.sh
+```
 
 ## PR Requirements
 
@@ -63,6 +98,12 @@ PRs to main must meet these requirements:
 1. **No Unreleased Changes**: All changes must be versioned with a proper version number
 2. **Version Match**: `CHANGELOG.md` version must match `package.json` version
 3. **Complete Documentation**: All changes must be documented in the changelog
+4. **Appropriate Version Level**: Version increments should match the significance of changes:
+   - Major version for breaking changes
+   - Minor version for new features
+   - Patch version for significant bug fixes
+   - Patch level for small fixes and tweaks
+5. **Clean Version History**: Changes should be organized chronologically and labeled correctly
 
 ## CI/CD Integration
 
@@ -110,7 +151,11 @@ After a release:
 ### Version Bumping Script
 
 ```bash
+# For standard versions
 ./scripts/bump-version.sh X.Y.Z
+
+# For patch level versions
+./scripts/bump-version.sh X.Y.Z-N
 ```
 
 ### Checking for Unreleased Changes
@@ -135,6 +180,18 @@ If multiple branches modify the changelog:
 1. Keep both sets of changes in the `[Unreleased]` section
 2. Organize changes into appropriate categories
 3. Remove duplicates
+
+### When to Use Patch Level Versioning
+
+Use patch level versioning (X.Y.Z-N) when:
+
+1. Making very small changes that don't warrant a full patch version increment
+2. Fixing typos or making cosmetic changes
+3. Making minor documentation updates
+4. Adding small enhancements to existing features
+5. Making changes that don't affect core functionality
+
+This approach helps maintain a cleaner version history while still tracking all changes.
 
 ### When to Create a New Major Version
 

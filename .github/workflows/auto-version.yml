@@ -1,0 +1,194 @@
+name: Auto Version
+
+on:
+  pull_request:
+    types: [labeled, unlabeled, synchronize]
+    branches: [main]
+
+jobs:
+  check-version-label:
+    name: Check for Version Labels
+    runs-on: ubuntu-latest
+    # Only run on PRs targeting main branch
+    if: github.base_ref == 'main'
+    
+    outputs:
+      has-version-label: ${{ steps.check-label.outputs.has-version-label }}
+      version-label: ${{ steps.check-label.outputs.version-label }}
+    
+    steps:
+      - name: Check for version labels
+        id: check-label
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const versionLabels = ['version:major', 'version:minor', 'version:patch', 'version:patch_level'];
+            const labels = context.payload.pull_request.labels.map(label => label.name);
+            
+            // Find if PR has any version label
+            const versionLabel = labels.find(label => versionLabels.includes(label));
+            core.setOutput('has-version-label', versionLabel ? 'true' : 'false');
+            
+            if (versionLabel) {
+              // Extract the version type (after the colon)
+              const versionType = versionLabel.split(':')[1];
+              core.setOutput('version-label', versionType);
+              console.log(`PR has version label: ${versionLabel} (${versionType})`);
+            } else {
+              console.log('PR does not have a version label');
+            }
+
+  check-changelog:
+    name: Check for Unreleased Changes
+    runs-on: ubuntu-latest
+    needs: check-version-label
+    if: needs.check-version-label.outputs.has-version-label == 'true'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Check for unreleased changes
+        run: |
+          # Verify CHANGELOG.md exists
+          if [ ! -f "CHANGELOG.md" ]; then
+            echo "::error::CHANGELOG.md not found"
+            exit 1
+          fi
+          
+          # Check if there are unreleased changes in the changelog
+          if ! grep -q "## \[Unreleased\]" CHANGELOG.md; then
+            echo "::error::CHANGELOG.md does not have an [Unreleased] section"
+            exit 1
+          fi
+          
+          # Get content under Unreleased section
+          UNRELEASED_CONTENT=$(sed -n '/## \[Unreleased\]/,/## \[/p' CHANGELOG.md | grep -v "## \[" | grep -v "^$" | wc -l | tr -d ' ')
+          
+          if [ "$UNRELEASED_CONTENT" -eq 0 ]; then
+            echo "::warning::No unreleased changes found in CHANGELOG.md. Are you sure you want to create a new version?"
+          else
+            echo "✅ Found unreleased changes in CHANGELOG.md"
+            echo "Unreleased changes:"
+            sed -n '/## \[Unreleased\]/,/## \[/p' CHANGELOG.md | grep -v "## \[" | grep -v "^$"
+          fi
+
+  pre-validate-versioning:
+    name: Validate PR is Ready for Versioning
+    runs-on: ubuntu-latest
+    needs: [check-version-label, check-changelog]
+    # Only run validation when everything is ready
+    if: needs.check-version-label.outputs.has-version-label == 'true'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Run tests
+        run: npm test
+      
+      - name: Run type checking
+        run: npm run typecheck
+      
+      - name: Run linting
+        run: npm run lint
+      
+      - name: Check build
+        run: npm run build
+      
+      - name: Generate validation summary
+        id: validation
+        run: |
+          echo "::set-output name=status::ready"
+          echo "✅ PR is ready for versioning"
+          echo "Version label: ${{ needs.check-version-label.outputs.version-label }}"
+
+  # The auto-versioning job only runs when a PR is being merged
+  auto-version:
+    name: Auto Version on Merge
+    runs-on: ubuntu-latest
+    # Only run on PRs being merged with a version label
+    if: |
+      github.event.pull_request.merged == true && 
+      contains(github.event.pull_request.labels.*.name, 'version:major') || 
+      contains(github.event.pull_request.labels.*.name, 'version:minor') || 
+      contains(github.event.pull_request.labels.*.name, 'version:patch') ||
+      contains(github.event.pull_request.labels.*.name, 'version:patch_level')
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          # Full git history needed for version bumping
+          fetch-depth: 0
+          # Need token with write access to push version bump
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Determine version label
+        id: get-label
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const labels = context.payload.pull_request.labels.map(label => label.name);
+            const versionLabels = ['version:major', 'version:minor', 'version:patch', 'version:patch_level'];
+            
+            // Find which version label exists
+            const versionLabel = labels.find(label => versionLabels.includes(label));
+            if (versionLabel) {
+              // Extract the version type (after the colon)
+              const versionType = versionLabel.split(':')[1];
+              core.setOutput('version-label', versionType);
+              console.log(`Found version label: ${versionLabel} (${versionType})`);
+            } else {
+              core.setFailed('No version label found');
+            }
+            
+      - name: Auto version
+        id: auto-version
+        run: |
+          # Run auto-versioning script
+          chmod +x .github/workflows/scripts/auto-version.sh
+          export PR_LABEL="${{ steps.get-label.outputs.version-label }}"
+          export GITHUB_ACTOR="${{ github.actor }}"
+          export PR_TITLE="${{ github.event.pull_request.title }}"
+          export PR_NUMBER="${{ github.event.pull_request.number }}"
+          
+          .github/workflows/scripts/auto-version.sh
+        
+      - name: Push version bump
+        run: |
+          git push origin HEAD:${{ github.event.pull_request.base.ref }}
+      
+      - name: Create Git tag
+        run: |
+          NEW_VERSION=$(node -e "console.log(require('./package.json').version)")
+          git tag "v$NEW_VERSION"
+          git push origin "v$NEW_VERSION"
+      
+      - name: Comment on PR
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const newVersion = require('${{ github.workspace }}/package.json').version;
+            github.rest.issues.createComment({
+              issue_number: context.payload.pull_request.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `🚀 Auto-versioning complete!\n\nVersion bumped to **v${newVersion}**\n\nChanges have been automatically committed and tagged.`
+            });

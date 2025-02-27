@@ -334,5 +334,7 @@ npm start
 10. **Update Tests**: Always update tests when refactoring or changing behavior
 11. **Verify After Merge**: Always verify the main branch is stable after merging
 12. **Clear Communication**: Explicitly state when PRs are merged and branches are deleted
+13. **Appropriate Versioning**: Use the appropriate version level (major, minor, patch, or patch-level) to match the changes
+14. **Changelog Quality**: Keep changelog entries clear, concise, and properly categorized
 
 By following this workflow, we maintain a high-quality codebase with clear history and thorough documentation.

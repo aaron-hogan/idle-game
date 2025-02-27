@@ -2,6 +2,7 @@
 # Version bumping script for the Anti-Capitalist Idle Game
 # Usage: ./scripts/bump-version.sh <version>
 # Example: ./scripts/bump-version.sh 1.2.0
+# For patch level: ./scripts/bump-version.sh 1.2.0-1
 
 set -e
 
@@ -9,15 +10,16 @@ set -e
 if [ "$#" -ne 1 ]; then
   echo "Usage: ./scripts/bump-version.sh <version>"
   echo "Example: ./scripts/bump-version.sh 1.2.0"
+  echo "For patch level: ./scripts/bump-version.sh 1.2.0-1"
   exit 1
 fi
 
 NEW_VERSION=$1
 DATE=$(date +%Y-%m-%d)
 
-# Validate version format (X.Y.Z)
-if ! [[ $NEW_VERSION =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-  echo "Error: Version must be in the format X.Y.Z (e.g., 1.2.3)"
+# Validate version format (X.Y.Z or X.Y.Z-N)
+if ! [[ $NEW_VERSION =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9]+)?$ ]]; then
+  echo "Error: Version must be in the format X.Y.Z or X.Y.Z-N (e.g., 1.2.3 or 1.2.3-1)"
   exit 1
 fi
 

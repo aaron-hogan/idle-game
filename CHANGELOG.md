@@ -7,6 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Added hello-world.ts with test for verifying the automated versioning process
+
+## [0.5.0-3] - 2025-02-27
+
+### Added
+- Added support for patch-level versioning (X.Y.Z-N format)
+- Created GitHub Action for automated versioning at merge time
+- Updated versioning documentation with new automated workflow
+- Enhanced PR workflow with version label support
+
+### Changed 
+- Updated script documentation to clarify proper versioning practices
+- Improved safe workflow checklist with version selection guidance
+- Modified changelog check to enforce format rather than versioning
+- Revised versioning process to keep changes in Unreleased until merge
+
+
+## [0.5.0-2] - 2025-02-27
+
+### Fixed
+- Fixed test issue
+
+
 ## [0.5.0] - 2025-02-27
 
 ### Added
@@ -28,6 +52,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Enhanced .gitignore with better comments and organization
 - Updated documentation README.md with git exclusion information
 - Expanded scripts/README.md with new automation tools
+
+## [0.5.0-1] - 2025-02-27
+
+### Added
+- Added support for patch-level versioning in CHANGELOG.md (X.Y.Z-N format)
+- Updated bump-version.sh to support patch-level version format
+- Enhanced prepare-for-main.sh with patch-level versioning option
+
+### Changed
+- Improved version calculation logic to handle patch-level increments
+- Updated script documentation to explain patch-level versioning
 
 
 ## [0.4.0] - 2025-02-27
@@ -152,3 +187,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Console spam and offline progress errors
 - Resource upgrade calculation issues
+
