@@ -1,0 +1,56 @@
+﻿2025-02-27T19:33:53.2631185Z Current runner version: '2.322.0'
+2025-02-27T19:33:53.2656500Z ##[group]Operating System
+2025-02-27T19:33:53.2657364Z Ubuntu
+2025-02-27T19:33:53.2657877Z 24.04.2
+2025-02-27T19:33:53.2658329Z LTS
+2025-02-27T19:33:53.2658859Z ##[endgroup]
+2025-02-27T19:33:53.2659387Z ##[group]Runner Image
+2025-02-27T19:33:53.2659928Z Image: ubuntu-24.04
+2025-02-27T19:33:53.2660514Z Version: 20250223.1.0
+2025-02-27T19:33:53.2661704Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20250223.1/images/ubuntu/Ubuntu2404-Readme.md
+2025-02-27T19:33:53.2663048Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20250223.1
+2025-02-27T19:33:53.2663997Z ##[endgroup]
+2025-02-27T19:33:53.2664533Z ##[group]Runner Image Provisioner
+2025-02-27T19:33:53.2665155Z 2.0.422.1
+2025-02-27T19:33:53.2665661Z ##[endgroup]
+2025-02-27T19:33:53.2666703Z ##[group]GITHUB_TOKEN Permissions
+2025-02-27T19:33:53.2668533Z Contents: read
+2025-02-27T19:33:53.2669090Z Metadata: read
+2025-02-27T19:33:53.2669821Z Packages: read
+2025-02-27T19:33:53.2670410Z ##[endgroup]
+2025-02-27T19:33:53.2673462Z Secret source: Actions
+2025-02-27T19:33:53.2674136Z Prepare workflow directory
+2025-02-27T19:33:53.2976098Z Prepare all required actions
+2025-02-27T19:33:53.3012130Z Getting action download info
+2025-02-27T19:33:53.4418892Z Download action repository 'actions/github-script@v6' (SHA:d7906e4ad0b1822421a7e6a35d5ca353c962f410)
+2025-02-27T19:33:53.6975986Z Complete job name: Check for Version Labels
+2025-02-27T19:33:53.7786003Z ##[group]Run actions/github-script@v6
+2025-02-27T19:33:53.7786879Z with:
+2025-02-27T19:33:53.7790359Z   script: const versionLabels = ['version:major', 'version:minor', 'version:patch', 'version:patch_level'];
+const labels = context.payload.pull_request.labels.map(label => label.name);
+
+// Find if PR has any version label
+const versionLabel = labels.find(label => versionLabels.includes(label));
+core.setOutput('has-version-label', versionLabel ? 'true' : 'false');
+
+if (versionLabel) {
+  // Extract the version type (after the colon)
+  const versionType = versionLabel.split(':')[1];
+  core.setOutput('version-label', versionType);
+  console.log(`PR has version label: ${versionLabel} (${versionType})`);
+} else {
+  console.log('PR does not have a version label');
+}
+
+2025-02-27T19:33:53.7794430Z   github-token: ***
+2025-02-27T19:33:53.7794854Z   debug: false
+2025-02-27T19:33:53.7795272Z   user-agent: actions/github-script
+2025-02-27T19:33:53.7795786Z   result-encoding: json
+2025-02-27T19:33:53.7796227Z   retries: 0
+2025-02-27T19:33:53.7796666Z   retry-exempt-status-codes: 400,401,403,404,422
+2025-02-27T19:33:53.7797493Z ##[endgroup]
+2025-02-27T19:33:53.9467913Z PR has version label: version:patch (patch)
+2025-02-27T19:33:53.9647968Z Evaluate and set job outputs
+2025-02-27T19:33:53.9655682Z Set output 'has-version-label'
+2025-02-27T19:33:53.9657934Z Set output 'version-label'
+2025-02-27T19:33:53.9658978Z Cleaning up orphan processes

@@ -1,0 +1,24 @@
+﻿2025-02-27T19:41:17.8197843Z ##[group]Run actions/github-script@v6
+2025-02-27T19:41:17.8198143Z with:
+2025-02-27T19:41:17.8199805Z   script: const labels = context.payload.pull_request.labels.map(label => label.name);
+const versionLabels = ['version:major', 'version:minor', 'version:patch', 'version:patch_level'];
+
+// Find which version label exists
+const versionLabel = labels.find(label => versionLabels.includes(label));
+if (versionLabel) {
+  // Extract the version type (after the colon)
+  const versionType = versionLabel.split(':')[1];
+  core.setOutput('version-label', versionType);
+  console.log(`Found version label: ${versionLabel} (${versionType})`);
+} else {
+  core.setFailed('No version label found');
+}
+
+2025-02-27T19:41:17.8202043Z   github-token: ***
+2025-02-27T19:41:17.8202309Z   debug: false
+2025-02-27T19:41:17.8202520Z   user-agent: actions/github-script
+2025-02-27T19:41:17.8202775Z   result-encoding: json
+2025-02-27T19:41:17.8202990Z   retries: 0
+2025-02-27T19:41:17.8203198Z   retry-exempt-status-codes: 400,401,403,404,422
+2025-02-27T19:41:17.8203509Z ##[endgroup]
+2025-02-27T19:41:17.8896464Z Found version label: version:patch (patch)

@@ -5,6 +5,7 @@ import gameReducer from '../../state/gameSlice';
 import tasksReducer from '../../state/tasksSlice';
 import eventsReducer, { addEvent, triggerEvent, resolveEvent, clearEventHistory } from '../../state/eventsSlice';
 import progressionReducer from '../../redux/progressionSlice';
+import tutorialReducer from '../../state/tutorialSlice';
 import { EventManager } from '../eventManager';
 import { EventType, IEvent, EventCategory, EventStatus } from '../../interfaces/Event';
 import { Resource } from '../../models/resource';
@@ -19,7 +20,8 @@ describe('EventManager', () => {
       game: gameReducer,
       tasks: tasksReducer,
       events: eventsReducer,
-      progression: progressionReducer
+      progression: progressionReducer,
+      tutorial: tutorialReducer
     }
   });
   

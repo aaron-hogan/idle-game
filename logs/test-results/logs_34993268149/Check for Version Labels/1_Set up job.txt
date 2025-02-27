@@ -1,0 +1,26 @@
+﻿2025-02-27T19:41:04.3311512Z Current runner version: '2.322.0'
+2025-02-27T19:41:04.3340255Z ##[group]Operating System
+2025-02-27T19:41:04.3341118Z Ubuntu
+2025-02-27T19:41:04.3341654Z 24.04.2
+2025-02-27T19:41:04.3342242Z LTS
+2025-02-27T19:41:04.3342733Z ##[endgroup]
+2025-02-27T19:41:04.3343227Z ##[group]Runner Image
+2025-02-27T19:41:04.3343859Z Image: ubuntu-24.04
+2025-02-27T19:41:04.3344381Z Version: 20250223.1.0
+2025-02-27T19:41:04.3345413Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20250223.1/images/ubuntu/Ubuntu2404-Readme.md
+2025-02-27T19:41:04.3346886Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20250223.1
+2025-02-27T19:41:04.3347827Z ##[endgroup]
+2025-02-27T19:41:04.3348303Z ##[group]Runner Image Provisioner
+2025-02-27T19:41:04.3348996Z 2.0.422.1
+2025-02-27T19:41:04.3349564Z ##[endgroup]
+2025-02-27T19:41:04.3350982Z ##[group]GITHUB_TOKEN Permissions
+2025-02-27T19:41:04.3352894Z Contents: read
+2025-02-27T19:41:04.3353459Z Metadata: read
+2025-02-27T19:41:04.3354080Z Packages: read
+2025-02-27T19:41:04.3354922Z ##[endgroup]
+2025-02-27T19:41:04.3358143Z Secret source: Actions
+2025-02-27T19:41:04.3358965Z Prepare workflow directory
+2025-02-27T19:41:04.3692057Z Prepare all required actions
+2025-02-27T19:41:04.3732036Z Getting action download info
+2025-02-27T19:41:04.5276832Z Download action repository 'actions/github-script@v6' (SHA:d7906e4ad0b1822421a7e6a35d5ca353c962f410)
+2025-02-27T19:41:04.9522057Z Complete job name: Check for Version Labels

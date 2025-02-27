@@ -1,0 +1,29 @@
+﻿2025-02-27T15:15:38.2395363Z ##[group]Run # Verify CHANGELOG.md exists
+2025-02-27T15:15:38.2396176Z [36;1m# Verify CHANGELOG.md exists[0m
+2025-02-27T15:15:38.2396787Z [36;1mif [ ! -f "CHANGELOG.md" ]; then[0m
+2025-02-27T15:15:38.2397615Z [36;1m  echo "::error::CHANGELOG.md not found"[0m
+2025-02-27T15:15:38.2398224Z [36;1m  exit 1[0m
+2025-02-27T15:15:38.2398669Z [36;1mfi[0m
+2025-02-27T15:15:38.2399068Z [36;1m[0m
+2025-02-27T15:15:38.2399610Z [36;1m# Check if there are unreleased changes in the changelog[0m
+2025-02-27T15:15:38.2400390Z [36;1mif ! grep -q "## \[Unreleased\]" CHANGELOG.md; then[0m
+2025-02-27T15:15:38.2401211Z [36;1m  echo "::error::CHANGELOG.md does not have an [Unreleased] section"[0m
+2025-02-27T15:15:38.2401920Z [36;1m  exit 1[0m
+2025-02-27T15:15:38.2402346Z [36;1mfi[0m
+2025-02-27T15:15:38.2402745Z [36;1m[0m
+2025-02-27T15:15:38.2403202Z [36;1m# Get content under Unreleased section[0m
+2025-02-27T15:15:38.2404234Z [36;1mUNRELEASED_CONTENT=$(sed -n '/## \[Unreleased\]/,/## \[/p' CHANGELOG.md | grep -v "## \[" | grep -v "^$" | wc -l | tr -d ' ')[0m
+2025-02-27T15:15:38.2405222Z [36;1m[0m
+2025-02-27T15:15:38.2405683Z [36;1mif [ "$UNRELEASED_CONTENT" -eq 0 ]; then[0m
+2025-02-27T15:15:38.2406689Z [36;1m  echo "::warning::No unreleased changes found in CHANGELOG.md. Are you sure you want to create a new version?"[0m
+2025-02-27T15:15:38.2407961Z [36;1melse[0m
+2025-02-27T15:15:38.2408528Z [36;1m  echo "✅ Found unreleased changes in CHANGELOG.md"[0m
+2025-02-27T15:15:38.2409197Z [36;1m  echo "Unreleased changes:"[0m
+2025-02-27T15:15:38.2409968Z [36;1m  sed -n '/## \[Unreleased\]/,/## \[/p' CHANGELOG.md | grep -v "## \[" | grep -v "^$"[0m
+2025-02-27T15:15:38.2410716Z [36;1mfi[0m
+2025-02-27T15:15:38.2460981Z shell: /usr/bin/bash -e {0}
+2025-02-27T15:15:38.2461563Z ##[endgroup]
+2025-02-27T15:15:38.2607305Z ✅ Found unreleased changes in CHANGELOG.md
+2025-02-27T15:15:38.2608288Z Unreleased changes:
+2025-02-27T15:15:38.2623870Z ### Added
+2025-02-27T15:15:38.2624732Z - Added hello-world.ts with test for verifying the automated versioning process

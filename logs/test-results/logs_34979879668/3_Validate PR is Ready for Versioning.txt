@@ -1,0 +1,722 @@
+﻿2025-02-27T15:15:48.5832812Z Current runner version: '2.322.0'
+2025-02-27T15:15:48.5858616Z ##[group]Operating System
+2025-02-27T15:15:48.5859374Z Ubuntu
+2025-02-27T15:15:48.5859982Z 24.04.2
+2025-02-27T15:15:48.5860716Z LTS
+2025-02-27T15:15:48.5861242Z ##[endgroup]
+2025-02-27T15:15:48.5861754Z ##[group]Runner Image
+2025-02-27T15:15:48.5862327Z Image: ubuntu-24.04
+2025-02-27T15:15:48.5862891Z Version: 20250223.1.0
+2025-02-27T15:15:48.5864000Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20250223.1/images/ubuntu/Ubuntu2404-Readme.md
+2025-02-27T15:15:48.5865363Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20250223.1
+2025-02-27T15:15:48.5866342Z ##[endgroup]
+2025-02-27T15:15:48.5866845Z ##[group]Runner Image Provisioner
+2025-02-27T15:15:48.5867448Z 2.0.422.1
+2025-02-27T15:15:48.5867999Z ##[endgroup]
+2025-02-27T15:15:48.5869086Z ##[group]GITHUB_TOKEN Permissions
+2025-02-27T15:15:48.5871169Z Contents: read
+2025-02-27T15:15:48.5871795Z Metadata: read
+2025-02-27T15:15:48.5872608Z Packages: read
+2025-02-27T15:15:48.5873212Z ##[endgroup]
+2025-02-27T15:15:48.5875953Z Secret source: Actions
+2025-02-27T15:15:48.5876805Z Prepare workflow directory
+2025-02-27T15:15:48.6184833Z Prepare all required actions
+2025-02-27T15:15:48.6222637Z Getting action download info
+2025-02-27T15:15:48.7725092Z Download action repository 'actions/checkout@v3' (SHA:f43a0e5ff2bd294095638e18286ca9a3d1956744)
+2025-02-27T15:15:48.8547908Z Download action repository 'actions/setup-node@v3' (SHA:1a4442cacd436585916779262731d5b162bc6ec7)
+2025-02-27T15:15:49.0536718Z Complete job name: Validate PR is Ready for Versioning
+2025-02-27T15:15:49.1300888Z ##[group]Run actions/checkout@v3
+2025-02-27T15:15:49.1302298Z with:
+2025-02-27T15:15:49.1303032Z   repository: aaron-hogan/idle-game
+2025-02-27T15:15:49.1304159Z   token: ***
+2025-02-27T15:15:49.1304875Z   ssh-strict: true
+2025-02-27T15:15:49.1305638Z   persist-credentials: true
+2025-02-27T15:15:49.1306449Z   clean: true
+2025-02-27T15:15:49.1307188Z   sparse-checkout-cone-mode: true
+2025-02-27T15:15:49.1308096Z   fetch-depth: 1
+2025-02-27T15:15:49.1308807Z   fetch-tags: false
+2025-02-27T15:15:49.1309530Z   lfs: false
+2025-02-27T15:15:49.1310476Z   submodules: false
+2025-02-27T15:15:49.1311222Z   set-safe-directory: true
+2025-02-27T15:15:49.1312493Z ##[endgroup]
+2025-02-27T15:15:49.2837662Z Syncing repository: aaron-hogan/idle-game
+2025-02-27T15:15:49.2839723Z ##[group]Getting Git version info
+2025-02-27T15:15:49.2840696Z Working directory is '/home/runner/work/idle-game/idle-game'
+2025-02-27T15:15:49.2841679Z [command]/usr/bin/git version
+2025-02-27T15:15:49.2883702Z git version 2.48.1
+2025-02-27T15:15:49.2912157Z ##[endgroup]
+2025-02-27T15:15:49.2929870Z Temporarily overriding HOME='/home/runner/work/_temp/5e104284-0c2a-4f25-a353-99e2e75e74a5' before making global git config changes
+2025-02-27T15:15:49.2932500Z Adding repository directory to the temporary git global config as a safe directory
+2025-02-27T15:15:49.2934346Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/idle-game/idle-game
+2025-02-27T15:15:49.2966336Z Deleting the contents of '/home/runner/work/idle-game/idle-game'
+2025-02-27T15:15:49.2969768Z ##[group]Initializing the repository
+2025-02-27T15:15:49.2973013Z [command]/usr/bin/git init /home/runner/work/idle-game/idle-game
+2025-02-27T15:15:49.3029212Z hint: Using 'master' as the name for the initial branch. This default branch name
+2025-02-27T15:15:49.3031195Z hint: is subject to change. To configure the initial branch name to use in all
+2025-02-27T15:15:49.3032749Z hint: of your new repositories, which will suppress this warning, call:
+2025-02-27T15:15:49.3033911Z hint:
+2025-02-27T15:15:49.3034650Z hint: 	git config --global init.defaultBranch <name>
+2025-02-27T15:15:49.3035542Z hint:
+2025-02-27T15:15:49.3036109Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2025-02-27T15:15:49.3037146Z hint: 'development'. The just-created branch can be renamed via this command:
+2025-02-27T15:15:49.3037855Z hint:
+2025-02-27T15:15:49.3038501Z hint: 	git branch -m <name>
+2025-02-27T15:15:49.3039334Z Initialized empty Git repository in /home/runner/work/idle-game/idle-game/.git/
+2025-02-27T15:15:49.3043587Z [command]/usr/bin/git remote add origin https://github.com/aaron-hogan/idle-game
+2025-02-27T15:15:49.3073673Z ##[endgroup]
+2025-02-27T15:15:49.3074415Z ##[group]Disabling automatic garbage collection
+2025-02-27T15:15:49.3076326Z [command]/usr/bin/git config --local gc.auto 0
+2025-02-27T15:15:49.3101700Z ##[endgroup]
+2025-02-27T15:15:49.3102689Z ##[group]Setting up auth
+2025-02-27T15:15:49.3107755Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2025-02-27T15:15:49.3133613Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2025-02-27T15:15:49.3408892Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2025-02-27T15:15:49.3434119Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2025-02-27T15:15:49.3651969Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2025-02-27T15:15:49.3683695Z ##[endgroup]
+2025-02-27T15:15:49.3684473Z ##[group]Fetching the repository
+2025-02-27T15:15:49.3692498Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 origin +313ec69405446c2838f491cb7e1fb7e79cf8e263:refs/remotes/origin/main
+2025-02-27T15:15:49.5994210Z remote: Enumerating objects: 558, done.        
+2025-02-27T15:15:49.5995601Z remote: Counting objects:   0% (1/558)        
+2025-02-27T15:15:49.5996981Z remote: Counting objects:   1% (6/558)        
+2025-02-27T15:15:49.5998297Z remote: Counting objects:   2% (12/558)        
+2025-02-27T15:15:49.5999706Z remote: Counting objects:   3% (17/558)        
+2025-02-27T15:15:49.6001388Z remote: Counting objects:   4% (23/558)        
+2025-02-27T15:15:49.6002695Z remote: Counting objects:   5% (28/558)        
+2025-02-27T15:15:49.6003875Z remote: Counting objects:   6% (34/558)        
+2025-02-27T15:15:49.6005144Z remote: Counting objects:   7% (40/558)        
+2025-02-27T15:15:49.6006457Z remote: Counting objects:   8% (45/558)        
+2025-02-27T15:15:49.6007724Z remote: Counting objects:   9% (51/558)        
+2025-02-27T15:15:49.6009299Z remote: Counting objects:  10% (56/558)        
+2025-02-27T15:15:49.6010870Z remote: Counting objects:  11% (62/558)        
+2025-02-27T15:15:49.6012234Z remote: Counting objects:  12% (67/558)        
+2025-02-27T15:15:49.6013499Z remote: Counting objects:  13% (73/558)        
+2025-02-27T15:15:49.6014801Z remote: Counting objects:  14% (79/558)        
+2025-02-27T15:15:49.6016068Z remote: Counting objects:  15% (84/558)        
+2025-02-27T15:15:49.6017318Z remote: Counting objects:  16% (90/558)        
+2025-02-27T15:15:49.6018565Z remote: Counting objects:  17% (95/558)        
+2025-02-27T15:15:49.6019867Z remote: Counting objects:  18% (101/558)        
+2025-02-27T15:15:49.6021380Z remote: Counting objects:  19% (107/558)        
+2025-02-27T15:15:49.6022699Z remote: Counting objects:  20% (112/558)        
+2025-02-27T15:15:49.6023904Z remote: Counting objects:  21% (118/558)        
+2025-02-27T15:15:49.6025093Z remote: Counting objects:  22% (123/558)        
+2025-02-27T15:15:49.6026461Z remote: Counting objects:  23% (129/558)        
+2025-02-27T15:15:49.6027712Z remote: Counting objects:  24% (134/558)        
+2025-02-27T15:15:49.6028992Z remote: Counting objects:  25% (140/558)        
+2025-02-27T15:15:49.6030365Z remote: Counting objects:  26% (146/558)        
+2025-02-27T15:15:49.6031519Z remote: Counting objects:  27% (151/558)        
+2025-02-27T15:15:49.6032833Z remote: Counting objects:  28% (157/558)        
+2025-02-27T15:15:49.6034068Z remote: Counting objects:  29% (162/558)        
+2025-02-27T15:15:49.6035699Z remote: Counting objects:  30% (168/558)        
+2025-02-27T15:15:49.6036882Z remote: Counting objects:  31% (173/558)        
+2025-02-27T15:15:49.6038019Z remote: Counting objects:  32% (179/558)        
+2025-02-27T15:15:49.6039100Z remote: Counting objects:  33% (185/558)        
+2025-02-27T15:15:49.6040406Z remote: Counting objects:  34% (190/558)        
+2025-02-27T15:15:49.6041722Z remote: Counting objects:  35% (196/558)        
+2025-02-27T15:15:49.6043139Z remote: Counting objects:  36% (201/558)        
+2025-02-27T15:15:49.6044615Z remote: Counting objects:  37% (207/558)        
+2025-02-27T15:15:49.6045924Z remote: Counting objects:  38% (213/558)        
+2025-02-27T15:15:49.6047196Z remote: Counting objects:  39% (218/558)        
+2025-02-27T15:15:49.6048613Z remote: Counting objects:  40% (224/558)        
+2025-02-27T15:15:49.6049948Z remote: Counting objects:  41% (229/558)        
+2025-02-27T15:15:49.6051517Z remote: Counting objects:  42% (235/558)        
+2025-02-27T15:15:49.6052803Z remote: Counting objects:  43% (240/558)        
+2025-02-27T15:15:49.6054247Z remote: Counting objects:  44% (246/558)        
+2025-02-27T15:15:49.6055548Z remote: Counting objects:  45% (252/558)        
+2025-02-27T15:15:49.6056830Z remote: Counting objects:  46% (257/558)        
+2025-02-27T15:15:49.6058125Z remote: Counting objects:  47% (263/558)        
+2025-02-27T15:15:49.6059351Z remote: Counting objects:  48% (268/558)        
+2025-02-27T15:15:49.6060946Z remote: Counting objects:  49% (274/558)        
+2025-02-27T15:15:49.6062572Z remote: Counting objects:  50% (279/558)        
+2025-02-27T15:15:49.6063953Z remote: Counting objects:  51% (285/558)        
+2025-02-27T15:15:49.6065274Z remote: Counting objects:  52% (291/558)        
+2025-02-27T15:15:49.6066566Z remote: Counting objects:  53% (296/558)        
+2025-02-27T15:15:49.6067919Z remote: Counting objects:  54% (302/558)        
+2025-02-27T15:15:49.6069168Z remote: Counting objects:  55% (307/558)        
+2025-02-27T15:15:49.6070753Z remote: Counting objects:  56% (313/558)        
+2025-02-27T15:15:49.6072070Z remote: Counting objects:  57% (319/558)        
+2025-02-27T15:15:49.6073472Z remote: Counting objects:  58% (324/558)        
+2025-02-27T15:15:49.6074766Z remote: Counting objects:  59% (330/558)        
+2025-02-27T15:15:49.6076007Z remote: Counting objects:  60% (335/558)        
+2025-02-27T15:15:49.6077333Z remote: Counting objects:  61% (341/558)        
+2025-02-27T15:15:49.6078654Z remote: Counting objects:  62% (346/558)        
+2025-02-27T15:15:49.6079967Z remote: Counting objects:  63% (352/558)        
+2025-02-27T15:15:49.6081495Z remote: Counting objects:  64% (358/558)        
+2025-02-27T15:15:49.6082866Z remote: Counting objects:  65% (363/558)        
+2025-02-27T15:15:49.6084240Z remote: Counting objects:  66% (369/558)        
+2025-02-27T15:15:49.6166504Z remote: Counting objects:  67% (374/558)        
+2025-02-27T15:15:49.6168013Z remote: Counting objects:  68% (380/558)        
+2025-02-27T15:15:49.6169612Z remote: Counting objects:  69% (386/558)        
+2025-02-27T15:15:49.6171106Z remote: Counting objects:  70% (391/558)        
+2025-02-27T15:15:49.6172480Z remote: Counting objects:  71% (397/558)        
+2025-02-27T15:15:49.6173682Z remote: Counting objects:  72% (402/558)        
+2025-02-27T15:15:49.6174887Z remote: Counting objects:  73% (408/558)        
+2025-02-27T15:15:49.6176061Z remote: Counting objects:  74% (413/558)        
+2025-02-27T15:15:49.6177309Z remote: Counting objects:  75% (419/558)        
+2025-02-27T15:15:49.6178728Z remote: Counting objects:  76% (425/558)        
+2025-02-27T15:15:49.6180221Z remote: Counting objects:  77% (430/558)        
+2025-02-27T15:15:49.6181573Z remote: Counting objects:  78% (436/558)        
+2025-02-27T15:15:49.6182999Z remote: Counting objects:  79% (441/558)        
+2025-02-27T15:15:49.6184312Z remote: Counting objects:  80% (447/558)        
+2025-02-27T15:15:49.6185619Z remote: Counting objects:  81% (452/558)        
+2025-02-27T15:15:49.6186928Z remote: Counting objects:  82% (458/558)        
+2025-02-27T15:15:49.6188691Z remote: Counting objects:  83% (464/558)        
+2025-02-27T15:15:49.6190274Z remote: Counting objects:  84% (469/558)        
+2025-02-27T15:15:49.6191622Z remote: Counting objects:  85% (475/558)        
+2025-02-27T15:15:49.6192911Z remote: Counting objects:  86% (480/558)        
+2025-02-27T15:15:49.6194149Z remote: Counting objects:  87% (486/558)        
+2025-02-27T15:15:49.6195334Z remote: Counting objects:  88% (492/558)        
+2025-02-27T15:15:49.6196518Z remote: Counting objects:  89% (497/558)        
+2025-02-27T15:15:49.6197721Z remote: Counting objects:  90% (503/558)        
+2025-02-27T15:15:49.6198961Z remote: Counting objects:  91% (508/558)        
+2025-02-27T15:15:49.6200578Z remote: Counting objects:  92% (514/558)        
+2025-02-27T15:15:49.6201908Z remote: Counting objects:  93% (519/558)        
+2025-02-27T15:15:49.6203264Z remote: Counting objects:  94% (525/558)        
+2025-02-27T15:15:49.6204572Z remote: Counting objects:  95% (531/558)        
+2025-02-27T15:15:49.6205872Z remote: Counting objects:  96% (536/558)        
+2025-02-27T15:15:49.6207185Z remote: Counting objects:  97% (542/558)        
+2025-02-27T15:15:49.6208592Z remote: Counting objects:  98% (547/558)        
+2025-02-27T15:15:49.6209923Z remote: Counting objects:  99% (553/558)        
+2025-02-27T15:15:49.6211491Z remote: Counting objects: 100% (558/558)        
+2025-02-27T15:15:49.6212842Z remote: Counting objects: 100% (558/558), done.        
+2025-02-27T15:15:49.6214213Z remote: Compressing objects:   0% (1/531)        
+2025-02-27T15:15:49.6215715Z remote: Compressing objects:   1% (6/531)        
+2025-02-27T15:15:49.6217321Z remote: Compressing objects:   2% (11/531)        
+2025-02-27T15:15:49.6218694Z remote: Compressing objects:   3% (16/531)        
+2025-02-27T15:15:49.6220638Z remote: Compressing objects:   4% (22/531)        
+2025-02-27T15:15:49.6222284Z remote: Compressing objects:   5% (27/531)        
+2025-02-27T15:15:49.6223594Z remote: Compressing objects:   6% (32/531)        
+2025-02-27T15:15:49.6224979Z remote: Compressing objects:   7% (38/531)        
+2025-02-27T15:15:49.6226222Z remote: Compressing objects:   8% (43/531)        
+2025-02-27T15:15:49.6227513Z remote: Compressing objects:   9% (48/531)        
+2025-02-27T15:15:49.6228845Z remote: Compressing objects:  10% (54/531)        
+2025-02-27T15:15:49.6230665Z remote: Compressing objects:  11% (59/531)        
+2025-02-27T15:15:49.6232049Z remote: Compressing objects:  12% (64/531)        
+2025-02-27T15:15:49.6233406Z remote: Compressing objects:  13% (70/531)        
+2025-02-27T15:15:49.6234778Z remote: Compressing objects:  14% (75/531)        
+2025-02-27T15:15:49.6236117Z remote: Compressing objects:  15% (80/531)        
+2025-02-27T15:15:49.6237430Z remote: Compressing objects:  16% (85/531)        
+2025-02-27T15:15:49.6238776Z remote: Compressing objects:  17% (91/531)        
+2025-02-27T15:15:49.6240298Z remote: Compressing objects:  18% (96/531)        
+2025-02-27T15:15:49.6241695Z remote: Compressing objects:  19% (101/531)        
+2025-02-27T15:15:49.6243082Z remote: Compressing objects:  20% (107/531)        
+2025-02-27T15:15:49.6244471Z remote: Compressing objects:  21% (112/531)        
+2025-02-27T15:15:49.6245892Z remote: Compressing objects:  22% (117/531)        
+2025-02-27T15:15:49.6247221Z remote: Compressing objects:  23% (123/531)        
+2025-02-27T15:15:49.6248552Z remote: Compressing objects:  24% (128/531)        
+2025-02-27T15:15:49.6249926Z remote: Compressing objects:  25% (133/531)        
+2025-02-27T15:15:49.6251445Z remote: Compressing objects:  26% (139/531)        
+2025-02-27T15:15:49.6252700Z remote: Compressing objects:  27% (144/531)        
+2025-02-27T15:15:49.6254035Z remote: Compressing objects:  28% (149/531)        
+2025-02-27T15:15:49.6255364Z remote: Compressing objects:  29% (154/531)        
+2025-02-27T15:15:49.6256686Z remote: Compressing objects:  30% (160/531)        
+2025-02-27T15:15:49.6257957Z remote: Compressing objects:  31% (165/531)        
+2025-02-27T15:15:49.6259569Z remote: Compressing objects:  32% (170/531)        
+2025-02-27T15:15:49.6261114Z remote: Compressing objects:  33% (176/531)        
+2025-02-27T15:15:49.6262438Z remote: Compressing objects:  34% (181/531)        
+2025-02-27T15:15:49.6263831Z remote: Compressing objects:  35% (186/531)        
+2025-02-27T15:15:49.6265188Z remote: Compressing objects:  36% (192/531)        
+2025-02-27T15:15:49.6266514Z remote: Compressing objects:  37% (197/531)        
+2025-02-27T15:15:49.6267858Z remote: Compressing objects:  38% (202/531)        
+2025-02-27T15:15:49.6269229Z remote: Compressing objects:  39% (208/531)        
+2025-02-27T15:15:49.6270739Z remote: Compressing objects:  40% (213/531)        
+2025-02-27T15:15:49.6272095Z remote: Compressing objects:  41% (218/531)        
+2025-02-27T15:15:49.6273469Z remote: Compressing objects:  42% (224/531)        
+2025-02-27T15:15:49.6274822Z remote: Compressing objects:  43% (229/531)        
+2025-02-27T15:15:49.6276200Z remote: Compressing objects:  44% (234/531)        
+2025-02-27T15:15:49.6306701Z remote: Compressing objects:  45% (239/531)        
+2025-02-27T15:15:49.6313809Z remote: Compressing objects:  46% (245/531)        
+2025-02-27T15:15:49.6314591Z remote: Compressing objects:  47% (250/531)        
+2025-02-27T15:15:49.6317559Z remote: Compressing objects:  48% (255/531)        
+2025-02-27T15:15:49.6323631Z remote: Compressing objects:  49% (261/531)        
+2025-02-27T15:15:49.6330927Z remote: Compressing objects:  50% (266/531)        
+2025-02-27T15:15:49.6332606Z remote: Compressing objects:  51% (271/531)        
+2025-02-27T15:15:49.6334231Z remote: Compressing objects:  52% (277/531)        
+2025-02-27T15:15:49.6342023Z remote: Compressing objects:  53% (282/531)        
+2025-02-27T15:15:49.6359380Z remote: Compressing objects:  54% (287/531)        
+2025-02-27T15:15:49.6373680Z remote: Compressing objects:  55% (293/531)        
+2025-02-27T15:15:49.6383094Z remote: Compressing objects:  56% (298/531)        
+2025-02-27T15:15:49.6388289Z remote: Compressing objects:  57% (303/531)        
+2025-02-27T15:15:49.6389676Z remote: Compressing objects:  58% (308/531)        
+2025-02-27T15:15:49.6395033Z remote: Compressing objects:  59% (314/531)        
+2025-02-27T15:15:49.6401061Z remote: Compressing objects:  60% (319/531)        
+2025-02-27T15:15:49.6411667Z remote: Compressing objects:  61% (324/531)        
+2025-02-27T15:15:49.6421424Z remote: Compressing objects:  62% (330/531)        
+2025-02-27T15:15:49.6432623Z remote: Compressing objects:  63% (335/531)        
+2025-02-27T15:15:49.6447681Z remote: Compressing objects:  64% (340/531)        
+2025-02-27T15:15:49.6453139Z remote: Compressing objects:  65% (346/531)        
+2025-02-27T15:15:49.6455574Z remote: Compressing objects:  66% (351/531)        
+2025-02-27T15:15:49.6481887Z remote: Compressing objects:  67% (356/531)        
+2025-02-27T15:15:49.6484319Z remote: Compressing objects:  68% (362/531)        
+2025-02-27T15:15:49.6485987Z remote: Compressing objects:  69% (367/531)        
+2025-02-27T15:15:49.6486782Z remote: Compressing objects:  70% (372/531)        
+2025-02-27T15:15:49.6494355Z remote: Compressing objects:  71% (378/531)        
+2025-02-27T15:15:49.6502043Z remote: Compressing objects:  72% (383/531)        
+2025-02-27T15:15:49.6508111Z remote: Compressing objects:  73% (388/531)        
+2025-02-27T15:15:49.6511803Z remote: Compressing objects:  74% (393/531)        
+2025-02-27T15:15:49.6513005Z remote: Compressing objects:  75% (399/531)        
+2025-02-27T15:15:49.6520619Z remote: Compressing objects:  76% (404/531)        
+2025-02-27T15:15:49.6526773Z remote: Compressing objects:  77% (409/531)        
+2025-02-27T15:15:49.6536642Z remote: Compressing objects:  78% (415/531)        
+2025-02-27T15:15:49.6537616Z remote: Compressing objects:  79% (420/531)        
+2025-02-27T15:15:49.6538622Z remote: Compressing objects:  80% (425/531)        
+2025-02-27T15:15:49.6539919Z remote: Compressing objects:  81% (431/531)        
+2025-02-27T15:15:49.6542941Z remote: Compressing objects:  82% (436/531)        
+2025-02-27T15:15:49.6546005Z remote: Compressing objects:  83% (441/531)        
+2025-02-27T15:15:49.6548283Z remote: Compressing objects:  84% (447/531)        
+2025-02-27T15:15:49.6550226Z remote: Compressing objects:  85% (452/531)        
+2025-02-27T15:15:49.6551721Z remote: Compressing objects:  86% (457/531)        
+2025-02-27T15:15:49.6553435Z remote: Compressing objects:  87% (462/531)        
+2025-02-27T15:15:49.6554657Z remote: Compressing objects:  88% (468/531)        
+2025-02-27T15:15:49.6555447Z remote: Compressing objects:  89% (473/531)        
+2025-02-27T15:15:49.6556185Z remote: Compressing objects:  90% (478/531)        
+2025-02-27T15:15:49.6556887Z remote: Compressing objects:  91% (484/531)        
+2025-02-27T15:15:49.6557893Z remote: Compressing objects:  92% (489/531)        
+2025-02-27T15:15:49.6558559Z remote: Compressing objects:  93% (494/531)        
+2025-02-27T15:15:49.6559302Z remote: Compressing objects:  94% (500/531)        
+2025-02-27T15:15:49.6560342Z remote: Compressing objects:  95% (505/531)        
+2025-02-27T15:15:49.6561054Z remote: Compressing objects:  96% (510/531)        
+2025-02-27T15:15:49.6561701Z remote: Compressing objects:  97% (516/531)        
+2025-02-27T15:15:49.6562357Z remote: Compressing objects:  98% (521/531)        
+2025-02-27T15:15:49.6563012Z remote: Compressing objects:  99% (526/531)        
+2025-02-27T15:15:49.6563660Z remote: Compressing objects: 100% (531/531)        
+2025-02-27T15:15:49.6564362Z remote: Compressing objects: 100% (531/531), done.        
+2025-02-27T15:15:49.6609217Z Receiving objects:   0% (1/558)
+2025-02-27T15:15:49.6612618Z Receiving objects:   1% (6/558)
+2025-02-27T15:15:49.6614778Z Receiving objects:   2% (12/558)
+2025-02-27T15:15:49.6617108Z Receiving objects:   3% (17/558)
+2025-02-27T15:15:49.6629070Z Receiving objects:   4% (23/558)
+2025-02-27T15:15:49.6654746Z Receiving objects:   5% (28/558)
+2025-02-27T15:15:49.6656986Z Receiving objects:   6% (34/558)
+2025-02-27T15:15:49.6658936Z Receiving objects:   7% (40/558)
+2025-02-27T15:15:49.6663413Z Receiving objects:   8% (45/558)
+2025-02-27T15:15:49.6665016Z Receiving objects:   9% (51/558)
+2025-02-27T15:15:49.6680712Z Receiving objects:  10% (56/558)
+2025-02-27T15:15:49.6707399Z Receiving objects:  11% (62/558)
+2025-02-27T15:15:49.6713434Z Receiving objects:  12% (67/558)
+2025-02-27T15:15:49.6715001Z Receiving objects:  13% (73/558)
+2025-02-27T15:15:49.6716898Z Receiving objects:  14% (79/558)
+2025-02-27T15:15:49.6726912Z Receiving objects:  15% (84/558)
+2025-02-27T15:15:49.6751561Z Receiving objects:  16% (90/558)
+2025-02-27T15:15:49.6778441Z Receiving objects:  17% (95/558)
+2025-02-27T15:15:49.6811193Z Receiving objects:  18% (101/558)
+2025-02-27T15:15:49.6812454Z Receiving objects:  19% (107/558)
+2025-02-27T15:15:49.6819809Z Receiving objects:  20% (112/558)
+2025-02-27T15:15:49.6822369Z Receiving objects:  21% (118/558)
+2025-02-27T15:15:49.6843911Z Receiving objects:  22% (123/558)
+2025-02-27T15:15:49.6845624Z Receiving objects:  23% (129/558)
+2025-02-27T15:15:49.6856646Z Receiving objects:  24% (134/558)
+2025-02-27T15:15:49.6858544Z Receiving objects:  25% (140/558)
+2025-02-27T15:15:49.6865057Z Receiving objects:  26% (146/558)
+2025-02-27T15:15:49.6872659Z Receiving objects:  27% (151/558)
+2025-02-27T15:15:49.6884085Z Receiving objects:  28% (157/558)
+2025-02-27T15:15:49.6886571Z Receiving objects:  29% (162/558)
+2025-02-27T15:15:49.6897421Z Receiving objects:  30% (168/558)
+2025-02-27T15:15:49.6909978Z Receiving objects:  31% (173/558)
+2025-02-27T15:15:49.6937371Z Receiving objects:  32% (179/558)
+2025-02-27T15:15:49.6939534Z Receiving objects:  33% (185/558)
+2025-02-27T15:15:49.6950219Z Receiving objects:  34% (190/558)
+2025-02-27T15:15:49.6962711Z Receiving objects:  35% (196/558)
+2025-02-27T15:15:49.6968950Z Receiving objects:  36% (201/558)
+2025-02-27T15:15:49.6990552Z Receiving objects:  37% (207/558)
+2025-02-27T15:15:49.7110774Z Receiving objects:  38% (213/558)
+2025-02-27T15:15:49.7125448Z Receiving objects:  39% (218/558)
+2025-02-27T15:15:49.7134825Z Receiving objects:  40% (224/558)
+2025-02-27T15:15:49.7137814Z Receiving objects:  41% (229/558)
+2025-02-27T15:15:49.7149739Z Receiving objects:  42% (235/558)
+2025-02-27T15:15:49.7160870Z Receiving objects:  43% (240/558)
+2025-02-27T15:15:49.7161964Z Receiving objects:  44% (246/558)
+2025-02-27T15:15:49.7174754Z Receiving objects:  45% (252/558)
+2025-02-27T15:15:49.7177621Z Receiving objects:  46% (257/558)
+2025-02-27T15:15:49.7179003Z Receiving objects:  47% (263/558)
+2025-02-27T15:15:49.7180415Z Receiving objects:  48% (268/558)
+2025-02-27T15:15:49.7181823Z Receiving objects:  49% (274/558)
+2025-02-27T15:15:49.7183288Z Receiving objects:  50% (279/558)
+2025-02-27T15:15:49.7184796Z Receiving objects:  51% (285/558)
+2025-02-27T15:15:49.7185933Z Receiving objects:  52% (291/558)
+2025-02-27T15:15:49.7202036Z Receiving objects:  53% (296/558)
+2025-02-27T15:15:49.7214268Z Receiving objects:  54% (302/558)
+2025-02-27T15:15:49.7229465Z Receiving objects:  55% (307/558)
+2025-02-27T15:15:49.7232290Z Receiving objects:  56% (313/558)
+2025-02-27T15:15:49.7233649Z Receiving objects:  57% (319/558)
+2025-02-27T15:15:49.7236585Z Receiving objects:  58% (324/558)
+2025-02-27T15:15:49.7266166Z Receiving objects:  59% (330/558)
+2025-02-27T15:15:49.7268554Z Receiving objects:  60% (335/558)
+2025-02-27T15:15:49.7271059Z Receiving objects:  61% (341/558)
+2025-02-27T15:15:49.7272684Z Receiving objects:  62% (346/558)
+2025-02-27T15:15:49.7274100Z Receiving objects:  63% (352/558)
+2025-02-27T15:15:49.7275781Z Receiving objects:  64% (358/558)
+2025-02-27T15:15:49.7278292Z Receiving objects:  65% (363/558)
+2025-02-27T15:15:49.7279889Z Receiving objects:  66% (369/558)
+2025-02-27T15:15:49.7281621Z Receiving objects:  67% (374/558)
+2025-02-27T15:15:49.7283204Z Receiving objects:  68% (380/558)
+2025-02-27T15:15:49.7285024Z Receiving objects:  69% (386/558)
+2025-02-27T15:15:49.7291441Z Receiving objects:  70% (391/558)
+2025-02-27T15:15:49.7306236Z Receiving objects:  71% (397/558)
+2025-02-27T15:15:49.7308148Z Receiving objects:  72% (402/558)
+2025-02-27T15:15:49.7309830Z Receiving objects:  73% (408/558)
+2025-02-27T15:15:49.7319225Z Receiving objects:  74% (413/558)
+2025-02-27T15:15:49.7323033Z Receiving objects:  75% (419/558)
+2025-02-27T15:15:49.7324008Z Receiving objects:  76% (425/558)
+2025-02-27T15:15:49.7334206Z Receiving objects:  77% (430/558)
+2025-02-27T15:15:49.7335216Z Receiving objects:  78% (436/558)
+2025-02-27T15:15:49.7339528Z Receiving objects:  79% (441/558)
+2025-02-27T15:15:49.7360940Z Receiving objects:  80% (447/558)
+2025-02-27T15:15:49.7362498Z Receiving objects:  81% (452/558)
+2025-02-27T15:15:49.7364646Z Receiving objects:  82% (458/558)
+2025-02-27T15:15:49.7367194Z Receiving objects:  83% (464/558)
+2025-02-27T15:15:49.7371778Z Receiving objects:  84% (469/558)
+2025-02-27T15:15:49.7373630Z Receiving objects:  85% (475/558)
+2025-02-27T15:15:49.7376199Z Receiving objects:  86% (480/558)
+2025-02-27T15:15:49.7379243Z Receiving objects:  87% (486/558)
+2025-02-27T15:15:49.7381773Z Receiving objects:  88% (492/558)
+2025-02-27T15:15:49.7391071Z Receiving objects:  89% (497/558)
+2025-02-27T15:15:49.7392232Z Receiving objects:  90% (503/558)
+2025-02-27T15:15:49.7414125Z Receiving objects:  91% (508/558)
+2025-02-27T15:15:49.7417583Z Receiving objects:  92% (514/558)
+2025-02-27T15:15:49.7429337Z Receiving objects:  93% (519/558)
+2025-02-27T15:15:49.7440175Z Receiving objects:  94% (525/558)
+2025-02-27T15:15:49.7442142Z Receiving objects:  95% (531/558)
+2025-02-27T15:15:49.7445069Z Receiving objects:  96% (536/558)
+2025-02-27T15:15:49.7466766Z Receiving objects:  97% (542/558)
+2025-02-27T15:15:49.7469569Z remote: Total 558 (delta 17), reused 390 (delta 15), pack-reused 0 (from 0)        
+2025-02-27T15:15:49.7473349Z Receiving objects:  98% (547/558)
+2025-02-27T15:15:49.7474453Z Receiving objects:  99% (553/558)
+2025-02-27T15:15:49.7475428Z Receiving objects: 100% (558/558)
+2025-02-27T15:15:49.7476627Z Receiving objects: 100% (558/558), 699.15 KiB | 7.94 MiB/s, done.
+2025-02-27T15:15:49.7484558Z Resolving deltas:   0% (0/17)
+2025-02-27T15:15:49.7485796Z Resolving deltas:   5% (1/17)
+2025-02-27T15:15:49.7486688Z Resolving deltas:  11% (2/17)
+2025-02-27T15:15:49.7487535Z Resolving deltas:  17% (3/17)
+2025-02-27T15:15:49.7488363Z Resolving deltas:  23% (4/17)
+2025-02-27T15:15:49.7489227Z Resolving deltas:  29% (5/17)
+2025-02-27T15:15:49.7490252Z Resolving deltas:  35% (6/17)
+2025-02-27T15:15:49.7491141Z Resolving deltas:  41% (7/17)
+2025-02-27T15:15:49.7492011Z Resolving deltas:  47% (8/17)
+2025-02-27T15:15:49.7492881Z Resolving deltas:  52% (9/17)
+2025-02-27T15:15:49.7493715Z Resolving deltas:  58% (10/17)
+2025-02-27T15:15:49.7494513Z Resolving deltas:  64% (11/17)
+2025-02-27T15:15:49.7495047Z Resolving deltas:  70% (12/17)
+2025-02-27T15:15:49.7495567Z Resolving deltas:  76% (13/17)
+2025-02-27T15:15:49.7496096Z Resolving deltas:  82% (14/17)
+2025-02-27T15:15:49.7496607Z Resolving deltas:  88% (15/17)
+2025-02-27T15:15:49.7497146Z Resolving deltas:  94% (16/17)
+2025-02-27T15:15:49.7497656Z Resolving deltas: 100% (17/17)
+2025-02-27T15:15:49.7498185Z Resolving deltas: 100% (17/17), done.
+2025-02-27T15:15:49.7602280Z From https://github.com/aaron-hogan/idle-game
+2025-02-27T15:15:49.7603440Z  * [new ref]         313ec69405446c2838f491cb7e1fb7e79cf8e263 -> origin/main
+2025-02-27T15:15:49.7631345Z ##[endgroup]
+2025-02-27T15:15:49.7632812Z ##[group]Determining the checkout info
+2025-02-27T15:15:49.7634568Z ##[endgroup]
+2025-02-27T15:15:49.7635883Z ##[group]Checking out the ref
+2025-02-27T15:15:49.7639978Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2025-02-27T15:15:49.7941059Z Switched to a new branch 'main'
+2025-02-27T15:15:49.7944087Z branch 'main' set up to track 'origin/main'.
+2025-02-27T15:15:49.7951198Z ##[endgroup]
+2025-02-27T15:15:49.7984501Z [command]/usr/bin/git log -1 --format='%H'
+2025-02-27T15:15:49.8006096Z '313ec69405446c2838f491cb7e1fb7e79cf8e263'
+2025-02-27T15:15:49.8257406Z ##[group]Run actions/setup-node@v3
+2025-02-27T15:15:49.8257995Z with:
+2025-02-27T15:15:49.8258399Z   node-version: 16
+2025-02-27T15:15:49.8258859Z   always-auth: false
+2025-02-27T15:15:49.8259319Z   check-latest: false
+2025-02-27T15:15:49.8259948Z   token: ***
+2025-02-27T15:15:49.8260557Z ##[endgroup]
+2025-02-27T15:15:50.0037098Z Attempting to download 16...
+2025-02-27T15:15:50.2874895Z Acquiring 16.20.2 - x64 from https://github.com/actions/node-versions/releases/download/16.20.2-5819740093/node-16.20.2-linux-x64.tar.gz
+2025-02-27T15:15:50.7199819Z Extracting ...
+2025-02-27T15:15:50.7308514Z [command]/usr/bin/tar xz --strip 1 --warning=no-unknown-keyword -C /home/runner/work/_temp/6c78dc54-3564-4321-9946-d8e266533dfd -f /home/runner/work/_temp/71c4ff4a-9d82-429f-bc53-33e497b6e19b
+2025-02-27T15:15:51.4458326Z Adding to the cache ...
+2025-02-27T15:15:52.4559872Z ##[group]Environment details
+2025-02-27T15:15:52.7205939Z node: v16.20.2
+2025-02-27T15:15:52.7206408Z npm: 8.19.4
+2025-02-27T15:15:52.7206842Z yarn: 1.22.22
+2025-02-27T15:15:52.7207630Z ##[endgroup]
+2025-02-27T15:15:52.7372318Z ##[group]Run npm ci
+2025-02-27T15:15:52.7372634Z [36;1mnpm ci[0m
+2025-02-27T15:15:52.7423979Z shell: /usr/bin/bash -e {0}
+2025-02-27T15:15:52.7424244Z ##[endgroup]
+2025-02-27T15:15:53.5243514Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5244519Z npm WARN EBADENGINE   package: '@eslint/config-array@0.19.2',
+2025-02-27T15:15:53.5245519Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T15:15:53.5246527Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5247218Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5247776Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5248471Z npm WARN EBADENGINE   package: '@eslint/core@0.12.0',
+2025-02-27T15:15:53.5249429Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T15:15:53.5250559Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5251230Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5251896Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5253169Z npm WARN EBADENGINE   package: '@eslint/eslintrc@3.3.0',
+2025-02-27T15:15:53.5254112Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T15:15:53.5255051Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5255697Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5256260Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5256953Z npm WARN EBADENGINE   package: 'globals@14.0.0',
+2025-02-27T15:15:53.5257729Z npm WARN EBADENGINE   required: { node: '>=18' },
+2025-02-27T15:15:53.5258604Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5259260Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5261019Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5261753Z npm WARN EBADENGINE   package: '@eslint/js@9.21.0',
+2025-02-27T15:15:53.5262494Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T15:15:53.5263087Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5263663Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5264225Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5265006Z npm WARN EBADENGINE   package: '@eslint/object-schema@2.1.6',
+2025-02-27T15:15:53.5265637Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T15:15:53.5266206Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5266618Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5267259Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5267966Z npm WARN EBADENGINE   package: '@eslint/plugin-kit@0.2.7',
+2025-02-27T15:15:53.5268744Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T15:15:53.5269257Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5269601Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5273217Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5273932Z npm WARN EBADENGINE   package: '@humanfs/core@0.19.1',
+2025-02-27T15:15:53.5274560Z npm WARN EBADENGINE   required: { node: '>=18.18.0' },
+2025-02-27T15:15:53.5275047Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5275666Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5276191Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5276858Z npm WARN EBADENGINE   package: '@humanfs/node@0.16.6',
+2025-02-27T15:15:53.5277304Z npm WARN EBADENGINE   required: { node: '>=18.18.0' },
+2025-02-27T15:15:53.5277747Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5278090Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5279149Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5279993Z npm WARN EBADENGINE   package: '@humanwhocodes/retry@0.3.1',
+2025-02-27T15:15:53.5281035Z npm WARN EBADENGINE   required: { node: '>=18.18' },
+2025-02-27T15:15:53.5282238Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5282972Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5283521Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5284389Z npm WARN EBADENGINE   package: '@humanwhocodes/retry@0.4.2',
+2025-02-27T15:15:53.5285184Z npm WARN EBADENGINE   required: { node: '>=18.18' },
+2025-02-27T15:15:53.5286305Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5286980Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5293001Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5293865Z npm WARN EBADENGINE   package: '@testing-library/dom@10.4.0',
+2025-02-27T15:15:53.5294694Z npm WARN EBADENGINE   required: { node: '>=18' },
+2025-02-27T15:15:53.5295585Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5296227Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5296756Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5297543Z npm WARN EBADENGINE   package: '@testing-library/react@16.2.0',
+2025-02-27T15:15:53.5298355Z npm WARN EBADENGINE   required: { node: '>=18' },
+2025-02-27T15:15:53.5299477Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5300384Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5301249Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5302133Z npm WARN EBADENGINE   package: '@typescript-eslint/eslint-plugin@8.25.0',
+2025-02-27T15:15:53.5303189Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T15:15:53.5304165Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5304817Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5305352Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5306183Z npm WARN EBADENGINE   package: '@typescript-eslint/parser@8.25.0',
+2025-02-27T15:15:53.5307143Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T15:15:53.5308094Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5308793Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5309346Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5310337Z npm WARN EBADENGINE   package: '@typescript-eslint/scope-manager@8.25.0',
+2025-02-27T15:15:53.5311408Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T15:15:53.5312360Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5313015Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5313588Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5314415Z npm WARN EBADENGINE   package: '@typescript-eslint/type-utils@8.25.0',
+2025-02-27T15:15:53.5315421Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T15:15:53.5316385Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5317020Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5317553Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5318398Z npm WARN EBADENGINE   package: '@typescript-eslint/types@8.25.0',
+2025-02-27T15:15:53.5319407Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T15:15:53.5351371Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5352052Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5352624Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5353536Z npm WARN EBADENGINE   package: '@typescript-eslint/typescript-estree@8.25.0',
+2025-02-27T15:15:53.5354622Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T15:15:53.5355674Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5356404Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5356949Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5357793Z npm WARN EBADENGINE   package: '@typescript-eslint/utils@8.25.0',
+2025-02-27T15:15:53.5358750Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T15:15:53.5359973Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5360859Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5361397Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5362323Z npm WARN EBADENGINE   package: '@typescript-eslint/visitor-keys@8.25.0',
+2025-02-27T15:15:53.5363417Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T15:15:53.5364382Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5365068Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5365619Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5366389Z npm WARN EBADENGINE   package: 'eslint-visitor-keys@4.2.0',
+2025-02-27T15:15:53.5367305Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T15:15:53.5368264Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5368924Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5369461Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5370456Z npm WARN EBADENGINE   package: '@webpack-cli/configtest@3.0.1',
+2025-02-27T15:15:53.5371520Z npm WARN EBADENGINE   required: { node: '>=18.12.0' },
+2025-02-27T15:15:53.5372382Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5373058Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5373577Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5374320Z npm WARN EBADENGINE   package: '@webpack-cli/info@3.0.1',
+2025-02-27T15:15:53.5375115Z npm WARN EBADENGINE   required: { node: '>=18.12.0' },
+2025-02-27T15:15:53.5375974Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5376629Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5377146Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5377892Z npm WARN EBADENGINE   package: '@webpack-cli/serve@3.0.1',
+2025-02-27T15:15:53.5378698Z npm WARN EBADENGINE   required: { node: '>=18.12.0' },
+2025-02-27T15:15:53.5379522Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5380354Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5380921Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5381617Z npm WARN EBADENGINE   package: 'bundle-name@4.1.0',
+2025-02-27T15:15:53.5382350Z npm WARN EBADENGINE   required: { node: '>=18' },
+2025-02-27T15:15:53.5383183Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5383845Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5384368Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5385042Z npm WARN EBADENGINE   package: 'css-loader@7.1.2',
+2025-02-27T15:15:53.5385802Z npm WARN EBADENGINE   required: { node: '>= 18.12.0' },
+2025-02-27T15:15:53.5386656Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5387277Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5387833Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5388538Z npm WARN EBADENGINE   package: 'default-browser@5.2.1',
+2025-02-27T15:15:53.5389303Z npm WARN EBADENGINE   required: { node: '>=18' },
+2025-02-27T15:15:53.5390331Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5391007Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5391545Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5392288Z npm WARN EBADENGINE   package: 'default-browser-id@5.0.0',
+2025-02-27T15:15:53.5393044Z npm WARN EBADENGINE   required: { node: '>=18' },
+2025-02-27T15:15:53.5393854Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5394474Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5394961Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5395611Z npm WARN EBADENGINE   package: 'eslint@9.21.0',
+2025-02-27T15:15:53.5396488Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T15:15:53.5397454Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5398086Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5398883Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5399620Z npm WARN EBADENGINE   package: 'eslint-scope@8.2.0',
+2025-02-27T15:15:53.5400757Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T15:15:53.5401690Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5402325Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5402843Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5403580Z npm WARN EBADENGINE   package: 'eslint-visitor-keys@4.2.0',
+2025-02-27T15:15:53.5404512Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T15:15:53.5405443Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5406084Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5406587Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5407228Z npm WARN EBADENGINE   package: 'espree@10.3.0',
+2025-02-27T15:15:53.5408076Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T15:15:53.5409004Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5409882Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5410624Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5411405Z npm WARN EBADENGINE   package: 'eslint-visitor-keys@4.2.0',
+2025-02-27T15:15:53.5412312Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T15:15:53.5413247Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5413892Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5426207Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5428289Z npm WARN EBADENGINE   package: 'open@10.1.0',
+2025-02-27T15:15:53.5429012Z npm WARN EBADENGINE   required: { node: '>=18' },
+2025-02-27T15:15:53.5429857Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5430790Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5435637Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5437928Z npm WARN EBADENGINE   package: 'react-router@7.2.0',
+2025-02-27T15:15:53.5438695Z npm WARN EBADENGINE   required: { node: '>=20.0.0' },
+2025-02-27T15:15:53.5439570Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5440461Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5441401Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5443929Z npm WARN EBADENGINE   package: 'react-router-dom@7.2.0',
+2025-02-27T15:15:53.5444742Z npm WARN EBADENGINE   required: { node: '>=20.0.0' },
+2025-02-27T15:15:53.5446808Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5447462Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5447964Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5448590Z npm WARN EBADENGINE   package: 'cookie@1.0.2',
+2025-02-27T15:15:53.5449239Z npm WARN EBADENGINE   required: { node: '>=18' },
+2025-02-27T15:15:53.5450312Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5450976Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5451470Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5452159Z npm WARN EBADENGINE   package: 'run-applescript@7.0.0',
+2025-02-27T15:15:53.5452869Z npm WARN EBADENGINE   required: { node: '>=18' },
+2025-02-27T15:15:53.5453652Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5454279Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5454795Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5455440Z npm WARN EBADENGINE   package: 'style-loader@4.0.0',
+2025-02-27T15:15:53.5456148Z npm WARN EBADENGINE   required: { node: '>= 18.12.0' },
+2025-02-27T15:15:53.5456942Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5457554Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5458063Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5458723Z npm WARN EBADENGINE   package: 'ts-api-utils@2.0.1',
+2025-02-27T15:15:53.5459411Z npm WARN EBADENGINE   required: { node: '>=18.12' },
+2025-02-27T15:15:53.5460623Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5461278Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5461788Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5462491Z npm WARN EBADENGINE   package: 'typescript-eslint@8.25.0',
+2025-02-27T15:15:53.5463367Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T15:15:53.5464249Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5464850Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5465343Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5465984Z npm WARN EBADENGINE   package: 'webpack-cli@6.0.1',
+2025-02-27T15:15:53.5466687Z npm WARN EBADENGINE   required: { node: '>=18.12.0' },
+2025-02-27T15:15:53.5467474Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5468094Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5468582Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5469244Z npm WARN EBADENGINE   package: 'commander@12.1.0',
+2025-02-27T15:15:53.5470300Z npm WARN EBADENGINE   required: { node: '>=18' },
+2025-02-27T15:15:53.5471079Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5471690Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5472175Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5472905Z npm WARN EBADENGINE   package: 'webpack-dev-middleware@7.4.2',
+2025-02-27T15:15:53.5473681Z npm WARN EBADENGINE   required: { node: '>= 18.12.0' },
+2025-02-27T15:15:53.5474472Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5475069Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5475565Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5476259Z npm WARN EBADENGINE   package: 'webpack-dev-server@5.2.0',
+2025-02-27T15:15:53.5476999Z npm WARN EBADENGINE   required: { node: '>= 18.12.0' },
+2025-02-27T15:15:53.5477792Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5478404Z npm WARN EBADENGINE }
+2025-02-27T15:15:53.5478896Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T15:15:53.5479565Z npm WARN EBADENGINE   package: 'webpack-merge@6.0.1',
+2025-02-27T15:15:53.5480441Z npm WARN EBADENGINE   required: { node: '>=18.0.0' },
+2025-02-27T15:15:53.5481221Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T15:15:53.5481821Z npm WARN EBADENGINE }
+2025-02-27T15:15:56.5123009Z npm WARN deprecated react-testing-library@8.0.1: 🚨  react-testing-library has moved to @testing-library/react. Please uninstall react-testing-library and install @testing-library/react instead, or use an older version of react-testing-library. Learn more about this change here: https://github.com/testing-library/dom-testing-library/issues/260 Thanks! :)
+2025-02-27T15:15:57.3330420Z npm WARN deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+2025-02-27T15:15:57.5438329Z npm WARN deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+2025-02-27T15:15:58.0682427Z npm WARN deprecated domexception@4.0.0: Use your platform's native DOMException instead
+2025-02-27T15:15:58.4197791Z npm WARN deprecated abab@2.0.6: Use your platform's native atob() and btoa() methods instead
+2025-02-27T15:16:01.7430755Z 
+2025-02-27T15:16:01.7431495Z added 900 packages, and audited 901 packages in 9s
+2025-02-27T15:16:01.7432009Z 
+2025-02-27T15:16:01.7432300Z 193 packages are looking for funding
+2025-02-27T15:16:01.7432801Z   run `npm fund` for details
+2025-02-27T15:16:01.7443736Z 
+2025-02-27T15:16:01.7444044Z found 0 vulnerabilities
+2025-02-27T15:16:01.7727148Z ##[group]Run npm test
+2025-02-27T15:16:01.7727415Z [36;1mnpm test[0m
+2025-02-27T15:16:01.7777223Z shell: /usr/bin/bash -e {0}
+2025-02-27T15:16:01.7777474Z ##[endgroup]
+2025-02-27T15:16:02.0306772Z 
+2025-02-27T15:16:02.0307322Z > idle-game@0.5.0-3 test
+2025-02-27T15:16:02.0307809Z > jest
+2025-02-27T15:16:02.0308032Z 
+2025-02-27T15:16:02.1569485Z /home/runner/work/idle-game/idle-game/jest.config.js:1
+2025-02-27T15:16:02.1570423Z export default {
+2025-02-27T15:16:02.1570811Z ^^^^^^
+2025-02-27T15:16:02.1571016Z 
+2025-02-27T15:16:02.1571335Z SyntaxError: Unexpected token 'export'
+2025-02-27T15:16:02.1572011Z     at Object.compileFunction (node:vm:360:18)
+2025-02-27T15:16:02.1572777Z     at wrapSafe (node:internal/modules/cjs/loader:1126:15)
+2025-02-27T15:16:02.1573336Z     at Module._compile (node:internal/modules/cjs/loader:1162:27)
+2025-02-27T15:16:02.1573992Z     at Object.Module._extensions..js (node:internal/modules/cjs/loader:1252:10)
+2025-02-27T15:16:02.1574687Z     at Module.load (node:internal/modules/cjs/loader:1076:32)
+2025-02-27T15:16:02.1575268Z     at Function.Module._load (node:internal/modules/cjs/loader:911:12)
+2025-02-27T15:16:02.1575863Z     at Module.require (node:internal/modules/cjs/loader:1100:19)
+2025-02-27T15:16:02.1576511Z     at require (node:internal/modules/cjs/helpers:119:18)
+2025-02-27T15:16:02.1578076Z     at requireOrImportModule (/home/runner/work/idle-game/idle-game/node_modules/jest-util/build/requireOrImportModule.js:44:28)
+2025-02-27T15:16:02.1579431Z     at readConfigFileAndSetRootDir (/home/runner/work/idle-game/idle-game/node_modules/jest-config/build/readConfigFileAndSetRootDir.js:112:66)
+2025-02-27T15:16:02.1678742Z ##[error]Process completed with exit code 1.
+2025-02-27T15:16:02.1976373Z Post job cleanup.
+2025-02-27T15:16:02.2698179Z [command]/usr/bin/git version
+2025-02-27T15:16:02.2732311Z git version 2.48.1
+2025-02-27T15:16:02.2774092Z Temporarily overriding HOME='/home/runner/work/_temp/9e81cb14-d171-46f3-b163-0a764ac2bb4b' before making global git config changes
+2025-02-27T15:16:02.2775034Z Adding repository directory to the temporary git global config as a safe directory
+2025-02-27T15:16:02.2777782Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/idle-game/idle-game
+2025-02-27T15:16:02.2807365Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2025-02-27T15:16:02.2835144Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2025-02-27T15:16:02.3057936Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2025-02-27T15:16:02.3078035Z http.https://github.com/.extraheader
+2025-02-27T15:16:02.3089257Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2025-02-27T15:16:02.3117477Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2025-02-27T15:16:02.3436016Z Cleaning up orphan processes
