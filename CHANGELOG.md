@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.3] - 2025-02-27
+
 ### Added
 - Branch and PR cleanup scripts:
   - cleanup-branches.sh: Tool for safely deleting merged branches
@@ -17,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated test files to handle tutorial state in Redux store
 - Fixed type issues in TutorialManager to use RootState instead of AppState
 - Resolved Redux store initialization in various test files
+
 
 ## [0.5.2] - 2025-02-27
 
