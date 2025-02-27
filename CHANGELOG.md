@@ -7,7 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-*No unreleased changes at this time.*
+### Fixed
+- Properly enforce gitignore patterns by removing previously tracked files from the repository
+- Clean up project by removing temp, logs, and _trash directories from version control
+- Retain only essential files for directory structure (logs/test-results/README.md)
 
 ## [0.6.0] - 2025-02-27
 
