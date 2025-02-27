@@ -34,6 +34,7 @@
   -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
   min-height: 160px;
   will-change: transform;
+  scroll-snap-type: x proximity; /* Less strict snapping behavior */
 }
 
 /* Hide timeline elements */
@@ -67,6 +68,7 @@
 
 .milestone-scroll-bounds.milestone-cards-content {
   flex-grow: 1;
+  /* Removed max-width constraint that was hiding content */
 }
 
 .milestone-card-spacer {
@@ -93,6 +95,7 @@
   flex-direction: column;
   flex-shrink: 0;
   box-sizing: border-box;
+  scroll-snap-align: center; /* Snap cards to center when scrolling */
 }
 
 .milestone-card:hover {

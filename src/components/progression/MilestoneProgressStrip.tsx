@@ -5,7 +5,7 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../state/store';
-import { Milestone } from '../../interfaces/progression';
+import { Milestone, GameStage } from '../../interfaces/progression';
 import { allMilestones } from '../../data/progression/milestones';
 import { Link } from 'react-router-dom';
 import './MilestoneProgressStrip.css';
@@ -223,6 +223,59 @@ const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({
     return () => clearTimeout(timer);
   }, [activeMilestoneId]); // Run when active milestone changes
   
+  // Re-center after user stops scrolling
+  useEffect(() => {
+    if (!stripRef.current) return;
+    
+    // Create a debounced function to recenter after scrolling stops
+    let scrollTimeout: NodeJS.Timeout | null = null;
+    
+    const handleScroll = () => {
+      // Clear any existing timeout
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
+      
+      // Set a new timeout for 2 seconds of inactivity
+      scrollTimeout = setTimeout(() => {
+        if (!stripRef.current || !activeMilestoneId) return;
+        
+        // Find the active milestone element
+        const targetElement = stripRef.current.querySelector(
+          `.milestone-card[data-milestone-id="${activeMilestoneId}"]`
+        ) as HTMLElement;
+        
+        if (targetElement) {
+          // Calculate scroll position to center the active milestone
+          const containerWidth = stripRef.current.offsetWidth;
+          const targetWidth = targetElement.offsetWidth;
+          const targetLeft = targetElement.offsetLeft;
+          
+          const scrollToCenter = Math.max(0, targetLeft - (containerWidth / 2) + (targetWidth / 2));
+          
+          // Animate scroll back to center
+          stripRef.current.scrollTo({
+            left: scrollToCenter,
+            behavior: 'smooth'
+          });
+        }
+      }, 2000); // 2 seconds delay
+    };
+    
+    // Add scroll event listener
+    stripRef.current.addEventListener('scroll', handleScroll);
+    
+    // Clean up
+    return () => {
+      if (stripRef.current) {
+        stripRef.current.removeEventListener('scroll', handleScroll);
+      }
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
+    };
+  }, [stripRef.current, activeMilestoneId]);
+  
   // Animation for milestone changes with fixed dimensions
   useEffect(() => {
     // Skip initial render since the main centering effect handles that
@@ -312,9 +365,43 @@ const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({
     return () => clearTimeout(timer);
   }, [milestoneCards.length]);
   
-  // Display all milestones in a horizontal strip to allow smooth scrolling
-  // This ensures we can scroll through the complete milestone history 
-  const visibleMilestones = milestoneCards;
+  // Define a constant for how many milestones to display
+  // This limits the scroll length without completely hiding milestones
+  const MILESTONES_TO_SHOW = 10; 
+  
+  // Calculate which milestones should be visible based on some basic rules
+  // This ensures the player has a more focused view while still allowing exploration
+  const visibleMilestones = useMemo(() => {
+    // If we have 10 or fewer milestones total, just show them all
+    if (milestoneCards.length <= MILESTONES_TO_SHOW) {
+      return milestoneCards;
+    }
+    
+    // Find the index of the active milestone
+    const activeIndex = milestoneCards.findIndex(
+      card => card.milestone.id === activeMilestoneId
+    );
+    
+    // If no active milestone found, show the first few milestones
+    if (activeIndex === -1) {
+      return milestoneCards.slice(0, MILESTONES_TO_SHOW);
+    }
+    
+    // Calculate how many milestones to show on each side of the active one
+    const halfRange = Math.floor((MILESTONES_TO_SHOW - 1) / 2);
+    
+    // Calculate the start and end indices, ensuring we always show MILESTONES_TO_SHOW total cards
+    let startIndex = Math.max(0, activeIndex - halfRange);
+    let endIndex = Math.min(milestoneCards.length - 1, startIndex + MILESTONES_TO_SHOW - 1);
+    
+    // If we hit the end, adjust the start to ensure we always show MILESTONES_TO_SHOW cards
+    if (endIndex - startIndex + 1 < MILESTONES_TO_SHOW) {
+      startIndex = Math.max(0, endIndex - MILESTONES_TO_SHOW + 1);
+    }
+    
+    // Return the slice of milestones that are within our visible range
+    return milestoneCards.slice(startIndex, endIndex + 1);
+  }, [milestoneCards, activeMilestoneId]);
   
   return (
     <div className="milestone-progress-strip">
@@ -323,7 +410,7 @@ const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({
         <div className="milestone-cards">
           {/* Start spacers - add enough to push content right */}
           <div className="milestone-scroll-bounds start-bounds">
-            {[...Array(5)].map((_, i) => (
+            {[...Array(3)].map((_, i) => (
               <div key={`spacer-start-${i}`} className="milestone-card-spacer"></div>
             ))}
           </div>
@@ -381,7 +468,7 @@ const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({
           
           {/* End spacers - match start spacers */}
           <div className="milestone-scroll-bounds end-bounds">
-            {[...Array(5)].map((_, i) => (
+            {[...Array(3)].map((_, i) => (
               <div key={`spacer-end-${i}`} className="milestone-card-spacer"></div>
             ))}
           </div>
