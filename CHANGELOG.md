@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Implemented dependency injection for manager classes to reduce tight coupling
+- Added store injection to TaskManager and ProgressionManager
+- Created documentation for dependency injection approach
+
 ### Fixed
 - Fixed TypeError in GameLoop by adding support for flat resource structure in gameEndConditions.ts
 - Optimized Redux selectors to prevent unnecessary rerenders

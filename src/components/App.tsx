@@ -16,7 +16,6 @@ import { addPlayTime } from '../state/gameSlice';
 import { GameManager } from '../core/GameManager';
 import GameDebugger from '../debug/GameDebugger';
 import TopResourceBar from './resources/TopResourceBar';
-// Removed the unused CompactMovementBalance import
 import EndGameModal from './EndGameModal';
 import { TabNavigation, DEFAULT_TABS } from './navigation';
 
@@ -30,6 +29,7 @@ import { SaveControls } from './save';
 import EventPanel from './events/EventPanel';
 import { initializeEventSystem } from '../systems/eventInitializer';
 import { TaskManager } from '../managers/TaskManager';
+import { ProgressionManager } from '../managers/progression/ProgressionManager';
 import './App.css';
 
 // Simple menu button component that shows save controls when clicked
@@ -90,10 +90,13 @@ const App: React.FC = () => {
     // Initialize resource manager with store
     resourceManager.initialize(store);
     
-    // Initialize task manager - this is a singleton that's initialized in its constructor,
-    // but we still need to explicitly call initialize() to properly set up tasks
+    // Initialize task manager with store - using dependency injection
     const taskManager = TaskManager.getInstance();
-    taskManager.initialize();
+    taskManager.initialize(store);
+    
+    // Initialize progression manager with store - using dependency injection
+    const progressionManager = ProgressionManager.getInstance();
+    progressionManager.initialize(store);
     
     // Initialize event system
     initializeEventSystem();

@@ -94,6 +94,15 @@ jest.mock('./GameLoopManager', () => ({
   }
 }));
 
+jest.mock('../core/GameLoop', () => ({
+  GameLoop: {
+    getInstance: jest.fn().mockReturnValue({
+      registerHandler: jest.fn().mockReturnValue(() => {}),
+      setDebugMode: jest.fn()
+    })
+  }
+}));
+
 describe('TaskManager', () => {
   let taskManager: TaskManager;
   
@@ -105,6 +114,9 @@ describe('TaskManager', () => {
     // @ts-ignore - we're testing the singleton
     TaskManager.instance = null;
     taskManager = TaskManager.getInstance();
+    
+    // Initialize with the mock store
+    taskManager.initialize(store as any);
   });
   
   test('getInstance returns the same instance', () => {
@@ -115,8 +127,7 @@ describe('TaskManager', () => {
   });
   
   test('initialize dispatches the initializeTasks action', () => {
-    taskManager.initialize();
-    
+    // We already called initialize in beforeEach
     expect(store.dispatch).toHaveBeenCalledWith(initializeTasks());
   });
   

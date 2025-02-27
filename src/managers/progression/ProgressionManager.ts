@@ -11,7 +11,12 @@ import {
   MilestoneType,
   AchievementType
 } from '../../interfaces/progression';
-import { store } from '../../state/store';
+import { 
+  Store, 
+  AnyAction, 
+  Dispatch 
+} from '@reduxjs/toolkit';
+import { RootState } from '../../state/store';
 import { 
   completeMilestone, 
   unlockAchievement, 
@@ -28,15 +33,15 @@ import {
 import { getCurrentTime } from '../../utils/timeUtils';
 import { updateResourcePerSecond } from '../../state/resourcesSlice';
 
-// Type safety for resources
-// Removing problematic type declaration that was causing build errors
-
 /**
  * Manager for the game's progression system
  */
 export class ProgressionManager {
   private static instance: ProgressionManager | null = null;
   public debuggingEnabled: boolean = false;
+  private store: Store<RootState> | null = null;
+  private dispatch: Dispatch<AnyAction> | null = null;
+  private getState: (() => RootState) | null = null;
 
   /**
    * Private constructor to enforce singleton pattern
@@ -56,12 +61,44 @@ export class ProgressionManager {
   }
 
   /**
+   * Initialize the progression manager with a Redux store
+   * @param store The Redux store instance
+   * @returns True if initialization was successful
+   */
+  public initialize(store: Store<RootState>): boolean {
+    try {
+      // Store the Redux store and its methods
+      this.store = store;
+      this.dispatch = store.dispatch;
+      this.getState = store.getState;
+      
+      this.debugLog('ProgressionManager initialized with store');
+      return true;
+    } catch (error) {
+      console.error('Failed to initialize progression system:', error);
+      return false;
+    }
+  }
+
+  /**
+   * Ensure the manager is properly initialized with a store
+   * @throws Error if not initialized
+   */
+  private ensureInitialized(): void {
+    if (!this.store || !this.dispatch || !this.getState) {
+      throw new Error('ProgressionManager not properly initialized with Redux store');
+    }
+  }
+
+  /**
    * Check if requirements for a milestone or achievement are met
    * @param requirements The requirements to check
    * @returns True if all requirements are met, false otherwise
    */
   public checkRequirements(requirements: StageRequirement[]): boolean {
     try {
+      this.ensureInitialized();
+      
       if (!requirements || requirements.length === 0) {
         this.debugLog('Warning: No requirements provided to check');
         return false;
@@ -89,8 +126,9 @@ export class ProgressionManager {
    */
   private evaluateRequirement(requirement: StageRequirement): boolean {
     try {
+      this.ensureInitialized();
       const { type, target, value, operator = '>=' } = requirement;
-      const state = store.getState();
+      const state = this.getState!();
 
       switch (type) {
         case 'resourceAmount': {
@@ -279,7 +317,8 @@ export class ProgressionManager {
    */
   public canCompleteMilestone(milestoneId: string): boolean {
     try {
-      const state = store.getState();
+      this.ensureInitialized();
+      const state = this.getState!();
       const milestone = selectMilestoneById(state, milestoneId);
       
       if (!milestone) {
@@ -306,12 +345,14 @@ export class ProgressionManager {
    */
   public completeMilestone(milestoneId: string): boolean {
     try {
+      this.ensureInitialized();
+      
       if (!this.canCompleteMilestone(milestoneId)) {
         return false;
       }
       
       // Get the milestone
-      const state = store.getState();
+      const state = this.getState!();
       const milestone = selectMilestoneById(state, milestoneId);
       
       if (!milestone) {
@@ -320,7 +361,7 @@ export class ProgressionManager {
       }
       
       // Complete the milestone
-      store.dispatch(completeMilestone({
+      this.dispatch!(completeMilestone({
         id: milestoneId,
         completedAt: getCurrentTime()
       }));
@@ -348,7 +389,8 @@ export class ProgressionManager {
    */
   private applyMilestoneRewards(milestoneId: string): void {
     try {
-      const state = store.getState();
+      this.ensureInitialized();
+      const state = this.getState!();
       const milestone = selectMilestoneById(state, milestoneId);
       
       if (!milestone || !milestone.rewards || milestone.rewards.length === 0) {
@@ -371,6 +413,7 @@ export class ProgressionManager {
    */
   private applyMilestoneReward(reward: any): void {
     try {
+      this.ensureInitialized();
       const { type, target, value } = reward;
       
       switch (type) {
@@ -381,7 +424,7 @@ export class ProgressionManager {
           }
           
           // Add resource amount
-          store.dispatch({
+          this.dispatch!({
             type: 'resources/addResourceAmount',
             payload: {
               id: target,
@@ -397,12 +440,12 @@ export class ProgressionManager {
           }
           
           // Apply boost to resource production
-          store.dispatch(
+          this.dispatch!(
             // Use updateResourcePerSecond instead of custom actions
             updateResourcePerSecond({
               id: target,
               // Get current rate and add the boost
-              perSecond: (store.getState().resources[target]?.perSecond || 0) + Number(value)
+              perSecond: (this.getState!().resources[target]?.perSecond || 0) + Number(value)
             })
           );
           break;
@@ -414,8 +457,8 @@ export class ProgressionManager {
           }
           
           // Apply multiplier to resource production
-          const currentRate = store.getState().resources[target]?.perSecond || 0;
-          store.dispatch(
+          const currentRate = this.getState!().resources[target]?.perSecond || 0;
+          this.dispatch!(
             // Use updateResourcePerSecond instead of custom actions
             updateResourcePerSecond({
               id: target,
@@ -444,7 +487,8 @@ export class ProgressionManager {
    */
   public canUnlockAchievement(achievementId: string): boolean {
     try {
-      const state = store.getState();
+      this.ensureInitialized();
+      const state = this.getState!();
       const achievement = selectAchievementById(state, achievementId);
       
       if (!achievement) {
@@ -471,12 +515,14 @@ export class ProgressionManager {
    */
   public unlockAchievement(achievementId: string): boolean {
     try {
+      this.ensureInitialized();
+      
       if (!this.canUnlockAchievement(achievementId)) {
         return false;
       }
       
       // Unlock the achievement
-      store.dispatch(unlockAchievement({
+      this.dispatch!(unlockAchievement({
         id: achievementId,
         unlockedAt: getCurrentTime()
       }));
@@ -498,7 +544,8 @@ export class ProgressionManager {
    */
   private applyAchievementRewards(achievementId: string): void {
     try {
-      const state = store.getState();
+      this.ensureInitialized();
+      const state = this.getState!();
       const achievement = selectAchievementById(state, achievementId);
       
       if (!achievement || !achievement.rewards || achievement.rewards.length === 0) {
@@ -519,6 +566,7 @@ export class ProgressionManager {
    */
   private applyReward(reward: AchievementReward): void {
     try {
+      this.ensureInitialized();
       const { type, target, value } = reward;
       
       switch (type) {
@@ -529,7 +577,7 @@ export class ProgressionManager {
           }
           
           // Add resource amount
-          store.dispatch({
+          this.dispatch!({
             type: 'resources/addResourceAmount',
             payload: {
               id: target,
@@ -545,7 +593,7 @@ export class ProgressionManager {
           }
           
           // Apply boost to resource production
-          store.dispatch({
+          this.dispatch!({
             type: 'resources/setResourcePerSecond',
             payload: {
               id: target,
@@ -573,7 +621,8 @@ export class ProgressionManager {
    */
   public checkStageAdvancement(): boolean {
     try {
-      const state = store.getState();
+      this.ensureInitialized();
+      const state = this.getState!();
       const currentStage = selectCurrentStage(state);
       const completedMilestones = selectCompletedMilestones(state);
       
@@ -607,7 +656,7 @@ export class ProgressionManager {
       
       // Check if we have enough completed milestones for the next stage
       if (completedMilestones.length >= stageRequirements[nextStage]) {
-        store.dispatch(advanceGameStage({
+        this.dispatch!(advanceGameStage({
           stage: nextStage,
           reachedAt: getCurrentTime()
         }));
@@ -630,7 +679,8 @@ export class ProgressionManager {
    */
   public shouldFeatureBeUnlocked(featureId: string): boolean {
     try {
-      const state = store.getState();
+      this.ensureInitialized();
+      const state = this.getState!();
       const completedMilestones = selectCompletedMilestones(state);
       
       // Check if any completed milestone unlocks this feature
@@ -655,7 +705,8 @@ export class ProgressionManager {
     let itemsUpdated = 0;
     
     try {
-      const state = store.getState();
+      this.ensureInitialized();
+      const state = this.getState!();
       const visibleMilestones = selectVisibleMilestones(state);
       const visibleAchievements = selectVisibleAchievements(state);
       
@@ -692,7 +743,8 @@ export class ProgressionManager {
     let milestonesCompleted = 0;
     
     try {
-      const state = store.getState();
+      this.ensureInitialized();
+      const state = this.getState!();
       const visibleMilestones = selectVisibleMilestones(state);
       const oppression = this.getOppressionFactor();
       
@@ -732,7 +784,8 @@ export class ProgressionManager {
    */
   public calculateMilestoneProgress(milestoneId: string): number {
     try {
-      const state = store.getState();
+      this.ensureInitialized();
+      const state = this.getState!();
       const milestone = selectMilestoneById(state, milestoneId);
       
       if (!milestone) {
@@ -804,7 +857,8 @@ export class ProgressionManager {
    */
   private getOppressionFactor(): number {
     try {
-      const state = store.getState();
+      this.ensureInitialized();
+      const state = this.getState!();
       
       // Get oppression and power resources
       const oppression = (state.resources['corporate-oppression']?.amount || 0) as number;
@@ -835,7 +889,8 @@ export class ProgressionManager {
    */
   public getCurrentStageCompletionPercentage(): number {
     try {
-      const state = store.getState();
+      this.ensureInitialized();
+      const state = this.getState!();
       const currentStage = selectCurrentStage(state);
       const allMilestones = state.progression.milestonesByStage[currentStage] || [];
       
@@ -860,7 +915,8 @@ export class ProgressionManager {
    */
   public getOverallCompletionPercentage(): number {
     try {
-      const state = store.getState();
+      this.ensureInitialized();
+      const state = this.getState!();
       const allMilestones = state.progression.milestoneIds || [];
       const allAchievements = state.progression.achievementIds || [];
       
