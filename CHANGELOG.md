@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2025-02-27
+
 ### Added
 - Added Process Failure Analysis document with critical learnings from dependency injection implementation
 - Added enhanced Pre-PR Validation Checklist to safe workflow process
@@ -26,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Enhanced .gitignore with better comments and organization
 - Updated documentation README.md with git exclusion information
 - Expanded scripts/README.md with new automation tools
+
 
 ## [0.4.0] - 2025-02-27
 
