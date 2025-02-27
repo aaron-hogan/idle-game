@@ -42,6 +42,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed regex patterns in PR validation workflow to use more compatible syntax
 - Made PR title validation case-insensitive to accept both "fix:" and "Fix:" format
 - Fixed GitHub Actions workflow permission issue for auto-versioning
+- Fixed auto-version workflow to handle non-fast-forward push errors
+- Enhanced auto-versioning to properly manage tags on latest commits
+- Fixed ProgressionManager tests to properly initialize with store
 
 ### Removed
 - Legacy example semantic-release configuration
