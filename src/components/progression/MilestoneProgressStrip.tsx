@@ -146,9 +146,6 @@ const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({
     }
   }, [activeMilestone]);
   
-  // Scroll to center active milestone when it changes
-  // Removed duplicate effect - consolidated into the simplified version below
-  
   // TEST FUNCTION: Log card positions for debugging
   const logCardPositions = () => {
     if (!stripRef.current) return;
@@ -340,46 +337,47 @@ const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({
                 className={`milestone-card ${card.status} ${card.milestone.id === activeMilestoneId ? 'active-center' : ''}`}
               >
                 <div className="milestone-state-indicator"></div>
-              
-              <div className="milestone-content">
-                <div className="milestone-header">
-                  <span className="milestone-name">{card.milestone.name}</span>
-                  {card.status !== MilestoneStatus.COMPLETED && (
-                    <span className="milestone-percentage">
-                      {Math.floor(card.progress)}%
-                    </span>
-                  )}
-                </div>
                 
-                <div className="milestone-description">
-                  {card.milestone.description}
-                </div>
-                
-                {card.status !== MilestoneStatus.COMPLETED && (
-                  <div className="milestone-progress-bar">
-                    <div 
-                      className="milestone-progress-fill" 
-                      style={{ width: `${card.progress}%` }}
-                    ></div>
+                <div className="milestone-content">
+                  <div className="milestone-header">
+                    <span className="milestone-name">{card.milestone.name}</span>
+                    {card.status !== MilestoneStatus.COMPLETED && (
+                      <span className="milestone-percentage">
+                        {Math.floor(card.progress)}%
+                      </span>
+                    )}
                   </div>
-                )}
-                
-                <div className="milestone-footer">
-                  {card.status === MilestoneStatus.COMPLETED && (
-                    <span className="milestone-completed-badge">✓ Completed</span>
+                  
+                  <div className="milestone-description">
+                    {card.milestone.description}
+                  </div>
+                  
+                  {card.status !== MilestoneStatus.COMPLETED && (
+                    <div className="milestone-progress-bar">
+                      <div 
+                        className="milestone-progress-fill" 
+                        style={{ width: `${card.progress}%` }}
+                      ></div>
+                    </div>
                   )}
                   
-                  {card.status === MilestoneStatus.ACTIVE && (
-                    <span className="milestone-active-badge">In Progress</span>
-                  )}
-                  
-                  {card.status === MilestoneStatus.LOCKED && (
-                    <span className="milestone-locked-badge">Locked</span>
-                  )}
+                  <div className="milestone-footer">
+                    {card.status === MilestoneStatus.COMPLETED && (
+                      <span className="milestone-completed-badge">✓ Completed</span>
+                    )}
+                    
+                    {card.status === MilestoneStatus.ACTIVE && (
+                      <span className="milestone-active-badge">In Progress</span>
+                    )}
+                    
+                    {card.status === MilestoneStatus.LOCKED && (
+                      <span className="milestone-locked-badge">Locked</span>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
           
           {/* End spacers - match start spacers */}
           <div className="milestone-scroll-bounds end-bounds">
