@@ -1,6 +1,6 @@
-# Anti-Capitalist Idle Game
+# Idle Game
 
-A minimalist idle game focused on community building and resource management with anti-capitalist themes.
+A minimalist idle game focused on community building and resource management.
 
 ## About
 
