@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added memoization to Object.values calls in selectors to prevent new reference creation
 - Fixed progression selectors to use proper memoization with createSelector
 - Optimized selectAllMilestones, selectAllAchievements, and stage/type selectors
+- Added missing import for selectStageByCurrentStage in ProgressionManager
 - Fixed entire test suite to bring all tests to passing status
   - Fixed GameManager tests with proper mocking of setTotalPlayTime
   - Added null safety checks in gameLoop.ts for tickInterval
