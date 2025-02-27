@@ -34,6 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Simplified versioning-and-releases.md to focus on the current automated process
 - Updated PR workflow to include version labels and changelog instructions
 - Modernized CLAUDE.md instructions for GitHub workflows
+- Removed validation tests from auto-versioning workflow to improve reliability
 
 ### Fixed
 - Fixed YAML syntax issue in PR validation workflow by completely redesigning the workflow structure
