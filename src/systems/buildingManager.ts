@@ -49,26 +49,79 @@ export class BuildingManager {
   
   /**
    * Get or create the singleton instance of BuildingManager
-   * @param dependencies The dependencies needed by BuildingManager (required only on first call)
+   * @param dependencies The dependencies needed by BuildingManager or store for backward compatibility
    * @returns The singleton BuildingManager instance
    */
-  public static getInstance(dependencies?: BuildingManagerDependencies): BuildingManager {
+  public static getInstance(dependenciesOrStore?: BuildingManagerDependencies | any): BuildingManager {
     if (!BuildingManager.instance) {
-      if (!dependencies) {
-        throw new Error('BuildingManager.getInstance requires dependencies on first call');
+      if (!dependenciesOrStore) {
+        // Create instance without dependencies, initialize() will be called later
+        BuildingManager.instance = new BuildingManager({
+          dispatch: (() => {}) as any, // Placeholder
+          getState: (() => ({})) as any, // Placeholder
+          actions: {} as any // Placeholder
+        });
+      } else if ('dispatch' in dependenciesOrStore && 'getState' in dependenciesOrStore && 'actions' in dependenciesOrStore) {
+        // If full dependencies are provided
+        BuildingManager.instance = new BuildingManager(dependenciesOrStore as BuildingManagerDependencies);
+      } else {
+        // If a store is provided (backward compatibility)
+        const instance = new BuildingManager({
+          dispatch: (() => {}) as any, // Placeholder
+          getState: (() => ({})) as any, // Placeholder  
+          actions: {} as any // Placeholder
+        });
+        instance.initialize(dependenciesOrStore);
+        BuildingManager.instance = instance;
       }
-      BuildingManager.instance = new BuildingManager(dependencies);
+    } else if (dependenciesOrStore && !('dispatch' in dependenciesOrStore && 'getState' in dependenciesOrStore && 'actions' in dependenciesOrStore)) {
+      // If instance exists and a store is provided, initialize with it (backward compatibility)
+      BuildingManager.instance.initialize(dependenciesOrStore);
     }
+    
     return BuildingManager.instance;
   }
   
   /**
-   * Method is no longer needed since dependencies are required in constructor.
-   * Kept as a no-op for backward compatibility.
-   * @deprecated
+   * Initialize the manager with a Redux store
+   * For backwards compatibility with existing code
+   * @param store The Redux store
+   * @deprecated Use dependency injection through constructor instead
+   */
+  public initialize(store: any): void {
+    // Check if already initialized properly
+    try {
+      this.ensureInitialized();
+      return; // Already initialized
+    } catch (e) {
+      // Continue with initialization
+    }
+
+    // Import necessary action creators
+    const structureActions = require('../state/structuresSlice');
+    const resourceActions = require('../state/resourcesSlice');
+    
+    // Set up dependencies from store
+    this.dispatch = store.dispatch;
+    this.getState = store.getState;
+    this.actions = {
+      addStructure: structureActions.addStructure,
+      upgradeStructure: structureActions.upgradeStructure,
+      updateProduction: structureActions.updateProduction,
+      deductResources: resourceActions.deductResources,
+    };
+  }
+
+  /**
+   * Ensure the manager is properly initialized
+   * @throws Error if not initialized
    */
   private ensureInitialized(): void {
-    // Dependencies are now guaranteed to exist because they are required in the constructor
+    invariant(
+      this.dispatch !== undefined && this.getState !== undefined && this.actions !== undefined,
+      'BuildingManager not properly initialized with dependencies',
+      'BuildingManager'
+    );
   }
   
   /**

@@ -67,26 +67,82 @@ export class ResourceManager {
   
   /**
    * Get or create the singleton instance of ResourceManager
-   * @param dependencies The dependencies needed by ResourceManager (required only on first call)
+   * @param dependencies The dependencies needed by ResourceManager or store for backward compatibility
    * @returns The singleton ResourceManager instance
    */
-  public static getInstance(dependencies?: ResourceManagerDependencies): ResourceManager {
+  public static getInstance(dependenciesOrStore?: ResourceManagerDependencies | any): ResourceManager {
     if (!ResourceManager.instance) {
-      if (!dependencies) {
-        throw new Error('ResourceManager.getInstance requires dependencies on first call');
+      if (!dependenciesOrStore) {
+        // Create instance without dependencies, initialize() will be called later
+        ResourceManager.instance = new ResourceManager({
+          dispatch: (() => {}) as any, // Placeholder
+          getState: (() => ({})) as any, // Placeholder
+          actions: {} as any // Placeholder
+        });
+      } else if ('dispatch' in dependenciesOrStore && 'getState' in dependenciesOrStore && 'actions' in dependenciesOrStore) {
+        // If full dependencies are provided
+        ResourceManager.instance = new ResourceManager(dependenciesOrStore as ResourceManagerDependencies);
+      } else {
+        // If a store is provided (backward compatibility)
+        const instance = new ResourceManager({
+          dispatch: (() => {}) as any, // Placeholder
+          getState: (() => ({})) as any, // Placeholder  
+          actions: {} as any // Placeholder
+        });
+        instance.initialize(dependenciesOrStore);
+        ResourceManager.instance = instance;
       }
-      ResourceManager.instance = new ResourceManager(dependencies);
+    } else if (dependenciesOrStore && !('dispatch' in dependenciesOrStore && 'getState' in dependenciesOrStore && 'actions' in dependenciesOrStore)) {
+      // If instance exists and a store is provided, initialize with it (backward compatibility)
+      ResourceManager.instance.initialize(dependenciesOrStore);
     }
+    
     return ResourceManager.instance;
   }
   
   /**
-   * Method is no longer needed since dependencies are required in constructor.
-   * Kept as a no-op for backward compatibility.
-   * @deprecated
+   * Initialize the manager with a Redux store
+   * For backwards compatibility with existing code
+   * @param store The Redux store
+   * @deprecated Use dependency injection through constructor instead
+   */
+  public initialize(store: any): void {
+    // Check if already initialized properly
+    try {
+      this.ensureInitialized();
+      return; // Already initialized
+    } catch (e) {
+      // Continue with initialization
+    }
+
+    // Import necessary action creators
+    const resourceActions = require('../state/resourcesSlice');
+    
+    // Set up dependencies from store
+    this.dispatch = store.dispatch;
+    this.getState = store.getState;
+    this.actions = {
+      addResource: resourceActions.addResource,
+      updateResourceAmount: resourceActions.updateResourceAmount,
+      addResourceAmount: resourceActions.addResourceAmount,
+      updateResourcePerSecond: resourceActions.updateResourcePerSecond,
+      toggleResourceUnlocked: resourceActions.toggleResourceUnlocked,
+      updateClickPower: resourceActions.updateClickPower,
+      updateUpgradeLevel: resourceActions.updateUpgradeLevel,
+      updateBaseResourcePerSecond: resourceActions.updateBaseResourcePerSecond,
+    };
+  }
+
+  /**
+   * Ensure the manager is properly initialized
+   * @throws Error if not initialized
    */
   private ensureInitialized(): void {
-    // Dependencies are now guaranteed to exist because they are required in the constructor
+    invariant(
+      this.dispatch !== undefined && this.getState !== undefined && this.actions !== undefined,
+      'ResourceManager not properly initialized with dependencies',
+      'ResourceManager'
+    );
   }
   
   /**
