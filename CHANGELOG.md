@@ -8,189 +8,104 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Added hello-world.ts with test for verifying the automated versioning process
+- Animation system foundation with configurable settings
+- Transition components (Fade, Scale, Slide) for UI animations
+- ResourceAnimation component for visualizing resource changes
+- AnimatedNumber component for smooth number transitions
+- Animation context provider with performance optimization settings
 
 ### Changed
-- Cleaned up GitHub Actions workflows by removing unused example workflows
-- Removed redundant semantic-release workflow in favor of auto-version.yml
-- Updated CI workflow to properly run tests, linting, and type checking
-- Removed empty examples directory from GitHub Actions
-
-## [0.5.0-3] - 2025-02-27
-
-### Added
-- Added support for patch-level versioning (X.Y.Z-N format)
-- Created GitHub Action for automated versioning at merge time
-- Updated versioning documentation with new automated workflow
-- Enhanced PR workflow with version label support
-
-### Changed 
-- Updated script documentation to clarify proper versioning practices
-- Improved safe workflow checklist with version selection guidance
-- Modified changelog check to enforce format rather than versioning
-- Revised versioning process to keep changes in Unreleased until merge
-
-
-## [0.5.0-2] - 2025-02-27
 
 ### Fixed
-- Fixed test issue
 
+### Removed
 
-## [0.5.0] - 2025-02-27
-
-### Added
-- Added Process Failure Analysis document with critical learnings from dependency injection implementation
-- Added enhanced Pre-PR Validation Checklist to safe workflow process
-- Created GitHub Pull Request template with validation requirements
-- Added runtime validation requirements to CLAUDE.md and documentation
-- Added DOCS_MANAGEMENT.md explaining documentation git exclusion policy
-- Created add-doc-exception.sh script for managing documentation git exceptions
-- Added .gitattributes file to properly handle documentation file exclusions
-- Created git_exceptions.md to track documentation files explicitly added to git
-- Added setup-git-hooks.sh script for automating validation via git hooks
-- Added prepare-for-main.sh script to automate branch preparation for PRs
-- Added sync-feature-todos.sh script to automate todo synchronization
-- Added comprehensive documentation for automation scripts
-- Added resolving-merge-conflicts.md with guidelines and case studies
-
-### Changed
-- Enhanced .gitignore with better comments and organization
-- Updated documentation README.md with git exclusion information
-- Expanded scripts/README.md with new automation tools
-
-## [0.5.0-1] - 2025-02-27
+## [1.5.0] - 2025-02-15
 
 ### Added
-- Added support for patch-level versioning in CHANGELOG.md (X.Y.Z-N format)
-- Updated bump-version.sh to support patch-level version format
-- Enhanced prepare-for-main.sh with patch-level versioning option
+- Implemented milestone tracking system
+- Added basic tutorial framework
+- New progression indicators for game stages
 
 ### Changed
-- Improved version calculation logic to handle patch-level increments
-- Updated script documentation to explain patch-level versioning
-
-
-## [0.4.0] - 2025-02-27
-
-### Added
-- Implemented dependency injection for all manager classes to reduce tight coupling
-- Added store injection to EventManager, SaveManager, and WorkerManager
-- Enhanced ResourceManager and BuildingManager with robust backward compatibility
-- Created comprehensive implementation pattern for future manager refactoring
-- Added detailed implementation documentation for manager dependency injection
-- Created documentation for dependency injection approach and debugging lessons
-
-### Changed
-- Updated App initialization to support both direct store and dependency injection
-- Improved type safety of manager classes with proper interfaces and type imports
+- Improved resource display with better visual feedback
+- Updated core game loop for better performance
+- Enhanced debug panel with more options
 
 ### Fixed
-- Fixed initialization order issues in EventManager and SaveManager
-- Added null safety checks in manager methods
-- Resolved variable naming inconsistencies (structureActions vs structuresActions)
-- Fixed state initialization order in EventManager
-- Added safety checks for accessing state properties
+- Corrected resource calculation for collective power generation
+- Fixed visual glitch in resource display panel
+- Resolved timer inconsistency during passive resource generation
 
-## [0.3.0] - 2025-02-26
+## [1.4.0] - 2025-01-30
 
 ### Added
-- Enhanced GitHub automation scripts:
-  - Draft PR support with `create-pr.sh --draft`
-  - Custom base branch support with `create-pr.sh --base <branch>`
-  - Improved CI integration with detailed status and ability to re-run checks
-  - Conflict detection and resolution in merge process
-- GitHub automation scripts specifically designed for AI pair programming
-- Win and lose conditions for a complete gameplay loop
-- New "Corporate Oppression" resource that increases over time
-- Visual indicator showing power vs. oppression balance
-- End game modal for both victory and defeat scenarios
-- Game state tracking for win/lose conditions
-- Centralized game balance configuration system
-- Helper functions for calculating resource generation, upgrade costs and click power
-- GitHub Actions CI workflows for automated testing, building, and validation
-- PR validation workflow to enforce project standards and conventions
-- Dependency management workflow for security and update monitoring
-- Comprehensive documentation for CI/CD workflows
+- New resource type: Community Trust
+- Implemented opposition mechanics
+- Added basic achievements system
 
 ### Changed
-- Redesigned movement balance display - now integrated into the top resource bar
-- Updated styling for the Power and Oppression counters with appropriate progress bars
-- Improved header layout for better visibility of critical resources
-- Refactored resource manager to use centralized game balance configuration
-- Modified game end conditions to use configurable thresholds
-- Extracted hardcoded game balance values to configuration file
+- Rebalanced resource generation rates
+- Improved click feedback mechanics
+- Updated UI for better resource visibility
 
 ### Fixed
-- Day counter not advancing and progress bar not showing progress
-- Choppy progress bar animation in day counter
-- Day counter and debug panel showing different day values
-- Day 1 incorrectly starting at 50% progress
-- Oppression resource displaying incorrect generation rate
-- Several failing tests across the test suite
-  - Fixed ResourceDisplay tests to work with Counter component
-  - Added TextEncoder/TextDecoder polyfill for React Router tests
-  - Updated test files to account for animation timing
-  - Corrected structure tests to match actual project structure
+- Fixed resource overflow bug
+- Corrected passive income calculations
 
-## [0.2.5] - 2025-02-26
+## [1.3.0] - 2025-01-15
 
 ### Added
-- Added scripts directory with validate-docs.js utility
-- Added logs directory for organizing CI and test logs
-- Created comprehensive project structure reorganization plan
-- Added README files for all documentation directories
-- Enhanced documentation for preventing direct work on main branch
-- New AI assistant guide for safe repository workflows
+- Basic social media integration
+- Settings panel with game options
+- Sound effects for resource generation
 
 ### Changed
-- Consolidated root folder structure for better organization
-- Moved documentation files to appropriate directories
-- Added comprehensive README files for new directories
-- Improved PR workflow documentation with explicit communication requirements
-- Enhanced .gitignore to exclude logs, environment files, editor artifacts, and secrets
+- Improved mobile layout
+- Updated visual design for resources
+- Enhanced click animation feedback
 
 ### Fixed
-- Fixed TypeError in GameLoop by adding support for flat resource structure
-- Optimized Redux selectors to prevent unnecessary rerenders
-- Resolved "Selector unknown returned a different result" warning
-- Added memoization to Object.values calls in selectors
-- Fixed progression selectors to use proper memoization with createSelector
-- Optimized milestone, achievement, and stage selectors
-- Added missing import for selectStageByCurrentStage in ProgressionManager
-- Implemented enhanced memoization for component selectors
-- Created reusable selector utilities in redux/utils.ts
-- Fixed infinite update loop in MilestoneProgressStrip component
-- Fixed EventPanel selector warning
-- Removed misleading initialization warnings
-- Simplified console logs to minimum necessary messages
-- Fixed browser errors by removing problematic process.env references
-- Fixed entire test suite to bring all tests to passing status
+- Corrected timer drift on background tabs
+- Fixed resource display precision issues
 
-## [0.2.0] - 2025-02-26
+## [1.2.0] - 2025-01-02
 
 ### Added
-- CHANGELOG.md to track all project changes
+- Game saving and loading functionality
+- Offline progress calculation
+- Basic settings menu
 
 ### Changed
-- Enhanced git workflow documentation with improved commit guidelines
-- Updated safe workflow checklist to include CHANGELOG maintenance
-- Improved release process to incorporate CHANGELOG updates
+- Updated resource balance
+- Improved UI responsiveness
+- Enhanced core game loop
 
-## [0.1.0] - 2025-02-26
+### Fixed
+- Fixed resource calculation errors
+- Corrected timer synchronization issues
+
+## [1.1.0] - 2024-12-15
+
+### Added
+- Basic event system
+- Timer implementation for passive resource generation
+- Resource management UI
+
+### Changed
+- Improved click mechanics
+- Updated core game loop
+- Enhanced visual feedback
+
+### Fixed
+- Fixed resource rounding errors
+- Corrected click animation timing
+
+## [1.0.0] - 2024-12-01
 
 ### Added
 - Initial game implementation
-- Core resource management system
-- Building system with worker assignment
-- Four-stage progression system
-- Debug tools for development
-
-### Changed
-- Enhanced documentation standards
-- Improved UI responsiveness
-
-### Fixed
-- Console spam and offline progress errors
-- Resource upgrade calculation issues
-
+- Basic clicker mechanics
+- Core resource system
+- Minimal UI for resource display
+- Debug panel for development
