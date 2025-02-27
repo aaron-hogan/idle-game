@@ -197,15 +197,20 @@ export class TaskManager {
     try {
       switch (requirement.type) {
         case 'resource':
-          const resource = state.resources.resources[requirement.id];
+          // Use type assertion to safely access resources by string index
+          const resources = state.resources.resources as Record<string, {amount: number}>;
+          const resource = resources[requirement.id];
           return resource && resource.amount >= requirement.value;
           
         case 'structure':
-          const structure = state.structures.structures[requirement.id];
+          // Use type assertion to safely access structures by string index
+          const structures = state.structures.structures as Record<string, {level: number}>;
+          const structure = structures[requirement.id];
           return structure && structure.level >= requirement.value;
           
         case 'gameStage':
-          return state.game.stage >= requirement.value;
+          // Use currentStage instead of stage
+          return state.game.currentStage >= requirement.value;
           
         case 'taskCompleted':
           const task = state.tasks.tasks[requirement.id];
