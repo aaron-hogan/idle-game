@@ -1,7 +1,7 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { useMemo } from 'react';
 import type { RootState, AppDispatch } from './store';
-import { createMemoizedSelector } from '../redux/utils';
+import { createSelector } from '@reduxjs/toolkit';
 
 // Use throughout the app instead of plain `useDispatch` and `useSelector`
 export const useAppDispatch = () => useDispatch<AppDispatch>();
@@ -16,7 +16,10 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 export function useMemoSelector<T>(selector: (state: RootState) => T): T {
   // Create a memoized version of the selector
   const memoizedSelector = useMemo(
-    () => createMemoizedSelector(selector),
+    () => createSelector(
+      [(state: RootState) => state],
+      (state) => selector(state)
+    ),
     [selector]
   );
   
