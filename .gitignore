@@ -20,6 +20,11 @@ node_modules/
 !docs/processes/documentation/documentation-standards.md  # Documentation standards
 !docs/processes/feature-development-process.md  # Feature development guide
 
+# Example and template files
+examples-*.config.js  # Example configuration files
+examples-*.md         # Example documentation files
+src/*hello-world*     # Test files for versioning
+
 # AI Documentation - Not suitable for public repository
 *CLAUDE*                      # Claude AI-related files
 CLAUDE.md                     # Main Claude instructions file
