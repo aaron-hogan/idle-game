@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Added hello-world.ts with test for verifying the automated versioning process
+- Implemented basic tutorial and help system:
+  - Tutorial modals with step-by-step guidance for new players
+  - Contextual help tooltips for game elements
+  - Tutorial manager singleton for handling tutorial state
+  - Tutorial settings in the Settings page
+  - Redux state management for tutorial progress
+  - First-time user detection and welcome tutorial
 
 ## [0.5.0-3] - 2025-02-27
 

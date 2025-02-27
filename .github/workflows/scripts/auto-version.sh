@@ -143,4 +143,4 @@ Automatically versioned for PR #$PR_NUMBER: $PR_TITLE
 Version type: $PR_LABEL"
 
 echo "✅ Version bump successful"
-echo "::set-output name=new_version::$NEW_VERSION"
+echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT

@@ -1,5 +1,6 @@
 import React from 'react';
 import { SaveControls } from '../components/save';
+import { TutorialSettings } from '../components/tutorial';
 import './PageStyles.css';
 
 /**
@@ -67,6 +68,10 @@ const Settings: React.FC = () => {
           <div className="save-controls-container">
             <SaveControls />
           </div>
+        </div>
+        
+        <div className="settings-section">
+          <TutorialSettings />
         </div>
         
         <div className="settings-section">

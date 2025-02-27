@@ -30,6 +30,8 @@ import EventPanel from './events/EventPanel';
 import { initializeEventSystem } from '../systems/eventInitializer';
 import { TaskManager } from '../managers/TaskManager';
 import { ProgressionManager } from '../managers/progression/ProgressionManager';
+import { TutorialManager } from '../managers/TutorialManager';
+import { TutorialModal } from './tutorial';
 import './App.css';
 
 // Simple menu button component that shows save controls when clicked
@@ -125,6 +127,10 @@ const App: React.FC = () => {
     // This will be updated in a future PR to use the new pattern
     const progressionManager = ProgressionManager.getInstance();
     progressionManager.initialize(store);
+    
+    // Initialize tutorial manager with store - using dependency injection
+    const tutorialManager = TutorialManager.getInstance();
+    tutorialManager.initialize(store);
     
     // Initialize event system - this ensures all events are registered
     // and event manager is properly initialized
@@ -263,6 +269,9 @@ const App: React.FC = () => {
             
             {/* Event panel for displaying events */}
             <EventPanel />
+            
+            {/* Tutorial modal */}
+            <TutorialModal />
             
             {/* Game end modal */}
             <EndGameModal />
