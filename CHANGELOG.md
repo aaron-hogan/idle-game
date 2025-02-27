@@ -7,10 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+*No unreleased changes at this time.*
+
+## [0.5.6] - 2025-02-27
+
 ### Added
 - Retrospective incident report for process violation with improper direct merge
 - Documentation of process failure and preventative measures
-
 ## [0.5.5] - 2025-02-27
 
 ## [0.5.4] - 2025-02-27
