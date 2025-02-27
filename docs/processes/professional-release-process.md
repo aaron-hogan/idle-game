@@ -100,53 +100,36 @@ Once develop contains all desired features for a release:
    # Interactive mode (with prompts)
    npm run release
    
-   # Non-interactive mode with automatic version selection
+   # Non-interactive mode with version selection
    npm run release:minor    # For minor version bump
    npm run release:patch    # For patch version bump
    npm run release:major    # For major version bump
-   
-   # For complete control with non-interactive automation
-   ./scripts/create-release.sh --minor --non-interactive --force
-   
-   # Custom version with all automation
-   ./scripts/create-release.sh --version 1.2.3 --non-interactive --force
    ```
 
    > **For AI Assistants**: Always use non-interactive mode with explicit version selection
 
-2. **Verify changelog and final testing**
-   - Ensure all changes are properly documented
-   - Perform final testing on the release branch
-   - Fix any issues found directly on release branch
+   The script will:
+   - Create a release branch
+   - Push it to GitHub
+   - Create a PR to main with the appropriate version label
+   - The version label (e.g., `version:minor`) tells GitHub Actions what version bump to perform
 
-3. **Create PRs from release branch**
-   > Note: When using `--non-interactive` flag, PRs are created automatically 
-   
-   - Manual PR creation to develop (to bring fixes back to develop)
-   ```bash
-   .github/scripts/create-pr.sh --base develop --title "chore: update develop with version changes"
-   ```
-   
-   - Manual PR creation to main (for actual release)
-   ```bash
-   .github/scripts/create-pr.sh --base main --title "chore(release): X.Y.Z"
-   ```
+2. **Review and finalize the PR**
+   - Check that the PR has the correct version label
+   - Verify all tests pass and CI checks succeed
+   - Make any final adjustments if needed
 
-4. **Merge PRs in order**
-   - First, merge the PR to develop
+3. **Merge the PR to main**
    ```bash
    .github/scripts/merge-pr.sh <PR_NUMBER> --yes
    ```
-   
-   - Then, merge the PR to main
-   ```bash
-   .github/scripts/merge-pr.sh <PR_NUMBER> --yes
-   ```
-   
-   - If there are conflicts:
-   ```bash
-   .github/scripts/merge-pr.sh <PR_NUMBER> --yes --resolve-conflicts
-   ```
+
+4. **GitHub Actions will automatically:**
+   - Detect the version label on the PR
+   - Apply the appropriate version bump to package.json
+   - Update CHANGELOG.md with proper formatting
+   - Create a git tag for the release
+   - Generate release notes from conventional commits
 
 5. **Verify branches are in sync**
    - Ensure main and develop branches are synchronized
@@ -156,6 +139,15 @@ Once develop contains all desired features for a release:
    git checkout develop
    git pull
    git log --oneline --left-right main...develop
+   ```
+
+   If main and develop are not in sync, create a sync PR:
+   ```bash
+   git checkout main
+   git pull
+   git checkout -b sync/main-to-develop
+   git push -u origin sync/main-to-develop
+   gh pr create --base develop --title "chore: sync main to develop"
    ```
 
 ### Hotfix Process
@@ -169,33 +161,50 @@ For urgent fixes to production code:
    
    # Non-interactive mode 
    ./scripts/create-hotfix.sh --description login-timeout --non-interactive
-   
-   # Fully automated with PR creation
-   ./scripts/create-hotfix.sh -d database-connection --non-interactive --create-prs
    ```
 
    > **For AI Assistants**: Always use non-interactive mode with explicit description
 
 2. **Implement and test fix**
    ```bash
+   git add .
    git commit -m "fix: resolve critical issue"
+   git push
    ```
 
-3. **Create two PRs** (skip if using --create-prs option)
-   - PR to main (for immediate fix)
+3. **Create two PRs**
+   - PR to main (with version:patch label)
    ```bash
-   .github/scripts/create-pr.sh --base main --title "fix: critical issue fix"
+   gh pr create --base main --title "fix: critical issue fix" \
+     --body "## Description
+This PR fixes an urgent issue.
+
+## Testing
+- Tested fix in isolation
+- Verified issue resolution"
+   ```
+   
+   - Add the version:patch label
+   ```bash
+   gh pr edit <PR_NUMBER> --add-label "version:patch"
    ```
    
    - PR to develop (to keep branches in sync)
    ```bash
-   .github/scripts/create-pr.sh --base develop --title "fix: critical issue fix"
+   gh pr create --base develop --title "fix: critical issue fix (sync)" \
+     --body "## Description
+This PR syncs the hotfix from main to develop.
+
+## Testing
+- Already tested in the main branch PR"
    ```
 
-4. **After merge to main**
-   - Automated release is triggered
-   - Patch version is incremented
-   - Release notes are generated
+4. **After merging to main, GitHub Actions will automatically:**
+   - Detect the version:patch label
+   - Apply a patch version bump
+   - Update CHANGELOG.md with the new version and date
+   - Create a git tag for the release
+   - Generate release notes
 
 ## Automation Tools
 
@@ -276,6 +285,26 @@ Here's an example of a complete release workflow:
    # Should show no differences
    ```
 
+## GitHub Actions Workflow Integration
+
+Our release process is optimized to work with GitHub Actions, distributing responsibilities between local scripts and remote automation.
+
+### Workflow Division of Labor
+
+1. **Local Scripts (Branch Creation)**
+   - Create feature, release, and hotfix branches
+   - Validate changelog contents
+   - Create appropriately labeled PRs
+   - Provide a standardized process to follow
+
+2. **GitHub Actions (Versioning & Release)**
+   - Detect version labels on PRs (`version:major`, `version:minor`, `version:patch`, `version:patch_level`)
+   - Automatically bump versions and update CHANGELOG.md
+   - Create Git tags and GitHub releases
+   - Generate release notes from conventional commits
+
+This division ensures that local scripts remain simple while leveraging GitHub's automation capabilities.
+
 ## Non-Interactive Mode for Automation & AI Assistants
 
 This section is particularly important for automation tools and AI assistants that need to operate without human interaction.
@@ -287,35 +316,33 @@ When creating releases or hotfixes as an AI assistant:
 1. **Always use non-interactive mode**
    ```bash
    # For creating releases (select appropriate version type)
-   ./scripts/create-release.sh --minor --non-interactive --force
+   ./scripts/create-release.sh --minor --non-interactive
    
    # For creating hotfixes
    ./scripts/create-hotfix.sh -d brief-description --non-interactive
    ```
 
 2. **Use explicit versioning options**
-   - Always specify the version type (--major, --minor, --patch) or exact version (--version X.Y.Z)
+   - Always specify the version type (--major, --minor, --patch, --patch-level)
    - When in doubt, default to --patch for the safest option
+   - The actual versioning will be handled by GitHub Actions when the PR is merged
 
-3. **Use the --force flag for releases**
-   - This prevents script failure when there's uncertainty about changelog contents
-   - Avoids any prompt that would block automation
-
-4. **Recommend PR creation strategies**
-   - For releases, let the script automatically create PRs when using non-interactive mode
-   - For hotfixes, use the --create-prs flag to automate the entire process
+3. **Pay attention to PR labels**
+   - The scripts automatically add version labels to PRs (e.g., `version:minor`)
+   - These labels tell GitHub Actions what type of version bump to perform
+   - The version bump happens automatically when the PR is merged to main
 
 ### Common AI Assistant Tasks (One-liners)
 
 ```bash
-# Create minor release with all automation
-./scripts/create-release.sh --minor --non-interactive --force
+# Create minor release with non-interactive mode
+./scripts/create-release.sh --minor --non-interactive
 
-# Create patch release with all automation
-./scripts/create-release.sh --patch --non-interactive --force
+# Create patch release with non-interactive mode
+./scripts/create-release.sh --patch --non-interactive
 
-# Create hotfix with automatic PR creation
-./scripts/create-hotfix.sh -d concise-description --non-interactive --create-prs
+# Create hotfix with non-interactive mode
+./scripts/create-hotfix.sh -d concise-description --non-interactive
 
 # Check sync status between branches
 git checkout main && git pull && git checkout develop && git pull && git log --oneline --left-right main...develop

@@ -1,5 +1,6 @@
 #!/bin/bash
 # Script to create a new hotfix branch from main
+# Works with GitHub-based versioning on merge
 # Supports both interactive and non-interactive modes for automation
 
 set -e
@@ -7,7 +8,7 @@ set -e
 # Default settings
 NON_INTERACTIVE=false
 HOTFIX_DESC=""
-CREATE_PRS=false
+LABEL_PR=true
 
 # Parse command line arguments
 while [[ $# -gt 0 ]]; do
@@ -20,8 +21,8 @@ while [[ $# -gt 0 ]]; do
       NON_INTERACTIVE=true
       shift
       ;;
-    --create-prs)
-      CREATE_PRS=true
+    --no-label)
+      LABEL_PR=false
       shift
       ;;
     --help|-h)
@@ -32,13 +33,15 @@ while [[ $# -gt 0 ]]; do
       echo "Options:"
       echo "  --description, -d DESC   Brief description of the hotfix (required for non-interactive mode)"
       echo "  --non-interactive        Run in non-interactive mode (requires --description)"
-      echo "  --create-prs             Automatically create PRs to main and develop"
+      echo "  --no-label               Skip labeling PR with version:patch"
       echo "  --help, -h               Display this help message"
       echo ""
       echo "Examples:"
       echo "  $0                       # Interactive mode"
       echo "  $0 --description login-timeout  # Create hotfix branch with description"
-      echo "  $0 -d auth-fix --non-interactive --create-prs  # Fully automated"
+      echo "  $0 -d auth-fix --non-interactive  # Fully automated"
+      echo ""
+      echo "Note: Actual versioning occurs through GitHub Actions on PR merge."
       exit 0
       ;;
     *)
@@ -93,62 +96,24 @@ BRANCH_NAME="hotfix/$HOTFIX_DESC"
 git checkout -b $BRANCH_NAME
 
 echo "🔧 Hotfix branch $BRANCH_NAME created"
+echo "⬆️ Pushing hotfix branch to remote..."
+git push -u origin $BRANCH_NAME
 
-# If --create-prs option is used and there are already changes (for automation)
-if [ "$CREATE_PRS" = true ]; then
-  # First, check if there are changes to commit
-  if git diff-index --quiet HEAD --; then
-    echo "ℹ️ No changes to commit yet. PRs will need to be created manually after making changes."
-  else
-    # Commit changes with generic message
-    echo "💾 Committing changes..."
-    git add .
-    git commit -m "fix: hotfix for $HOTFIX_DESC issue"
-    
-    # Push branch
-    echo "⬆️ Pushing hotfix branch to remote..."
-    git push -u origin $BRANCH_NAME
-    
-    # Create PRs
-    echo "🔄 Creating pull requests automatically..."
-    
-    # PR to main
-    PR_MAIN_URL=$(gh pr create --base main --title "fix: $HOTFIX_DESC" \
-      --body "## Description
-This PR fixes an urgent issue: $HOTFIX_DESC
-
-## Testing
-- Tested fix in isolation
-- Verified issue resolution")
-    
-    # Checkout develop to create PR
-    git checkout develop
-    git pull origin develop
-    git checkout -b sync/hotfix-$HOTFIX_DESC develop
-    git merge --no-ff $BRANCH_NAME -m "fix: sync hotfix for $HOTFIX_DESC"
-    git push -u origin sync/hotfix-$HOTFIX_DESC
-    
-    # PR to develop
-    PR_DEVELOP_URL=$(gh pr create --base develop --title "fix: $HOTFIX_DESC (sync from hotfix)" \
-      --body "## Description
-This PR syncs the hotfix for $HOTFIX_DESC from main to develop.
-
-## Testing
-- Already tested in the main branch PR")
-    
-    echo "✅ Pull requests created:"
-    echo "- Main PR: $PR_MAIN_URL"
-    echo "- Develop PR: $PR_DEVELOP_URL"
-    
-    # Return to hotfix branch
-    git checkout $BRANCH_NAME
-  fi
-else
-  echo ""
-  echo "Next steps:"
-  echo "1. Fix the issue with conventional commits (e.g., 'fix: login timeout issue')"
-  echo "2. Create PRs to both main AND develop branches"
-  echo "3. When merged to main, semantic-release will automatically create a patch version"
-fi
-
+# Create PR to main with version label
+echo "ℹ️ You'll need to implement your hotfix and then create PRs."
+echo ""
+echo "Once your fix is implemented and committed, create PRs with:"
+echo ""
+echo "# PR to main (with version:patch label)"
+echo "gh pr create --base main --title \"fix: $HOTFIX_DESC\" \\"
+echo "  --body \"## Description\\nThis PR fixes an urgent issue: $HOTFIX_DESC\\n\\n## Testing\\n- Tested fix in isolation\\n- Verified issue resolution\""
+echo ""
+echo "# PR to develop (to keep branches in sync)"
+echo "gh pr create --base develop --title \"fix: $HOTFIX_DESC (sync from hotfix)\" \\"
+echo "  --body \"## Description\\nThis PR syncs the hotfix for $HOTFIX_DESC from main to develop.\\n\\n## Testing\\n- Already tested in the main branch PR\""
+echo ""
+echo "When merged to main, GitHub Actions will:"
+echo "- Automatically apply a patch version bump"
+echo "- Update the CHANGELOG.md with the new version and date"
+echo "- Create a tag for the release"
 echo ""

@@ -17,6 +17,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Updated release process documentation with automation guidelines
 - Added specific automation instructions for AI assistants
+- Optimized scripts to better integrate with GitHub Actions workflows
+- Refactored release and hotfix scripts to defer versioning to GitHub Actions
+- Improved PR labeling for version type detection
+- Simplified workflow with clearer division between local and remote responsibilities
 
 ## [0.5.0-4] - 2025-02-27
 
