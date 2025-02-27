@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Refactored ResourceManager and BuildingManager to use dependency injection
 - Updated App initialization to support both direct store and dependency injection
 - Improved type safety of manager classes with proper interfaces and type imports
+- Enhanced .gitignore to exclude logs, environment files, editor artifacts, and secrets
 
 ### Fixed
 - Fixed TypeError in GameLoop by adding support for flat resource structure in gameEndConditions.ts
