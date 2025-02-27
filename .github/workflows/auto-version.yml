@@ -107,7 +107,7 @@ jobs:
       - name: Generate validation summary
         id: validation
         run: |
-          echo "::set-output name=status::ready"
+          echo "status=ready" >> $GITHUB_OUTPUT
           echo "✅ PR is ready for versioning"
           echo "Version label: ${{ needs.check-version-label.outputs.version-label }}"
 
