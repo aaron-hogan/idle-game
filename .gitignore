@@ -21,18 +21,21 @@ node_modules/
 !docs/processes/feature-development-process.md  # Feature development guide
 
 # AI Documentation - Not suitable for public repository
-*CLAUDE*              # Claude AI-related files
-CLAUDE.md             # Main Claude instructions file
-*claude*              # Lowercase variations
-*ai-*                 # AI prefixed files
-*AI-*                 # Uppercase AI prefixed
-*/ai/*                # AI subdirectories
-*/_claude/*           # Claude subdirectories with underscore prefix
-*/_ai/*               # AI subdirectories with underscore prefix
-*prompt*              # Prompt-related files
-*/claude/*            # Claude subdirectories
-*/prompts/*           # Prompt directories
-!docs/git_exceptions.md  # Exception log is allowed
+*CLAUDE*                      # Claude AI-related files
+CLAUDE.md                     # Main Claude instructions file
+*claude*                      # Lowercase variations
+*ai-*                         # AI prefixed files
+*AI-*                         # Uppercase AI prefixed
+*/ai/*                        # AI subdirectories
+*/_claude/*                   # Claude subdirectories with underscore prefix
+*/_ai/*                       # AI subdirectories with underscore prefix
+*prompt*                      # Prompt-related files
+*/claude/*                    # Claude subdirectories
+*/prompts/*                   # Prompt directories
+docs/processes/claude-*       # Claude-related docs in processes directory
+docs/processes/*/claude-*     # Claude-related docs in processes subdirectories
+docs/processes/*/*/claude-*   # Claude-related docs in deeper process subdirectories
+!docs/git_exceptions.md       # Exception log is allowed
 
 # Miscellaneous
 .DS_Store             # macOS folder attributes
