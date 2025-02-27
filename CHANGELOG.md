@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added prepare-for-main.sh script to automate branch preparation for PRs
 - Added sync-feature-todos.sh script to automate todo synchronization
 - Added comprehensive documentation for automation scripts
+- Added resolving-merge-conflicts.md with guidelines and case studies
 
 ### Changed
 - Enhanced .gitignore with better comments and organization
