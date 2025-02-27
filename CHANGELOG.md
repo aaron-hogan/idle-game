@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Created reusable selector utilities in redux/utils.ts
 - Fixed infinite update loop in MilestoneProgressStrip component by properly handling dependency arrays in useEffect hooks and memoizing values
 - Fixed EventPanel selector warning by implementing proper memoization with createSelector
+- Removed misleading "TaskManager already initialized" warning, as multiple initialization attempts are expected with the singleton pattern
 - Fixed entire test suite to bring all tests to passing status
   - Fixed GameManager tests with proper mocking of setTotalPlayTime
   - Added null safety checks in gameLoop.ts for tickInterval
