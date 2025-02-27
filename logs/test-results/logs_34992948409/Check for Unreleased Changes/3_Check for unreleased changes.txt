@@ -1,0 +1,62 @@
+﻿2025-02-27T19:34:02.0899473Z ##[group]Run # Verify CHANGELOG.md exists
+2025-02-27T19:34:02.0900540Z [36;1m# Verify CHANGELOG.md exists[0m
+2025-02-27T19:34:02.0901618Z [36;1mif [ ! -f "CHANGELOG.md" ]; then[0m
+2025-02-27T19:34:02.0902525Z [36;1m  echo "::error::CHANGELOG.md not found"[0m
+2025-02-27T19:34:02.0903400Z [36;1m  exit 1[0m
+2025-02-27T19:34:02.0903913Z [36;1mfi[0m
+2025-02-27T19:34:02.0904372Z [36;1m[0m
+2025-02-27T19:34:02.0905094Z [36;1m# Check if there are unreleased changes in the changelog[0m
+2025-02-27T19:34:02.0906297Z [36;1mif ! grep -q "## \[Unreleased\]" CHANGELOG.md; then[0m
+2025-02-27T19:34:02.0907590Z [36;1m  echo "::error::CHANGELOG.md does not have an [Unreleased] section"[0m
+2025-02-27T19:34:02.0908700Z [36;1m  exit 1[0m
+2025-02-27T19:34:02.0909198Z [36;1mfi[0m
+2025-02-27T19:34:02.0909651Z [36;1m[0m
+2025-02-27T19:34:02.0910201Z [36;1m# Get content under Unreleased section[0m
+2025-02-27T19:34:02.0912113Z [36;1mUNRELEASED_CONTENT=$(sed -n '/## \[Unreleased\]/,/## \[/p' CHANGELOG.md | grep -v "## \[" | grep -v "^$" | wc -l | tr -d ' ')[0m
+2025-02-27T19:34:02.0913734Z [36;1m[0m
+2025-02-27T19:34:02.0914291Z [36;1mif [ "$UNRELEASED_CONTENT" -eq 0 ]; then[0m
+2025-02-27T19:34:02.0915940Z [36;1m  echo "::warning::No unreleased changes found in CHANGELOG.md. Are you sure you want to create a new version?"[0m
+2025-02-27T19:34:02.0917741Z [36;1melse[0m
+2025-02-27T19:34:02.0918447Z [36;1m  echo "✅ Found unreleased changes in CHANGELOG.md"[0m
+2025-02-27T19:34:02.0919445Z [36;1m  echo "Unreleased changes:"[0m
+2025-02-27T19:34:02.0920616Z [36;1m  sed -n '/## \[Unreleased\]/,/## \[/p' CHANGELOG.md | grep -v "## \[" | grep -v "^$"[0m
+2025-02-27T19:34:02.0921950Z [36;1mfi[0m
+2025-02-27T19:34:02.0972023Z shell: /usr/bin/bash -e {0}
+2025-02-27T19:34:02.0972732Z ##[endgroup]
+2025-02-27T19:34:02.1105120Z ✅ Found unreleased changes in CHANGELOG.md
+2025-02-27T19:34:02.1106567Z Unreleased changes:
+2025-02-27T19:34:02.1130600Z ### Added
+2025-02-27T19:34:02.1132470Z - Enhanced README.md with additional development commands for linting and type checking
+2025-02-27T19:34:02.1135802Z - Added detailed documentation for PR validation workflow improvements and case-sensitivity fix
+2025-02-27T19:34:02.1138481Z - Non-interactive mode for release and hotfix scripts
+2025-02-27T19:34:02.1140430Z - Command-line parameters for fully automated versioning 
+2025-02-27T19:34:02.1142781Z - AI-friendly automation options to avoid prompt interruptions
+2025-02-27T19:34:02.1145007Z - Enhanced documentation for non-interactive script usage
+2025-02-27T19:34:02.1147201Z - Package.json convenience scripts for common automation tasks
+2025-02-27T19:34:02.1149468Z - New AI-optimized Git scripts with token-efficient JSON output:
+2025-02-27T19:34:02.1151549Z   - `.github/scripts/ai/branch.sh` - Token-efficient branch creation
+2025-02-27T19:34:02.1152885Z   - `.github/scripts/ai/pr.sh` - Token-efficient PR creation 
+2025-02-27T19:34:02.1154209Z   - `.github/scripts/ai/check.sh` - Token-efficient PR status checking
+2025-02-27T19:34:02.1155588Z   - `.github/scripts/ai/merge.sh` - Token-efficient PR merging
+2025-02-27T19:34:02.1156840Z - Documentation for token-efficient Git workflow in CLAUDE.md
+2025-02-27T19:34:02.1158274Z - Updated GitHub process documentation to match current automated workflows
+2025-02-27T19:34:02.1159893Z - Improved instructions for AI assistants when working with PRs and versioning
+2025-02-27T19:34:02.1161373Z ### Changed
+2025-02-27T19:34:02.1162165Z - Updated release process documentation with automation guidelines
+2025-02-27T19:34:02.1163428Z - Added specific automation instructions for AI assistants
+2025-02-27T19:34:02.1164707Z - Optimized scripts to better integrate with GitHub Actions workflows
+2025-02-27T19:34:02.1166195Z - Refactored release and hotfix scripts to defer versioning to GitHub Actions
+2025-02-27T19:34:02.1167487Z - Improved PR labeling for version type detection
+2025-02-27T19:34:02.1168865Z - Simplified workflow with clearer division between local and remote responsibilities
+2025-02-27T19:34:02.1171700Z - Simplified versioning-and-releases.md to focus on the current automated process
+2025-02-27T19:34:02.1173394Z - Updated PR workflow to include version labels and changelog instructions
+2025-02-27T19:34:02.1174710Z - Modernized CLAUDE.md instructions for GitHub workflows
+2025-02-27T19:34:02.1175621Z ### Fixed
+2025-02-27T19:34:02.1176733Z - Fixed YAML syntax issue in PR validation workflow by completely redesigning the workflow structure
+2025-02-27T19:34:02.1178477Z - Removed redundant changelog check workflow to prevent duplication
+2025-02-27T19:34:02.1179956Z - Fixed regex patterns in PR validation workflow to use more compatible syntax
+2025-02-27T19:34:02.1181868Z - Made PR title validation case-insensitive to accept both "fix:" and "Fix:" format
+2025-02-27T19:34:02.1183407Z - Fixed GitHub Actions workflow permission issue for auto-versioning
+2025-02-27T19:34:02.1184448Z ### Removed
+2025-02-27T19:34:02.1185020Z - Legacy example semantic-release configuration
+2025-02-27T19:34:02.1185991Z - Outdated references to non-existent GitHub scripts

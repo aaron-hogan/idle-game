@@ -1,6 +1,6 @@
 import { Store } from '@reduxjs/toolkit';
 import { tutorialContent, contextualHelpContent } from '../data/tutorialContent';
-import { AppState } from '../state/store';
+import { RootState } from '../state/store';
 import { 
   completeTutorial, 
   setActiveTutorial, 
@@ -16,7 +16,7 @@ import { TutorialContextHelp, TutorialStep } from '../types/tutorial';
  */
 export class TutorialManager {
   private static instance: TutorialManager;
-  private store: Store | null = null;
+  private store: Store<RootState> | null = null;
 
   private constructor() {
     // Private constructor for singleton
@@ -35,7 +35,7 @@ export class TutorialManager {
   /**
    * Initialize the tutorial manager with the Redux store
    */
-  public initialize(store: Store): void {
+  public initialize(store: Store<RootState>): void {
     this.store = store;
     this.checkFirstTimeUser();
   }

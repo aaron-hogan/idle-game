@@ -160,6 +160,15 @@ describe('Redux selectors', () => {
         'LATE': null,
         'END_GAME': null
       }
+    },
+    tutorial: {
+      currentStep: null,
+      completed: [],
+      dismissed: [],
+      settings: {
+        enabled: true,
+        showContextualHelp: true
+      }
     }
   } as RootState;
 
