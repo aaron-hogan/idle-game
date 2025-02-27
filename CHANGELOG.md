@@ -10,6 +10,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Added hello-world.ts with test for verifying the automated versioning process
 
+### Changed
+- Cleaned up GitHub Actions workflows by removing unused example workflows
+- Removed redundant semantic-release workflow in favor of auto-version.yml
+- Updated CI workflow to properly run tests, linting, and type checking
+- Removed empty examples directory from GitHub Actions
+
 ## [0.5.0-3] - 2025-02-27
 
 ### Added

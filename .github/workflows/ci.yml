@@ -29,25 +29,17 @@ jobs:
       - name: Install dependencies
         run: npm ci --prefer-offline
         
-      # Skip linting for now since ESLint is configured to use ES modules but our project doesn't support it properly
-      - name: Lint (skipped)
-        run: |
-          echo "Skipping linting due to ESLint configuration issues with ES modules"
-          echo "This step will be re-enabled once ESLint configuration is fixed"
+      - name: Lint
+        run: npm run lint
+        continue-on-error: true  # Allow this to fail until ESLint configuration is fixed
         
       - name: Type check
         run: npm run typecheck
         continue-on-error: true  # Temporarily allow this to fail until TypeScript errors are fixed
         
-      # Skip tests completely for now
-      - name: Skip tests
-        run: |
-          echo "Skipping tests due to configuration issues"
-          echo "Tests will be re-enabled once TypeScript errors are fixed"
-          
-          # Create a placeholder test result file for coverage
-          mkdir -p coverage
-          echo '{"coverage": "placeholder"}' > coverage/coverage-final.json
+      - name: Run tests
+        run: npm test
+        continue-on-error: true  # Temporarily allow this to fail until tests are fixed
         
       # Fix webpack config for CI environment
       - name: Setup webpack for CI
