@@ -5,11 +5,14 @@
 import { Store } from '@reduxjs/toolkit';
 import { RootState } from '../state/store';
 import { saveGame, loadGame, SaveData, deleteSave, restoreFromBackup } from '../utils/saveUtils';
-import { resetGame } from '../state/gameSlice';
-import { resetResources } from '../state/resourcesSlice';
-import { resetStructures } from '../state/structuresSlice';
 import { ErrorLogger, invariant } from '../utils/errorUtils';
 import { safeJsonParse } from '../utils/validationUtils';
+
+// Import only the types needed for dependency injection
+import type { AppDispatch } from '../state/store';
+import type { resetGame } from '../state/gameSlice';
+import type { resetResources } from '../state/resourcesSlice';
+import type { resetStructures } from '../state/structuresSlice';
 
 /**
  * SaveManager configuration options
@@ -21,6 +24,21 @@ export interface SaveManagerConfig {
   autosaveEnabled: boolean;
   /** Maximum number of backups to keep (default: 5) */
   maxBackups: number;
+}
+
+/**
+ * Dependencies needed by SaveManager
+ */
+export interface SaveManagerDependencies {
+  dispatch: AppDispatch;
+  getState: () => RootState;
+  actions: {
+    resetGame: typeof resetGame;
+    resetResources: typeof resetResources;
+    resetStructures: typeof resetStructures;
+    // Add any other actions used by SaveManager
+  };
+  config?: Partial<SaveManagerConfig>;
 }
 
 /**
@@ -37,32 +55,63 @@ const DEFAULT_CONFIG: SaveManagerConfig = {
  */
 export class SaveManager {
   private static instance: SaveManager | null = null;
-  private store: Store | null = null;
+  private dispatch: AppDispatch;
+  private getState: () => RootState;
+  private actions: SaveManagerDependencies['actions'];
   private config: SaveManagerConfig;
   private autosaveIntervalId: number | null = null;
   private logger = ErrorLogger.getInstance();
+  private initialized = false;
 
   /**
-   * Private constructor for singleton pattern
-   * @param store Redux store (optional)
-   * @param config Configuration options (optional)
+   * Constructor that accepts dependencies
+   * @param dependencies The dependencies needed by SaveManager
    */
-  private constructor(store?: Store, config: Partial<SaveManagerConfig> = {}) {
-    this.config = { ...DEFAULT_CONFIG, ...config };
+  constructor(dependencies: SaveManagerDependencies) {
+    this.dispatch = dependencies.dispatch;
+    this.getState = dependencies.getState;
+    this.actions = dependencies.actions;
+    this.config = { ...DEFAULT_CONFIG, ...(dependencies.config || {}) };
+    this.initialized = true;
     
-    if (store) {
-      this.initialize(store, config);
+    // Only start autosave if explicitly enabled
+    if (this.config.autosaveEnabled) {
+      this.startAutosave();
     }
   }
 
   /**
-   * Get the singleton instance of SaveManager
+   * Get or create the singleton instance of SaveManager
+   * @param dependenciesOrStore The dependencies needed by SaveManager or store for backward compatibility
    * @returns The singleton SaveManager instance
    */
-  public static getInstance(): SaveManager {
+  public static getInstance(dependenciesOrStore?: SaveManagerDependencies | any): SaveManager {
     if (!SaveManager.instance) {
-      SaveManager.instance = new SaveManager();
+      if (!dependenciesOrStore) {
+        // Create instance without dependencies, initialize() will be called later
+        SaveManager.instance = new SaveManager({
+          dispatch: (() => {}) as any, // Placeholder
+          getState: (() => ({})) as any, // Placeholder
+          actions: {} as any // Placeholder
+        });
+      } else if ('dispatch' in dependenciesOrStore && 'getState' in dependenciesOrStore && 'actions' in dependenciesOrStore) {
+        // If full dependencies are provided
+        SaveManager.instance = new SaveManager(dependenciesOrStore as SaveManagerDependencies);
+      } else {
+        // If a store is provided (backward compatibility)
+        const instance = new SaveManager({
+          dispatch: (() => {}) as any, // Placeholder
+          getState: (() => ({})) as any, // Placeholder  
+          actions: {} as any // Placeholder
+        });
+        instance.initialize(dependenciesOrStore);
+        SaveManager.instance = instance;
+      }
+    } else if (dependenciesOrStore && !('dispatch' in dependenciesOrStore && 'getState' in dependenciesOrStore && 'actions' in dependenciesOrStore)) {
+      // If instance exists and a store is provided, initialize with it (backward compatibility)
+      SaveManager.instance.initialize(dependenciesOrStore);
     }
+    
     return SaveManager.instance;
   }
 
@@ -70,15 +119,36 @@ export class SaveManager {
    * Initialize the manager with a Redux store and optional configuration
    * @param store The Redux store
    * @param config Optional configuration parameters
+   * @deprecated Use dependency injection through constructor instead
    */
   public initialize(store: Store, config: Partial<SaveManagerConfig> = {}): void {
-    this.store = store;
-    this.setConfig(config);
-    
-    // Only start autosave if explicitly enabled
-    if (this.config.autosaveEnabled) {
-      this.startAutosave();
+    // Check if already initialized properly
+    try {
+      this.ensureInitialized();
+      
+      // Just update config if already initialized
+      this.setConfig(config);
+      return;
+    } catch (e) {
+      // Continue with initialization
     }
+    
+    // Import necessary action creators
+    const gameActions = require('../state/gameSlice');
+    const resourcesActions = require('../state/resourcesSlice');
+    const structuresActions = require('../state/structuresSlice');
+    
+    // Set up dependencies from store
+    this.dispatch = store.dispatch;
+    this.getState = store.getState;
+    this.actions = {
+      resetGame: gameActions.resetGame,
+      resetResources: resourcesActions.resetResources,
+      resetStructures: structuresActions.resetStructures,
+    };
+    
+    this.setConfig(config);
+    this.initialized = true;
   }
   
   /**
@@ -87,8 +157,8 @@ export class SaveManager {
    */
   private ensureInitialized(): void {
     invariant(
-      this.store !== null,
-      'SaveManager not properly initialized with Redux store',
+      this.initialized && this.dispatch !== undefined && this.getState !== undefined && this.actions !== undefined,
+      'SaveManager not properly initialized with dependencies',
       'SaveManager'
     );
   }
@@ -100,12 +170,12 @@ export class SaveManager {
     this.ensureInitialized();
     
     try {
-      const state = this.store!.getState() as RootState;
+      const state = this.getState();
       const saved = saveGame(state, this.config.maxBackups);
       
       if (saved) {
         // Update last save time in the store
-        this.store!.dispatch({ type: 'game/updateLastSaveTime' });
+        this.dispatch({ type: 'game/updateLastSaveTime' });
       }
       
       return saved;
@@ -146,9 +216,9 @@ export class SaveManager {
   resetGame(): void {
     this.ensureInitialized();
     
-    this.store!.dispatch(resetGame());
-    this.store!.dispatch(resetResources());
-    this.store!.dispatch(resetStructures());
+    this.dispatch(this.actions.resetGame());
+    this.dispatch(this.actions.resetResources());
+    this.dispatch(this.actions.resetStructures());
   }
 
   /**
@@ -294,31 +364,31 @@ export class SaveManager {
         } = saveData.state.game;
 
         if (gameStage !== undefined) {
-          this.store!.dispatch({ type: 'game/setGameStage', payload: gameStage });
+          this.dispatch({ type: 'game/setGameStage', payload: gameStage });
         }
         if (totalPlayTime !== undefined) {
-          this.store!.dispatch({ type: 'game/setTotalPlayTime', payload: totalPlayTime });
+          this.dispatch({ type: 'game/setTotalPlayTime', payload: totalPlayTime });
         }
         if (isRunning !== undefined) {
-          this.store!.dispatch({ 
+          this.dispatch({ 
             type: isRunning ? 'game/startGame' : 'game/stopGame' 
           });
         }
         if (tickRate !== undefined) {
-          this.store!.dispatch({ type: 'game/setTickRate', payload: tickRate });
+          this.dispatch({ type: 'game/setTickRate', payload: tickRate });
         }
         if (gameTimeScale !== undefined) {
-          this.store!.dispatch({ type: 'game/setGameTimeScale', payload: gameTimeScale });
+          this.dispatch({ type: 'game/setGameTimeScale', payload: gameTimeScale });
         }
         // Update last save time last
-        this.store!.dispatch({ type: 'game/updateLastSaveTime' });
+        this.dispatch({ type: 'game/updateLastSaveTime' });
       }
 
       // Load resources
       if (saveData.state.resources) {
         const resources = saveData.state.resources;
         Object.values(resources).forEach(resource => {
-          this.store!.dispatch({ type: 'resources/addResource', payload: resource });
+          this.dispatch({ type: 'resources/addResource', payload: resource });
         });
       }
 
@@ -326,7 +396,7 @@ export class SaveManager {
       if (saveData.state.structures) {
         const structures = saveData.state.structures;
         Object.values(structures).forEach(structure => {
-          this.store!.dispatch({ type: 'structures/addStructure', payload: structure });
+          this.dispatch({ type: 'structures/addStructure', payload: structure });
         });
       }
     } catch (error) {

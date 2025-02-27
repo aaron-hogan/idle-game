@@ -27,7 +27,7 @@ import Settings from '../pages/Settings';
 
 import { SaveControls } from './save';
 import EventPanel from './events/EventPanel';
-import { initializeEventSystem } from '../systems/eventInitializer';
+//import { initializeEventSystem } from '../systems/eventInitializer';
 import { TaskManager } from '../managers/TaskManager';
 import { ProgressionManager } from '../managers/progression/ProgressionManager';
 import './App.css';
@@ -126,8 +126,59 @@ const App: React.FC = () => {
     const progressionManager = ProgressionManager.getInstance();
     progressionManager.initialize(store);
     
-    // Initialize event system
-    initializeEventSystem();
+    // Import required action creators for event manager
+    const eventActions = require('../state/eventsSlice');
+    
+    // Initialize event manager with dependencies
+    const eventManager = require('../systems/eventManager').EventManager.getInstance({
+      dispatch: store.dispatch,
+      getState: store.getState,
+      actions: {
+        addEvent: eventActions.addEvent,
+        addEvents: eventActions.addEvents,
+        triggerEvent: eventActions.triggerEvent,
+        resolveEvent: eventActions.resolveEvent,
+        updateEvent: eventActions.updateEvent
+      }
+    });
+    
+    // Register with GameLoop for periodic event checks
+    const gameLoop = GameLoop.getInstance();
+    gameLoop.registerCallback('eventManager', () => eventManager.processEvents());
+
+    // Import required action creators for save manager
+    const gameActions = require('../state/gameSlice');
+    const resourcesActions = require('../state/resourcesSlice');
+    const structuresActions = require('../state/structuresSlice');
+    
+    // Initialize save manager with dependencies
+    const saveManager = require('../systems/saveManager').SaveManager.getInstance({
+      dispatch: store.dispatch,
+      getState: store.getState,
+      actions: {
+        resetGame: gameActions.resetGame,
+        resetResources: resourcesActions.resetResources,
+        resetStructures: structuresActions.resetStructures
+      },
+      config: {
+        autosaveInterval: 60000, // 1 minute
+        autosaveEnabled: true,
+        maxBackups: 5
+      }
+    });
+    
+    // Import required action creators for worker manager
+    const structureActions = require('../state/structuresSlice');
+    
+    // Initialize worker manager with dependencies
+    const workerManager = require('../systems/workerManager').WorkerManager.getInstance({
+      dispatch: store.dispatch,
+      getState: store.getState,
+      actions: {
+        assignWorkers: structureActions.assignWorkers,
+        changeWorkerCount: structureActions.changeWorkerCount
+      }
+    });
     
     // Reset game time if it's suspiciously large (over 1 hour)
     const state = store.getState();

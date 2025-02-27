@@ -11,45 +11,118 @@ import {
 } from '../interfaces/Event';
 import { getCurrentTime } from '../utils/timeUtils';
 import { ErrorLogger, invariant } from '../utils/errorUtils';
-import { 
+import { GameLoop } from '../core/GameLoop';
+
+// Import only the types needed for dependency injection
+import type { AppDispatch } from '../state/store';
+import type { 
   addEvent, 
   addEvents,
-  triggerEvent as triggerEventAction, 
-  resolveEvent as resolveEventAction,
-  updateEvent 
+  triggerEvent as triggerEventActionType, 
+  resolveEvent as resolveEventActionType,
+  updateEvent as updateEventType
 } from '../state/eventsSlice';
-import { GameLoop } from '../core/GameLoop';
+
+/**
+ * Dependencies needed by EventManager
+ */
+export interface EventManagerDependencies {
+  dispatch: AppDispatch;
+  getState: () => RootState;
+  actions: {
+    addEvent: typeof addEvent;
+    addEvents: typeof addEvents;
+    triggerEvent: typeof triggerEventActionType;
+    resolveEvent: typeof resolveEventActionType;
+    updateEvent: typeof updateEventType;
+  };
+}
 
 /**
  * Manages game events and conditions
  */
 export class EventManager {
   private static instance: EventManager | null = null;
-  private store: Store<RootState> | null = null;
+  private dispatch: AppDispatch;
+  private getState: () => RootState;
+  private actions: EventManagerDependencies['actions'];
   private logger = ErrorLogger.getInstance();
   private initialized = false;
 
   /**
-   * Private constructor for singleton pattern
+   * Constructor that accepts dependencies
+   * @param dependencies The dependencies needed by EventManager
    */
-  private constructor() {}
+  constructor(dependencies: EventManagerDependencies) {
+    this.dispatch = dependencies.dispatch;
+    this.getState = dependencies.getState;
+    this.actions = dependencies.actions;
+    this.initialized = true;
+  }
 
   /**
-   * Get the singleton instance of EventManager
+   * Get or create the singleton instance of EventManager
+   * @param dependenciesOrStore The dependencies needed by EventManager or store for backward compatibility
+   * @returns The singleton EventManager instance
    */
-  public static getInstance(): EventManager {
+  public static getInstance(dependenciesOrStore?: EventManagerDependencies | any): EventManager {
     if (!EventManager.instance) {
-      EventManager.instance = new EventManager();
+      if (!dependenciesOrStore) {
+        // Create instance without dependencies, initialize() will be called later
+        EventManager.instance = new EventManager({
+          dispatch: (() => {}) as any, // Placeholder
+          getState: (() => ({})) as any, // Placeholder
+          actions: {} as any // Placeholder
+        });
+      } else if ('dispatch' in dependenciesOrStore && 'getState' in dependenciesOrStore && 'actions' in dependenciesOrStore) {
+        // If full dependencies are provided
+        EventManager.instance = new EventManager(dependenciesOrStore as EventManagerDependencies);
+      } else {
+        // If a store is provided (backward compatibility)
+        const instance = new EventManager({
+          dispatch: (() => {}) as any, // Placeholder
+          getState: (() => ({})) as any, // Placeholder  
+          actions: {} as any // Placeholder
+        });
+        instance.initialize(dependenciesOrStore);
+        EventManager.instance = instance;
+      }
+    } else if (dependenciesOrStore && !('dispatch' in dependenciesOrStore && 'getState' in dependenciesOrStore && 'actions' in dependenciesOrStore)) {
+      // If instance exists and a store is provided, initialize with it (backward compatibility)
+      EventManager.instance.initialize(dependenciesOrStore);
     }
+    
     return EventManager.instance;
   }
 
   /**
    * Initialize the event manager with a store
    * @param store The Redux store
+   * @deprecated Use dependency injection through constructor instead
    */
   public initialize(store: Store<RootState>): void {
-    this.store = store;
+    // Check if already initialized properly
+    try {
+      this.ensureInitialized();
+      return; // Already initialized
+    } catch (e) {
+      // Continue with initialization
+    }
+
+    // Import necessary action creators
+    const eventActions = require('../state/eventsSlice');
+    
+    // Set up dependencies from store
+    this.dispatch = store.dispatch;
+    this.getState = store.getState;
+    this.actions = {
+      addEvent: eventActions.addEvent,
+      addEvents: eventActions.addEvents,
+      triggerEvent: eventActions.triggerEvent,
+      resolveEvent: eventActions.resolveEvent,
+      updateEvent: eventActions.updateEvent,
+    };
+    
     this.initialized = true;
     
     // Register with GameLoop for periodic event checks
@@ -69,14 +142,14 @@ export class EventManager {
   private initializeEventStatuses(): void {
     try {
       this.ensureInitialized();
-      const state = this.store!.getState();
+      const state = this.getState();
       const events = state.events.availableEvents;
       
       // Set initial statuses for all events
       Object.values(events).forEach(event => {
         if (!event.status) {
           // Set status to PENDING by default
-          this.store!.dispatch(updateEvent({
+          this.dispatch(this.actions.updateEvent({
             id: event.id,
             changes: { status: EventStatus.PENDING }
           }));
@@ -100,7 +173,7 @@ export class EventManager {
   private healEventInconsistencies(): void {
     try {
       this.ensureInitialized();
-      const state = this.store!.getState();
+      const state = this.getState();
       
       // For each active event ID, check if the event actually exists
       state.events.activeEvents.forEach(eventId => {
@@ -109,11 +182,11 @@ export class EventManager {
         if (!event) {
           // If event doesn't exist, resolve it to remove from active list
           console.warn(`Found inconsistency: Active event ${eventId} doesn't exist, fixing...`);
-          this.store!.dispatch(resolveEventAction({ eventId }));
+          this.dispatch(this.actions.resolveEvent({ eventId }));
         } else if (event.status !== EventStatus.ACTIVE) {
           // If event status doesn't match its presence in active events
           console.warn(`Found inconsistency: Event ${eventId} is in active list but has status ${event.status}, fixing...`);
-          this.store!.dispatch(updateEvent({
+          this.dispatch(this.actions.updateEvent({
             id: eventId,
             changes: { status: EventStatus.ACTIVE }
           }));
@@ -125,7 +198,7 @@ export class EventManager {
         if (event.status === EventStatus.ACTIVE && !state.events.activeEvents.includes(event.id)) {
           console.warn(`Found inconsistency: Event ${event.id} has ACTIVE status but is not in active list, fixing...`);
           // Either add to active list or fix status
-          this.store!.dispatch(updateEvent({
+          this.dispatch(this.actions.updateEvent({
             id: event.id,
             changes: { status: EventStatus.PENDING }
           }));
@@ -146,8 +219,8 @@ export class EventManager {
    */
   private ensureInitialized(): void {
     invariant(
-      this.initialized && this.store !== null,
-      'EventManager not properly initialized with Redux store',
+      this.initialized && this.dispatch !== undefined && this.getState !== undefined && this.actions !== undefined,
+      'EventManager not properly initialized with dependencies',
       'EventManager'
     );
   }
@@ -159,7 +232,7 @@ export class EventManager {
   public registerEvent(event: IEvent): void {
     try {
       this.ensureInitialized();
-      this.store!.dispatch(addEvent(event));
+      this.dispatch(this.actions.addEvent(event));
     } catch (error) {
       this.logger.logError(
         error instanceof Error ? error : new Error(String(error)),
@@ -175,7 +248,7 @@ export class EventManager {
   public checkEventConditions(): string[] {
     try {
       this.ensureInitialized();
-      const state = this.store!.getState();
+      const state = this.getState();
       const events = state.events.availableEvents;
       const currentTime = getCurrentTime();
       
@@ -226,7 +299,7 @@ export class EventManager {
   private evaluateConditions(conditions: EventCondition[]): boolean {
     try {
       this.ensureInitialized();
-      const state = this.store!.getState();
+      const state = this.getState();
       
       // If no conditions, event is always triggerable
       if (!conditions || conditions.length === 0) {
@@ -362,7 +435,7 @@ export class EventManager {
   public triggerEvent(eventId: string): boolean {
     try {
       this.ensureInitialized();
-      const state = this.store!.getState();
+      const state = this.getState();
       const event = state.events.availableEvents[eventId];
       
       // Validate event exists
@@ -378,7 +451,7 @@ export class EventManager {
       }
       
       // Update event status
-      this.store!.dispatch(updateEvent({
+      this.dispatch(this.actions.updateEvent({
         id: eventId,
         changes: { 
           status: EventStatus.ACTIVE,
@@ -387,7 +460,7 @@ export class EventManager {
       }));
       
       // Trigger the event
-      this.store!.dispatch(triggerEventAction(eventId));
+      this.dispatch(this.actions.triggerEvent(eventId));
       
       // If the event has no choices, apply consequences immediately
       if (!event.choices || event.choices.length === 0) {
@@ -418,7 +491,7 @@ export class EventManager {
   public resolveEvent(eventId: string, choiceId: string): boolean {
     try {
       this.ensureInitialized();
-      const state = this.store!.getState();
+      const state = this.getState();
       const event = state.events.availableEvents[eventId];
       
       // Validate event exists and is active
@@ -448,13 +521,13 @@ export class EventManager {
       }
       
       // Update event status
-      this.store!.dispatch(updateEvent({
+      this.dispatch(this.actions.updateEvent({
         id: eventId,
         changes: { status: EventStatus.RESOLVED }
       }));
       
       // Resolve the event
-      this.store!.dispatch(resolveEventAction({ eventId, choiceId }));
+      this.dispatch(this.actions.resolveEvent({ eventId, choiceId }));
       
       // Trigger next event if specified
       if (choice && choice.nextEventId) {
@@ -481,7 +554,7 @@ export class EventManager {
   public expireEvent(eventId: string): boolean {
     try {
       this.ensureInitialized();
-      const state = this.store!.getState();
+      const state = this.getState();
       const event = state.events.availableEvents[eventId];
       
       // Validate event exists
@@ -491,14 +564,14 @@ export class EventManager {
       }
       
       // Update event status
-      this.store!.dispatch(updateEvent({
+      this.dispatch(this.actions.updateEvent({
         id: eventId,
         changes: { status: EventStatus.EXPIRED }
       }));
       
       // If event is active, resolve it
       if (state.events.activeEvents.includes(eventId)) {
-        this.store!.dispatch(resolveEventAction({ eventId, choiceId: '' }));
+        this.dispatch(this.actions.resolveEvent({ eventId, choiceId: '' }));
       }
       
       return true;
@@ -518,14 +591,13 @@ export class EventManager {
   private applyConsequences(consequences: EventConsequence[]): void {
     try {
       this.ensureInitialized();
-      const state = this.store!.getState();
       
       consequences.forEach(consequence => {
         switch (consequence.type) {
           case 'addResource': {
             // Import action creator directly from resourcesSlice
             const { addResourceAmount } = require('../state/resourcesSlice');
-            this.store!.dispatch(addResourceAmount({
+            this.dispatch(addResourceAmount({
               id: consequence.target,
               amount: consequence.value as number
             }));
@@ -535,7 +607,7 @@ export class EventManager {
           case 'unlockStructure': {
             // Import action creator from structuresSlice
             const { toggleStructureUnlocked } = require('../state/structuresSlice');
-            this.store!.dispatch(toggleStructureUnlocked({
+            this.dispatch(toggleStructureUnlocked({
               id: consequence.target,
               unlocked: true
             }));
@@ -545,7 +617,7 @@ export class EventManager {
           case 'setGameStage': {
             // Import action creator from gameSlice
             const { setGameStage } = require('../state/gameSlice');
-            this.store!.dispatch(setGameStage(consequence.value as number));
+            this.dispatch(setGameStage(consequence.value as number));
             break;
           }
           
@@ -568,7 +640,7 @@ export class EventManager {
   public getActiveEvents(): IEvent[] {
     try {
       this.ensureInitialized();
-      const state = this.store!.getState();
+      const state = this.getState();
       
       return state.events.activeEvents
         .map(id => state.events.availableEvents[id])
@@ -590,7 +662,7 @@ export class EventManager {
   public getAllEvents(): Record<string, IEvent> {
     try {
       this.ensureInitialized();
-      const state = this.store!.getState();
+      const state = this.getState();
       return state.events.availableEvents;
     } catch (error) {
       this.logger.logError(
@@ -632,7 +704,7 @@ export class EventManager {
         this.lastHealTime = currentTime;
       }
       
-      const state = this.store!.getState();
+      const state = this.getState();
       
       // If there are already active events that require player input, don't trigger new ones
       const activeEvents = this.getActiveEvents();
@@ -676,7 +748,6 @@ export class EventManager {
   private checkForExpiredEvents(): void {
     try {
       this.ensureInitialized();
-      const state = this.store!.getState();
       
       // Get all active events
       const activeEvents = this.getActiveEvents();
