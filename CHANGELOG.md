@@ -14,7 +14,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Retrospective incident report for process violation with improper direct merge
 - Documentation of process failure and preventative measures
+
 ## [0.5.5] - 2025-02-27
+
+### Changed
+- Automated version bump by GitHub Actions workflow
+- Test of version tag creation with GitHub Actions
 
 ## [0.5.4] - 2025-02-27
 
