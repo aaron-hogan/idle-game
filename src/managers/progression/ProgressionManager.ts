@@ -22,7 +22,8 @@ import {
   selectCompletedMilestones,
   selectUnlockedAchievements,
   selectVisibleMilestones,
-  selectVisibleAchievements
+  selectVisibleAchievements,
+  selectStageByCurrentStage
 } from '../../redux/progressionSlice';
 import { getCurrentTime } from '../../utils/timeUtils';
 import { updateResourcePerSecond } from '../../state/resourcesSlice';
