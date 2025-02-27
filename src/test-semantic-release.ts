@@ -15,5 +15,7 @@ export const getVersionInfo = () => {
  */
 export const getFormattedVersion = () => {
   const info = getVersionInfo();
-  return `${info.name} v${info.version} by ${info.author}`;
+  // Fix potential undefined author
+  const author = info.author || 'Unknown';
+  return `${info.name} v${info.version} by ${author}`;
 };
