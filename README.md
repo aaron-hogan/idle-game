@@ -12,6 +12,8 @@ This project is an idle/incremental game that explores alternative economic mode
 - `npm start` - Start development server
 - `npm run build` - Create production build
 - `npm test` - Run all tests
+- `npm run lint` - Run ESLint checks
+- `npm run typecheck` - Run TypeScript type checking
 
 ## Documentation
 

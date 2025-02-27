@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Enhanced README.md with additional development commands for linting and type checking
 - Non-interactive mode for release and hotfix scripts
 - Command-line parameters for fully automated versioning 
 - AI-friendly automation options to avoid prompt interruptions
