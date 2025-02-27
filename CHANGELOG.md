@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0-4] - 2025-02-27
+
 ### Added
 - Comprehensive documentation for professional release process
 - Detailed examples of complete release workflow
