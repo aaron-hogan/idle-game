@@ -40,6 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Removed redundant changelog check workflow to prevent duplication
 - Fixed regex patterns in PR validation workflow to use more compatible syntax
 - Made PR title validation case-insensitive to accept both "fix:" and "Fix:" format
+- Fixed GitHub Actions workflow permission issue for auto-versioning
 
 ### Removed
 - Legacy example semantic-release configuration

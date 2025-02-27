@@ -123,13 +123,17 @@ jobs:
       contains(github.event.pull_request.labels.*.name, 'version:patch') ||
       contains(github.event.pull_request.labels.*.name, 'version:patch_level'))
     
+    permissions:
+      contents: write
+      pull-requests: write
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
           # Full git history needed for version bumping
           fetch-depth: 0
-          # Need token with write access to push version bump
+          # Use a personal access token with repo scope
           token: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Setup Node.js
@@ -171,23 +175,20 @@ jobs:
           
           .github/workflows/scripts/auto-version.sh
         
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+      
       - name: Push version bump
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.event.pull_request.base.ref }}
+        run: |
+          git push origin HEAD:${{ github.event.pull_request.base.ref }}
       
       - name: Create Git tag
         run: |
           NEW_VERSION=$(node -e "console.log(require('./package.json').version)")
           git tag "v$NEW_VERSION"
-      
-      - name: Push Git tag
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.event.pull_request.base.ref }}
-          tags: true
+          git push origin "v$NEW_VERSION"
       
       - name: Comment on PR
         uses: actions/github-script@v6
