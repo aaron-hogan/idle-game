@@ -20,6 +20,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed infinite update loop in MilestoneProgressStrip component by properly handling dependency arrays in useEffect hooks and memoizing values
 - Fixed EventPanel selector warning by implementing proper memoization with createSelector
 - Removed misleading "TaskManager already initialized" warning, as multiple initialization attempts are expected with the singleton pattern
+- Suppressed debug console logs in production build by adding environment variable control
+- Added webpack configuration to control debug log output
 - Fixed entire test suite to bring all tests to passing status
   - Fixed GameManager tests with proper mocking of setTotalPlayTime
   - Added null safety checks in gameLoop.ts for tickInterval
