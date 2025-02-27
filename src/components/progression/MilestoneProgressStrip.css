@@ -5,8 +5,8 @@
   position: relative;
   font-family: monospace;
   padding: 0;
-  margin-bottom: 15px;
-  min-height: 180px;
+  margin-bottom: 25px; /* Increased for more space between milestones and generators */
+  min-height: 200px; /* Increased to contain cards fully */
 }
 
 .milestone-strip-header {
@@ -23,16 +23,16 @@
   overflow-y: visible;
   scrollbar-width: none;
   padding: 10px 0;
-  padding-bottom: 20px;
+  padding-bottom: 30px; /* Increased to provide more vertical space */
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   width: 100%;
   display: flex;
-  justify-content: flex-start; /* Changed from center to ensure scroll starts from left */
+  justify-content: flex-start; 
   mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
   -webkit-mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
   height: auto;
-  min-height: 180px;
+  min-height: 200px; /* Increased to match parent */
 }
 
 /* Hide timeline elements */
@@ -43,11 +43,10 @@
 /* Milestone cards styling */
 .milestone-cards {
   display: flex;
-  gap: 20px; /* Increased from 15px to create more space between cards */
-  min-height: 140px;
+  gap: 20px;
+  min-height: 170px; /* Increased to allow for card height + margins */
   position: relative;
-  padding: 10px 0;
-  /* Ensure proper alignment */
+  padding: 15px 0;
   margin: 0;
   justify-content: flex-start;
 }
@@ -91,6 +90,8 @@
   /* Add margin to prevent overlap with neighboring cards */
   margin-left: 5px;
   margin-right: 5px;
+  /* Remove default hover effect to prevent extra movement */
+  transform-origin: center center;
 }
 
 .milestone-card.active-center:hover {
