@@ -271,79 +271,69 @@ const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({
   // This ensures we can scroll through the complete milestone history 
   const visibleMilestones = milestoneCards;
   
-  // Add a bunch of invisible spacer cards at the start to ensure we can center properly
-  const renderMilestones = () => {
-    const centeringSpacers = [];
-    // Add spacers only on initial render
-    for (let i = 0; i < 10; i++) {
-      centeringSpacers.push(
-        <div key={`spacer-start-${i}`} className="milestone-card-spacer"></div>
-      );
-    }
-    
-    const cardElements = visibleMilestones.map(card => (
-      <div 
-        key={card.milestone.id}
-        data-milestone-id={card.milestone.id}
-        className={`milestone-card ${card.status} ${card.milestone.id === activeMilestoneId ? 'active-center' : ''}`}
-      >
-        <div className="milestone-state-indicator"></div>
-        <div className="milestone-content">
-          <div className="milestone-header">
-            <span className="milestone-name">{card.milestone.name}</span>
-            {card.status !== MilestoneStatus.COMPLETED && (
-              <span className="milestone-percentage">
-                {Math.floor(card.progress)}%
-              </span>
-            )}
-          </div>
-          
-          <div className="milestone-description">
-            {card.milestone.description}
-          </div>
-          
-          {card.status !== MilestoneStatus.COMPLETED && (
-            <div className="milestone-progress-bar">
-              <div 
-                className="milestone-progress-fill" 
-                style={{ width: `${card.progress}%` }}
-              ></div>
-            </div>
-          )}
-          
-          <div className="milestone-footer">
-            {card.status === MilestoneStatus.COMPLETED && (
-              <span className="milestone-completed-badge">✓ Completed</span>
-            )}
-            
-            {card.status === MilestoneStatus.ACTIVE && (
-              <span className="milestone-active-badge">In Progress</span>
-            )}
-            
-            {card.status === MilestoneStatus.LOCKED && (
-              <span className="milestone-locked-badge">Locked</span>
-            )}
-          </div>
-        </div>
-      </div>
-    ));
-    
-    // Add more spacers at the end
-    for (let i = 0; i < 10; i++) {
-      centeringSpacers.push(
-        <div key={`spacer-end-${i}`} className="milestone-card-spacer"></div>
-      );
-    }
-    
-    return [...centeringSpacers, ...cardElements, ...centeringSpacers];
-  };
-
   return (
     <div className="milestone-progress-strip">
       <div className="milestone-cards-container" ref={stripRef}>
         {/* Milestone cards */}
         <div className="milestone-cards">
-          {renderMilestones()}
+          {/* Start spacers */}
+          {[...Array(5)].map((_, i) => (
+            <div key={`spacer-start-${i}`} className="milestone-card-spacer"></div>
+          ))}
+          
+          {/* Actual milestone cards */}
+          {visibleMilestones.map(card => (
+            <div 
+              key={card.milestone.id}
+              data-milestone-id={card.milestone.id}
+              className={`milestone-card ${card.status} ${card.milestone.id === activeMilestoneId ? 'active-center' : ''}`}
+            >
+              <div className="milestone-state-indicator"></div>
+              
+              <div className="milestone-content">
+                <div className="milestone-header">
+                  <span className="milestone-name">{card.milestone.name}</span>
+                  {card.status !== MilestoneStatus.COMPLETED && (
+                    <span className="milestone-percentage">
+                      {Math.floor(card.progress)}%
+                    </span>
+                  )}
+                </div>
+                
+                <div className="milestone-description">
+                  {card.milestone.description}
+                </div>
+                
+                {card.status !== MilestoneStatus.COMPLETED && (
+                  <div className="milestone-progress-bar">
+                    <div 
+                      className="milestone-progress-fill" 
+                      style={{ width: `${card.progress}%` }}
+                    ></div>
+                  </div>
+                )}
+                
+                <div className="milestone-footer">
+                  {card.status === MilestoneStatus.COMPLETED && (
+                    <span className="milestone-completed-badge">✓ Completed</span>
+                  )}
+                  
+                  {card.status === MilestoneStatus.ACTIVE && (
+                    <span className="milestone-active-badge">In Progress</span>
+                  )}
+                  
+                  {card.status === MilestoneStatus.LOCKED && (
+                    <span className="milestone-locked-badge">Locked</span>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+          
+          {/* End spacers */}
+          {[...Array(5)].map((_, i) => (
+            <div key={`spacer-end-${i}`} className="milestone-card-spacer"></div>
+          ))}
         </div>
       </div>
     </div>
