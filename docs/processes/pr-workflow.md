@@ -163,7 +163,21 @@ gh pr merge <pr-number> --merge --delete-branch
 gh pr merge <pr-number> --squash --delete-branch
 ```
 
-### 4. Post-Merge Verification
+### 4. Explicitly Communicate Merge Status
+
+```bash
+# Always verify PR status after attempting a merge
+gh pr view <pr-number>
+
+# Communicate the status explicitly to the user/team
+# Example: "PR #123 has been successfully merged to main"
+# Example: "The feature branch has been deleted successfully"
+
+# If merge failed, explicitly state the reason
+# Example: "PR #123 merge failed due to CI checks failing"
+```
+
+### 5. Post-Merge Verification
 
 ```bash
 # Update local main branch
@@ -177,7 +191,7 @@ npm test
 npm start
 ```
 
-### 5. Update Documentation (if needed)
+### 6. Update Documentation (if needed)
 
 ```bash
 # Update any project-level documentation
@@ -279,6 +293,11 @@ gh pr view --json mergeStateStatus
 # Merge the PR when approved
 gh pr merge --merge --delete-branch
 
+# Verify and communicate merge status
+gh pr view
+# IMPORTANT: Explicitly state: "PR #123 has been successfully merged to main"
+# IMPORTANT: Explicitly state: "The feature branch has been deleted"
+
 # Verify main is stable after merge
 git checkout main
 git pull
@@ -296,7 +315,9 @@ npm start
 6. **Self-Review**: Always review your own PR before requesting reviews
 7. **Keep CI Green**: Don't merge PRs that break the build or tests
 8. **Communicate**: Use PR comments to explain complex changes or decisions
-9. **Update Tests**: Always update tests when refactoring or changing behavior
-10. **Verify After Merge**: Always verify the main branch is stable after merging
+9. **Explicit Status Updates**: Always explicitly confirm successful merges to the user
+10. **Update Tests**: Always update tests when refactoring or changing behavior
+11. **Verify After Merge**: Always verify the main branch is stable after merging
+12. **Clear Communication**: Explicitly state when PRs are merged and branches are deleted
 
 By following this workflow, we maintain a high-quality codebase with clear history and thorough documentation.

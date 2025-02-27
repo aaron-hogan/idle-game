@@ -193,6 +193,12 @@ AS AN AI ASSISTANT, YOU MUST:
    - Options include `--yes` for non-interactive mode and `--resolve-conflicts` for conflict resolution
    - This safely handles PR merging with enhanced validation
    - Provides advanced conflict detection and resolution
+   
+9. ALWAYS explicitly confirm PR merge status to the user:
+   - After merging a PR, check the actual status with `gh pr view [PR_NUMBER]`
+   - Clearly state: "Your PR ([number]) has been successfully merged into main"
+   - If there are any issues during merge, provide specific details about what failed
+   - Confirm when branch deletions are successful: "The feature branch has been deleted"
 
 These automation scripts significantly reduce context window usage and ensure proper workflow.
 
