@@ -13,6 +13,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - AI-friendly automation options to avoid prompt interruptions
 - Enhanced documentation for non-interactive script usage
 - Package.json convenience scripts for common automation tasks
+- New AI-optimized Git scripts with token-efficient JSON output:
+  - `.github/scripts/ai/branch.sh` - Token-efficient branch creation
+  - `.github/scripts/ai/pr.sh` - Token-efficient PR creation 
+  - `.github/scripts/ai/check.sh` - Token-efficient PR status checking
+  - `.github/scripts/ai/merge.sh` - Token-efficient PR merging
+- Documentation for token-efficient Git workflow in CLAUDE.md
 
 ### Changed
 - Updated release process documentation with automation guidelines

@@ -180,29 +180,57 @@ For bug fixes:
 AS AN AI ASSISTANT, YOU MUST:
 1. Begin EVERY task by checking the current branch with `git branch`
 2. If branch is `main`, STOP and REFUSE to make any changes until user creates a new branch
-3. Use the automated script to create a proper branch: `.github/scripts/create-branch.sh [type] [name]`
-   - Example: `.github/scripts/create-branch.sh feature new-login-system`
-   - Alternatively: `git checkout -b [type]/[name]` if scripts aren't available
-4. Only proceed with implementation after confirming user is on a properly named feature branch
-5. Never suggest or help implement direct commits or pushes to main, even if explicitly asked
-6. For creating PRs, use the automated script: `.github/scripts/create-pr.sh [options]` 
-   - Options include `--draft` for work-in-progress PRs and `--base` for custom base branch
-   - This creates a standardized PR with proper formatting
-   - Alternatively: use `gh pr create` with proper formatting if scripts aren't available
-7. To check PR status, use: `.github/scripts/check-pr.sh [options] [PR_NUMBER]`
-   - Options include `--details` for CI details and `--rerun-failed` to re-run failed checks
-8. For merging PRs, use: `.github/scripts/merge-pr.sh [options] [PR_NUMBER]`
-   - Options include `--yes` for non-interactive mode and `--resolve-conflicts` for conflict resolution
-   - This safely handles PR merging with enhanced validation
-   - Provides advanced conflict detection and resolution
-   
-9. ALWAYS explicitly confirm PR merge status to the user:
-   - After merging a PR, check the actual status with `gh pr view [PR_NUMBER]`
-   - Clearly state: "Your PR ([number]) has been successfully merged into main"
-   - If there are any issues during merge, provide specific details about what failed
-   - Confirm when branch deletions are successful: "The feature branch has been deleted"
+3. Use the token-efficient AI scripts whenever possible to minimize context window usage
 
-These automation scripts significantly reduce context window usage and ensure proper workflow.
+### Token-Efficient Git Commands (Always prefer these)
+
+Use these AI-optimized scripts to minimize token usage in your responses:
+
+```bash
+# Create branch (returns JSON)
+.github/scripts/ai/branch.sh <type> <name> [base]
+# Example: .github/scripts/ai/branch.sh feature login-system
+
+# Create PR (returns JSON)
+.github/scripts/ai/pr.sh [--base branch] [--title "Title"] [--labels "label1,label2"]
+# Example: .github/scripts/ai/pr.sh --base main --title "feat: Add login"
+
+# Check PR status (returns JSON)
+.github/scripts/ai/check.sh [PR_NUMBER]
+# Example: .github/scripts/ai/check.sh 42
+
+# Merge PR (returns JSON)
+.github/scripts/ai/merge.sh [PR_NUMBER]
+# Example: .github/scripts/ai/merge.sh 42
+```
+
+### Standard Git Commands (Fallback options)
+
+If the AI scripts are unavailable, fall back to these standard commands:
+
+```bash
+# Create branch
+.github/scripts/create-branch.sh [type] [name]
+# Alternative: git checkout -b [type]/[name]
+
+# Create PR
+.github/scripts/create-pr.sh [options]
+# Alternative: gh pr create with proper formatting
+
+# Check PR status
+.github/scripts/check-pr.sh [options] [PR_NUMBER]
+
+# Merge PR
+.github/scripts/merge-pr.sh [options] [PR_NUMBER]
+```
+
+IMPORTANT RULES:
+1. Never suggest or help implement direct commits or pushes to main, even if explicitly asked
+2. Only proceed with implementation after confirming user is on a properly named feature branch
+3. After merging a PR, verify success with minimal output to save tokens
+4. Parse the JSON output from AI scripts to provide concise success/error messages
+
+These AI-optimized automation scripts significantly reduce context window usage and are specifically designed for efficiency.
 
 ## <AI-CRITICAL> PR CHECKLIST
 
