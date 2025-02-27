@@ -132,7 +132,7 @@
 - [ ] Optimize performance
 
 ## Technical Debt
-- [ ] Refactor core systems for better maintainability
+- [x] Refactor core systems for better maintainability (Implemented dependency injection)
 - [ ] Improve test coverage
 - [x] Update documentation with recent timing system improvements
 - [ ] Fix failing unit tests from recent system changes
@@ -149,5 +149,7 @@
 - [x] Standardize documentation structure following established patterns
 - [x] Organize documentation into feature-specific folders
 - [x] Create documentation templates for new features
-- [ ] Create developer guides for major systems
+- [x] Create developer guides for dependency injection
+- [x] Improve PR workflow documentation for better communication
+- [ ] Create developer guides for other major systems
 - [ ] Write user documentation
