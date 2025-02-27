@@ -139,7 +139,7 @@ describe('Task System Integration', () => {
   });
   
   test('should initialize tasks correctly', () => {
-    taskManager.initialize();
+    taskManager.initialize(store);
     
     expect(store.dispatch).toHaveBeenCalledWith(initializeTasks());
   });

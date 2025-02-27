@@ -460,10 +460,16 @@ export class GameManager {
     if (ticksSinceLastUpdate) {
       resourceManager.calculateResourceGeneration();
       
-      // Re-enable progression manager now that we've fixed type issues
+      // Use progression manager with dependency injection
       try {
         const progressionManager = ProgressionManager.getInstance();
-        progressionManager.checkAllProgressionItems();
+        // Ensure progression manager is initialized with store if it wasn't already
+        if (progressionManager) {
+          // This is safe because ProgressionManager will only initialize once
+          // even if initialize() is called multiple times
+          progressionManager.initialize(this.store);
+          progressionManager.checkAllProgressionItems();
+        }
       } catch (error) {
         console.error("GameManager: Error checking progression items:", error);
       }

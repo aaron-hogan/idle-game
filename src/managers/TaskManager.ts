@@ -1,4 +1,8 @@
-import { store } from '../state/store';
+import { 
+  Store, 
+  AnyAction, 
+  Dispatch
+} from '@reduxjs/toolkit';
 import { 
   initializeTasks, 
   startTask, 
@@ -13,11 +17,12 @@ import { checkResourceAvailability } from '../utils/resourceUtils';
 import { GameLoopManager } from './GameLoopManager';
 import { EventEmitter } from '../utils/EventEmitter';
 import { getCurrentTime } from '../utils/timeUtils';
+import { RootState } from '../state/store';
 
 /**
  * Manages all task-related operations including initialization, validation,
  * progress tracking, and completion handling.
- * Follows singleton pattern for global access.
+ * Follows singleton pattern for global access but uses dependency injection for the store.
  */
 export class TaskManager {
   private static instance: TaskManager | null = null;
@@ -25,12 +30,15 @@ export class TaskManager {
   private taskCompletionListeners: Map<string, ((taskId: string) => void)[]> = new Map();
   private events = new EventEmitter();
   private unregisterHandler: (() => void) | null = null;
+  private store: Store<RootState> | null = null;
+  private dispatch: Dispatch<AnyAction> | null = null;
+  private getState: (() => RootState) | null = null;
 
   /**
    * Private constructor to enforce singleton pattern
    */
   private constructor() {
-    this.registerWithGameLoop();
+    // Postpone GameLoop registration until init()
   }
 
   /**
@@ -44,17 +52,27 @@ export class TaskManager {
   }
 
   /**
-   * Initialize the task system with all available tasks
+   * Initialize the task system with Redux store
+   * @param store The Redux store instance
    * @returns True if initialization was successful
    */
-  public initialize(): boolean {
+  public initialize(store: Store<RootState>): boolean {
     try {
       if (this.initialized) {
-        // This is expected behavior in our singleton pattern, so no need for a warning
+        // If already initialized with a store, just return success
         return true;
       }
 
-      store.dispatch(initializeTasks());
+      // Store the Redux store and its methods
+      this.store = store;
+      this.dispatch = store.dispatch;
+      this.getState = store.getState;
+
+      // Register with GameLoop now that we have the store
+      this.registerWithGameLoop();
+
+      // Initialize tasks in the store
+      this.dispatch(initializeTasks());
       this.initialized = true;
       return true;
     } catch (error) {
@@ -65,11 +83,21 @@ export class TaskManager {
   }
 
   /**
+   * Ensure the manager is properly initialized with a store
+   * @throws Error if not initialized
+   */
+  private ensureInitialized(): void {
+    if (!this.store || !this.dispatch || !this.getState) {
+      throw new Error('TaskManager not properly initialized with Redux store');
+    }
+  }
+
+  /**
    * Registers this manager with the GameLoop for regular updates
    */
   private registerWithGameLoop(): void {
     try {
-      // Use the new GameLoop implementation
+      // Use the new GameLoop implementation with dynamic import to avoid circular references
       const { GameLoop } = require('../core/GameLoop');
       const gameLoop = GameLoop.getInstance();
       const boundTickHandler = this.onGameTick.bind(this);
@@ -78,7 +106,7 @@ export class TaskManager {
       this.unregisterHandler = gameLoop.registerHandler(boundTickHandler);
       
       // Simple log message
-      console.log('TaskManager: Registered with new GameLoop');
+      console.log('TaskManager: Registered with GameLoop');
     } catch (error) {
       console.error('Failed to register with GameLoop:', error);
     }
@@ -91,7 +119,8 @@ export class TaskManager {
    */
   private onGameTick(realDeltaTime: number, gameDeltaTime: number): void {
     try {
-      const state = store.getState();
+      this.ensureInitialized();
+      const state = this.getState!();
       const currentTime = getCurrentTime();
       const tasks = state.tasks.tasks;
       
@@ -117,7 +146,7 @@ export class TaskManager {
           const progress = Math.min(100, Math.max(0, (elapsed / totalDuration) * 100));
           
           // Update progress in store
-          store.dispatch(updateTaskProgress({
+          this.dispatch!(updateTaskProgress({
             taskId: task.id,
             progress
           }));
@@ -141,11 +170,13 @@ export class TaskManager {
    */
   private checkRequirements(task: Task): boolean {
     try {
+      this.ensureInitialized();
+      
       if (!task || !task.requirements) {
         return true; // No requirements means always available
       }
 
-      const state = store.getState();
+      const state = this.getState!();
       
       return task.requirements.every(req => {
         return this.validateRequirement(req, state);
@@ -162,19 +193,28 @@ export class TaskManager {
    * @param state Current game state
    * @returns True if requirement is met
    */
-  private validateRequirement(requirement: TaskRequirement, state: any): boolean {
+  private validateRequirement(requirement: TaskRequirement, state: RootState): boolean {
     try {
       switch (requirement.type) {
         case 'resource':
-          const resource = state.resources.resources[requirement.id];
+          // Use safe access with type assertion for resources
+          const resourcesObj = state.resources.resources;
+          // First cast to unknown to avoid direct conversion errors
+          const resources = resourcesObj as unknown as Record<string, {amount: number}>;
+          const resource = resources[requirement.id];
           return resource && resource.amount >= requirement.value;
           
         case 'structure':
-          const structure = state.structures.structures[requirement.id];
+          // Use safe access with type assertion for structures
+          const structuresObj = state.structures.structures;
+          // First cast to unknown to avoid direct conversion errors
+          const structures = structuresObj as unknown as Record<string, {level: number}>;
+          const structure = structures[requirement.id];
           return structure && structure.level >= requirement.value;
           
         case 'gameStage':
-          return state.game.stage >= requirement.value;
+          // Use gameStage property from the game state
+          return (state.game.gameStage || 0) >= requirement.value;
           
         case 'taskCompleted':
           const task = state.tasks.tasks[requirement.id];
@@ -197,7 +237,8 @@ export class TaskManager {
    */
   public canAffordTask(taskId: string): boolean {
     try {
-      const state = store.getState();
+      this.ensureInitialized();
+      const state = this.getState!();
       const task = state.tasks.tasks[taskId];
       
       if (!task) {
@@ -219,7 +260,8 @@ export class TaskManager {
    */
   public startTask(taskId: string): boolean {
     try {
-      const state = store.getState();
+      this.ensureInitialized();
+      const state = this.getState!();
       const task = state.tasks.tasks[taskId];
       
       // Validate task exists
@@ -257,7 +299,7 @@ export class TaskManager {
       const endTime = startTime + (task.duration * 1000); // Convert seconds to ms
       
       // Start the task
-      store.dispatch(startTask({
+      this.dispatch!(startTask({
         taskId,
         startTime,
         endTime
@@ -280,7 +322,8 @@ export class TaskManager {
    */
   public completeTask(taskId: string): boolean {
     try {
-      const state = store.getState();
+      this.ensureInitialized();
+      const state = this.getState!();
       const task = state.tasks.tasks[taskId];
       
       if (!task) {
@@ -294,7 +337,7 @@ export class TaskManager {
       }
       
       // Complete the task in store
-      store.dispatch(completeTask(taskId));
+      this.dispatch!(completeTask(taskId));
       
       // Distribute rewards
       // Note: Actually distributing the rewards would be handled by middleware
@@ -306,17 +349,22 @@ export class TaskManager {
       // If task is repeatable and cooldown is present, schedule reset
       if (task.repeatable && task.cooldown) {
         setTimeout(() => {
-          // Only reset if task is still in COMPLETED or AVAILABLE state
-          const currentState = store.getState();
-          const currentTask = currentState.tasks.tasks[taskId];
-          
-          if (
-            currentTask && 
-            (currentTask.status === TaskStatus.COMPLETED || 
-             currentTask.status === TaskStatus.AVAILABLE)
-          ) {
-            store.dispatch(resetTask(taskId));
-            this.events.emit('taskReset', taskId);
+          try {
+            this.ensureInitialized();
+            // Only reset if task is still in COMPLETED or AVAILABLE state
+            const currentState = this.getState!();
+            const currentTask = currentState.tasks.tasks[taskId];
+            
+            if (
+              currentTask && 
+              (currentTask.status === TaskStatus.COMPLETED || 
+               currentTask.status === TaskStatus.AVAILABLE)
+            ) {
+              this.dispatch!(resetTask(taskId));
+              this.events.emit('taskReset', taskId);
+            }
+          } catch (error) {
+            console.error(`Error resetting task ${taskId}:`, error);
           }
         }, task.cooldown * 1000); // Convert seconds to ms
       }
@@ -335,7 +383,8 @@ export class TaskManager {
    */
   public cancelTask(taskId: string): boolean {
     try {
-      const state = store.getState();
+      this.ensureInitialized();
+      const state = this.getState!();
       const task = state.tasks.tasks[taskId];
       
       if (!task) {
@@ -348,7 +397,7 @@ export class TaskManager {
         return false;
       }
       
-      store.dispatch(cancelTask(taskId));
+      this.dispatch!(cancelTask(taskId));
       this.events.emit('taskCanceled', taskId);
       
       return true;
@@ -365,7 +414,8 @@ export class TaskManager {
    */
   public unlockTask(taskId: string): boolean {
     try {
-      const state = store.getState();
+      this.ensureInitialized();
+      const state = this.getState!();
       const task = state.tasks.tasks[taskId];
       
       if (!task) {
@@ -383,7 +433,7 @@ export class TaskManager {
         return false;
       }
       
-      store.dispatch(unlockTask(taskId));
+      this.dispatch!(unlockTask(taskId));
       this.events.emit('taskUnlocked', taskId);
       
       return true;
@@ -399,13 +449,14 @@ export class TaskManager {
    */
   public checkAllTaskRequirements(): number {
     try {
-      const state = store.getState();
+      this.ensureInitialized();
+      const state = this.getState!();
       const tasks = state.tasks.tasks;
       let unlocked = 0;
       
       Object.values(tasks).forEach(task => {
         if (task.status === TaskStatus.LOCKED && this.checkRequirements(task)) {
-          store.dispatch(unlockTask(task.id));
+          this.dispatch!(unlockTask(task.id));
           this.events.emit('taskUnlocked', task.id);
           unlocked++;
         }
@@ -446,7 +497,8 @@ export class TaskManager {
     status: TaskStatus
   } | null {
     try {
-      const state = store.getState();
+      this.ensureInitialized();
+      const state = this.getState!();
       const task = state.tasks.tasks[taskId];
       
       if (!task) {
