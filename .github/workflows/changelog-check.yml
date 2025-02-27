@@ -1,0 +1,24 @@
+name: Changelog Validation
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'CHANGELOG.md'
+
+jobs:
+  check-changelog:
+    name: Check Changelog is Versioned
+    runs-on: ubuntu-latest
+    # Only run this check on PRs to main branch
+    if: github.base_ref == 'main'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Check changelog is properly versioned
+        run: |
+          chmod +x .github/workflows/scripts/check-changelog.sh
+          .github/workflows/scripts/check-changelog.sh

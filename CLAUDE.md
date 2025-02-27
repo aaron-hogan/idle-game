@@ -160,18 +160,20 @@ For bug fixes:
 - Modular codebase structure
 - Observer pattern for UI updates
 
-## <AI-CRITICAL> CHANGELOG MAINTENANCE
+## <AI-CRITICAL> CHANGELOG MAINTENANCE AND VERSIONING
 
 1. The project maintains a CHANGELOG.md file in the root directory following the [Keep a Changelog](https://keepachangelog.com/) format.
 2. For EVERY code change:
    - Update the "Unreleased" section in the appropriate category (Added, Changed, Fixed, Removed)
    - Use clear, concise descriptions that explain the impact of the change
    - Reference related issue/PR numbers when applicable
-3. For releases:
-   - Move "Unreleased" changes to a new version section
+3. For PRs to main branch:
+   - ⚠️ **CRITICAL**: All changes MUST be properly versioned before merging
+   - Run `./scripts/bump-version.sh X.Y.Z` to create a new version section
    - Follow semantic versioning (MAJOR.MINOR.PATCH)
-   - Include the release date in ISO format (YYYY-MM-DD)
-   - Add a new empty "Unreleased" section
+   - The script will add the current date in ISO format (YYYY-MM-DD)
+   - PRs with unversioned changes in the "Unreleased" section will fail CI checks
+4. Follow the complete [Versioning and Release Process](/docs/processes/versioning-and-releases.md) for all releases
 
 ## <AI-CRITICAL> BRANCH VERIFICATION FOR AI ASSISTANTS
 
