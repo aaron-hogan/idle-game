@@ -105,3 +105,30 @@ To run specific test files:
 npm test -- utils/EventEmitter.test.ts
 npm test -- managers/GameLoopManager.test.ts
 ```
+
+## Build Verification
+
+As part of the testing process, always verify that the application still compiles successfully:
+
+```bash
+# Verify TypeScript compilation
+npm run typecheck
+
+# Build the application
+npm run build
+```
+
+If you encounter TypeScript errors during the build process:
+
+1. Check if errors are in the files you modified
+2. Address type issues in your changes first
+3. For errors in deprecated or unrelated files, document them in your PR
+
+### Common Build Issues
+
+1. **Type compatibility errors**: Ensure proper type assertions and interfaces
+2. **Missing properties**: Verify correct property names in state objects
+3. **Module resolution errors**: Check import paths and module names
+4. **Type assertions**: Use proper type assertions with intermediate `unknown` casts when necessary
+
+Always fix type errors in your own code before submitting a PR, even if there are existing type errors in other parts of the codebase.
