@@ -37,6 +37,11 @@ docs/processes/*/claude-*     # Claude-related docs in processes subdirectories
 docs/processes/*/*/claude-*   # Claude-related docs in deeper process subdirectories
 !docs/git_exceptions.md       # Exception log is allowed
 
+# Example and template files
+examples-*.config.js  # Example configuration files
+examples-*.md         # Example documentation files
+src/*hello-world*     # Test files for versioning
+
 # Miscellaneous
 .DS_Store             # macOS folder attributes
 **/.DS_Store          # macOS folder attributes in subdirectories
@@ -51,6 +56,8 @@ temp/**/*             # All files in temp directory
 _trash/               # Files pending removal
 _trash/**/*           # All files in trash directory
 *.backup              # Backup files
+*.orig                # Merge conflict artifacts
+*.tmp                 # Temporary files
 *~                    # Temporary editor files
 *.swp                 # Vim swap files
 *.swo                 # Vim swap files
