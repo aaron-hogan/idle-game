@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0-2] - 2025-02-27
+
+### Fixed
+- Fixed test issue
+
+
 ## [0.5.0] - 2025-02-27
 
 ### Added
@@ -163,3 +169,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Console spam and offline progress errors
 - Resource upgrade calculation issues
+
