@@ -10,13 +10,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.5.0-3] - 2025-02-27
 
 ### Added
-- Added support for patch-level versioning in process documentation
-- Updated versioning documentation to explain X.Y.Z-N format
-- Enhanced PR best practices with versioning guidelines
+- Added support for patch-level versioning (X.Y.Z-N format)
+- Created GitHub Action for automated versioning at merge time
+- Updated versioning documentation with new automated workflow
+- Enhanced PR workflow with version label support
 
 ### Changed 
 - Updated script documentation to clarify proper versioning practices
 - Improved safe workflow checklist with version selection guidance
+- Modified changelog check to enforce format rather than versioning
+- Revised versioning process to keep changes in Unreleased until merge
 
 
 ## [0.5.0-2] - 2025-02-27

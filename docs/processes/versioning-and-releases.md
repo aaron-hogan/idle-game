@@ -45,33 +45,48 @@ Example:
 
 ### Creating a Release
 
-Before merging to main:
+We now use a two-step process with automated versioning:
 
-1. Determine the appropriate version number based on semantic versioning:
-   - For significant bug fixes or small feature enhancements: Bump the PATCH version (X.Y.Z → X.Y.Z+1)
-   - For minor features without breaking changes: Bump the MINOR version (X.Y.Z → X.Y+1.0)
-   - For breaking changes: Bump the MAJOR version (X.Y.Z → X+1.0.0)
-   - For small fixes or tweaks: Add or increment the PATCH_LEVEL (X.Y.Z → X.Y.Z-1 or X.Y.Z-N → X.Y.Z-N+1)
+#### Step 1: During PR Development
 
-2. Run the version bumping script with the appropriate format:
-   ```bash
-   # For standard versions
-   ./scripts/bump-version.sh X.Y.Z
-   
-   # For patch level versions
-   ./scripts/bump-version.sh X.Y.Z-N
-   ```
+1. Document all your changes in the `[Unreleased]` section of `CHANGELOG.md`
+2. Make sure changes are properly categorized (Added, Changed, Fixed, etc.)
+3. Do NOT version the changes yourself - this happens automatically when merging
 
-3. This script will:
-   - Create a new version section in `CHANGELOG.md`
+#### Step 2: During PR Review and Merge
+
+1. Apply the appropriate version label to your PR:
+   - `version:major` - For breaking changes (X.Y.Z → X+1.0.0)
+   - `version:minor` - For new features (X.Y.Z → X.Y+1.0)
+   - `version:patch` - For bug fixes (X.Y.Z → X.Y.Z+1)
+   - `version:patch_level` - For small tweaks (X.Y.Z → X.Y.Z-1 or X.Y.Z-N → X.Y.Z-N+1)
+
+2. When the PR is merged, GitHub Actions will automatically:
+   - Move changes from `[Unreleased]` to a new version section
    - Set today's date as the release date
    - Update version in `package.json`
+   - Commit the version changes
+   - Create a git tag for the release
 
-4. Review the changes
+This automated approach ensures:
+- Changes stay in `[Unreleased]` during review
+- Version numbers are consistent
+- Versioning happens at the right time (when merging)
+- No merge conflicts in `CHANGELOG.md`
 
-5. Commit the changes with message: `chore: bump version to X.Y.Z` or `chore: bump version to X.Y.Z-N`
+#### Manual Versioning (if needed)
 
-You can also use the automated preparation script that guides you through this process:
+For special cases where you need to manually version:
+
+```bash
+# For standard versions
+./scripts/bump-version.sh X.Y.Z
+
+# For patch level versions
+./scripts/bump-version.sh X.Y.Z-N
+```
+
+You can also use the interactive preparation script:
 ```bash
 ./scripts/prepare-for-main.sh
 ```
