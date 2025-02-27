@@ -133,12 +133,22 @@
 
 ## Technical Debt
 - [x] Refactor core systems for better maintainability (Implemented dependency injection)
+- [ ] Implement project architecture improvements (see [Architecture Plan](/docs/features/architecture/implementation-plan.md))
+  - [x] Phase 1: Dependency Injection - Decouple manager classes from Redux store dependencies
+  - [ ] Phase 2: State Management Consolidation - Standardize Redux state management
+  - [ ] Phase 3: Type System Reorganization - Fix circular dependencies and standardize types
+  - [ ] Phase 4: Game Engine Reorganization - Clarify boundaries between systems and managers
+  - [ ] Phase 5: Component Restructuring - Reorganize UI components consistently
+  - [ ] Phase 6: Testing Reorganization - Standardize test structure
+  - [ ] Phase 7: Clean-up and Documentation
 - [ ] Improve test coverage
 - [x] Update documentation with recent timing system improvements
 - [ ] Fix failing unit tests from recent system changes
 - [ ] Optimize performance bottlenecks
 - [ ] Reduce bundle size
 - [x] Improve error handling in timer and Redux sync systems
+
+> Last synchronized: 2025-02-27
 
 ## Documentation
 - [x] Update final-game-specification.md with recent changes
