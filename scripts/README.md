@@ -4,6 +4,33 @@ This directory contains utility scripts used for development, building, and main
 
 ## Available Scripts
 
+### Branch Management and Cleanup
+
+`cleanup-branches.sh` - Safely deletes branches that have been merged into main.
+
+Usage:
+```bash
+./scripts/cleanup-branches.sh
+```
+
+The script:
+- Lists all branches that have been merged into main
+- Asks for confirmation before deleting local branches
+- Optionally deletes the corresponding remote branches
+- Excludes main and release branches from deletion
+
+`cleanup-stale-prs.sh` - Helps manage stale pull requests.
+
+Usage:
+```bash
+./scripts/cleanup-stale-prs.sh
+```
+
+The script:
+- Lists all open PRs
+- Identifies stale PRs (not updated in 30+ days)
+- Provides the option to close stale PRs with a comment
+
 ### Documentation Validation
 
 `validate-docs.js` - Validates the structure and completeness of project documentation.
