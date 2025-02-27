@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added scripts directory with validate-docs.js utility
 - Added logs directory for organizing CI and test logs
 - Created comprehensive project structure reorganization plan
+- Added README files for all documentation directories
 
 ### Changed
 - Consolidated root folder structure for better organization
@@ -21,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added comprehensive README files for new directories
 - Improved PR workflow documentation with explicit communication requirements
 - Completed root folder cleanup by moving all test logs to logs directory
+- Enhanced documentation organization and navigation
 
 ### Fixed
 - Fixed TypeError in GameLoop by adding support for flat resource structure in gameEndConditions.ts

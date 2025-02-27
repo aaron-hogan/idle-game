@@ -1,101 +1,62 @@
-# Anti-Capitalist Idle Game Documentation
+# Project Documentation
 
-This directory contains the documentation for the Anti-Capitalist Idle Game project. The documentation is organized by feature and system, making it easy to find relevant information.
+Welcome to the Anti-Capitalist Idle Game documentation. This repository contains comprehensive documentation for all aspects of the project.
 
-## Directory Structure
+## Documentation Structure
 
-- **Features** (`/docs/features/`)
-  - **Debug Panel** (`/docs/features/debug-panel/`)
-    - `debug-panel.md`: Main documentation of the debug panel
-    - `plan.md`: Implementation plan
-    - `summary.md`: Summary of implementation
-    - `todo.md`: Ongoing tasks
+### Feature Documentation
+- [Architecture](/docs/features/architecture/) - Project architecture and organization
+- [Core Game Loop](/docs/features/core-game-loop/) - Game loop and timing system
+- [Debug Panel](/docs/features/debug-panel/) - Developer debugging tools
+- [Dependency Injection](/docs/features/dependency-injection/) - Dependency injection pattern implementation
+- [Event System](/docs/features/event-system/) - Game event handling system
+- [Game Balance](/docs/features/game-balance/) - Game mechanics and balance documentation
+- [Milestone Tracking](/docs/features/milestone-tracking/) - Player progression milestones
+- [Progression System](/docs/features/progression-system/) - Game progression mechanics
+- [Resource Earning](/docs/features/resource-earning-mechanics/) - Resource generation systems
+- [Testing](/docs/features/testing/) - Testing documentation and results
+- [Timer](/docs/features/timer/) - Game timer implementation
+- [UI Improvements](/docs/features/ui-improvements/) - UI enhancement documentation
+- [Visual Design](/docs/features/visual-design/) - Game visual design guidelines
+- [Win/Lose States](/docs/features/win-lose-state/) - Game end conditions
 
-  - **Event System** (`/docs/features/event-system/`)
-    - `event-system.md`: Main documentation of the event system
-    - `plan.md`: Implementation plan
-    - `summary.md`: Summary of completed work
-    - `todo.md`: Ongoing tasks
+### Process Documentation
+- [Code Quality](/docs/processes/code-quality/) - Code standards and quality processes
+- [Documentation](/docs/processes/documentation/) - Documentation standards and processes
+- [Git](/docs/processes/git/) - Git workflow and practices
+- [Testing Processes](/docs/processes/testing/) - Testing processes and standards
 
-  - **Timer System** (`/docs/features/timer/`)
-    - `timer.md`: Main timer system documentation
-    - `plan.md`: Implementation plan
-    - `summary.md`: Implementation results
-    - `todo.md`: Todo list
+### Project Information
+- [Project Status](/docs/project/status.md) - Current project status
+- [Project Todo](/docs/project/todo.md) - Pending tasks and completions
+- [Critical Fixes](/docs/project/critical-fixes.md) - Log of critical fixes applied
 
-- **Guides** (`/docs/guides/`)
-  - `getting-started.md`: Guide for new developers
-  - `contributing.md`: Guidelines for contributions
-  - `style-guide.md`: Coding standards and best practices
+### Guides and Specifications
+- [Game Specification](/docs/specifications/game-specification.md) - Comprehensive game design specification
+- [Implementation Plan](/docs/specifications/implementation-plan.md) - Technical implementation plan
+- [Getting Started](/docs/guides/getting-started.md) - New developer onboarding
+- [Development Setup](/docs/guides/development-setup.md) - Environment setup guide
+- [Contributing](/docs/guides/contributing.md) - Guidelines for contributors
 
-- **Processes** (`/docs/processes/`)
-  - **Documentation** (`/docs/processes/documentation/`)
-    - `standards.md`: Documentation standards
-    - **Templates** (`/docs/processes/documentation/templates/`)
-      - `docs-template.md`: Templates for documentation
-    - **Validation** (`/docs/processes/documentation/validation/`)
-      - `validate-docs.sh`: Documentation validation script
-      - `README.md`: Validation guide
-      - `REPORT.md`: Validation report
+## Using This Documentation
 
-  - **Testing** (`/docs/processes/testing/`)
-    - `standards.md`: Testing standards
-    - `strategies.md`: Testing strategies
-    - **Templates** (`/docs/processes/testing/templates/`)
-      - `test-plan-template.md`: Template for test plans
+- **New developers** should start with the [Getting Started](/docs/guides/getting-started.md) guide
+- **Current developers** should refer to the [Project Status](/docs/project/status.md) and [Todo](/docs/project/todo.md) documents
+- **Feature implementation** should follow the patterns in [Feature Documentation](/docs/features/)
+- **Process questions** can be answered in the [Process Documentation](/docs/processes/)
 
-- **Project** (`/docs/project/`)
-  - `overview.md`: Project overview and introduction
-  - `status.md`: Overall project status and progress
-  - `todo.md`: Global todo list for the project
+## Documentation Standards
 
-- **Specifications** (`/docs/specifications/`)
-  - `game-specification.md`: Complete game specification
-  - `implementation-plan.md`: Implementation strategy
+All documentation follows the standards outlined in the [Documentation Standards](/docs/processes/documentation/documentation-standards.md) document. When creating new documentation, please adhere to these standards and use the appropriate templates.
 
-- **Archive** (`/docs/archive/`)
-  - `full-game-specification.md`: Archived specifications
+## Contributing to Documentation
 
-## Documentation Standards and Validation
+Documentation is a critical part of our development process. When implementing new features or making significant changes:
 
-For comprehensive documentation standards, refer to:
-- `/docs/processes/documentation/standards.md` - Complete documentation guidelines
-- The "Documentation" section in `CLAUDE.md` at the project root
+1. Update or create feature documentation
+2. Follow the established templates and patterns
+3. Ensure README files exist in each directory
+4. Update the project status and todo lists as appropriate
+5. Submit documentation changes as part of your feature PR
 
-## Documentation Validation
-
-**IMPORTANT**: Always validate documentation after creating or updating it:
-
-```bash
-cd docs
-./processes/documentation/validation/validate-docs.sh
-```
-
-This script verifies that all documentation follows our standards, including:
-- Correct folder and file structure
-- Required files for each feature
-- Proper content sections
-- Implementation prompts in plan documents
-- Task list formatting in todo files
-
-## Creating New Feature Documentation
-
-For each new feature:
-
-1. Create a new folder: `/docs/features/feature-name/`
-2. Use the templates in `/docs/processes/documentation/templates/docs-template.md` to create:
-   - `plan.md` (before development)
-   - `feature-name.md` (main documentation)
-   - `summary.md` (after implementation)
-   - `todo.md` (ongoing task list)
-3. Follow the structured format provided in the templates
-4. Run the validation script to verify your documentation
-5. Fix any issues identified by the validation
-6. Update this README.md file with your new documentation section
-7. Update `/docs/project/status.md` with the new feature
-
-## Converting to Wiki
-
-This documentation structure is designed to be easily convertible to a wiki system in the future. Each folder represents a wiki section, and each markdown file can become a wiki page.
-
-Last Updated: February 25, 2025 - Major restructuring of documentation organization
+For more information, see the [Documentation Processes](/docs/processes/documentation/) section.
