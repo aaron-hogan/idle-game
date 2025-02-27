@@ -1,3 +1,19 @@
+# Test Suite Fixes Summary
+
+## Test Suite Status
+
+- **Total test suites:** 55
+- **Passing test suites:** 51 (93%)
+- **Skipped test suites:** 1 (App.test.tsx)
+- **Failing test suites:** 3 (GameManager.test.ts, gameLoop.test.ts x2)
+
+## Test Cases Status
+
+- **Total tests:** 374
+- **Passing tests:** 367 (98%)
+- **Skipped tests:** 4 (all in App.test.tsx)
+- **Failing tests:** 3 (all in GameManager.test.ts)
+
 ## Fixed tests summary:
 - ResourceDisplay tests now passing (Fix: Updated to use Counter component correctly)
 - OfflineProgressModal tests now passing (Fix: Added proper animation timing)
@@ -16,9 +32,21 @@
 - SaveManager tests now passing (Fix: Updated GameState with required fields)
 
 ## Still failing:
-1. Type-related errors:
-   - Mocking errors in GameManager.test.ts
+1. GameManager.test.ts (3 tests):
+   - Mocking issues with registerHandler
+   - Mock behavior not correctly set up for timer and resource updates
 
-## Next steps:
-1. Fix mocking for GameManager.test.ts tests
-2. Improve coverage for App.test.tsx by fixing skipped tests
+2. GameLoop tests (type errors):
+   - Missing required state properties in mock store for RootState
+   - Type compatibility errors with NodeJS.Timeout
+
+## Next steps for remaining issues:
+1. Create a proper mock implementation for GameLoop in GameManager tests
+2. Address the type errors in gameLoop test files
+3. Fix skipped tests in App.test.tsx by properly mocking dependencies
+
+## Root causes of test failures:
+1. GameState interface was updated with new required fields (gameEnded, gameWon, endReason)
+2. Progression slice was moved from state/ to redux/ directory
+3. Type incompatibilities between mocks and actual implementations
+4. Inadequate mock implementations for complex components
