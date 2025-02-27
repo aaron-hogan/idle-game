@@ -6,7 +6,7 @@ import resourcesReducer from '../state/resourcesSlice';
 import structuresReducer from '../state/structuresSlice';
 import gameReducer from '../state/gameSlice';
 import eventsReducer from '../state/eventsSlice';
-import progressionReducer from '../state/progressionSlice';
+import progressionReducer from '../redux/progressionSlice';
 import tasksReducer from '../state/tasksSlice';
 import App from './App';
 import { ResourceManager } from '../systems/resourceManager';
