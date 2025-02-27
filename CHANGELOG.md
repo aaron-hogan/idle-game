@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Professional release process with GitFlow-inspired branching strategy
+- Semantic release automation with conventional commits
+- Helper scripts for release and hotfix management 
+- GitHub Actions workflows for automated versioning and releases
+- Enhanced AI-optimized workflow scripts for safe branch and PR management
 - Implemented dependency injection for manager classes to reduce tight coupling
 - Added store injection to TaskManager and ProgressionManager
 - Created documentation for dependency injection approach
