@@ -4,7 +4,7 @@
 This document provides a summary of the current project status, recent improvements, and documentation organization.
 
 ## Current Status
-The Anti-Capitalist Idle Game project is currently in active development. We have completed the foundation setup and have implemented several core gameplay systems. Recent work has focused on core system hardening and implementing a comprehensive debug panel to aid further development.
+The Anti-Capitalist Idle Game project is currently in active development. We have completed the foundation setup and have implemented several core gameplay systems. Recent work has focused on architectural improvements, core system hardening and implementing a comprehensive debug panel to aid further development.
 
 ### Completed Components
 1. **Core Foundation**
@@ -21,6 +21,17 @@ The Anti-Capitalist Idle Game project is currently in active development. We hav
    - Save/load system
 
 3. **Recent Improvements**
+   - **Dependency Injection Implementation** (February 2025):
+     - Refactored TaskManager and ProgressionManager for DI
+     - Fixed TypeScript errors in requirement validation
+     - Improved system architecture for better testability
+     - Created comprehensive documentation for the DI pattern
+
+   - **PR Workflow Improvements** (February 2025):
+     - Enhanced PR workflow documentation
+     - Added explicit requirements for PR status communication
+     - Updated CLAUDE.md with improved process guidelines
+
    - **Progression System Fixes** (February 2025):
      - Fixed type safety issues with Resource interface
      - Corrected UI component rendering and memoization
@@ -84,10 +95,11 @@ Our documentation is organized in feature-specific folders in the `/docs` direct
 We are maintaining our established development principles:
 - Test-driven development methodology
 - Defensive programming practices
-- Singleton manager pattern for system services
 - Strong typing throughout the codebase
 - Self-healing mechanisms for robust gameplay
 - Comprehensive error handling
+- Dependency injection for better testability and maintainability
+- Moving away from Singleton pattern toward proper DI
 
 ## Documentation Plan
 As development continues, we will:
@@ -97,4 +109,4 @@ As development continues, we will:
 4. Create developer guides for major components
 5. Develop user documentation as we approach alpha testing
 
-Last Updated: February 25, 2025 (Progression system fixes completed)
+Last Updated: February 27, 2025 (Dependency injection implementation and PR workflow improvements completed)

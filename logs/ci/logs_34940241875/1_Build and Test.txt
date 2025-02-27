@@ -1,0 +1,197 @@
+﻿2025-02-26T21:24:11.9994210Z Current runner version: '2.322.0'
+2025-02-26T21:24:12.0020355Z ##[group]Operating System
+2025-02-26T21:24:12.0021290Z Ubuntu
+2025-02-26T21:24:12.0021897Z 24.04.2
+2025-02-26T21:24:12.0022382Z LTS
+2025-02-26T21:24:12.0022858Z ##[endgroup]
+2025-02-26T21:24:12.0023440Z ##[group]Runner Image
+2025-02-26T21:24:12.0024018Z Image: ubuntu-24.04
+2025-02-26T21:24:12.0024534Z Version: 20250223.1.0
+2025-02-26T21:24:12.0025597Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20250223.1/images/ubuntu/Ubuntu2404-Readme.md
+2025-02-26T21:24:12.0026951Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20250223.1
+2025-02-26T21:24:12.0027867Z ##[endgroup]
+2025-02-26T21:24:12.0028475Z ##[group]Runner Image Provisioner
+2025-02-26T21:24:12.0029065Z 2.0.422.1
+2025-02-26T21:24:12.0029492Z ##[endgroup]
+2025-02-26T21:24:12.0030781Z ##[group]GITHUB_TOKEN Permissions
+2025-02-26T21:24:12.0032516Z Contents: read
+2025-02-26T21:24:12.0033208Z Metadata: read
+2025-02-26T21:24:12.0033876Z Packages: read
+2025-02-26T21:24:12.0034562Z ##[endgroup]
+2025-02-26T21:24:12.0037335Z Secret source: Actions
+2025-02-26T21:24:12.0038154Z Prepare workflow directory
+2025-02-26T21:24:12.0342788Z Prepare all required actions
+2025-02-26T21:24:12.0379768Z Getting action download info
+2025-02-26T21:24:12.2719715Z Download action repository 'actions/checkout@v4' (SHA:11bd71901bbe5b1630ceea73d27597364c9af683)
+2025-02-26T21:24:12.3628375Z Download action repository 'actions/setup-node@v3' (SHA:1a4442cacd436585916779262731d5b162bc6ec7)
+2025-02-26T21:24:12.4570374Z Download action repository 'codecov/codecov-action@v3' (SHA:ab904c41d6ece82784817410c45d8b8c02684457)
+2025-02-26T21:24:13.0293981Z Complete job name: Build and Test
+2025-02-26T21:24:13.0998358Z ##[group]Run actions/checkout@v4
+2025-02-26T21:24:13.0999189Z with:
+2025-02-26T21:24:13.0999576Z   fetch-depth: 0
+2025-02-26T21:24:13.1000004Z   repository: aaron-hogan/idle-game
+2025-02-26T21:24:13.1000896Z   token: ***
+2025-02-26T21:24:13.1001302Z   ssh-strict: true
+2025-02-26T21:24:13.1001776Z   ssh-user: git
+2025-02-26T21:24:13.1002246Z   persist-credentials: true
+2025-02-26T21:24:13.1002750Z   clean: true
+2025-02-26T21:24:13.1003210Z   sparse-checkout-cone-mode: true
+2025-02-26T21:24:13.1003749Z   fetch-tags: false
+2025-02-26T21:24:13.1004206Z   show-progress: true
+2025-02-26T21:24:13.1004680Z   lfs: false
+2025-02-26T21:24:13.1005114Z   submodules: false
+2025-02-26T21:24:13.1005575Z   set-safe-directory: true
+2025-02-26T21:24:13.1006269Z ##[endgroup]
+2025-02-26T21:24:13.2894715Z Syncing repository: aaron-hogan/idle-game
+2025-02-26T21:24:13.2897139Z ##[group]Getting Git version info
+2025-02-26T21:24:13.2898234Z Working directory is '/home/runner/work/idle-game/idle-game'
+2025-02-26T21:24:13.2899571Z [command]/usr/bin/git version
+2025-02-26T21:24:13.2972116Z git version 2.48.1
+2025-02-26T21:24:13.2999982Z ##[endgroup]
+2025-02-26T21:24:13.3016106Z Temporarily overriding HOME='/home/runner/work/_temp/9e65f04c-6fe1-4a97-bf82-02c27576a6bf' before making global git config changes
+2025-02-26T21:24:13.3018561Z Adding repository directory to the temporary git global config as a safe directory
+2025-02-26T21:24:13.3023294Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/idle-game/idle-game
+2025-02-26T21:24:13.3059483Z Deleting the contents of '/home/runner/work/idle-game/idle-game'
+2025-02-26T21:24:13.3063712Z ##[group]Initializing the repository
+2025-02-26T21:24:13.3068397Z [command]/usr/bin/git init /home/runner/work/idle-game/idle-game
+2025-02-26T21:24:13.3137454Z hint: Using 'master' as the name for the initial branch. This default branch name
+2025-02-26T21:24:13.3138785Z hint: is subject to change. To configure the initial branch name to use in all
+2025-02-26T21:24:13.3139683Z hint: of your new repositories, which will suppress this warning, call:
+2025-02-26T21:24:13.3140348Z hint:
+2025-02-26T21:24:13.3141136Z hint: 	git config --global init.defaultBranch <name>
+2025-02-26T21:24:13.3141924Z hint:
+2025-02-26T21:24:13.3142825Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2025-02-26T21:24:13.3144589Z hint: 'development'. The just-created branch can be renamed via this command:
+2025-02-26T21:24:13.3145550Z hint:
+2025-02-26T21:24:13.3145931Z hint: 	git branch -m <name>
+2025-02-26T21:24:13.3146978Z Initialized empty Git repository in /home/runner/work/idle-game/idle-game/.git/
+2025-02-26T21:24:13.3156400Z [command]/usr/bin/git remote add origin https://github.com/aaron-hogan/idle-game
+2025-02-26T21:24:13.3187683Z ##[endgroup]
+2025-02-26T21:24:13.3188398Z ##[group]Disabling automatic garbage collection
+2025-02-26T21:24:13.3193286Z [command]/usr/bin/git config --local gc.auto 0
+2025-02-26T21:24:13.3222635Z ##[endgroup]
+2025-02-26T21:24:13.3224050Z ##[group]Setting up auth
+2025-02-26T21:24:13.3230188Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2025-02-26T21:24:13.3260332Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2025-02-26T21:24:13.3555087Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2025-02-26T21:24:13.3583344Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2025-02-26T21:24:13.3818053Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2025-02-26T21:24:13.3856714Z ##[endgroup]
+2025-02-26T21:24:13.3857521Z ##[group]Fetching the repository
+2025-02-26T21:24:13.3866247Z [command]/usr/bin/git -c protocol.version=2 fetch --prune --no-recurse-submodules origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/* +715e278433cce40d1a00c7d59dc60f3e3a737c1d:refs/remotes/pull/21/merge
+2025-02-26T21:24:14.0639585Z From https://github.com/aaron-hogan/idle-game
+2025-02-26T21:24:14.0642476Z  * [new branch]      archive/day-timer-fix-feb2025            -> origin/archive/day-timer-fix-feb2025
+2025-02-26T21:24:14.0645511Z  * [new branch]      docs/enhance-git-documentation           -> origin/docs/enhance-git-documentation
+2025-02-26T21:24:14.0648491Z  * [new branch]      docs/improve-branch-protection           -> origin/docs/improve-branch-protection
+2025-02-26T21:24:14.0652285Z  * [new branch]      feature/game-balance-config              -> origin/feature/game-balance-config
+2025-02-26T21:24:14.0655271Z  * [new branch]      feature/github-actions-ci                -> origin/feature/github-actions-ci
+2025-02-26T21:24:14.0658267Z  * [new branch]      fix/changelog-versioning                 -> origin/fix/changelog-versioning
+2025-02-26T21:24:14.0661492Z  * [new branch]      fix/oppression-rate-display              -> origin/fix/oppression-rate-display
+2025-02-26T21:24:14.0663643Z  * [new branch]      main                                     -> origin/main
+2025-02-26T21:24:14.0665793Z  * [new branch]      test/github-actions-hello-world          -> origin/test/github-actions-hello-world
+2025-02-26T21:24:14.0669513Z  * [new ref]         715e278433cce40d1a00c7d59dc60f3e3a737c1d -> pull/21/merge
+2025-02-26T21:24:14.0698641Z ##[endgroup]
+2025-02-26T21:24:14.0701307Z ##[group]Determining the checkout info
+2025-02-26T21:24:14.0703866Z ##[endgroup]
+2025-02-26T21:24:14.0706219Z [command]/usr/bin/git sparse-checkout disable
+2025-02-26T21:24:14.0753060Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2025-02-26T21:24:14.0786198Z ##[group]Checking out the ref
+2025-02-26T21:24:14.0789232Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/21/merge
+2025-02-26T21:24:14.1092929Z Note: switching to 'refs/remotes/pull/21/merge'.
+2025-02-26T21:24:14.1096022Z 
+2025-02-26T21:24:14.1097941Z You are in 'detached HEAD' state. You can look around, make experimental
+2025-02-26T21:24:14.1101652Z changes and commit them, and you can discard any commits you make in this
+2025-02-26T21:24:14.1105590Z state without impacting any branches by switching back to a branch.
+2025-02-26T21:24:14.1107787Z 
+2025-02-26T21:24:14.1109174Z If you want to create a new branch to retain commits you create, you may
+2025-02-26T21:24:14.1112674Z do so (now or later) by using -c with the switch command. Example:
+2025-02-26T21:24:14.1114561Z 
+2025-02-26T21:24:14.1115378Z   git switch -c <new-branch-name>
+2025-02-26T21:24:14.1116705Z 
+2025-02-26T21:24:14.1117547Z Or undo this operation with:
+2025-02-26T21:24:14.1118868Z 
+2025-02-26T21:24:14.1119621Z   git switch -
+2025-02-26T21:24:14.1120858Z 
+2025-02-26T21:24:14.1122444Z Turn off this advice by setting config variable advice.detachedHead to false
+2025-02-26T21:24:14.1124738Z 
+2025-02-26T21:24:14.1127325Z HEAD is now at 715e278 Merge d8af59c44838d47b7fb768616be7f73cf799bebc into a9a4fabd3948c290ec46e6ee11a7a7a40b00e528
+2025-02-26T21:24:14.1134915Z ##[endgroup]
+2025-02-26T21:24:14.1141642Z [command]/usr/bin/git log -1 --format=%H
+2025-02-26T21:24:14.1165424Z 715e278433cce40d1a00c7d59dc60f3e3a737c1d
+2025-02-26T21:24:14.1474663Z ##[group]Run actions/setup-node@v3
+2025-02-26T21:24:14.1475816Z with:
+2025-02-26T21:24:14.1476638Z   node-version: 20
+2025-02-26T21:24:14.1477528Z   cache: npm
+2025-02-26T21:24:14.1478381Z   always-auth: false
+2025-02-26T21:24:14.1479315Z   check-latest: false
+2025-02-26T21:24:14.1480666Z   token: ***
+2025-02-26T21:24:14.1481507Z ##[endgroup]
+2025-02-26T21:24:14.3327835Z Found in cache @ /opt/hostedtoolcache/node/20.18.3/x64
+2025-02-26T21:24:14.3333533Z ##[group]Environment details
+2025-02-26T21:24:14.7479866Z node: v20.18.3
+2025-02-26T21:24:14.7480254Z npm: 10.8.2
+2025-02-26T21:24:14.7480833Z yarn: 1.22.22
+2025-02-26T21:24:14.7481598Z ##[endgroup]
+2025-02-26T21:24:14.7494580Z [command]/opt/hostedtoolcache/node/20.18.3/x64/bin/npm config get cache
+2025-02-26T21:24:14.8671263Z /home/runner/.npm
+2025-02-26T21:24:15.2263340Z npm cache is not found
+2025-02-26T21:24:15.2388968Z ##[group]Run npm ci --prefer-offline
+2025-02-26T21:24:15.2389458Z [36;1mnpm ci --prefer-offline[0m
+2025-02-26T21:24:15.2444427Z shell: /usr/bin/bash -e {0}
+2025-02-26T21:24:15.2444776Z ##[endgroup]
+2025-02-26T21:24:18.5093894Z npm warn deprecated react-testing-library@8.0.1: 🚨  react-testing-library has moved to @testing-library/react. Please uninstall react-testing-library and install @testing-library/react instead, or use an older version of react-testing-library. Learn more about this change here: https://github.com/testing-library/dom-testing-library/issues/260 Thanks! :)
+2025-02-26T21:24:19.2938376Z npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+2025-02-26T21:24:19.4601662Z npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+2025-02-26T21:24:19.8582222Z npm warn deprecated domexception@4.0.0: Use your platform's native DOMException instead
+2025-02-26T21:24:20.1993588Z npm warn deprecated abab@2.0.6: Use your platform's native atob() and btoa() methods instead
+2025-02-26T21:24:23.3075391Z 
+2025-02-26T21:24:23.3076301Z added 900 packages, and audited 901 packages in 8s
+2025-02-26T21:24:23.3079301Z 
+2025-02-26T21:24:23.3079676Z 193 packages are looking for funding
+2025-02-26T21:24:23.3081243Z   run `npm fund` for details
+2025-02-26T21:24:23.3090182Z 
+2025-02-26T21:24:23.3090915Z found 0 vulnerabilities
+2025-02-26T21:24:23.3428104Z ##[group]Run npm run lint
+2025-02-26T21:24:23.3428397Z [36;1mnpm run lint[0m
+2025-02-26T21:24:23.3482248Z shell: /usr/bin/bash -e {0}
+2025-02-26T21:24:23.3482502Z ##[endgroup]
+2025-02-26T21:24:23.4592955Z 
+2025-02-26T21:24:23.4593782Z > idle-game@0.1.0 lint
+2025-02-26T21:24:23.4594276Z > eslint src --ext .ts,.tsx
+2025-02-26T21:24:23.4594510Z 
+2025-02-26T21:24:23.6403722Z (node:1883) Warning: To load an ES module, set "type": "module" in the package.json or use the .mjs extension.
+2025-02-26T21:24:23.6404554Z (Use `node --trace-warnings ...` to show where the warning was created)
+2025-02-26T21:24:23.6408676Z 
+2025-02-26T21:24:23.6409002Z Oops! Something went wrong! :(
+2025-02-26T21:24:23.6409303Z 
+2025-02-26T21:24:23.6409461Z ESLint: 9.21.0
+2025-02-26T21:24:23.6409669Z 
+2025-02-26T21:24:23.6410070Z /home/runner/work/idle-game/idle-game/eslint.config.js:1
+2025-02-26T21:24:23.6410928Z import eslint from '@eslint/js';
+2025-02-26T21:24:23.6411404Z ^^^^^^
+2025-02-26T21:24:23.6411653Z 
+2025-02-26T21:24:23.6412076Z SyntaxError: Cannot use import statement outside a module
+2025-02-26T21:24:23.6412825Z     at wrapSafe (node:internal/modules/cjs/loader:1378:20)
+2025-02-26T21:24:23.6413604Z     at Module._compile (node:internal/modules/cjs/loader:1428:41)
+2025-02-26T21:24:23.6414454Z     at Module._extensions..js (node:internal/modules/cjs/loader:1548:10)
+2025-02-26T21:24:23.6415037Z     at Module.load (node:internal/modules/cjs/loader:1288:32)
+2025-02-26T21:24:23.6415523Z     at Module._load (node:internal/modules/cjs/loader:1104:12)
+2025-02-26T21:24:23.6416016Z     at cjsLoader (node:internal/modules/esm/translators:346:17)
+2025-02-26T21:24:23.6416596Z     at ModuleWrap.<anonymous> (node:internal/modules/esm/translators:286:7)
+2025-02-26T21:24:23.6417199Z     at ModuleJob.run (node:internal/modules/esm/module_job:234:25)
+2025-02-26T21:24:23.6417755Z     at async ModuleLoader.import (node:internal/modules/esm/loader:473:24)
+2025-02-26T21:24:23.6418588Z     at async loadConfigFile (/home/runner/work/idle-game/idle-game/node_modules/eslint/lib/config/config-loader.js:197:21)
+2025-02-26T21:24:23.6536206Z ##[error]Process completed with exit code 2.
+2025-02-26T21:24:23.6651321Z Post job cleanup.
+2025-02-26T21:24:23.7588656Z [command]/usr/bin/git version
+2025-02-26T21:24:23.7624302Z git version 2.48.1
+2025-02-26T21:24:23.7674572Z Temporarily overriding HOME='/home/runner/work/_temp/f36af24f-cb01-468f-ab89-7f1c04b1fac8' before making global git config changes
+2025-02-26T21:24:23.7676138Z Adding repository directory to the temporary git global config as a safe directory
+2025-02-26T21:24:23.7680817Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/idle-game/idle-game
+2025-02-26T21:24:23.7715353Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2025-02-26T21:24:23.7747923Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2025-02-26T21:24:23.7975452Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2025-02-26T21:24:23.7996063Z http.https://github.com/.extraheader
+2025-02-26T21:24:23.8008472Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2025-02-26T21:24:23.8039086Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2025-02-26T21:24:23.8368390Z Cleaning up orphan processes

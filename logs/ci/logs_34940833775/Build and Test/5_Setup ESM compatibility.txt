@@ -1,0 +1,6 @@
+﻿2025-02-26T21:38:43.8570673Z ##[group]Run echo "Adding type:module to package.json for ESLint compatibility"
+2025-02-26T21:38:43.8571499Z [36;1mecho "Adding type:module to package.json for ESLint compatibility"[0m
+2025-02-26T21:38:43.8572003Z [36;1msed -i 's/"main": "index.js",/"main": "index.js","type": "module",/g' package.json[0m
+2025-02-26T21:38:43.8623078Z shell: /usr/bin/bash -e {0}
+2025-02-26T21:38:43.8623327Z ##[endgroup]
+2025-02-26T21:38:43.8692424Z Adding type:module to package.json for ESLint compatibility
