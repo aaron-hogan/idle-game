@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Non-interactive mode for release and hotfix scripts
+- Command-line parameters for fully automated versioning 
+- AI-friendly automation options to avoid prompt interruptions
+- Enhanced documentation for non-interactive script usage
+- Package.json convenience scripts for common automation tasks
+
+### Changed
+- Updated release process documentation with automation guidelines
+- Added specific automation instructions for AI assistants
+
 ## [0.5.0-4] - 2025-02-27
 
 ### Added

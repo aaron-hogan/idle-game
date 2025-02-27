@@ -16,7 +16,11 @@
     "validate": "npm run typecheck && npm run lint && npm test",
     "docs:validate": "node scripts/validate-docs.js || echo \"Documentation validation script not implemented yet\"",
     "release": "./scripts/create-release.sh",
+    "release:major": "./scripts/create-release.sh --major --non-interactive --force",
+    "release:minor": "./scripts/create-release.sh --minor --non-interactive --force",
+    "release:patch": "./scripts/create-release.sh --patch --non-interactive --force",
     "hotfix": "./scripts/create-hotfix.sh",
+    "hotfix:auto": "./scripts/create-hotfix.sh --description",
     "semantic-release": "semantic-release"
   },
   "keywords": [
