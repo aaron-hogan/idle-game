@@ -37,6 +37,23 @@ const eventsSlice = createSlice({
   initialState,
   reducers: {
     /**
+     * Initialize the events state structure
+     * This is primarily to ensure the event state structure exists before other operations
+     */
+    init: (state) => {
+      // Just ensure the structure is in place
+      if (!state.availableEvents) {
+        state.availableEvents = {};
+      }
+      if (!state.activeEvents) {
+        state.activeEvents = [];
+      }
+      if (!state.eventHistory) {
+        state.eventHistory = [];
+      }
+    },
+    
+    /**
      * Add a new event to the available events
      */
     addEvent: (state, action: PayloadAction<IEvent>) => {

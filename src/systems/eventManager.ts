@@ -175,6 +175,11 @@ export class EventManager {
       this.ensureInitialized();
       const state = this.getState();
       
+      // Safety check - ensure event state exists
+      if (!state.events || !state.events.activeEvents || !state.events.availableEvents) {
+        return;
+      }
+      
       // For each active event ID, check if the event actually exists
       state.events.activeEvents.forEach(eventId => {
         const event = state.events.availableEvents[eventId];
@@ -249,6 +254,12 @@ export class EventManager {
     try {
       this.ensureInitialized();
       const state = this.getState();
+      
+      // Safety check - ensure event state exists
+      if (!state.events || !state.events.availableEvents) {
+        return [];
+      }
+      
       const events = state.events.availableEvents;
       const currentTime = getCurrentTime();
       
@@ -256,8 +267,8 @@ export class EventManager {
       
       // Check each event's conditions
       Object.values(events).forEach(event => {
-        // Skip events that are already active
-        if (state.events.activeEvents.some(activeId => activeId === event.id)) {
+        // Skip events that are already active - with safety check
+        if (state.events.activeEvents && state.events.activeEvents.some(activeId => activeId === event.id)) {
           return;
         }
         
@@ -642,6 +653,11 @@ export class EventManager {
       this.ensureInitialized();
       const state = this.getState();
       
+      // Safety check - ensure event state exists
+      if (!state.events || !state.events.activeEvents || !state.events.availableEvents) {
+        return [];
+      }
+      
       return state.events.activeEvents
         .map(id => state.events.availableEvents[id])
         .filter(Boolean)
@@ -663,6 +679,12 @@ export class EventManager {
     try {
       this.ensureInitialized();
       const state = this.getState();
+      
+      // Safety check - ensure event state exists
+      if (!state.events || !state.events.availableEvents) {
+        return {};
+      }
+      
       return state.events.availableEvents;
     } catch (error) {
       this.logger.logError(
@@ -705,6 +727,11 @@ export class EventManager {
       }
       
       const state = this.getState();
+      
+      // Safety check - ensure event state exists
+      if (!state.events || !state.events.availableEvents) {
+        return;
+      }
       
       // If there are already active events that require player input, don't trigger new ones
       const activeEvents = this.getActiveEvents();

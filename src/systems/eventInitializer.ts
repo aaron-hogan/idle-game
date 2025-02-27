@@ -24,10 +24,13 @@ export function initializeEventSystem() {
   
   try {
     // Register events in the store
-    // First the sample demo events
+    // First ensure the event structure is initialized in the state
+    store.dispatch({ type: 'events/init' });
+    
+    // Then add sample demo events
     store.dispatch(addEvents(sampleEvents));
     
-    // Then the anti-capitalist themed events
+    // And finally the anti-capitalist themed events
     store.dispatch(addEvents(antiCapitalistEvents));
     
     // Import necessary action creators
