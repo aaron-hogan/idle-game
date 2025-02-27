@@ -1,0 +1,251 @@
+﻿2025-02-27T19:34:15.6086569Z ##[group]Run npm ci
+2025-02-27T19:34:15.6086931Z [36;1mnpm ci[0m
+2025-02-27T19:34:15.6138866Z shell: /usr/bin/bash -e {0}
+2025-02-27T19:34:15.6139206Z ##[endgroup]
+2025-02-27T19:34:16.3864200Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.3865573Z npm WARN EBADENGINE   package: '@eslint/config-array@0.19.2',
+2025-02-27T19:34:16.3866710Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:34:16.3867721Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.3868379Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.3868938Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.3869709Z npm WARN EBADENGINE   package: '@eslint/core@0.12.0',
+2025-02-27T19:34:16.3870641Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:34:16.3871667Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.3872372Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.3872992Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.3873909Z npm WARN EBADENGINE   package: '@eslint/eslintrc@3.3.0',
+2025-02-27T19:34:16.3874875Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:34:16.3876075Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.3876768Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.3877394Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.3878124Z npm WARN EBADENGINE   package: 'globals@14.0.0',
+2025-02-27T19:34:16.3878893Z npm WARN EBADENGINE   required: { node: '>=18' },
+2025-02-27T19:34:16.3879766Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.3880392Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.3880959Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.3881682Z npm WARN EBADENGINE   package: '@eslint/js@9.21.0',
+2025-02-27T19:34:16.3882623Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:34:16.3883676Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.3884295Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.3884865Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.3885980Z npm WARN EBADENGINE   package: '@eslint/object-schema@2.1.6',
+2025-02-27T19:34:16.3886997Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:34:16.3887985Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.3888710Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.3889288Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.3890040Z npm WARN EBADENGINE   package: '@eslint/plugin-kit@0.2.7',
+2025-02-27T19:34:16.3891036Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:34:16.3891984Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.3892615Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.3895705Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.3896523Z npm WARN EBADENGINE   package: '@humanfs/core@0.19.1',
+2025-02-27T19:34:16.3897337Z npm WARN EBADENGINE   required: { node: '>=18.18.0' },
+2025-02-27T19:34:16.3898281Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.3898934Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.3899509Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.3900272Z npm WARN EBADENGINE   package: '@humanfs/node@0.16.6',
+2025-02-27T19:34:16.3901081Z npm WARN EBADENGINE   required: { node: '>=18.18.0' },
+2025-02-27T19:34:16.3901918Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.3902558Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.3903164Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.3903966Z npm WARN EBADENGINE   package: '@humanwhocodes/retry@0.3.1',
+2025-02-27T19:34:16.3904795Z npm WARN EBADENGINE   required: { node: '>=18.18' },
+2025-02-27T19:34:16.3905833Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.3907062Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.3907694Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.3908488Z npm WARN EBADENGINE   package: '@humanwhocodes/retry@0.4.2',
+2025-02-27T19:34:16.3909617Z npm WARN EBADENGINE   required: { node: '>=18.18' },
+2025-02-27T19:34:16.3910452Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.3911074Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.3915955Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.3916893Z npm WARN EBADENGINE   package: '@testing-library/dom@10.4.0',
+2025-02-27T19:34:16.3917737Z npm WARN EBADENGINE   required: { node: '>=18' },
+2025-02-27T19:34:16.3918612Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.3919280Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.3919853Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.3920667Z npm WARN EBADENGINE   package: '@testing-library/react@16.2.0',
+2025-02-27T19:34:16.3921527Z npm WARN EBADENGINE   required: { node: '>=18' },
+2025-02-27T19:34:16.3922374Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.3923087Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.3924107Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.3925296Z npm WARN EBADENGINE   package: '@typescript-eslint/eslint-plugin@8.25.0',
+2025-02-27T19:34:16.3926405Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:34:16.3927374Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.3928016Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.3928568Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.3929411Z npm WARN EBADENGINE   package: '@typescript-eslint/parser@8.25.0',
+2025-02-27T19:34:16.3930403Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:34:16.3931337Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.3932072Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.3932645Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.3933490Z npm WARN EBADENGINE   package: '@typescript-eslint/scope-manager@8.25.0',
+2025-02-27T19:34:16.3934558Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:34:16.3935751Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.3936432Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.3937020Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.3937872Z npm WARN EBADENGINE   package: '@typescript-eslint/type-utils@8.25.0',
+2025-02-27T19:34:16.3938915Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:34:16.3939913Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.3940556Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.3941225Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.3942080Z npm WARN EBADENGINE   package: '@typescript-eslint/types@8.25.0',
+2025-02-27T19:34:16.3943191Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:34:16.3944167Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.3944817Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.3945567Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.3946515Z npm WARN EBADENGINE   package: '@typescript-eslint/typescript-estree@8.25.0',
+2025-02-27T19:34:16.3980915Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:34:16.3981966Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.3982627Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.3983255Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.3984944Z npm WARN EBADENGINE   package: '@typescript-eslint/utils@8.25.0',
+2025-02-27T19:34:16.3986189Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:34:16.3987180Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.3988254Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.3988887Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.3990075Z npm WARN EBADENGINE   package: '@typescript-eslint/visitor-keys@8.25.0',
+2025-02-27T19:34:16.3991094Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:34:16.3992077Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.3992802Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.3993423Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.3994329Z npm WARN EBADENGINE   package: 'eslint-visitor-keys@4.2.0',
+2025-02-27T19:34:16.3995440Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:34:16.3996456Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.3997135Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.3997685Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.3998514Z npm WARN EBADENGINE   package: '@webpack-cli/configtest@3.0.1',
+2025-02-27T19:34:16.3999365Z npm WARN EBADENGINE   required: { node: '>=18.12.0' },
+2025-02-27T19:34:16.4000278Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.4000927Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.4001451Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.4002253Z npm WARN EBADENGINE   package: '@webpack-cli/info@3.0.1',
+2025-02-27T19:34:16.4003107Z npm WARN EBADENGINE   required: { node: '>=18.12.0' },
+2025-02-27T19:34:16.4003951Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.4004615Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.4005363Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.4006165Z npm WARN EBADENGINE   package: '@webpack-cli/serve@3.0.1',
+2025-02-27T19:34:16.4006990Z npm WARN EBADENGINE   required: { node: '>=18.12.0' },
+2025-02-27T19:34:16.4007853Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.4008535Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.4009100Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.4009809Z npm WARN EBADENGINE   package: 'bundle-name@4.1.0',
+2025-02-27T19:34:16.4010586Z npm WARN EBADENGINE   required: { node: '>=18' },
+2025-02-27T19:34:16.4011436Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.4012062Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.4012598Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.4013284Z npm WARN EBADENGINE   package: 'css-loader@7.1.2',
+2025-02-27T19:34:16.4014074Z npm WARN EBADENGINE   required: { node: '>= 18.12.0' },
+2025-02-27T19:34:16.4014961Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.4015862Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.4016431Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.4017166Z npm WARN EBADENGINE   package: 'default-browser@5.2.1',
+2025-02-27T19:34:16.4017862Z npm WARN EBADENGINE   required: { node: '>=18' },
+2025-02-27T19:34:16.4018673Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.4019300Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.4019916Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.4020709Z npm WARN EBADENGINE   package: 'default-browser-id@5.0.0',
+2025-02-27T19:34:16.4021497Z npm WARN EBADENGINE   required: { node: '>=18' },
+2025-02-27T19:34:16.4022362Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.4023023Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.4023574Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.4024246Z npm WARN EBADENGINE   package: 'eslint@9.21.0',
+2025-02-27T19:34:16.4025302Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:34:16.4026291Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.4026917Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.4027453Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.4028466Z npm WARN EBADENGINE   package: 'eslint-scope@8.2.0',
+2025-02-27T19:34:16.4029372Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:34:16.4030554Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.4031174Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.4031706Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.4032471Z npm WARN EBADENGINE   package: 'eslint-visitor-keys@4.2.0',
+2025-02-27T19:34:16.4033408Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:34:16.4034334Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.4034955Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.4035727Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.4036412Z npm WARN EBADENGINE   package: 'espree@10.3.0',
+2025-02-27T19:34:16.4037259Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:34:16.4038209Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.4038889Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.4039420Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.4040199Z npm WARN EBADENGINE   package: 'eslint-visitor-keys@4.2.0',
+2025-02-27T19:34:16.4041131Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:34:16.4042054Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.4042672Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.4053479Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.4054259Z npm WARN EBADENGINE   package: 'open@10.1.0',
+2025-02-27T19:34:16.4055026Z npm WARN EBADENGINE   required: { node: '>=18' },
+2025-02-27T19:34:16.4056115Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.4056773Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.4062387Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.4063226Z npm WARN EBADENGINE   package: 'react-router@7.2.0',
+2025-02-27T19:34:16.4064086Z npm WARN EBADENGINE   required: { node: '>=20.0.0' },
+2025-02-27T19:34:16.4064961Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.4065816Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.4066454Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.4067280Z npm WARN EBADENGINE   package: 'react-router-dom@7.2.0',
+2025-02-27T19:34:16.4068074Z npm WARN EBADENGINE   required: { node: '>=20.0.0' },
+2025-02-27T19:34:16.4068941Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.4069612Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.4070195Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.4070882Z npm WARN EBADENGINE   package: 'cookie@1.0.2',
+2025-02-27T19:34:16.4071640Z npm WARN EBADENGINE   required: { node: '>=18' },
+2025-02-27T19:34:16.4072512Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.4073128Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.4073754Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.4074533Z npm WARN EBADENGINE   package: 'run-applescript@7.0.0',
+2025-02-27T19:34:16.4075517Z npm WARN EBADENGINE   required: { node: '>=18' },
+2025-02-27T19:34:16.4076385Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.4077013Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.4080659Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.4081464Z npm WARN EBADENGINE   package: 'style-loader@4.0.0',
+2025-02-27T19:34:16.4082253Z npm WARN EBADENGINE   required: { node: '>= 18.12.0' },
+2025-02-27T19:34:16.4083145Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.4083847Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.4085502Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.4086297Z npm WARN EBADENGINE   package: 'ts-api-utils@2.0.1',
+2025-02-27T19:34:16.4087107Z npm WARN EBADENGINE   required: { node: '>=18.12' },
+2025-02-27T19:34:16.4087960Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.4088974Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.4091208Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.4092363Z npm WARN EBADENGINE   package: 'typescript-eslint@8.25.0',
+2025-02-27T19:34:16.4093374Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:34:16.4094400Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.4095069Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.4095846Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.4096591Z npm WARN EBADENGINE   package: 'webpack-cli@6.0.1',
+2025-02-27T19:34:16.4097423Z npm WARN EBADENGINE   required: { node: '>=18.12.0' },
+2025-02-27T19:34:16.4098325Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.4098932Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.4099498Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.4100262Z npm WARN EBADENGINE   package: 'commander@12.1.0',
+2025-02-27T19:34:16.4101026Z npm WARN EBADENGINE   required: { node: '>=18' },
+2025-02-27T19:34:16.4101860Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.4102546Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.4103161Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.4103974Z npm WARN EBADENGINE   package: 'webpack-dev-middleware@7.4.2',
+2025-02-27T19:34:16.4104816Z npm WARN EBADENGINE   required: { node: '>= 18.12.0' },
+2025-02-27T19:34:16.4105921Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.4106568Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.4107122Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.4107896Z npm WARN EBADENGINE   package: 'webpack-dev-server@5.2.0',
+2025-02-27T19:34:16.4108705Z npm WARN EBADENGINE   required: { node: '>= 18.12.0' },
+2025-02-27T19:34:16.4109565Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.4110216Z npm WARN EBADENGINE }
+2025-02-27T19:34:16.4110793Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:34:16.4111503Z npm WARN EBADENGINE   package: 'webpack-merge@6.0.1',
+2025-02-27T19:34:16.4112262Z npm WARN EBADENGINE   required: { node: '>=18.0.0' },
+2025-02-27T19:34:16.4113112Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:34:16.4113738Z npm WARN EBADENGINE }
+2025-02-27T19:34:19.5052928Z npm WARN deprecated react-testing-library@8.0.1: 🚨  react-testing-library has moved to @testing-library/react. Please uninstall react-testing-library and install @testing-library/react instead, or use an older version of react-testing-library. Learn more about this change here: https://github.com/testing-library/dom-testing-library/issues/260 Thanks! :)
+2025-02-27T19:34:20.3860644Z npm WARN deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+2025-02-27T19:34:20.6320792Z npm WARN deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+2025-02-27T19:34:21.0438744Z npm WARN deprecated domexception@4.0.0: Use your platform's native DOMException instead
+2025-02-27T19:34:21.5148105Z npm WARN deprecated abab@2.0.6: Use your platform's native atob() and btoa() methods instead
+2025-02-27T19:34:24.7726113Z 
+2025-02-27T19:34:24.7726924Z added 900 packages, and audited 901 packages in 9s
+2025-02-27T19:34:24.7727458Z 
+2025-02-27T19:34:24.7727780Z 193 packages are looking for funding
+2025-02-27T19:34:24.7728319Z   run `npm fund` for details
+2025-02-27T19:34:24.7739439Z 
+2025-02-27T19:34:24.7739821Z found 0 vulnerabilities

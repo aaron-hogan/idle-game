@@ -1,0 +1,896 @@
+﻿2025-02-27T19:41:03.7182666Z Current runner version: '2.322.0'
+2025-02-27T19:41:03.7208981Z ##[group]Operating System
+2025-02-27T19:41:03.7209912Z Ubuntu
+2025-02-27T19:41:03.7210437Z 24.04.2
+2025-02-27T19:41:03.7210925Z LTS
+2025-02-27T19:41:03.7211434Z ##[endgroup]
+2025-02-27T19:41:03.7212187Z ##[group]Runner Image
+2025-02-27T19:41:03.7212783Z Image: ubuntu-24.04
+2025-02-27T19:41:03.7213392Z Version: 20250223.1.0
+2025-02-27T19:41:03.7214446Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20250223.1/images/ubuntu/Ubuntu2404-Readme.md
+2025-02-27T19:41:03.7215921Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20250223.1
+2025-02-27T19:41:03.7216819Z ##[endgroup]
+2025-02-27T19:41:03.7217363Z ##[group]Runner Image Provisioner
+2025-02-27T19:41:03.7217987Z 2.0.422.1
+2025-02-27T19:41:03.7218494Z ##[endgroup]
+2025-02-27T19:41:03.7219621Z ##[group]GITHUB_TOKEN Permissions
+2025-02-27T19:41:03.7221636Z Contents: write
+2025-02-27T19:41:03.7222247Z Metadata: read
+2025-02-27T19:41:03.7223049Z PullRequests: write
+2025-02-27T19:41:03.7223686Z ##[endgroup]
+2025-02-27T19:41:03.7226606Z Secret source: Actions
+2025-02-27T19:41:03.7227365Z Prepare workflow directory
+2025-02-27T19:41:03.7548808Z Prepare all required actions
+2025-02-27T19:41:03.7586338Z Getting action download info
+2025-02-27T19:41:03.9319539Z Download action repository 'actions/checkout@v3' (SHA:f43a0e5ff2bd294095638e18286ca9a3d1956744)
+2025-02-27T19:41:04.0206699Z Download action repository 'actions/setup-node@v3' (SHA:1a4442cacd436585916779262731d5b162bc6ec7)
+2025-02-27T19:41:04.1139894Z Download action repository 'actions/github-script@v6' (SHA:d7906e4ad0b1822421a7e6a35d5ca353c962f410)
+2025-02-27T19:41:04.4803094Z Complete job name: Auto Version on Merge
+2025-02-27T19:41:04.5552365Z ##[group]Run actions/checkout@v3
+2025-02-27T19:41:04.5553320Z with:
+2025-02-27T19:41:04.5553751Z   fetch-depth: 0
+2025-02-27T19:41:04.5554451Z   token: ***
+2025-02-27T19:41:04.5554919Z   repository: aaron-hogan/idle-game
+2025-02-27T19:41:04.5555481Z   ssh-strict: true
+2025-02-27T19:41:04.5555971Z   persist-credentials: true
+2025-02-27T19:41:04.5556473Z   clean: true
+2025-02-27T19:41:04.5556916Z   sparse-checkout-cone-mode: true
+2025-02-27T19:41:04.5557460Z   fetch-tags: false
+2025-02-27T19:41:04.5557903Z   lfs: false
+2025-02-27T19:41:04.5558314Z   submodules: false
+2025-02-27T19:41:04.5558778Z   set-safe-directory: true
+2025-02-27T19:41:04.5559796Z ##[endgroup]
+2025-02-27T19:41:04.7162558Z Syncing repository: aaron-hogan/idle-game
+2025-02-27T19:41:04.7165648Z ##[group]Getting Git version info
+2025-02-27T19:41:04.7167019Z Working directory is '/home/runner/work/idle-game/idle-game'
+2025-02-27T19:41:04.7168167Z [command]/usr/bin/git version
+2025-02-27T19:41:04.7198996Z git version 2.48.1
+2025-02-27T19:41:04.7236806Z ##[endgroup]
+2025-02-27T19:41:04.7257232Z Temporarily overriding HOME='/home/runner/work/_temp/fd55f589-47a8-46b0-b422-47693d4262d9' before making global git config changes
+2025-02-27T19:41:04.7262249Z Adding repository directory to the temporary git global config as a safe directory
+2025-02-27T19:41:04.7263604Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/idle-game/idle-game
+2025-02-27T19:41:04.7306811Z Deleting the contents of '/home/runner/work/idle-game/idle-game'
+2025-02-27T19:41:04.7310557Z ##[group]Initializing the repository
+2025-02-27T19:41:04.7313780Z [command]/usr/bin/git init /home/runner/work/idle-game/idle-game
+2025-02-27T19:41:04.7379069Z hint: Using 'master' as the name for the initial branch. This default branch name
+2025-02-27T19:41:04.7381406Z hint: is subject to change. To configure the initial branch name to use in all
+2025-02-27T19:41:04.7385082Z hint: of your new repositories, which will suppress this warning, call:
+2025-02-27T19:41:04.7386552Z hint:
+2025-02-27T19:41:04.7387634Z hint: 	git config --global init.defaultBranch <name>
+2025-02-27T19:41:04.7389082Z hint:
+2025-02-27T19:41:04.7390285Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2025-02-27T19:41:04.7392391Z hint: 'development'. The just-created branch can be renamed via this command:
+2025-02-27T19:41:04.7394322Z hint:
+2025-02-27T19:41:04.7395074Z hint: 	git branch -m <name>
+2025-02-27T19:41:04.7396515Z Initialized empty Git repository in /home/runner/work/idle-game/idle-game/.git/
+2025-02-27T19:41:04.7399844Z [command]/usr/bin/git remote add origin https://github.com/aaron-hogan/idle-game
+2025-02-27T19:41:04.7435390Z ##[endgroup]
+2025-02-27T19:41:04.7436867Z ##[group]Disabling automatic garbage collection
+2025-02-27T19:41:04.7438496Z [command]/usr/bin/git config --local gc.auto 0
+2025-02-27T19:41:04.7554471Z ##[endgroup]
+2025-02-27T19:41:04.7556059Z ##[group]Setting up auth
+2025-02-27T19:41:04.7557341Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2025-02-27T19:41:04.7559730Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2025-02-27T19:41:04.7842092Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2025-02-27T19:41:04.7874228Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2025-02-27T19:41:04.8133281Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2025-02-27T19:41:04.8168713Z ##[endgroup]
+2025-02-27T19:41:04.8170225Z ##[group]Fetching the repository
+2025-02-27T19:41:04.8178701Z [command]/usr/bin/git -c protocol.version=2 fetch --prune --progress --no-recurse-submodules origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/*
+2025-02-27T19:41:05.0973151Z remote: Enumerating objects: 2527, done.        
+2025-02-27T19:41:05.0975678Z remote: Counting objects:   0% (1/333)        
+2025-02-27T19:41:05.0976918Z remote: Counting objects:   1% (4/333)        
+2025-02-27T19:41:05.0978241Z remote: Counting objects:   2% (7/333)        
+2025-02-27T19:41:05.0979410Z remote: Counting objects:   3% (10/333)        
+2025-02-27T19:41:05.0980140Z remote: Counting objects:   4% (14/333)        
+2025-02-27T19:41:05.0980825Z remote: Counting objects:   5% (17/333)        
+2025-02-27T19:41:05.0981730Z remote: Counting objects:   6% (20/333)        
+2025-02-27T19:41:05.0982438Z remote: Counting objects:   7% (24/333)        
+2025-02-27T19:41:05.0983121Z remote: Counting objects:   8% (27/333)        
+2025-02-27T19:41:05.0983798Z remote: Counting objects:   9% (30/333)        
+2025-02-27T19:41:05.0984472Z remote: Counting objects:  10% (34/333)        
+2025-02-27T19:41:05.0985142Z remote: Counting objects:  11% (37/333)        
+2025-02-27T19:41:05.0985782Z remote: Counting objects:  12% (40/333)        
+2025-02-27T19:41:05.0986411Z remote: Counting objects:  13% (44/333)        
+2025-02-27T19:41:05.0987052Z remote: Counting objects:  14% (47/333)        
+2025-02-27T19:41:05.0987672Z remote: Counting objects:  15% (50/333)        
+2025-02-27T19:41:05.0988305Z remote: Counting objects:  16% (54/333)        
+2025-02-27T19:41:05.0988948Z remote: Counting objects:  17% (57/333)        
+2025-02-27T19:41:05.0989576Z remote: Counting objects:  18% (60/333)        
+2025-02-27T19:41:05.0990196Z remote: Counting objects:  19% (64/333)        
+2025-02-27T19:41:05.0990817Z remote: Counting objects:  20% (67/333)        
+2025-02-27T19:41:05.0991444Z remote: Counting objects:  21% (70/333)        
+2025-02-27T19:41:05.0992185Z remote: Counting objects:  22% (74/333)        
+2025-02-27T19:41:05.0992812Z remote: Counting objects:  23% (77/333)        
+2025-02-27T19:41:05.0993434Z remote: Counting objects:  24% (80/333)        
+2025-02-27T19:41:05.0994054Z remote: Counting objects:  25% (84/333)        
+2025-02-27T19:41:05.0994674Z remote: Counting objects:  26% (87/333)        
+2025-02-27T19:41:05.0995292Z remote: Counting objects:  27% (90/333)        
+2025-02-27T19:41:05.0995914Z remote: Counting objects:  28% (94/333)        
+2025-02-27T19:41:05.0996861Z remote: Counting objects:  29% (97/333)        
+2025-02-27T19:41:05.0997495Z remote: Counting objects:  30% (100/333)        
+2025-02-27T19:41:05.0998150Z remote: Counting objects:  31% (104/333)        
+2025-02-27T19:41:05.0998795Z remote: Counting objects:  32% (107/333)        
+2025-02-27T19:41:05.0999421Z remote: Counting objects:  33% (110/333)        
+2025-02-27T19:41:05.1000039Z remote: Counting objects:  34% (114/333)        
+2025-02-27T19:41:05.1000671Z remote: Counting objects:  35% (117/333)        
+2025-02-27T19:41:05.1001285Z remote: Counting objects:  36% (120/333)        
+2025-02-27T19:41:05.1002046Z remote: Counting objects:  37% (124/333)        
+2025-02-27T19:41:05.1002700Z remote: Counting objects:  38% (127/333)        
+2025-02-27T19:41:05.1003332Z remote: Counting objects:  39% (130/333)        
+2025-02-27T19:41:05.1003960Z remote: Counting objects:  40% (134/333)        
+2025-02-27T19:41:05.1004587Z remote: Counting objects:  41% (137/333)        
+2025-02-27T19:41:05.1005212Z remote: Counting objects:  42% (140/333)        
+2025-02-27T19:41:05.1005841Z remote: Counting objects:  43% (144/333)        
+2025-02-27T19:41:05.1006467Z remote: Counting objects:  44% (147/333)        
+2025-02-27T19:41:05.1007091Z remote: Counting objects:  45% (150/333)        
+2025-02-27T19:41:05.1007706Z remote: Counting objects:  46% (154/333)        
+2025-02-27T19:41:05.1008320Z remote: Counting objects:  47% (157/333)        
+2025-02-27T19:41:05.1008936Z remote: Counting objects:  48% (160/333)        
+2025-02-27T19:41:05.1009618Z remote: Counting objects:  49% (164/333)        
+2025-02-27T19:41:05.1010236Z remote: Counting objects:  50% (167/333)        
+2025-02-27T19:41:05.1011007Z remote: Counting objects:  51% (170/333)        
+2025-02-27T19:41:05.1011754Z remote: Counting objects:  52% (174/333)        
+2025-02-27T19:41:05.1012384Z remote: Counting objects:  53% (177/333)        
+2025-02-27T19:41:05.1012999Z remote: Counting objects:  54% (180/333)        
+2025-02-27T19:41:05.1013620Z remote: Counting objects:  55% (184/333)        
+2025-02-27T19:41:05.1014259Z remote: Counting objects:  56% (187/333)        
+2025-02-27T19:41:05.1014924Z remote: Counting objects:  57% (190/333)        
+2025-02-27T19:41:05.1015552Z remote: Counting objects:  58% (194/333)        
+2025-02-27T19:41:05.1016166Z remote: Counting objects:  59% (197/333)        
+2025-02-27T19:41:05.1016778Z remote: Counting objects:  60% (200/333)        
+2025-02-27T19:41:05.1017388Z remote: Counting objects:  61% (204/333)        
+2025-02-27T19:41:05.1018006Z remote: Counting objects:  62% (207/333)        
+2025-02-27T19:41:05.1018628Z remote: Counting objects:  63% (210/333)        
+2025-02-27T19:41:05.1019264Z remote: Counting objects:  64% (214/333)        
+2025-02-27T19:41:05.1019884Z remote: Counting objects:  65% (217/333)        
+2025-02-27T19:41:05.1020499Z remote: Counting objects:  66% (220/333)        
+2025-02-27T19:41:05.1021124Z remote: Counting objects:  67% (224/333)        
+2025-02-27T19:41:05.1021892Z remote: Counting objects:  68% (227/333)        
+2025-02-27T19:41:05.1022514Z remote: Counting objects:  69% (230/333)        
+2025-02-27T19:41:05.1023131Z remote: Counting objects:  70% (234/333)        
+2025-02-27T19:41:05.1023740Z remote: Counting objects:  71% (237/333)        
+2025-02-27T19:41:05.1024360Z remote: Counting objects:  72% (240/333)        
+2025-02-27T19:41:05.1024978Z remote: Counting objects:  73% (244/333)        
+2025-02-27T19:41:05.1025597Z remote: Counting objects:  74% (247/333)        
+2025-02-27T19:41:05.1026211Z remote: Counting objects:  75% (250/333)        
+2025-02-27T19:41:05.1026819Z remote: Counting objects:  76% (254/333)        
+2025-02-27T19:41:05.1027442Z remote: Counting objects:  77% (257/333)        
+2025-02-27T19:41:05.1028061Z remote: Counting objects:  78% (260/333)        
+2025-02-27T19:41:05.1028680Z remote: Counting objects:  79% (264/333)        
+2025-02-27T19:41:05.1029299Z remote: Counting objects:  80% (267/333)        
+2025-02-27T19:41:05.1030060Z remote: Counting objects:  81% (270/333)        
+2025-02-27T19:41:05.1030670Z remote: Counting objects:  82% (274/333)        
+2025-02-27T19:41:05.1031287Z remote: Counting objects:  83% (277/333)        
+2025-02-27T19:41:05.1032019Z remote: Counting objects:  84% (280/333)        
+2025-02-27T19:41:05.1032651Z remote: Counting objects:  85% (284/333)        
+2025-02-27T19:41:05.1033283Z remote: Counting objects:  86% (287/333)        
+2025-02-27T19:41:05.1033920Z remote: Counting objects:  87% (290/333)        
+2025-02-27T19:41:05.1034555Z remote: Counting objects:  88% (294/333)        
+2025-02-27T19:41:05.1035178Z remote: Counting objects:  89% (297/333)        
+2025-02-27T19:41:05.1035832Z remote: Counting objects:  90% (300/333)        
+2025-02-27T19:41:05.1036463Z remote: Counting objects:  91% (304/333)        
+2025-02-27T19:41:05.1037085Z remote: Counting objects:  92% (307/333)        
+2025-02-27T19:41:05.1037696Z remote: Counting objects:  93% (310/333)        
+2025-02-27T19:41:05.1038318Z remote: Counting objects:  94% (314/333)        
+2025-02-27T19:41:05.1038974Z remote: Counting objects:  95% (317/333)        
+2025-02-27T19:41:05.1039616Z remote: Counting objects:  96% (320/333)        
+2025-02-27T19:41:05.1040227Z remote: Counting objects:  97% (324/333)        
+2025-02-27T19:41:05.1040844Z remote: Counting objects:  98% (327/333)        
+2025-02-27T19:41:05.1041463Z remote: Counting objects:  99% (330/333)        
+2025-02-27T19:41:05.1042187Z remote: Counting objects: 100% (333/333)        
+2025-02-27T19:41:05.1042864Z remote: Counting objects: 100% (333/333), done.        
+2025-02-27T19:41:05.1043542Z remote: Compressing objects:   0% (1/219)        
+2025-02-27T19:41:05.1044319Z remote: Compressing objects:   1% (3/219)        
+2025-02-27T19:41:05.1055986Z remote: Compressing objects:   2% (5/219)        
+2025-02-27T19:41:05.1057170Z remote: Compressing objects:   3% (7/219)        
+2025-02-27T19:41:05.1058106Z remote: Compressing objects:   4% (9/219)        
+2025-02-27T19:41:05.1058759Z remote: Compressing objects:   5% (11/219)        
+2025-02-27T19:41:05.1059434Z remote: Compressing objects:   6% (14/219)        
+2025-02-27T19:41:05.1060087Z remote: Compressing objects:   7% (16/219)        
+2025-02-27T19:41:05.1060763Z remote: Compressing objects:   8% (18/219)        
+2025-02-27T19:41:05.1061420Z remote: Compressing objects:   9% (20/219)        
+2025-02-27T19:41:05.1062346Z remote: Compressing objects:  10% (22/219)        
+2025-02-27T19:41:05.1063006Z remote: Compressing objects:  11% (25/219)        
+2025-02-27T19:41:05.1063648Z remote: Compressing objects:  12% (27/219)        
+2025-02-27T19:41:05.1064297Z remote: Compressing objects:  13% (29/219)        
+2025-02-27T19:41:05.1064945Z remote: Compressing objects:  14% (31/219)        
+2025-02-27T19:41:05.1065583Z remote: Compressing objects:  15% (33/219)        
+2025-02-27T19:41:05.1066237Z remote: Compressing objects:  16% (36/219)        
+2025-02-27T19:41:05.1066894Z remote: Compressing objects:  17% (38/219)        
+2025-02-27T19:41:05.1067543Z remote: Compressing objects:  18% (40/219)        
+2025-02-27T19:41:05.1068202Z remote: Compressing objects:  19% (42/219)        
+2025-02-27T19:41:05.1068854Z remote: Compressing objects:  20% (44/219)        
+2025-02-27T19:41:05.1069499Z remote: Compressing objects:  21% (46/219)        
+2025-02-27T19:41:05.1070137Z remote: Compressing objects:  22% (49/219)        
+2025-02-27T19:41:05.1070770Z remote: Compressing objects:  23% (51/219)        
+2025-02-27T19:41:05.1071401Z remote: Compressing objects:  24% (53/219)        
+2025-02-27T19:41:05.1072157Z remote: Compressing objects:  25% (55/219)        
+2025-02-27T19:41:05.1072814Z remote: Compressing objects:  26% (57/219)        
+2025-02-27T19:41:05.1073463Z remote: Compressing objects:  27% (60/219)        
+2025-02-27T19:41:05.1074108Z remote: Compressing objects:  28% (62/219)        
+2025-02-27T19:41:05.1074749Z remote: Compressing objects:  29% (64/219)        
+2025-02-27T19:41:05.1076140Z remote: Compressing objects:  30% (66/219)        
+2025-02-27T19:41:05.1077470Z remote: Compressing objects:  31% (68/219)        
+2025-02-27T19:41:05.1078386Z remote: Compressing objects:  32% (71/219)        
+2025-02-27T19:41:05.1079596Z remote: Compressing objects:  33% (73/219)        
+2025-02-27T19:41:05.1080763Z remote: Compressing objects:  34% (75/219)        
+2025-02-27T19:41:05.1081832Z remote: Compressing objects:  35% (77/219)        
+2025-02-27T19:41:05.1082492Z remote: Compressing objects:  36% (79/219)        
+2025-02-27T19:41:05.1083139Z remote: Compressing objects:  37% (82/219)        
+2025-02-27T19:41:05.1083786Z remote: Compressing objects:  38% (84/219)        
+2025-02-27T19:41:05.1084435Z remote: Compressing objects:  39% (86/219)        
+2025-02-27T19:41:05.1085087Z remote: Compressing objects:  40% (88/219)        
+2025-02-27T19:41:05.1085751Z remote: Compressing objects:  41% (90/219)        
+2025-02-27T19:41:05.1086404Z remote: Compressing objects:  42% (92/219)        
+2025-02-27T19:41:05.1087047Z remote: Compressing objects:  43% (95/219)        
+2025-02-27T19:41:05.1087754Z remote: Compressing objects:  44% (97/219)        
+2025-02-27T19:41:05.1088397Z remote: Compressing objects:  45% (99/219)        
+2025-02-27T19:41:05.1089029Z remote: Compressing objects:  46% (101/219)        
+2025-02-27T19:41:05.1089671Z remote: Compressing objects:  47% (103/219)        
+2025-02-27T19:41:05.1090323Z remote: Compressing objects:  48% (106/219)        
+2025-02-27T19:41:05.1090973Z remote: Compressing objects:  49% (108/219)        
+2025-02-27T19:41:05.1091713Z remote: Compressing objects:  50% (110/219)        
+2025-02-27T19:41:05.1092360Z remote: Compressing objects:  51% (112/219)        
+2025-02-27T19:41:05.1093166Z remote: Compressing objects:  52% (114/219)        
+2025-02-27T19:41:05.1093834Z remote: Compressing objects:  53% (117/219)        
+2025-02-27T19:41:05.1094479Z remote: Compressing objects:  54% (119/219)        
+2025-02-27T19:41:05.1095119Z remote: Compressing objects:  55% (121/219)        
+2025-02-27T19:41:05.1095755Z remote: Compressing objects:  56% (123/219)        
+2025-02-27T19:41:05.1096401Z remote: Compressing objects:  57% (125/219)        
+2025-02-27T19:41:05.1097044Z remote: Compressing objects:  58% (128/219)        
+2025-02-27T19:41:05.1097705Z remote: Compressing objects:  59% (130/219)        
+2025-02-27T19:41:05.1098354Z remote: Compressing objects:  60% (132/219)        
+2025-02-27T19:41:05.1098997Z remote: Compressing objects:  61% (134/219)        
+2025-02-27T19:41:05.1099659Z remote: Compressing objects:  62% (136/219)        
+2025-02-27T19:41:05.1100320Z remote: Compressing objects:  63% (138/219)        
+2025-02-27T19:41:05.1100976Z remote: Compressing objects:  64% (141/219)        
+2025-02-27T19:41:05.1101731Z remote: Compressing objects:  65% (143/219)        
+2025-02-27T19:41:05.1102387Z remote: Compressing objects:  66% (145/219)        
+2025-02-27T19:41:05.1103024Z remote: Compressing objects:  67% (147/219)        
+2025-02-27T19:41:05.1103662Z remote: Compressing objects:  68% (149/219)        
+2025-02-27T19:41:05.1104328Z remote: Compressing objects:  69% (152/219)        
+2025-02-27T19:41:05.1104981Z remote: Compressing objects:  70% (154/219)        
+2025-02-27T19:41:05.1105626Z remote: Compressing objects:  71% (156/219)        
+2025-02-27T19:41:05.1106270Z remote: Compressing objects:  72% (158/219)        
+2025-02-27T19:41:05.1106921Z remote: Compressing objects:  73% (160/219)        
+2025-02-27T19:41:05.1107575Z remote: Compressing objects:  74% (163/219)        
+2025-02-27T19:41:05.1108234Z remote: Compressing objects:  75% (165/219)        
+2025-02-27T19:41:05.1108881Z remote: Compressing objects:  76% (167/219)        
+2025-02-27T19:41:05.1109532Z remote: Compressing objects:  77% (169/219)        
+2025-02-27T19:41:05.1110185Z remote: Compressing objects:  78% (171/219)        
+2025-02-27T19:41:05.1110844Z remote: Compressing objects:  79% (174/219)        
+2025-02-27T19:41:05.1111575Z remote: Compressing objects:  80% (176/219)        
+2025-02-27T19:41:05.1112238Z remote: Compressing objects:  81% (178/219)        
+2025-02-27T19:41:05.1113054Z remote: Compressing objects:  82% (180/219)        
+2025-02-27T19:41:05.1113704Z remote: Compressing objects:  83% (182/219)        
+2025-02-27T19:41:05.1114360Z remote: Compressing objects:  84% (184/219)        
+2025-02-27T19:41:05.1126039Z remote: Compressing objects:  85% (187/219)        
+2025-02-27T19:41:05.1127576Z remote: Compressing objects:  86% (189/219)        
+2025-02-27T19:41:05.1128446Z remote: Compressing objects:  87% (191/219)        
+2025-02-27T19:41:05.1129285Z remote: Compressing objects:  88% (193/219)        
+2025-02-27T19:41:05.1130145Z remote: Compressing objects:  89% (195/219)        
+2025-02-27T19:41:05.1131009Z remote: Compressing objects:  90% (198/219)        
+2025-02-27T19:41:05.1132062Z remote: Compressing objects:  91% (200/219)        
+2025-02-27T19:41:05.1132873Z remote: Compressing objects:  92% (202/219)        
+2025-02-27T19:41:05.1133690Z remote: Compressing objects:  93% (204/219)        
+2025-02-27T19:41:05.1134593Z remote: Compressing objects:  94% (206/219)        
+2025-02-27T19:41:05.1135345Z remote: Compressing objects:  95% (209/219)        
+2025-02-27T19:41:05.1136086Z remote: Compressing objects:  96% (211/219)        
+2025-02-27T19:41:05.1136868Z remote: Compressing objects:  97% (213/219)        
+2025-02-27T19:41:05.1137613Z remote: Compressing objects:  98% (215/219)        
+2025-02-27T19:41:05.1138357Z remote: Compressing objects:  99% (217/219)        
+2025-02-27T19:41:05.1139100Z remote: Compressing objects: 100% (219/219)        
+2025-02-27T19:41:05.1139904Z remote: Compressing objects: 100% (219/219), done.        
+2025-02-27T19:41:05.1180883Z Receiving objects:   0% (1/2527)
+2025-02-27T19:41:05.1237263Z Receiving objects:   1% (26/2527)
+2025-02-27T19:41:05.1283354Z Receiving objects:   2% (51/2527)
+2025-02-27T19:41:05.1285724Z Receiving objects:   3% (76/2527)
+2025-02-27T19:41:05.1309665Z Receiving objects:   4% (102/2527)
+2025-02-27T19:41:05.1319643Z Receiving objects:   5% (127/2527)
+2025-02-27T19:41:05.1597534Z Receiving objects:   6% (152/2527)
+2025-02-27T19:41:05.1636453Z Receiving objects:   7% (177/2527)
+2025-02-27T19:41:05.1639519Z Receiving objects:   8% (203/2527)
+2025-02-27T19:41:05.1643891Z Receiving objects:   9% (228/2527)
+2025-02-27T19:41:05.1652231Z Receiving objects:  10% (253/2527)
+2025-02-27T19:41:05.1653339Z Receiving objects:  11% (278/2527)
+2025-02-27T19:41:05.1658534Z Receiving objects:  12% (304/2527)
+2025-02-27T19:41:05.1660052Z Receiving objects:  13% (329/2527)
+2025-02-27T19:41:05.1664297Z Receiving objects:  14% (354/2527)
+2025-02-27T19:41:05.1665650Z Receiving objects:  15% (380/2527)
+2025-02-27T19:41:05.1679317Z Receiving objects:  16% (405/2527)
+2025-02-27T19:41:05.1703202Z Receiving objects:  17% (430/2527)
+2025-02-27T19:41:05.1708926Z Receiving objects:  18% (455/2527)
+2025-02-27T19:41:05.1712427Z Receiving objects:  19% (481/2527)
+2025-02-27T19:41:05.1717868Z Receiving objects:  20% (506/2527)
+2025-02-27T19:41:05.1722624Z Receiving objects:  21% (531/2527)
+2025-02-27T19:41:05.1724599Z Receiving objects:  22% (556/2527)
+2025-02-27T19:41:05.1725684Z Receiving objects:  23% (582/2527)
+2025-02-27T19:41:05.1726723Z Receiving objects:  24% (607/2527)
+2025-02-27T19:41:05.1727677Z Receiving objects:  25% (632/2527)
+2025-02-27T19:41:05.1753902Z Receiving objects:  26% (658/2527)
+2025-02-27T19:41:05.1756887Z Receiving objects:  27% (683/2527)
+2025-02-27T19:41:05.1758134Z Receiving objects:  28% (708/2527)
+2025-02-27T19:41:05.1759538Z Receiving objects:  29% (733/2527)
+2025-02-27T19:41:05.1762720Z Receiving objects:  30% (759/2527)
+2025-02-27T19:41:05.1764750Z Receiving objects:  31% (784/2527)
+2025-02-27T19:41:05.1768241Z Receiving objects:  32% (809/2527)
+2025-02-27T19:41:05.1772957Z Receiving objects:  33% (834/2527)
+2025-02-27T19:41:05.1775738Z Receiving objects:  34% (860/2527)
+2025-02-27T19:41:05.1779262Z Receiving objects:  35% (885/2527)
+2025-02-27T19:41:05.1782446Z Receiving objects:  36% (910/2527)
+2025-02-27T19:41:05.1786246Z Receiving objects:  37% (935/2527)
+2025-02-27T19:41:05.1792231Z Receiving objects:  38% (961/2527)
+2025-02-27T19:41:05.1795953Z Receiving objects:  39% (986/2527)
+2025-02-27T19:41:05.1798927Z Receiving objects:  40% (1011/2527)
+2025-02-27T19:41:05.1802808Z Receiving objects:  41% (1037/2527)
+2025-02-27T19:41:05.1804260Z Receiving objects:  42% (1062/2527)
+2025-02-27T19:41:05.1806671Z Receiving objects:  43% (1087/2527)
+2025-02-27T19:41:05.1810460Z Receiving objects:  44% (1112/2527)
+2025-02-27T19:41:05.1813242Z Receiving objects:  45% (1138/2527)
+2025-02-27T19:41:05.1816521Z Receiving objects:  46% (1163/2527)
+2025-02-27T19:41:05.1852022Z Receiving objects:  47% (1188/2527)
+2025-02-27T19:41:05.1857638Z Receiving objects:  48% (1213/2527)
+2025-02-27T19:41:05.1861961Z Receiving objects:  49% (1239/2527)
+2025-02-27T19:41:05.1863608Z Receiving objects:  50% (1264/2527)
+2025-02-27T19:41:05.1864682Z Receiving objects:  51% (1289/2527)
+2025-02-27T19:41:05.1865682Z Receiving objects:  52% (1315/2527)
+2025-02-27T19:41:05.1866749Z Receiving objects:  53% (1340/2527)
+2025-02-27T19:41:05.1867831Z Receiving objects:  54% (1365/2527)
+2025-02-27T19:41:05.1868855Z Receiving objects:  55% (1390/2527)
+2025-02-27T19:41:05.1869767Z Receiving objects:  56% (1416/2527)
+2025-02-27T19:41:05.1870751Z Receiving objects:  57% (1441/2527)
+2025-02-27T19:41:05.1876129Z Receiving objects:  58% (1466/2527)
+2025-02-27T19:41:05.1898786Z Receiving objects:  59% (1491/2527)
+2025-02-27T19:41:05.1907326Z Receiving objects:  60% (1517/2527)
+2025-02-27T19:41:05.1928148Z Receiving objects:  61% (1542/2527)
+2025-02-27T19:41:05.1936068Z Receiving objects:  62% (1567/2527)
+2025-02-27T19:41:05.1942072Z Receiving objects:  63% (1593/2527)
+2025-02-27T19:41:05.1946544Z Receiving objects:  64% (1618/2527)
+2025-02-27T19:41:05.1952445Z Receiving objects:  65% (1643/2527)
+2025-02-27T19:41:05.1959264Z Receiving objects:  66% (1668/2527)
+2025-02-27T19:41:05.1969319Z Receiving objects:  67% (1694/2527)
+2025-02-27T19:41:05.1975008Z Receiving objects:  68% (1719/2527)
+2025-02-27T19:41:05.1981672Z Receiving objects:  69% (1744/2527)
+2025-02-27T19:41:05.1989633Z Receiving objects:  70% (1769/2527)
+2025-02-27T19:41:05.1993628Z Receiving objects:  71% (1795/2527)
+2025-02-27T19:41:05.2024650Z Receiving objects:  72% (1820/2527)
+2025-02-27T19:41:05.2028663Z Receiving objects:  73% (1845/2527)
+2025-02-27T19:41:05.2032740Z Receiving objects:  74% (1870/2527)
+2025-02-27T19:41:05.2038030Z Receiving objects:  75% (1896/2527)
+2025-02-27T19:41:05.2039616Z Receiving objects:  76% (1921/2527)
+2025-02-27T19:41:05.2044960Z Receiving objects:  77% (1946/2527)
+2025-02-27T19:41:05.2049185Z Receiving objects:  78% (1972/2527)
+2025-02-27T19:41:05.2053525Z Receiving objects:  79% (1997/2527)
+2025-02-27T19:41:05.2056771Z Receiving objects:  80% (2022/2527)
+2025-02-27T19:41:05.2063117Z Receiving objects:  81% (2047/2527)
+2025-02-27T19:41:05.2065866Z Receiving objects:  82% (2073/2527)
+2025-02-27T19:41:05.2069448Z Receiving objects:  83% (2098/2527)
+2025-02-27T19:41:05.2074843Z Receiving objects:  84% (2123/2527)
+2025-02-27T19:41:05.2079418Z Receiving objects:  85% (2148/2527)
+2025-02-27T19:41:05.2083312Z Receiving objects:  86% (2174/2527)
+2025-02-27T19:41:05.2086693Z Receiving objects:  87% (2199/2527)
+2025-02-27T19:41:05.2089073Z Receiving objects:  88% (2224/2527)
+2025-02-27T19:41:05.2090682Z Receiving objects:  89% (2250/2527)
+2025-02-27T19:41:05.2092167Z remote: Total 2527 (delta 131), reused 134 (delta 114), pack-reused 2194 (from 3)        
+2025-02-27T19:41:05.2096307Z Receiving objects:  90% (2275/2527)
+2025-02-27T19:41:05.2098617Z Receiving objects:  91% (2300/2527)
+2025-02-27T19:41:05.2102528Z Receiving objects:  92% (2325/2527)
+2025-02-27T19:41:05.2103663Z Receiving objects:  93% (2351/2527)
+2025-02-27T19:41:05.2104601Z Receiving objects:  94% (2376/2527)
+2025-02-27T19:41:05.2105195Z Receiving objects:  95% (2401/2527)
+2025-02-27T19:41:05.2105747Z Receiving objects:  96% (2426/2527)
+2025-02-27T19:41:05.2107230Z Receiving objects:  97% (2452/2527)
+2025-02-27T19:41:05.2111733Z Receiving objects:  98% (2477/2527)
+2025-02-27T19:41:05.2112986Z Receiving objects:  99% (2502/2527)
+2025-02-27T19:41:05.2114034Z Receiving objects: 100% (2527/2527)
+2025-02-27T19:41:05.2115178Z Receiving objects: 100% (2527/2527), 1.58 MiB | 16.82 MiB/s, done.
+2025-02-27T19:41:05.2117034Z Resolving deltas:   0% (0/1358)
+2025-02-27T19:41:05.2119825Z Resolving deltas:   1% (14/1358)
+2025-02-27T19:41:05.2120887Z Resolving deltas:   2% (28/1358)
+2025-02-27T19:41:05.2122148Z Resolving deltas:   3% (41/1358)
+2025-02-27T19:41:05.2123148Z Resolving deltas:   4% (55/1358)
+2025-02-27T19:41:05.2124637Z Resolving deltas:   5% (68/1358)
+2025-02-27T19:41:05.2125803Z Resolving deltas:   6% (82/1358)
+2025-02-27T19:41:05.2127409Z Resolving deltas:   7% (96/1358)
+2025-02-27T19:41:05.2128443Z Resolving deltas:   8% (109/1358)
+2025-02-27T19:41:05.2129474Z Resolving deltas:   9% (123/1358)
+2025-02-27T19:41:05.2130506Z Resolving deltas:  10% (136/1358)
+2025-02-27T19:41:05.2131700Z Resolving deltas:  11% (150/1358)
+2025-02-27T19:41:05.2132727Z Resolving deltas:  12% (163/1358)
+2025-02-27T19:41:05.2133694Z Resolving deltas:  13% (177/1358)
+2025-02-27T19:41:05.2134614Z Resolving deltas:  14% (191/1358)
+2025-02-27T19:41:05.2135527Z Resolving deltas:  15% (204/1358)
+2025-02-27T19:41:05.2136483Z Resolving deltas:  16% (218/1358)
+2025-02-27T19:41:05.2137464Z Resolving deltas:  17% (231/1358)
+2025-02-27T19:41:05.2138425Z Resolving deltas:  18% (245/1358)
+2025-02-27T19:41:05.2139356Z Resolving deltas:  19% (260/1358)
+2025-02-27T19:41:05.2140296Z Resolving deltas:  20% (272/1358)
+2025-02-27T19:41:05.2141280Z Resolving deltas:  21% (286/1358)
+2025-02-27T19:41:05.2142386Z Resolving deltas:  22% (299/1358)
+2025-02-27T19:41:05.2143334Z Resolving deltas:  23% (313/1358)
+2025-02-27T19:41:05.2144238Z Resolving deltas:  24% (327/1358)
+2025-02-27T19:41:05.2145748Z Resolving deltas:  25% (340/1358)
+2025-02-27T19:41:05.2149081Z Resolving deltas:  26% (354/1358)
+2025-02-27T19:41:05.2150148Z Resolving deltas:  27% (367/1358)
+2025-02-27T19:41:05.2151817Z Resolving deltas:  28% (381/1358)
+2025-02-27T19:41:05.2152828Z Resolving deltas:  29% (394/1358)
+2025-02-27T19:41:05.2155816Z Resolving deltas:  30% (408/1358)
+2025-02-27T19:41:05.2159066Z Resolving deltas:  31% (421/1358)
+2025-02-27T19:41:05.2161986Z Resolving deltas:  32% (436/1358)
+2025-02-27T19:41:05.2163057Z Resolving deltas:  33% (449/1358)
+2025-02-27T19:41:05.2164175Z Resolving deltas:  34% (462/1358)
+2025-02-27T19:41:05.2165122Z Resolving deltas:  35% (476/1358)
+2025-02-27T19:41:05.2166054Z Resolving deltas:  36% (489/1358)
+2025-02-27T19:41:05.2169944Z Resolving deltas:  37% (503/1358)
+2025-02-27T19:41:05.2173774Z Resolving deltas:  38% (517/1358)
+2025-02-27T19:41:05.2176767Z Resolving deltas:  39% (530/1358)
+2025-02-27T19:41:05.2182351Z Resolving deltas:  40% (545/1358)
+2025-02-27T19:41:05.2185385Z Resolving deltas:  41% (557/1358)
+2025-02-27T19:41:05.2189574Z Resolving deltas:  42% (571/1358)
+2025-02-27T19:41:05.2191756Z Resolving deltas:  43% (584/1358)
+2025-02-27T19:41:05.2195822Z Resolving deltas:  44% (598/1358)
+2025-02-27T19:41:05.2201933Z Resolving deltas:  45% (612/1358)
+2025-02-27T19:41:05.2204077Z Resolving deltas:  46% (625/1358)
+2025-02-27T19:41:05.2205891Z Resolving deltas:  47% (639/1358)
+2025-02-27T19:41:05.2207566Z Resolving deltas:  48% (652/1358)
+2025-02-27T19:41:05.2212793Z Resolving deltas:  49% (666/1358)
+2025-02-27T19:41:05.2217064Z Resolving deltas:  50% (679/1358)
+2025-02-27T19:41:05.2221755Z Resolving deltas:  51% (693/1358)
+2025-02-27T19:41:05.2252676Z Resolving deltas:  52% (708/1358)
+2025-02-27T19:41:05.2262730Z Resolving deltas:  53% (720/1358)
+2025-02-27T19:41:05.2263756Z Resolving deltas:  54% (734/1358)
+2025-02-27T19:41:05.2268113Z Resolving deltas:  55% (747/1358)
+2025-02-27T19:41:05.2270506Z Resolving deltas:  56% (761/1358)
+2025-02-27T19:41:05.2271474Z Resolving deltas:  57% (775/1358)
+2025-02-27T19:41:05.2277952Z Resolving deltas:  58% (788/1358)
+2025-02-27T19:41:05.2285474Z Resolving deltas:  59% (802/1358)
+2025-02-27T19:41:05.2293227Z Resolving deltas:  60% (815/1358)
+2025-02-27T19:41:05.2294823Z Resolving deltas:  61% (829/1358)
+2025-02-27T19:41:05.2300555Z Resolving deltas:  62% (842/1358)
+2025-02-27T19:41:05.2305994Z Resolving deltas:  63% (856/1358)
+2025-02-27T19:41:05.2347841Z Resolving deltas:  64% (870/1358)
+2025-02-27T19:41:05.2351240Z Resolving deltas:  65% (883/1358)
+2025-02-27T19:41:05.2352235Z Resolving deltas:  66% (897/1358)
+2025-02-27T19:41:05.2353029Z Resolving deltas:  67% (910/1358)
+2025-02-27T19:41:05.2353828Z Resolving deltas:  68% (924/1358)
+2025-02-27T19:41:05.2354612Z Resolving deltas:  69% (938/1358)
+2025-02-27T19:41:05.2355399Z Resolving deltas:  70% (951/1358)
+2025-02-27T19:41:05.2356179Z Resolving deltas:  71% (965/1358)
+2025-02-27T19:41:05.2356956Z Resolving deltas:  72% (978/1358)
+2025-02-27T19:41:05.2357749Z Resolving deltas:  73% (992/1358)
+2025-02-27T19:41:05.2358519Z Resolving deltas:  74% (1005/1358)
+2025-02-27T19:41:05.2359364Z Resolving deltas:  75% (1019/1358)
+2025-02-27T19:41:05.2383655Z Resolving deltas:  76% (1033/1358)
+2025-02-27T19:41:05.2389267Z Resolving deltas:  77% (1046/1358)
+2025-02-27T19:41:05.2391409Z Resolving deltas:  78% (1060/1358)
+2025-02-27T19:41:05.2392583Z Resolving deltas:  79% (1073/1358)
+2025-02-27T19:41:05.2393514Z Resolving deltas:  80% (1087/1358)
+2025-02-27T19:41:05.2394437Z Resolving deltas:  81% (1100/1358)
+2025-02-27T19:41:05.2395394Z Resolving deltas:  82% (1114/1358)
+2025-02-27T19:41:05.2396362Z Resolving deltas:  83% (1128/1358)
+2025-02-27T19:41:05.2397396Z Resolving deltas:  84% (1141/1358)
+2025-02-27T19:41:05.2405910Z Resolving deltas:  85% (1155/1358)
+2025-02-27T19:41:05.2406881Z Resolving deltas:  86% (1168/1358)
+2025-02-27T19:41:05.2411247Z Resolving deltas:  87% (1182/1358)
+2025-02-27T19:41:05.2416647Z Resolving deltas:  88% (1196/1358)
+2025-02-27T19:41:05.2417870Z Resolving deltas:  89% (1209/1358)
+2025-02-27T19:41:05.2423785Z Resolving deltas:  90% (1223/1358)
+2025-02-27T19:41:05.2425175Z Resolving deltas:  91% (1236/1358)
+2025-02-27T19:41:05.2429475Z Resolving deltas:  92% (1250/1358)
+2025-02-27T19:41:05.2430497Z Resolving deltas:  93% (1263/1358)
+2025-02-27T19:41:05.2431706Z Resolving deltas:  94% (1277/1358)
+2025-02-27T19:41:05.2432700Z Resolving deltas:  95% (1291/1358)
+2025-02-27T19:41:05.2433688Z Resolving deltas:  96% (1304/1358)
+2025-02-27T19:41:05.2434704Z Resolving deltas:  97% (1318/1358)
+2025-02-27T19:41:05.2437568Z Resolving deltas:  98% (1331/1358)
+2025-02-27T19:41:05.2438535Z Resolving deltas:  99% (1345/1358)
+2025-02-27T19:41:05.2439460Z Resolving deltas: 100% (1358/1358)
+2025-02-27T19:41:05.2440414Z Resolving deltas: 100% (1358/1358), done.
+2025-02-27T19:41:05.2614152Z From https://github.com/aaron-hogan/idle-game
+2025-02-27T19:41:05.2616221Z  * [new branch]      archive/day-timer-fix-feb2025 -> origin/archive/day-timer-fix-feb2025
+2025-02-27T19:41:05.2618719Z  * [new branch]      chore/gitignore-improvements -> origin/chore/gitignore-improvements
+2025-02-27T19:41:05.2622317Z  * [new branch]      cleanup/project-structure-organization -> origin/cleanup/project-structure-organization
+2025-02-27T19:41:05.2625256Z  * [new branch]      cleanup/root-folder-consolidation -> origin/cleanup/root-folder-consolidation
+2025-02-27T19:41:05.2627595Z  * [new branch]      develop                 -> origin/develop
+2025-02-27T19:41:05.2630079Z  * [new branch]      docs/enhance-git-documentation -> origin/docs/enhance-git-documentation
+2025-02-27T19:41:05.2633138Z  * [new branch]      docs/github-workflows-cleanup -> origin/docs/github-workflows-cleanup
+2025-02-27T19:41:05.2636161Z  * [new branch]      docs/improve-branch-protection -> origin/docs/improve-branch-protection
+2025-02-27T19:41:05.2639869Z  * [new branch]      docs/improve-documentation-organization -> origin/docs/improve-documentation-organization
+2025-02-27T19:41:05.2643783Z  * [new branch]      docs/pr-validation-documentation -> origin/docs/pr-validation-documentation
+2025-02-27T19:41:05.2647060Z  * [new branch]      docs/process-failure-learnings -> origin/docs/process-failure-learnings
+2025-02-27T19:41:05.2650956Z  * [new branch]      docs/update-milestone-strip-documentation -> origin/docs/update-milestone-strip-documentation
+2025-02-27T19:41:05.2655418Z  * [new branch]      feature/dependency-injection -> origin/feature/dependency-injection
+2025-02-27T19:41:05.2658684Z  * [new branch]      feature/game-balance-config -> origin/feature/game-balance-config
+2025-02-27T19:41:05.2661855Z  * [new branch]      feature/git-automation  -> origin/feature/git-automation
+2025-02-27T19:41:05.2665476Z  * [new branch]      feature/milestone-visual-enhancements -> origin/feature/milestone-visual-enhancements
+2025-02-27T19:41:05.2669195Z  * [new branch]      feature/patch-versioning -> origin/feature/patch-versioning
+2025-02-27T19:41:05.2672778Z  * [new branch]      feature/todo-synchronization -> origin/feature/todo-synchronization
+2025-02-27T19:41:05.2676201Z  * [new branch]      feature/tutorial-help-system -> origin/feature/tutorial-help-system
+2025-02-27T19:41:05.2679497Z  * [new branch]      feature/versioning-process -> origin/feature/versioning-process
+2025-02-27T19:41:05.2682885Z  * [new branch]      fix/changelog-organization -> origin/fix/changelog-organization
+2025-02-27T19:41:05.2686072Z  * [new branch]      fix/changelog-versioning -> origin/fix/changelog-versioning
+2025-02-27T19:41:05.2689159Z  * [new branch]      fix/complete-root-cleanup -> origin/fix/complete-root-cleanup
+2025-02-27T19:41:05.2693025Z  * [new branch]      fix/dependency-injection-tests -> origin/fix/dependency-injection-tests
+2025-02-27T19:41:05.2697090Z  * [new branch]      fix/events-selector-memoization -> origin/fix/events-selector-memoization
+2025-02-27T19:41:05.2700581Z  * [new branch]      fix/game-loop-errors    -> origin/fix/game-loop-errors
+2025-02-27T19:41:05.2704202Z  * [new branch]      fix/github-action-permissions -> origin/fix/github-action-permissions
+2025-02-27T19:41:05.2707815Z  * [new branch]      fix/gitignore-improvements -> origin/fix/gitignore-improvements
+2025-02-27T19:41:05.2710554Z  * [new branch]      fix/milestone-centering -> origin/fix/milestone-centering
+2025-02-27T19:41:05.2713532Z  * [new branch]      fix/milestone-progress-infinite-update -> origin/fix/milestone-progress-infinite-update
+2025-02-27T19:41:05.2716397Z  * [new branch]      fix/oppression-rate-display -> origin/fix/oppression-rate-display
+2025-02-27T19:41:05.2719032Z  * [new branch]      fix/pr-validation-case-sensitivity -> origin/fix/pr-validation-case-sensitivity
+2025-02-27T19:41:05.2721841Z  * [new branch]      fix/process-env-variables -> origin/fix/process-env-variables
+2025-02-27T19:41:05.2724413Z  * [new branch]      fix/progression-manager-imports -> origin/fix/progression-manager-imports
+2025-02-27T19:41:05.2726973Z  * [new branch]      fix/progression-selectors -> origin/fix/progression-selectors
+2025-02-27T19:41:05.2729268Z  * [new branch]      fix/reduce-console-noise -> origin/fix/reduce-console-noise
+2025-02-27T19:41:05.2731808Z  * [new branch]      fix/remaining-selector-issues -> origin/fix/remaining-selector-issues
+2025-02-27T19:41:05.2734821Z  * [new branch]      fix/skip-tests-auto-versioning -> origin/fix/skip-tests-auto-versioning
+2025-02-27T19:41:05.2739064Z  * [new branch]      fix/task-manager-double-initialization -> origin/fix/task-manager-double-initialization
+2025-02-27T19:41:05.2743119Z  * [new branch]      fix/test-suite-fixes    -> origin/fix/test-suite-fixes
+2025-02-27T19:41:05.2745877Z  * [new branch]      main                    -> origin/main
+2025-02-27T19:41:05.2749447Z  * [new branch]      refactor/manager-dependency-injection -> origin/refactor/manager-dependency-injection
+2025-02-27T19:41:05.2753645Z  * [new branch]      sync/sync-main-develop  -> origin/sync/sync-main-develop
+2025-02-27T19:41:05.2756972Z  * [new branch]      test/hello-world-versioning -> origin/test/hello-world-versioning
+2025-02-27T19:41:05.2760921Z [command]/usr/bin/git branch --list --remote origin/main
+2025-02-27T19:41:05.2777552Z   origin/main
+2025-02-27T19:41:05.2787319Z [command]/usr/bin/git rev-parse refs/remotes/origin/main
+2025-02-27T19:41:05.2806244Z 829b69a37c10e2a8d62a3b445e592697795c70f2
+2025-02-27T19:41:05.2818180Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --progress --no-recurse-submodules origin +a3095fa873568973de1df0051a8861d8b5e686be:refs/remotes/origin/main
+2025-02-27T19:41:05.4774813Z From https://github.com/aaron-hogan/idle-game
+2025-02-27T19:41:05.4778016Z  + 829b69a...a3095fa a3095fa873568973de1df0051a8861d8b5e686be -> origin/main  (forced update)
+2025-02-27T19:41:05.4825834Z ##[endgroup]
+2025-02-27T19:41:05.4828176Z ##[group]Determining the checkout info
+2025-02-27T19:41:05.4830794Z ##[endgroup]
+2025-02-27T19:41:05.4833221Z ##[group]Checking out the ref
+2025-02-27T19:41:05.4834939Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2025-02-27T19:41:05.5163479Z Switched to a new branch 'main'
+2025-02-27T19:41:05.5166182Z branch 'main' set up to track 'origin/main'.
+2025-02-27T19:41:05.5174740Z ##[endgroup]
+2025-02-27T19:41:05.5207724Z [command]/usr/bin/git log -1 --format='%H'
+2025-02-27T19:41:05.5228404Z 'a3095fa873568973de1df0051a8861d8b5e686be'
+2025-02-27T19:41:05.5503293Z ##[group]Run actions/setup-node@v3
+2025-02-27T19:41:05.5504418Z with:
+2025-02-27T19:41:05.5505185Z   node-version: 16
+2025-02-27T19:41:05.5506042Z   always-auth: false
+2025-02-27T19:41:05.5506922Z   check-latest: false
+2025-02-27T19:41:05.5508063Z   token: ***
+2025-02-27T19:41:05.5508859Z ##[endgroup]
+2025-02-27T19:41:05.7455876Z Attempting to download 16...
+2025-02-27T19:41:06.0983968Z Acquiring 16.20.2 - x64 from https://github.com/actions/node-versions/releases/download/16.20.2-5819740093/node-16.20.2-linux-x64.tar.gz
+2025-02-27T19:41:06.5265082Z Extracting ...
+2025-02-27T19:41:06.5369362Z [command]/usr/bin/tar xz --strip 1 --warning=no-unknown-keyword -C /home/runner/work/_temp/d876603c-4dfd-4716-98ad-7fa69e55d22a -f /home/runner/work/_temp/45df4f1f-ab36-48f0-bdff-832dd78f3e73
+2025-02-27T19:41:07.2198993Z Adding to the cache ...
+2025-02-27T19:41:08.2654295Z ##[group]Environment details
+2025-02-27T19:41:08.5355958Z node: v16.20.2
+2025-02-27T19:41:08.5356461Z npm: 8.19.4
+2025-02-27T19:41:08.5356824Z yarn: 1.22.22
+2025-02-27T19:41:08.5357498Z ##[endgroup]
+2025-02-27T19:41:08.5526286Z ##[group]Run npm ci
+2025-02-27T19:41:08.5526630Z [36;1mnpm ci[0m
+2025-02-27T19:41:08.5578642Z shell: /usr/bin/bash -e {0}
+2025-02-27T19:41:08.5578954Z ##[endgroup]
+2025-02-27T19:41:09.3476995Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3477641Z npm WARN EBADENGINE   package: '@eslint/config-array@0.19.2',
+2025-02-27T19:41:09.3478406Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:41:09.3479299Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3479790Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3480393Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3480831Z npm WARN EBADENGINE   package: '@eslint/core@0.12.0',
+2025-02-27T19:41:09.3481364Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:41:09.3482216Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3482626Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3485136Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3486004Z npm WARN EBADENGINE   package: '@eslint/eslintrc@3.3.0',
+2025-02-27T19:41:09.3486991Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:41:09.3487975Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3488621Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3490081Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3490860Z npm WARN EBADENGINE   package: 'globals@14.0.0',
+2025-02-27T19:41:09.3491871Z npm WARN EBADENGINE   required: { node: '>=18' },
+2025-02-27T19:41:09.3492774Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3493451Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3495908Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3496705Z npm WARN EBADENGINE   package: '@eslint/js@9.21.0',
+2025-02-27T19:41:09.3497636Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:41:09.3499115Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3499806Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3500453Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3501358Z npm WARN EBADENGINE   package: '@eslint/object-schema@2.1.6',
+2025-02-27T19:41:09.3502590Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:41:09.3503541Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3504213Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3504817Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3505518Z npm WARN EBADENGINE   package: '@eslint/plugin-kit@0.2.7',
+2025-02-27T19:41:09.3506491Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:41:09.3507409Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3508008Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3510669Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3511474Z npm WARN EBADENGINE   package: '@humanfs/core@0.19.1',
+2025-02-27T19:41:09.3512532Z npm WARN EBADENGINE   required: { node: '>=18.18.0' },
+2025-02-27T19:41:09.3513420Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3514064Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3514652Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3515429Z npm WARN EBADENGINE   package: '@humanfs/node@0.16.6',
+2025-02-27T19:41:09.3516235Z npm WARN EBADENGINE   required: { node: '>=18.18.0' },
+2025-02-27T19:41:09.3517081Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3517734Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3518354Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3519151Z npm WARN EBADENGINE   package: '@humanwhocodes/retry@0.3.1',
+2025-02-27T19:41:09.3519992Z npm WARN EBADENGINE   required: { node: '>=18.18' },
+2025-02-27T19:41:09.3521194Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3522250Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3522921Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3523723Z npm WARN EBADENGINE   package: '@humanwhocodes/retry@0.4.2',
+2025-02-27T19:41:09.3524540Z npm WARN EBADENGINE   required: { node: '>=18.18' },
+2025-02-27T19:41:09.3525370Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3525999Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3531340Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3532444Z npm WARN EBADENGINE   package: '@testing-library/dom@10.4.0',
+2025-02-27T19:41:09.3533272Z npm WARN EBADENGINE   required: { node: '>=18' },
+2025-02-27T19:41:09.3534143Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3534819Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3535386Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3536224Z npm WARN EBADENGINE   package: '@testing-library/react@16.2.0',
+2025-02-27T19:41:09.3537068Z npm WARN EBADENGINE   required: { node: '>=18' },
+2025-02-27T19:41:09.3537916Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3538602Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3539689Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3540597Z npm WARN EBADENGINE   package: '@typescript-eslint/eslint-plugin@8.25.0',
+2025-02-27T19:41:09.3541873Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:41:09.3542874Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3543498Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3544075Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3544923Z npm WARN EBADENGINE   package: '@typescript-eslint/parser@8.25.0',
+2025-02-27T19:41:09.3545921Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:41:09.3546883Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3547849Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3548449Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3549288Z npm WARN EBADENGINE   package: '@typescript-eslint/scope-manager@8.25.0',
+2025-02-27T19:41:09.3550339Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:41:09.3551286Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3552177Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3552767Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3553619Z npm WARN EBADENGINE   package: '@typescript-eslint/type-utils@8.25.0',
+2025-02-27T19:41:09.3554664Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:41:09.3555663Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3556317Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3556855Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3557773Z npm WARN EBADENGINE   package: '@typescript-eslint/types@8.25.0',
+2025-02-27T19:41:09.3558800Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:41:09.3559801Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3560436Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3560967Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3562077Z npm WARN EBADENGINE   package: '@typescript-eslint/typescript-estree@8.25.0',
+2025-02-27T19:41:09.3563163Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:41:09.3564099Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3564776Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3565379Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3566174Z npm WARN EBADENGINE   package: '@typescript-eslint/utils@8.25.0',
+2025-02-27T19:41:09.3567121Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:41:09.3568380Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3569129Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3569681Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3570538Z npm WARN EBADENGINE   package: '@typescript-eslint/visitor-keys@8.25.0',
+2025-02-27T19:41:09.3571788Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:41:09.3572763Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3573416Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3574030Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3574829Z npm WARN EBADENGINE   package: 'eslint-visitor-keys@4.2.0',
+2025-02-27T19:41:09.3575765Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:41:09.3576717Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3577390Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3577962Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3578754Z npm WARN EBADENGINE   package: '@webpack-cli/configtest@3.0.1',
+2025-02-27T19:41:09.3579553Z npm WARN EBADENGINE   required: { node: '>=18.12.0' },
+2025-02-27T19:41:09.3580373Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3581041Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3581841Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3582639Z npm WARN EBADENGINE   package: '@webpack-cli/info@3.0.1',
+2025-02-27T19:41:09.3583446Z npm WARN EBADENGINE   required: { node: '>=18.12.0' },
+2025-02-27T19:41:09.3584331Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3584989Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3585563Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3586347Z npm WARN EBADENGINE   package: '@webpack-cli/serve@3.0.1',
+2025-02-27T19:41:09.3587173Z npm WARN EBADENGINE   required: { node: '>=18.12.0' },
+2025-02-27T19:41:09.3588283Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3588958Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3589538Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3590269Z npm WARN EBADENGINE   package: 'bundle-name@4.1.0',
+2025-02-27T19:41:09.3591031Z npm WARN EBADENGINE   required: { node: '>=18' },
+2025-02-27T19:41:09.3592103Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3592780Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3596366Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3597159Z npm WARN EBADENGINE   package: 'css-loader@7.1.2',
+2025-02-27T19:41:09.3597948Z npm WARN EBADENGINE   required: { node: '>= 18.12.0' },
+2025-02-27T19:41:09.3598861Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3599591Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3600705Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3601445Z npm WARN EBADENGINE   package: 'default-browser@5.2.1',
+2025-02-27T19:41:09.3602495Z npm WARN EBADENGINE   required: { node: '>=18' },
+2025-02-27T19:41:09.3603399Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3604026Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3604588Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3605338Z npm WARN EBADENGINE   package: 'default-browser-id@5.0.0',
+2025-02-27T19:41:09.3606105Z npm WARN EBADENGINE   required: { node: '>=18' },
+2025-02-27T19:41:09.3607011Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3607678Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3611462Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3612501Z npm WARN EBADENGINE   package: 'eslint@9.21.0',
+2025-02-27T19:41:09.3613414Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:41:09.3614404Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3615106Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3615982Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3616776Z npm WARN EBADENGINE   package: 'eslint-scope@8.2.0',
+2025-02-27T19:41:09.3617736Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:41:09.3618726Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3619400Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3619962Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3620721Z npm WARN EBADENGINE   package: 'eslint-visitor-keys@4.2.0',
+2025-02-27T19:41:09.3621871Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:41:09.3622813Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3623502Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3624072Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3624804Z npm WARN EBADENGINE   package: 'espree@10.3.0',
+2025-02-27T19:41:09.3625667Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:41:09.3626651Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3627417Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3628056Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3628829Z npm WARN EBADENGINE   package: 'eslint-visitor-keys@4.2.0',
+2025-02-27T19:41:09.3629785Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:41:09.3630723Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3631363Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3665175Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3665947Z npm WARN EBADENGINE   package: 'open@10.1.0',
+2025-02-27T19:41:09.3666696Z npm WARN EBADENGINE   required: { node: '>=18' },
+2025-02-27T19:41:09.3667555Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3668204Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3674121Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3675224Z npm WARN EBADENGINE   package: 'react-router@7.2.0',
+2025-02-27T19:41:09.3676028Z npm WARN EBADENGINE   required: { node: '>=20.0.0' },
+2025-02-27T19:41:09.3676857Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3677545Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3678157Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3678906Z npm WARN EBADENGINE   package: 'react-router-dom@7.2.0',
+2025-02-27T19:41:09.3679691Z npm WARN EBADENGINE   required: { node: '>=20.0.0' },
+2025-02-27T19:41:09.3680569Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3681224Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3682014Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3682738Z npm WARN EBADENGINE   package: 'cookie@1.0.2',
+2025-02-27T19:41:09.3683489Z npm WARN EBADENGINE   required: { node: '>=18' },
+2025-02-27T19:41:09.3684312Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3685013Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3685609Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3686339Z npm WARN EBADENGINE   package: 'run-applescript@7.0.0',
+2025-02-27T19:41:09.3687074Z npm WARN EBADENGINE   required: { node: '>=18' },
+2025-02-27T19:41:09.3687868Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3688486Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3691803Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3692594Z npm WARN EBADENGINE   package: 'style-loader@4.0.0',
+2025-02-27T19:41:09.3693349Z npm WARN EBADENGINE   required: { node: '>= 18.12.0' },
+2025-02-27T19:41:09.3694204Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3694874Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3696863Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3697659Z npm WARN EBADENGINE   package: 'ts-api-utils@2.0.1',
+2025-02-27T19:41:09.3698434Z npm WARN EBADENGINE   required: { node: '>=18.12' },
+2025-02-27T19:41:09.3699515Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3700236Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3702213Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3703528Z npm WARN EBADENGINE   package: 'typescript-eslint@8.25.0',
+2025-02-27T19:41:09.3704711Z npm WARN EBADENGINE   required: { node: '^18.18.0 || ^20.9.0 || >=21.1.0' },
+2025-02-27T19:41:09.3706178Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3707238Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3708112Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3708878Z npm WARN EBADENGINE   package: 'webpack-cli@6.0.1',
+2025-02-27T19:41:09.3709647Z npm WARN EBADENGINE   required: { node: '>=18.12.0' },
+2025-02-27T19:41:09.3710528Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3711232Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3711997Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3712717Z npm WARN EBADENGINE   package: 'commander@12.1.0',
+2025-02-27T19:41:09.3713481Z npm WARN EBADENGINE   required: { node: '>=18' },
+2025-02-27T19:41:09.3714334Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3714975Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3715563Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3716373Z npm WARN EBADENGINE   package: 'webpack-dev-middleware@7.4.2',
+2025-02-27T19:41:09.3717196Z npm WARN EBADENGINE   required: { node: '>= 18.12.0' },
+2025-02-27T19:41:09.3718082Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3718750Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3719287Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3720028Z npm WARN EBADENGINE   package: 'webpack-dev-server@5.2.0',
+2025-02-27T19:41:09.3720789Z npm WARN EBADENGINE   required: { node: '>= 18.12.0' },
+2025-02-27T19:41:09.3721815Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3722688Z npm WARN EBADENGINE }
+2025-02-27T19:41:09.3723152Z npm WARN EBADENGINE Unsupported engine {
+2025-02-27T19:41:09.3723766Z npm WARN EBADENGINE   package: 'webpack-merge@6.0.1',
+2025-02-27T19:41:09.3724425Z npm WARN EBADENGINE   required: { node: '>=18.0.0' },
+2025-02-27T19:41:09.3725162Z npm WARN EBADENGINE   current: { node: 'v16.20.2', npm: '8.19.4' }
+2025-02-27T19:41:09.3725770Z npm WARN EBADENGINE }
+2025-02-27T19:41:12.4869358Z npm WARN deprecated react-testing-library@8.0.1: 🚨  react-testing-library has moved to @testing-library/react. Please uninstall react-testing-library and install @testing-library/react instead, or use an older version of react-testing-library. Learn more about this change here: https://github.com/testing-library/dom-testing-library/issues/260 Thanks! :)
+2025-02-27T19:41:13.2983481Z npm WARN deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+2025-02-27T19:41:13.5170634Z npm WARN deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+2025-02-27T19:41:13.9735675Z npm WARN deprecated domexception@4.0.0: Use your platform's native DOMException instead
+2025-02-27T19:41:14.4400825Z npm WARN deprecated abab@2.0.6: Use your platform's native atob() and btoa() methods instead
+2025-02-27T19:41:17.7856180Z 
+2025-02-27T19:41:17.7857002Z added 900 packages, and audited 901 packages in 9s
+2025-02-27T19:41:17.7857446Z 
+2025-02-27T19:41:17.7857749Z 193 packages are looking for funding
+2025-02-27T19:41:17.7858260Z   run `npm fund` for details
+2025-02-27T19:41:17.7869476Z 
+2025-02-27T19:41:17.7869802Z found 0 vulnerabilities
+2025-02-27T19:41:17.8197854Z ##[group]Run actions/github-script@v6
+2025-02-27T19:41:17.8198147Z with:
+2025-02-27T19:41:17.8199814Z   script: const labels = context.payload.pull_request.labels.map(label => label.name);
+const versionLabels = ['version:major', 'version:minor', 'version:patch', 'version:patch_level'];
+
+// Find which version label exists
+const versionLabel = labels.find(label => versionLabels.includes(label));
+if (versionLabel) {
+  // Extract the version type (after the colon)
+  const versionType = versionLabel.split(':')[1];
+  core.setOutput('version-label', versionType);
+  console.log(`Found version label: ${versionLabel} (${versionType})`);
+} else {
+  core.setFailed('No version label found');
+}
+
+2025-02-27T19:41:17.8202050Z   github-token: ***
+2025-02-27T19:41:17.8202311Z   debug: false
+2025-02-27T19:41:17.8202522Z   user-agent: actions/github-script
+2025-02-27T19:41:17.8202778Z   result-encoding: json
+2025-02-27T19:41:17.8202992Z   retries: 0
+2025-02-27T19:41:17.8203230Z   retry-exempt-status-codes: 400,401,403,404,422
+2025-02-27T19:41:17.8203511Z ##[endgroup]
+2025-02-27T19:41:17.8896498Z Found version label: version:patch (patch)
+2025-02-27T19:41:17.9031398Z ##[group]Run # Run auto-versioning script
+2025-02-27T19:41:17.9032032Z [36;1m# Run auto-versioning script[0m
+2025-02-27T19:41:17.9032375Z [36;1mchmod +x .github/workflows/scripts/auto-version.sh[0m
+2025-02-27T19:41:17.9032712Z [36;1mexport PR_LABEL="patch"[0m
+2025-02-27T19:41:17.9032979Z [36;1mexport GITHUB_ACTOR="aaron-hogan"[0m
+2025-02-27T19:41:17.9033353Z [36;1mexport PR_TITLE="fix: update GitHub Actions workflow for auto-versioning"[0m
+2025-02-27T19:41:17.9033731Z [36;1mexport PR_NUMBER="78"[0m
+2025-02-27T19:41:17.9033963Z [36;1m[0m
+2025-02-27T19:41:17.9034186Z [36;1m.github/workflows/scripts/auto-version.sh[0m
+2025-02-27T19:41:17.9079249Z shell: /usr/bin/bash -e {0}
+2025-02-27T19:41:17.9079499Z ##[endgroup]
+2025-02-27T19:41:17.9168120Z 🔄 Starting automatic versioning process...
+2025-02-27T19:41:17.9169025Z 📋 Processing PR #78: fix: update GitHub Actions workflow for auto-versioning
+2025-02-27T19:41:17.9169480Z 🏷️ Version label: patch
+2025-02-27T19:41:17.9543758Z 📦 Current version: 0.5.0-4
+2025-02-27T19:41:17.9868174Z 🔖 Creating new version: 0.5.1
+2025-02-27T19:41:17.9930534Z 📅 Setting release date to 2025-02-27
+2025-02-27T19:41:17.9954556Z 📦 Updating package.json version to 0.5.1
+2025-02-27T19:41:18.0279586Z 💾 Committing version bump
+2025-02-27T19:41:18.0485058Z [main 9328a3a] chore: bump version to 0.5.1
+2025-02-27T19:41:18.0485721Z  2 files changed, 5 insertions(+), 2 deletions(-)
+2025-02-27T19:41:18.0488998Z ✅ Version bump successful
+2025-02-27T19:41:18.0529561Z ##[group]Run git config --global user.name "github-actions[bot]"
+2025-02-27T19:41:18.0530287Z [36;1mgit config --global user.name "github-actions[bot]"[0m
+2025-02-27T19:41:18.0531063Z [36;1mgit config --global user.email "github-actions[bot]@users.noreply.github.com"[0m
+2025-02-27T19:41:18.0598093Z shell: /usr/bin/bash -e {0}
+2025-02-27T19:41:18.0598522Z ##[endgroup]
+2025-02-27T19:41:18.0786152Z ##[group]Run git push origin HEAD:main
+2025-02-27T19:41:18.0786480Z [36;1mgit push origin HEAD:main[0m
+2025-02-27T19:41:18.0831464Z shell: /usr/bin/bash -e {0}
+2025-02-27T19:41:18.0831925Z ##[endgroup]
+2025-02-27T19:41:18.4522107Z To https://github.com/aaron-hogan/idle-game
+2025-02-27T19:41:18.4522814Z  ! [rejected]        HEAD -> main (non-fast-forward)
+2025-02-27T19:41:18.4523715Z error: failed to push some refs to 'https://github.com/aaron-hogan/idle-game'
+2025-02-27T19:41:18.4549862Z hint: Updates were rejected because the tip of your current branch is behind
+2025-02-27T19:41:18.4550865Z hint: its remote counterpart. If you want to integrate the remote changes,
+2025-02-27T19:41:18.4551808Z hint: use 'git pull' before pushing again.
+2025-02-27T19:41:18.4552593Z hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+2025-02-27T19:41:18.4566301Z ##[error]Process completed with exit code 1.
+2025-02-27T19:41:18.4641228Z Post job cleanup.
+2025-02-27T19:41:18.5358784Z [command]/usr/bin/git version
+2025-02-27T19:41:18.5392858Z git version 2.48.1
+2025-02-27T19:41:18.5429260Z Copying '/home/runner/.gitconfig' to '/home/runner/work/_temp/895c3637-3b2b-4e2c-8c1d-d718e0ffa93a/.gitconfig'
+2025-02-27T19:41:18.5438431Z Temporarily overriding HOME='/home/runner/work/_temp/895c3637-3b2b-4e2c-8c1d-d718e0ffa93a' before making global git config changes
+2025-02-27T19:41:18.5439577Z Adding repository directory to the temporary git global config as a safe directory
+2025-02-27T19:41:18.5443232Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/idle-game/idle-game
+2025-02-27T19:41:18.5473776Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2025-02-27T19:41:18.5500730Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2025-02-27T19:41:18.5730761Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2025-02-27T19:41:18.5749040Z http.https://github.com/.extraheader
+2025-02-27T19:41:18.5760667Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2025-02-27T19:41:18.5787702Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2025-02-27T19:41:18.6105990Z Cleaning up orphan processes

@@ -1,0 +1,4 @@
+﻿2025-02-27T15:15:27.3213138Z Evaluate and set job outputs
+2025-02-27T15:15:27.3221001Z Set output 'has-version-label'
+2025-02-27T15:15:27.3222908Z Set output 'version-label'
+2025-02-27T15:15:27.3223927Z Cleaning up orphan processes

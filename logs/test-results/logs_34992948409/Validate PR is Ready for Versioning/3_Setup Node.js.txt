@@ -1,0 +1,17 @@
+﻿2025-02-27T19:34:12.0266535Z ##[group]Run actions/setup-node@v3
+2025-02-27T19:34:12.0267075Z with:
+2025-02-27T19:34:12.0267423Z   node-version: 16
+2025-02-27T19:34:12.0267815Z   always-auth: false
+2025-02-27T19:34:12.0268213Z   check-latest: false
+2025-02-27T19:34:12.0268777Z   token: ***
+2025-02-27T19:34:12.0269136Z ##[endgroup]
+2025-02-27T19:34:12.2048204Z Attempting to download 16...
+2025-02-27T19:34:12.8583593Z Acquiring 16.20.2 - x64 from https://github.com/actions/node-versions/releases/download/16.20.2-5819740093/node-16.20.2-linux-x64.tar.gz
+2025-02-27T19:34:13.5971850Z Extracting ...
+2025-02-27T19:34:13.6078901Z [command]/usr/bin/tar xz --strip 1 --warning=no-unknown-keyword -C /home/runner/work/_temp/55558c68-20c4-4deb-a6b6-7752f0550e61 -f /home/runner/work/_temp/6fb4a5da-1fa8-4488-9d28-1eb2c3bdcb30
+2025-02-27T19:34:14.2600943Z Adding to the cache ...
+2025-02-27T19:34:15.3006026Z ##[group]Environment details
+2025-02-27T19:34:15.5929801Z node: v16.20.2
+2025-02-27T19:34:15.5930598Z npm: 8.19.4
+2025-02-27T19:34:15.5930953Z yarn: 1.22.22
+2025-02-27T19:34:15.5931882Z ##[endgroup]

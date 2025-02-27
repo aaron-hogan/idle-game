@@ -1,0 +1,12 @@
+﻿2025-02-27T19:41:18.0786142Z ##[group]Run git push origin HEAD:main
+2025-02-27T19:41:18.0786477Z [36;1mgit push origin HEAD:main[0m
+2025-02-27T19:41:18.0831458Z shell: /usr/bin/bash -e {0}
+2025-02-27T19:41:18.0831921Z ##[endgroup]
+2025-02-27T19:41:18.4522071Z To https://github.com/aaron-hogan/idle-game
+2025-02-27T19:41:18.4522810Z  ! [rejected]        HEAD -> main (non-fast-forward)
+2025-02-27T19:41:18.4523711Z error: failed to push some refs to 'https://github.com/aaron-hogan/idle-game'
+2025-02-27T19:41:18.4549844Z hint: Updates were rejected because the tip of your current branch is behind
+2025-02-27T19:41:18.4550861Z hint: its remote counterpart. If you want to integrate the remote changes,
+2025-02-27T19:41:18.4551803Z hint: use 'git pull' before pushing again.
+2025-02-27T19:41:18.4552589Z hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+2025-02-27T19:41:18.4566288Z ##[error]Process completed with exit code 1.

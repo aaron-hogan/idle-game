@@ -1,0 +1,75 @@
+name: Semantic Release (Example)
+
+on:
+  push:
+    branches: [release/**]  # Only trigger on release branches
+
+jobs:
+  release:
+    name: Semantic Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Important for git history
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Run tests
+        run: npm test
+      
+      - name: Run type checking
+        run: npm run typecheck
+      
+      - name: Run linting
+        run: npm run lint
+      
+      - name: Semantic Release
+        id: semantic-release
+        uses: semantic-release/semantic-release@v22
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          branches: |
+            [
+              {
+                "name": "main"
+              },
+              {
+                "name": "release/*",
+                "prerelease": true
+              }
+            ]
+      
+      - name: Create PR to Main (if version was released)
+        if: steps.semantic-release.outputs.new_release_published == 'true'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore(release): ${steps.semantic-release.outputs.new_release_version} [skip ci]"
+          branch: version-${{ steps.semantic-release.outputs.new_release_version }}
+          base: main
+          title: "chore(release): ${{ steps.semantic-release.outputs.new_release_version }}"
+          body: |
+            This PR contains the changes for release ${{ steps.semantic-release.outputs.new_release_version }}
+            
+            ## Release Notes
+            ${{ steps.semantic-release.outputs.new_release_notes }}
+          labels: |
+            release
+            automated
+          reviewers: ${{ github.actor }}
+          draft: false

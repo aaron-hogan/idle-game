@@ -1,0 +1,30 @@
+﻿2025-02-27T20:02:29.9600752Z ##[group]Run # Get branch name
+2025-02-27T20:02:29.9602036Z [36;1m# Get branch name[0m
+2025-02-27T20:02:29.9603252Z [36;1mBRANCH_NAME="cleanup/workflow-tests"[0m
+2025-02-27T20:02:29.9604599Z [36;1mecho "Branch: $BRANCH_NAME"[0m
+2025-02-27T20:02:29.9605758Z [36;1m[0m
+2025-02-27T20:02:29.9606660Z [36;1m# Check branch name format[0m
+2025-02-27T20:02:29.9609192Z [36;1mif ! echo "$BRANCH_NAME" | grep -E "^(feature|fix|docs|refactor|ci|chore|test)/[a-z0-9-]+" > /dev/null; then[0m
+2025-02-27T20:02:29.9612143Z [36;1m  echo "Error: Branch name doesn't follow the pattern: (feature|fix|docs|refactor|ci|chore|test)/name"[0m
+2025-02-27T20:02:29.9614431Z [36;1m  echo "Examples: feature/login-page, fix/auth-bug"[0m
+2025-02-27T20:02:29.9615834Z [36;1m  exit 1[0m
+2025-02-27T20:02:29.9616745Z [36;1mfi[0m
+2025-02-27T20:02:29.9617748Z [36;1m[0m
+2025-02-27T20:02:29.9618621Z [36;1m# Get PR title[0m
+2025-02-27T20:02:29.9620027Z [36;1mPR_TITLE="fix: update tests to handle tutorial state in store"[0m
+2025-02-27T20:02:29.9621697Z [36;1mecho "PR title: $PR_TITLE"[0m
+2025-02-27T20:02:29.9622844Z [36;1m[0m
+2025-02-27T20:02:29.9623894Z [36;1m# Check PR title format (conventional commits)[0m
+2025-02-27T20:02:29.9626508Z [36;1mif ! echo "$PR_TITLE" | grep -Ei "^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\\([a-z0-9-]+\\))?: [A-Za-z]" > /dev/null; then[0m
+2025-02-27T20:02:29.9629475Z [36;1m  echo "Error: PR title must follow the conventional commit format"[0m
+2025-02-27T20:02:29.9631588Z [36;1m  echo "Examples: 'feat: Add user login' or 'fix(auth): Fix password reset'"[0m
+2025-02-27T20:02:29.9633307Z [36;1m  exit 1[0m
+2025-02-27T20:02:29.9634210Z [36;1mfi[0m
+2025-02-27T20:02:29.9635063Z [36;1m[0m
+2025-02-27T20:02:29.9636503Z [36;1mecho "Validation passed: Branch name and PR title are correctly formatted"[0m
+2025-02-27T20:02:29.9688831Z shell: /usr/bin/bash -e {0}
+2025-02-27T20:02:29.9689952Z ##[endgroup]
+2025-02-27T20:02:29.9782048Z Branch: cleanup/workflow-tests
+2025-02-27T20:02:29.9799269Z Error: Branch name doesn't follow the pattern: (feature|fix|docs|refactor|ci|chore|test)/name
+2025-02-27T20:02:29.9802215Z Examples: feature/login-page, fix/auth-bug
+2025-02-27T20:02:29.9816327Z ##[error]Process completed with exit code 1.
