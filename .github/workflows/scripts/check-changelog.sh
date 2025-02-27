@@ -12,7 +12,8 @@ if [ ! -f "$CHANGELOG_FILE" ]; then
 fi
 
 # Check if there are entries under [Unreleased] that should be versioned
-if grep -A 10 "## \[Unreleased\]" "$CHANGELOG_FILE" | grep -q "^### "; then
+# First check if there's anything between [Unreleased] and the next version heading
+if awk '/^## \[Unreleased\]/,/^## \[[0-9]/' "$CHANGELOG_FILE" | grep -q "^### "; then
   echo "❌ ERROR: Entries exist under [Unreleased] heading."
   echo ""
   echo "Before merging to main, please create a proper version section using:"
@@ -20,7 +21,7 @@ if grep -A 10 "## \[Unreleased\]" "$CHANGELOG_FILE" | grep -q "^### "; then
   echo ""
   echo "Unreleased changes found:"
   echo "------------------------"
-  grep -A 20 "## \[Unreleased\]" "$CHANGELOG_FILE" | sed -n '/^###/,/^## \[/p' | grep -v "^## \["
+  awk '/^## \[Unreleased\]/,/^## \[[0-9]/' "$CHANGELOG_FILE" | grep -E "^###|^- "
   echo "------------------------"
   echo ""
   echo "See docs/processes/versioning-and-releases.md for more information."
