@@ -14,11 +14,17 @@ let initialized = false;
 export function initializeEventSystem() {
   // Prevent multiple initializations which could cause update loops
   if (initialized) {
-    console.log('Event system already initialized, skipping');
+    // Suppress log message in production
+    if (process.env.NODE_ENV === 'development' && process.env.DEBUG_LOGS === 'true') {
+      console.log('Event system already initialized, skipping');
+    }
     return EventManager.getInstance();
   }
   
-  console.log('Initializing event system...');
+  // Only log in development when debugging
+  if (process.env.NODE_ENV === 'development' && process.env.DEBUG_LOGS === 'true') {
+    console.log('Initializing event system...');
+  }
   
   try {
     // Register events in the store
@@ -33,7 +39,10 @@ export function initializeEventSystem() {
     eventManager.initialize(store);
     
     const totalEvents = sampleEvents.length + antiCapitalistEvents.length;
-    console.log(`Initialized event system with ${totalEvents} events (${sampleEvents.length} sample, ${antiCapitalistEvents.length} themed)`);
+    // Only log in development when debugging
+    if (process.env.NODE_ENV === 'development' && process.env.DEBUG_LOGS === 'true') {
+      console.log(`Initialized event system with ${totalEvents} events (${sampleEvents.length} sample, ${antiCapitalistEvents.length} themed)`);
+    }
     
     // Mark as initialized
     initialized = true;

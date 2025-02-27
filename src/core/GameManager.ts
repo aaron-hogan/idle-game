@@ -115,7 +115,7 @@ export class GameManager {
   public initialize(): void {
     if (this.initialized) return;
     
-    if (this.config.debugMode) {
+    if (this.config.debugMode && process.env.NODE_ENV === 'development' && process.env.DEBUG_LOGS === 'true') {
       console.log("GameManager: Initializing game systems");
     }
     
@@ -139,7 +139,7 @@ export class GameManager {
     
     this.initialized = true;
     
-    if (this.config.debugMode) {
+    if (this.config.debugMode && process.env.NODE_ENV === 'development' && process.env.DEBUG_LOGS === 'true') {
       console.log(`GameManager: Initialization complete, game time at start: ${this.gameTimeAtStart.toFixed(2)}s`);
     }
     
@@ -265,7 +265,7 @@ export class GameManager {
       this.syncTimeScaleWithRedux();
     }, 100);
     
-    if (this.config.debugMode) {
+    if (this.config.debugMode && process.env.NODE_ENV === 'development' && process.env.DEBUG_LOGS === 'true') {
       console.log("GameManager: Started time scale sync interval");
     }
   }

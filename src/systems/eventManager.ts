@@ -59,7 +59,10 @@ export class EventManager {
     // Initialize with proper event statuses
     this.initializeEventStatuses();
     
-    console.log('EventManager initialized and registered with GameLoop');
+    // Only log in development when debugging
+    if (process.env.NODE_ENV === 'development' && process.env.DEBUG_LOGS === 'true') {
+      console.log('EventManager initialized and registered with GameLoop');
+    }
   }
   
   /**
@@ -693,7 +696,10 @@ export class EventManager {
           
           // If active for more than 30 seconds, auto-resolve
           if (activeTime > 30) {
-            console.log(`Auto-resolving event ${event.id} after ${activeTime.toFixed(2)} seconds`);
+            // Only log in development when debugging
+            if (process.env.NODE_ENV === 'development' && process.env.DEBUG_LOGS === 'true') {
+              console.log(`Auto-resolving event ${event.id} after ${activeTime.toFixed(2)} seconds`);
+            }
             this.resolveEvent(event.id, '');
           }
         }

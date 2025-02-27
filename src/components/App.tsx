@@ -129,25 +129,25 @@ const App: React.FC = () => {
       gameManagerRef.current.initialize();
       gameManagerRef.current.start();
       
-      // CRITICAL DEBUG: Forcibly add significant time and verify in console
-      console.log("App: BEFORE adding initial time, state.game.totalPlayTime =", store.getState().game.totalPlayTime);
-      dispatch(addPlayTime(30)); // Try to add 30 seconds
-      console.log("App: AFTER adding initial time, state.game.totalPlayTime =", store.getState().game.totalPlayTime);
+      // Add initial time to ensure game state is properly started
+      dispatch(addPlayTime(30)); // Add 30 seconds
       
-      // Set up a stronger debug timer to force time updates and verify they're happening
-      let debugTick = 0;
-      const debugInterval = setInterval(() => {
-        debugTick++;
-        const beforeTime = store.getState().game.totalPlayTime;
-        console.log(`DEBUG TICK ${debugTick}: Before adding time, totalPlayTime=${beforeTime.toFixed(2)}`);
-        
-        // Force a larger increment (5 seconds)
-        dispatch(addPlayTime(5));
-        
-        // Verify after dispatch
-        const afterTime = store.getState().game.totalPlayTime;
-        console.log(`DEBUG TICK ${debugTick}: After adding time, totalPlayTime=${afterTime.toFixed(2)}, delta=${(afterTime-beforeTime).toFixed(2)}`);
-      }, 1000); // Every 1 second
+      // Only set up debug timer in development when debugging is enabled
+      let debugInterval: NodeJS.Timeout | undefined;
+      if (process.env.NODE_ENV === 'development' && process.env.DEBUG_LOGS === 'true') {
+        let debugTick = 0;
+        debugInterval = setInterval(() => {
+          debugTick++;
+          const beforeTime = store.getState().game.totalPlayTime;
+          
+          // Force a larger increment (5 seconds)
+          dispatch(addPlayTime(5));
+          
+          // Verify after dispatch
+          const afterTime = store.getState().game.totalPlayTime;
+          console.log(`DEBUG TICK ${debugTick}: time=${afterTime.toFixed(2)}, delta=${(afterTime-beforeTime).toFixed(2)}`);
+        }, 1000); // Every 1 second
+      }
       
       // Clean up the interval on component unmount
       return () => {
