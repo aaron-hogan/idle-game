@@ -108,8 +108,59 @@ describe('Redux selectors', () => {
       totalPlayTime: 3600,
       isRunning: true,
       tickRate: 1000,
-      gameTimeScale: 1
+      gameTimeScale: 1,
+      startDate: 1644600000000,
+      gameEnded: false,
+      gameWon: false,
+      endReason: null
     },
+    tasks: {
+      tasks: {},
+      activeTaskId: null,
+      hasInitialized: true
+    },
+    events: {
+      availableEvents: {},
+      activeEvents: [],
+      eventHistory: []
+    },
+    progression: {
+      currentStage: 'EARLY',
+      milestones: {},
+      achievements: {},
+      milestoneIds: [],
+      achievementIds: [],
+      milestonesByStage: {
+        'EARLY': [],
+        'MID': [],
+        'LATE': [],
+        'END_GAME': []
+      },
+      milestonesByType: {
+        'RESOURCE': [],
+        'ORGANIZATION': [],
+        'MOVEMENT': [],
+        'AWARENESS': [],
+        'RESISTANCE': [],
+        'TRANSFORMATION': [],
+        'SPECIAL': []
+      },
+      achievementsByType: {
+        'RESOURCE': [],
+        'STRATEGIC': [],
+        'ETHICAL': [],
+        'COMMUNITY': [],
+        'RESISTANCE': [],
+        'TIMED': [],
+        'SPECIAL': []
+      },
+      stageReachedAt: {
+        'EARLY': null,
+        'MID': null,
+        'LATE': null,
+        'END_GAME': null
+      }
+    }
   } as RootState;
 
   // Resource selectors

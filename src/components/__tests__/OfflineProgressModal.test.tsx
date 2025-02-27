@@ -61,7 +61,10 @@ describe('OfflineProgressModal', () => {
     expect(screen.getByText('No resources were generated during your absence.')).toBeInTheDocument();
   });
   
-  it('should call onClose when close button is clicked', () => {
+  it('should call onClose when close button is clicked', async () => {
+    // Mock timers to control setTimeout
+    jest.useFakeTimers();
+    
     const handleClose = jest.fn();
     
     render(
@@ -76,8 +79,14 @@ describe('OfflineProgressModal', () => {
     // Click the close button
     fireEvent.click(screen.getByText('Continue Revolution'));
     
+    // Fast-forward timers
+    jest.advanceTimersByTime(400); // Animation is 300ms, add buffer
+    
     // Check if handleClose was called
     expect(handleClose).toHaveBeenCalled();
+    
+    // Restore real timers
+    jest.useRealTimers();
   });
   
   it('should not render when isOpen is false', () => {

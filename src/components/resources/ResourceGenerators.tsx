@@ -46,8 +46,11 @@ const ResourceGenerator: React.FC<ResourceGeneratorProps> = ({ resource, onClick
     setTimeout(() => setIsClicking(false), 150);
     
     // Save amount for feedback
-    if (result) {
-      setLastClickAmount(result);
+    // The result is the amount generated, but dispatch doesn't return a value
+    // so we'll just use the expected amount directly from the resource
+    const clickAmount = resource.clickPower || 0;
+    if (clickAmount > 0) {
+      setLastClickAmount(clickAmount);
       
       // Clear feedback after 1 second
       setTimeout(() => setLastClickAmount(null), 1000);

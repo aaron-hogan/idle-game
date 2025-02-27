@@ -111,11 +111,21 @@ describe('tasksSlice', () => {
     const nonRepeatableTaskId = Object.keys(state.tasks).find(
       id => !state.tasks[id].repeatable
     ) || Object.keys(state.tasks)[0];
+
+    // Create new task state with non-repeatable property
+    const updatedTasks = {
+      ...state.tasks,
+      [nonRepeatableTaskId]: {
+        ...state.tasks[nonRepeatableTaskId],
+        repeatable: false // Set repeatable to false without modifying original
+      }
+    };
     
-    // Make it non-repeatable for testing if needed
-    if (state.tasks[nonRepeatableTaskId].repeatable) {
-      state.tasks[nonRepeatableTaskId].repeatable = false;
-    }
+    // Create updated state without directly modifying the readonly property
+    state = {
+      ...state,
+      tasks: updatedTasks
+    };
     
     state = tasksReducer(state, unlockTask(nonRepeatableTaskId));
     state = tasksReducer(state, startTask({
@@ -143,8 +153,20 @@ describe('tasksSlice', () => {
       id => state.tasks[id].repeatable
     ) || Object.keys(state.tasks)[0];
     
-    // Make it repeatable for testing if needed
-    state.tasks[repeatableTaskId].repeatable = true;
+    // Create new task state with repeatable property
+    const updatedTasks = {
+      ...state.tasks,
+      [repeatableTaskId]: {
+        ...state.tasks[repeatableTaskId],
+        repeatable: true // Set repeatable to true without modifying original
+      }
+    };
+    
+    // Create updated state without directly modifying the readonly property
+    state = {
+      ...state,
+      tasks: updatedTasks
+    };
     
     state = tasksReducer(state, unlockTask(repeatableTaskId));
     state = tasksReducer(state, startTask({
@@ -189,7 +211,21 @@ describe('tasksSlice', () => {
     // Setup: initialize, unlock, start, and complete a task
     let state = tasksReducer(initialState, initializeTasks());
     const taskId = Object.keys(state.tasks)[0];
-    state.tasks[taskId].repeatable = true; // Make sure it's repeatable
+    
+    // Create new task state with repeatable property
+    const updatedTasks = {
+      ...state.tasks,
+      [taskId]: {
+        ...state.tasks[taskId],
+        repeatable: true // Set repeatable to true without modifying original
+      }
+    };
+    
+    // Create updated state without directly modifying the readonly property
+    state = {
+      ...state,
+      tasks: updatedTasks
+    };
     
     state = tasksReducer(state, unlockTask(taskId));
     state = tasksReducer(state, startTask({

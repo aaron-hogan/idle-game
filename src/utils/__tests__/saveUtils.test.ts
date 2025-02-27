@@ -47,7 +47,10 @@ const mockGameState: Partial<RootState> = {
     isRunning: true,
     tickRate: 1000,
     gameTimeScale: 1,
-    startDate: 1612345000000 // Add required startDate field
+    startDate: 1612345000000,
+    gameEnded: false,
+    gameWon: false,
+    endReason: null
   },
   resources: {
     'resource1': {
