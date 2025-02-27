@@ -22,6 +22,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added enhanced Pre-PR Validation Checklist to safe workflow process
 - Created GitHub Pull Request template with validation requirements
 - Added runtime validation requirements to CLAUDE.md and documentation
+- Added DOCS_MANAGEMENT.md explaining documentation git exclusion policy
+- Created add-doc-exception.sh script for managing documentation git exceptions
+- Added .gitattributes file to properly handle documentation file exclusions
+- Created git_exceptions.md to track documentation files explicitly added to git
 
 ### Changed
 - Consolidated root folder structure for better organization
