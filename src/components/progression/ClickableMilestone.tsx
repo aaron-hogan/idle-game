@@ -3,7 +3,7 @@
  */
 import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { useAppDispatch } from '../../state/hooks';
+import { useAppDispatch, useMemoSelector } from '../../state/hooks';
 import { RootState } from '../../state/store';
 import { Milestone } from '../../interfaces/progression';
 import { allMilestones } from '../../data/progression/milestones';
@@ -59,9 +59,9 @@ const ClickableMilestone: React.FC<ClickableMilestoneProps> = ({
   const [nextParticleId, setNextParticleId] = useState(0);
   const [isClicking, setIsClicking] = useState(false);
   
-  // Get resources from state
-  const resources = useSelector((state: RootState) => state.resources);
-  const progression = useSelector((state: RootState) => state.progression);
+  // Get resources from state with our enhanced memoized selector
+  const resources = useMemoSelector((state: RootState) => state.resources);
+  const progression = useMemoSelector((state: RootState) => state.progression);
   
   // Track completed milestones for animations
   const [completedMilestones, setCompletedMilestones] = useState<{

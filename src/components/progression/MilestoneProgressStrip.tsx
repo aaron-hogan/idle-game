@@ -5,6 +5,7 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../state/store';
+import { useMemoSelector } from '../../state/hooks';
 import { Milestone, GameStage } from '../../interfaces/progression';
 import { allMilestones } from '../../data/progression/milestones';
 import { Link } from 'react-router-dom';
@@ -37,9 +38,9 @@ interface MilestoneProgressStripProps {
 const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({ 
   sideCount = 2
 }) => {
-  // Get current game state from Redux
-  const resources = useSelector((state: RootState) => state.resources);
-  const progression = useSelector((state: RootState) => state.progression);
+  // Get current game state from Redux using our enhanced memoized selector
+  const resources = useMemoSelector((state: RootState) => state.resources);
+  const progression = useMemoSelector((state: RootState) => state.progression);
   
   // Reference to the milestone container for scrolling
   const stripRef = useRef<HTMLDivElement>(null);

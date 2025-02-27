@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useMemoSelector } from '../../state/hooks';
 import { 
   selectCurrentStage, 
   selectCompletionPercentage 
@@ -23,9 +24,9 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
   currentStage: customStage,
   isNegative = false
 }) => {
-  // Get values from Redux state if not provided as props
-  const stateCompletionPercentage = useSelector(selectCompletionPercentage);
-  const stateCurrentStage = useSelector(selectCurrentStage);
+  // Get values from Redux state if not provided as props, using our enhanced memoized selector
+  const stateCompletionPercentage = useMemoSelector(selectCompletionPercentage);
+  const stateCurrentStage = useMemoSelector(selectCurrentStage);
   
   // Use custom values if provided, otherwise use state values
   const completionPercentage = customPercentage !== undefined 
