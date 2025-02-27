@@ -275,6 +275,46 @@ const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({
     ? milestoneCards.findIndex(card => card.milestone.id === activeMilestone.milestone.id)
     : 0;
   
+  // Calculate scroll limit to prevent scrolling too far
+  useEffect(() => {
+    // Apply after a short delay to ensure DOM is ready
+    const timer = setTimeout(() => {
+      if (!stripRef.current) return;
+      
+      const container = stripRef.current;
+      const cards = container.querySelectorAll('.milestone-card:not(.milestone-card-spacer)');
+      
+      // If no cards, nothing to do
+      if (cards.length === 0) return;
+      
+      // Get the rightmost card
+      const lastCard = cards[cards.length - 1] as HTMLElement;
+      
+      // Calculate maximum scrollable area (account for container width)
+      const maxScrollLeft = Math.max(0, 
+        container.scrollWidth - container.clientWidth - 16); // 16px buffer
+      
+      // Prevent scrolling past the end by adding a scroll event listener
+      const handleScroll = () => {
+        if (container.scrollLeft > maxScrollLeft) {
+          container.scrollLeft = maxScrollLeft;
+        }
+        
+        if (container.scrollLeft < 0) {
+          container.scrollLeft = 0;
+        }
+      };
+      
+      container.addEventListener('scroll', handleScroll);
+      
+      return () => {
+        container.removeEventListener('scroll', handleScroll);
+      };
+    }, 1000); // Longer delay to ensure everything is rendered
+    
+    return () => clearTimeout(timer);
+  }, [milestoneCards.length]);
+  
   // Display all milestones in a horizontal strip to allow smooth scrolling
   // This ensures we can scroll through the complete milestone history 
   const visibleMilestones = milestoneCards;
@@ -285,18 +325,21 @@ const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({
         {/* Milestone cards */}
         <div className="milestone-cards">
           {/* Start spacers - add enough to push content right */}
-          {[...Array(10)].map((_, i) => (
-            <div key={`spacer-start-${i}`} className="milestone-card-spacer"></div>
-          ))}
+          <div className="milestone-scroll-bounds start-bounds">
+            {[...Array(5)].map((_, i) => (
+              <div key={`spacer-start-${i}`} className="milestone-card-spacer"></div>
+            ))}
+          </div>
           
           {/* Actual milestone cards */}
-          {visibleMilestones.map(card => (
-            <div 
-              key={card.milestone.id}
-              data-milestone-id={card.milestone.id}
-              className={`milestone-card ${card.status} ${card.milestone.id === activeMilestoneId ? 'active-center' : ''}`}
-            >
-              <div className="milestone-state-indicator"></div>
+          <div className="milestone-scroll-bounds milestone-cards-content">
+            {visibleMilestones.map(card => (
+              <div 
+                key={card.milestone.id}
+                data-milestone-id={card.milestone.id}
+                className={`milestone-card ${card.status} ${card.milestone.id === activeMilestoneId ? 'active-center' : ''}`}
+              >
+                <div className="milestone-state-indicator"></div>
               
               <div className="milestone-content">
                 <div className="milestone-header">
@@ -339,9 +382,11 @@ const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({
           ))}
           
           {/* End spacers - match start spacers */}
-          {[...Array(10)].map((_, i) => (
-            <div key={`spacer-end-${i}`} className="milestone-card-spacer"></div>
-          ))}
+          <div className="milestone-scroll-bounds end-bounds">
+            {[...Array(5)].map((_, i) => (
+              <div key={`spacer-end-${i}`} className="milestone-card-spacer"></div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

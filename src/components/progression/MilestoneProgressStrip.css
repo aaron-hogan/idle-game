@@ -45,11 +45,28 @@
 .milestone-cards {
   display: flex;
   gap: 16px;
-  min-height: 145px; /* Slightly reduced */
+  min-height: 145px;
   position: relative;
-  padding: 2px 0; /* Reduced padding */
+  padding: 2px 0;
   margin: 0;
   justify-content: flex-start;
+  width: max-content; /* Ensures width grows to accommodate all items */
+  overflow: visible;
+}
+
+/* Wrapper for milestone cards to create scroll bounds */
+.milestone-scroll-bounds {
+  display: flex;
+  gap: inherit;
+}
+
+.milestone-scroll-bounds.start-bounds,
+.milestone-scroll-bounds.end-bounds {
+  flex-shrink: 0;
+}
+
+.milestone-scroll-bounds.milestone-cards-content {
+  flex-grow: 1;
 }
 
 .milestone-card-spacer {
