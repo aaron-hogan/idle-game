@@ -17,6 +17,10 @@ describe('ProgressionManager', () => {
   // Reset mocks before each test
   beforeEach(() => {
     jest.clearAllMocks();
+    
+    // Setup the manager with the store for all tests
+    const manager = ProgressionManager.getInstance();
+    manager.initialize(store);
   });
 
   describe('Singleton Pattern', () => {
@@ -39,8 +43,11 @@ describe('ProgressionManager', () => {
         }
       });
 
-      // Mock requirement evaluations
+      // Initialize the manager with the store
       const manager = ProgressionManager.getInstance();
+      manager.initialize(store);
+
+      // Mock requirement evaluations
       const mockEvaluate = jest.spyOn(manager as any, 'evaluateRequirement')
         .mockReturnValue(true);
 
@@ -65,6 +72,8 @@ describe('ProgressionManager', () => {
 
       // Mock requirement evaluations
       const manager = ProgressionManager.getInstance();
+      manager.initialize(store);
+      
       const mockEvaluate = jest.spyOn(manager as any, 'evaluateRequirement')
         .mockReturnValueOnce(true)
         .mockReturnValueOnce(false);
@@ -80,6 +89,7 @@ describe('ProgressionManager', () => {
 
     it('should handle empty requirements array', () => {
       const manager = ProgressionManager.getInstance();
+      manager.initialize(store);
       expect(manager.checkRequirements([])).toBe(false);
     });
   });
@@ -97,6 +107,7 @@ describe('ProgressionManager', () => {
       });
 
       const manager = ProgressionManager.getInstance();
+      manager.initialize(store);
       const requirement = { type: 'resourceAmount' as const, target: 'resource1', value: 50 };
 
       // Use the private method for testing
