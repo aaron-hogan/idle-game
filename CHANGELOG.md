@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *No unreleased changes at this time.*
 
+## [0.5.4] - 2025-02-27
+
+### Added
+- Enhanced versioning scripts to properly move changes from Unreleased to new version
+- Added automatic "No unreleased changes" placeholder after versioning
+
 ## [0.5.3] - 2025-02-27
 
 ### Added
