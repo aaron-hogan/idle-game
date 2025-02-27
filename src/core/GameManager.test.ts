@@ -6,11 +6,13 @@ import { ResourceManager } from '../systems/resourceManager';
 
 // Mock dependencies
 jest.mock('./GameLoop');
-jest.mock('../state/gameSlice', () => ({
-  addPlayTime: jest.fn().mockReturnValue({ type: 'game/addPlayTime' }),
-  updateLastSaveTime: jest.fn().mockReturnValue({ type: 'game/updateLastSaveTime' })
-}));
 jest.mock('../systems/resourceManager');
+jest.mock('../state/gameSlice', () => {
+  return {
+    addPlayTime: jest.fn().mockReturnValue({ type: 'game/addPlayTime' }),
+    updateLastSaveTime: jest.fn().mockReturnValue({ type: 'game/updateLastSaveTime' })
+  };
+});
 
 describe('GameManager', () => {
   let mockStore: any;
@@ -36,14 +38,28 @@ describe('GameManager', () => {
       dispatch: jest.fn()
     };
 
-    // Mock GameLoop
+    // Mock GameLoop with all required methods
     mockGameLoop = {
       start: jest.fn(),
       stop: jest.fn(),
-      registerHandler: jest.fn(),
+      registerHandler: jest.fn(() => {
+        // Return a function that can be called to simulate the update
+        return (realDeltaTime: number, scaledDeltaTime: number) => {
+          // Handle the update logic here
+          console.log('Mock update handler called');
+          return true;
+        };
+      }),
       isRunning: jest.fn().mockReturnValue(true),
       setDebugMode: jest.fn(),
-      setTimeScale: jest.fn()
+      setTimeScale: jest.fn(),
+      getTimeScale: jest.fn().mockReturnValue(1.0),
+      getGameTimer: jest.fn().mockReturnValue({
+        getTotalGameTime: jest.fn().mockReturnValue(0),
+        getElapsedRealTime: jest.fn().mockReturnValue(0),
+        getTimeScale: jest.fn().mockReturnValue(1.0)
+      }),
+      setStore: jest.fn()
     };
     (GameLoop.getInstance as jest.Mock).mockReturnValue(mockGameLoop);
 
@@ -101,12 +117,16 @@ describe('GameManager', () => {
     expect(addPlayTime).toHaveBeenCalledWith(unscaledDelta * 1.0);
     expect(mockResourceManager.updateResources).toHaveBeenCalledWith(unscaledDelta * 1.0);
     
-    // Calculate actual ratio - should be 1.0 since both use the same delta
-    const timerDelta = (addPlayTime as jest.Mock).mock.calls[0][0];
-    const resourceDelta = (mockResourceManager.updateResources as jest.Mock).mock.calls[0][0];
-    const ratio = resourceDelta / timerDelta;
+    // The values should be the same (unscaledDelta * 1.0), so we don't need to extract them from the mocks
+    // Just compare that both were called with the same arguments
+    const addPlayTimeArgs = (addPlayTime as unknown as jest.Mock).mock.calls[0][0];
+    const updateResourcesArgs = (mockResourceManager.updateResources as jest.Mock).mock.calls[0][0];
+    expect(addPlayTimeArgs).toBeCloseTo(updateResourcesArgs, 5);
     
-    expect(ratio).toBeCloseTo(1.0, 5); // Should be exactly 1.0
+    // Fixed value should be close to unscaledDelta * 1.0
+    expect(addPlayTimeArgs).toBeCloseTo(unscaledDelta * 1.0, 5);
+    
+    // Ratio check removed since we're checking equality directly
   });
 
   test('Offline progress uses consistent time scale after fix', () => {
