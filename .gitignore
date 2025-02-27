@@ -30,6 +30,11 @@ CLAUDE.md             # Main Claude instructions file
 */prompts/*           # Prompt directories
 !docs/git_exceptions.md  # Exception log is allowed
 
+# Example and template files
+examples-*.config.js  # Example configuration files
+examples-*.md         # Example documentation files
+src/*hello-world*     # Test files for versioning
+
 # Miscellaneous
 .DS_Store             # macOS folder attributes
 .env                  # Environment variables
@@ -41,6 +46,8 @@ CLAUDE.md             # Main Claude instructions file
 temp/                 # Temporary files
 _trash/               # Files pending removal
 *.backup              # Backup files
+*.orig                # Merge conflict artifacts
+*.tmp                 # Temporary files
 *~                    # Temporary editor files
 *.swp                 # Vim swap files
 *.swo                 # Vim swap files
