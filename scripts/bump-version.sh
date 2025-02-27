@@ -29,8 +29,8 @@ if [ ! -f "CHANGELOG.md" ]; then
   exit 1
 fi
 
-# Check if there's content under Unreleased section
-UNRELEASED_CONTENT=$(sed -n '/## \[Unreleased\]/,/## \[/p' CHANGELOG.md | grep -v "## \[" | grep -v "^$" | wc -l | tr -d ' ')
+# Check if there's content under Unreleased section (exclude placeholder text)
+UNRELEASED_CONTENT=$(sed -n '/## \[Unreleased\]/,/## \[/p' CHANGELOG.md | grep -v "## \[" | grep -v "^$" | grep -v "\*No unreleased changes" | grep -v "No unreleased changes" | wc -l | tr -d ' ')
 
 if [ "$UNRELEASED_CONTENT" -eq 0 ]; then
   echo "Warning: No content found in the Unreleased section of CHANGELOG.md."
@@ -44,25 +44,37 @@ fi
 # Create backup
 cp CHANGELOG.md CHANGELOG.md.bak
 
-# Insert new version after the Unreleased section
-awk -v ver="$NEW_VERSION" -v date="$DATE" '
-  /^## \[Unreleased\]/ {
-    print $0;
-    print "";
-    print "## [" ver "] - " date;
-    in_unreleased = 1;
-    next;
-  }
+# Create a temporary file for unreleased changes
+TEMP_CHANGES=$(mktemp)
+sed -n '/## \[Unreleased\]/,/## \[/p' CHANGELOG.md | grep -v "## \[" | grep -v "^\*No unreleased changes" | grep -v "No unreleased changes" | sed '/^$/d' > "$TEMP_CHANGES"
+
+# Capture the content between [Unreleased] and next version header
+BEGIN_MARKER="## \[Unreleased\]"
+END_MARKER="## \["
+UNRELEASED_START=$(grep -n "$BEGIN_MARKER" CHANGELOG.md | cut -d ":" -f 1)
+NEXT_VERSION_START=$(tail -n +$((UNRELEASED_START+1)) CHANGELOG.md | grep -n "$END_MARKER" | head -1 | cut -d ":" -f 1)
+NEXT_VERSION_START=$((UNRELEASED_START + NEXT_VERSION_START))
+
+# Generate the new changelog content
+{
+  # Keep everything up to and including [Unreleased]
+  head -n "$UNRELEASED_START" CHANGELOG.md
+  echo ""
+  echo "*No unreleased changes at this time.*"
+  echo ""
   
-  /^## \[/ && in_unreleased {
-    in_unreleased = 0;
-    print "";
-    print $0;
-    next;
-  }
+  # Add the new version section with the captured changes
+  echo "## [$NEW_VERSION] - $DATE"
+  echo ""
+  cat "$TEMP_CHANGES"
   
-  { print $0 }
-' CHANGELOG.md.bak > CHANGELOG.md
+  # Skip the unreleased section in the original file and keep the rest
+  tail -n +$NEXT_VERSION_START CHANGELOG.md
+} > CHANGELOG.md.new
+
+# Replace the original with our new version
+mv CHANGELOG.md.new CHANGELOG.md
+rm "$TEMP_CHANGES"
 
 # Update package.json if it exists
 if [ -f "package.json" ]; then
