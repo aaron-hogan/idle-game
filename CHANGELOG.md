@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Enhanced README.md with additional development commands for linting and type checking
 - Non-interactive mode for release and hotfix scripts
 - Command-line parameters for fully automated versioning 
 - AI-friendly automation options to avoid prompt interruptions
@@ -32,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed YAML syntax issue in PR validation workflow by completely redesigning the workflow structure
 - Removed redundant changelog check workflow to prevent duplication
 - Fixed regex patterns in PR validation workflow to use more compatible syntax
+- Made PR title validation case-insensitive to accept both "fix:" and "Fix:" format
 
 ## [0.5.0-4] - 2025-02-27
 
