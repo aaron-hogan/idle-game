@@ -168,4 +168,21 @@ export const {
   updateUpgradeLevel,
 } = resourcesSlice.actions;
 
+// Create separate action creators for milestone rewards
+const addResourcePerSecondAction = (id: string, perSecond: number) => ({
+  type: 'resources/addResourcePerSecond',
+  payload: { id, perSecond }
+});
+
+const multiplyResourcePerSecondAction = (id: string, multiplier: number) => ({
+  type: 'resources/multiplyResourcePerSecond',
+  payload: { id, multiplier }
+});
+
+// Export action creators
+export const resourceRewardActions = {
+  addResourcePerSecond: addResourcePerSecondAction,
+  multiplyResourcePerSecond: multiplyResourcePerSecondAction
+};
+
 export default resourcesSlice.reducer;

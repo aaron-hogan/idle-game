@@ -19,9 +19,29 @@ export const earlyGameMilestones: Milestone[] = [
         type: 'resourceAmount',
         target: 'collective-power',
         value: 10
+      },
+      {
+        type: 'resourceRate',
+        target: 'collective-power',
+        value: 0.1,
+        maintenance: true
       }
     ],
     unlocks: ['basic-resources'],
+    rewards: [
+      {
+        type: 'resource',
+        target: 'awareness',
+        value: 5,
+        description: 'Gain 5 Awareness'
+      },
+      {
+        type: 'boost',
+        target: 'collective-power',
+        value: 0.2,
+        description: 'Increase Power generation by 0.2/sec'
+      }
+    ],
     order: 1,
     visible: true
   },
@@ -37,9 +57,29 @@ export const earlyGameMilestones: Milestone[] = [
         type: 'resourceAmount',
         target: 'collective-power',
         value: 50
+      },
+      {
+        type: 'resourceRate',
+        target: 'collective-power',
+        value: 0.3,
+        maintenance: true
       }
     ],
     unlocks: ['community-events'],
+    rewards: [
+      {
+        type: 'resource',
+        target: 'connections',
+        value: 10,
+        description: 'Gain 10 Connections'
+      },
+      {
+        type: 'boost',
+        target: 'awareness',
+        value: 0.1,
+        description: 'Increase Awareness generation by 0.1/sec'
+      }
+    ],
     order: 2,
     visible: true
   },

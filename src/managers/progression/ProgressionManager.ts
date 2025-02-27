@@ -25,6 +25,7 @@ import {
   selectVisibleAchievements
 } from '../../redux/progressionSlice';
 import { getCurrentTime } from '../../utils/timeUtils';
+import { updateResourcePerSecond } from '../../state/resourcesSlice';
 
 // Type safety for resources
 // Removing problematic type declaration that was causing build errors
@@ -123,6 +124,41 @@ export class ProgressionManager {
             return this.compareValues(resource.amount, value, operator);
           } catch (error) {
             this.debugLog(`Error accessing resource ${target}: ${error}`);
+            return false;
+          }
+        }
+        
+        case 'resourceRate': {
+          if (!target) {
+            this.debugLog(`Warning: No target provided for resourceRate requirement`);
+            return false;
+          }
+          
+          // Get resource generation rate from state
+          try {
+            const resources = state.resources;
+            if (!resources || !target) {
+              this.debugLog(`Warning: Resources not available or target is undefined`);
+              return false;
+            }
+            
+            // Get resource using properly typed access
+            const resource = (typeof target === 'string' && target in resources) ? 
+              (resources as Record<string, any>)[target] : undefined;
+            if (!resource) {
+              this.debugLog(`Warning: Resource ${target} not found`);
+              return false;
+            }
+            
+            // Verify the resource has a numeric perSecond rate
+            if (typeof resource.perSecond !== 'number') {
+              this.debugLog(`Warning: Resource ${target} has invalid perSecond rate`);
+              return false;
+            }
+            
+            return this.compareValues(resource.perSecond, value, operator);
+          } catch (error) {
+            this.debugLog(`Error accessing resource rate for ${target}: ${error}`);
             return false;
           }
         }
@@ -273,6 +309,15 @@ export class ProgressionManager {
         return false;
       }
       
+      // Get the milestone
+      const state = store.getState();
+      const milestone = selectMilestoneById(state, milestoneId);
+      
+      if (!milestone) {
+        this.debugLog(`Warning: Milestone ${milestoneId} not found during completion`);
+        return false;
+      }
+      
       // Complete the milestone
       store.dispatch(completeMilestone({
         id: milestoneId,
@@ -281,6 +326,11 @@ export class ProgressionManager {
       
       this.debugLog(`Milestone ${milestoneId} completed`);
       
+      // Apply milestone rewards if any
+      if (milestone.rewards && milestone.rewards.length > 0) {
+        this.applyMilestoneRewards(milestoneId);
+      }
+      
       // Check if we can advance to a new game stage
       this.checkStageAdvancement();
       
@@ -288,6 +338,101 @@ export class ProgressionManager {
     } catch (error) {
       console.error(`Error completing milestone ${milestoneId}:`, error);
       return false;
+    }
+  }
+  
+  /**
+   * Apply rewards for completing a milestone
+   * @param milestoneId ID of the milestone
+   */
+  private applyMilestoneRewards(milestoneId: string): void {
+    try {
+      const state = store.getState();
+      const milestone = selectMilestoneById(state, milestoneId);
+      
+      if (!milestone || !milestone.rewards || milestone.rewards.length === 0) {
+        return;
+      }
+      
+      for (const reward of milestone.rewards) {
+        this.applyMilestoneReward(reward);
+      }
+      
+      this.debugLog(`Applied rewards for milestone ${milestoneId}`);
+    } catch (error) {
+      console.error(`Error applying rewards for milestone ${milestoneId}:`, error);
+    }
+  }
+  
+  /**
+   * Apply a single milestone reward
+   * @param reward The reward to apply
+   */
+  private applyMilestoneReward(reward: any): void {
+    try {
+      const { type, target, value } = reward;
+      
+      switch (type) {
+        case 'resource':
+          if (!target) {
+            this.debugLog(`Warning: No target provided for resource reward`);
+            return;
+          }
+          
+          // Add resource amount
+          store.dispatch({
+            type: 'resources/addResourceAmount',
+            payload: {
+              id: target,
+              amount: Number(value)
+            }
+          });
+          break;
+          
+        case 'boost':
+          if (!target) {
+            this.debugLog(`Warning: No target provided for boost reward`);
+            return;
+          }
+          
+          // Apply boost to resource production
+          store.dispatch(
+            // Use updateResourcePerSecond instead of custom actions
+            updateResourcePerSecond({
+              id: target,
+              // Get current rate and add the boost
+              perSecond: (store.getState().resources[target]?.perSecond || 0) + Number(value)
+            })
+          );
+          break;
+          
+        case 'multiplier':
+          if (!target) {
+            this.debugLog(`Warning: No target provided for multiplier reward`);
+            return;
+          }
+          
+          // Apply multiplier to resource production
+          const currentRate = store.getState().resources[target]?.perSecond || 0;
+          store.dispatch(
+            // Use updateResourcePerSecond instead of custom actions
+            updateResourcePerSecond({
+              id: target,
+              perSecond: currentRate * Number(value)
+            })
+          );
+          break;
+          
+        case 'unlockFeature':
+          // Feature unlocking is handled by the milestone's unlocks property
+          this.debugLog(`Feature unlock: ${target} = ${value}`);
+          break;
+          
+        default:
+          this.debugLog(`Warning: Unknown reward type: ${type}`);
+      }
+    } catch (error) {
+      console.error('Error applying milestone reward:', error);
     }
   }
 
@@ -548,10 +693,23 @@ export class ProgressionManager {
     try {
       const state = store.getState();
       const visibleMilestones = selectVisibleMilestones(state);
+      const oppression = this.getOppressionFactor();
       
       // Check only milestones
       for (const milestone of visibleMilestones) {
-        if (!milestone.completed && this.completeMilestone(milestone.id)) {
+        // Skip completed milestones
+        if (milestone.completed) continue;
+        
+        // Check if all maintenance requirements are met
+        const maintenanceRequirements = milestone.requirements.filter(req => req.maintenance);
+        const allMaintenanceMet = maintenanceRequirements.length === 0 || 
+          maintenanceRequirements.every(req => this.evaluateRequirement(req));
+        
+        // If maintenance requirements are not met, skip this milestone
+        if (!allMaintenanceMet) continue;
+        
+        // Complete the milestone if all requirements are met
+        if (this.completeMilestone(milestone.id)) {
           milestonesCompleted++;
         }
       }
@@ -564,6 +722,110 @@ export class ProgressionManager {
     }
     
     return milestonesCompleted;
+  }
+  
+  /**
+   * Calculate the current milestone progress percentage with oppression effects
+   * @param milestoneId ID of the milestone to calculate progress for
+   * @returns Progress percentage (0-100)
+   */
+  public calculateMilestoneProgress(milestoneId: string): number {
+    try {
+      const state = store.getState();
+      const milestone = selectMilestoneById(state, milestoneId);
+      
+      if (!milestone) {
+        return 0;
+      }
+      
+      // If milestone is already completed, return 100%
+      if (milestone.completed) {
+        return 100;
+      }
+      
+      // Get oppression factor (higher oppression = slower progress)
+      const oppressionFactor = this.getOppressionFactor();
+      
+      // Check if maintenance requirements are met (resource rates, etc.)
+      const maintenanceRequirements = milestone.requirements.filter(req => req.maintenance);
+      const allMaintenanceMet = maintenanceRequirements.length === 0 || 
+        maintenanceRequirements.every(req => this.evaluateRequirement(req));
+      
+      // If maintenance requirements are not met, progress is halted
+      if (!allMaintenanceMet) {
+        return 0;
+      }
+      
+      // Calculate progress for regular resource requirements
+      let totalProgress = 0;
+      let requirementCount = 0;
+      
+      for (const req of milestone.requirements) {
+        // Skip maintenance requirements, handled above
+        if (req.maintenance) continue;
+        
+        if (req.type === 'resourceAmount' && req.target) {
+          const resources = state.resources;
+          const resource = (resources as Record<string, any>)[req.target];
+          
+          if (!resource) continue;
+          
+          const currentAmount = resource.amount;
+          const requiredAmount = typeof req.value === 'number' ? req.value : parseFloat(req.value.toString());
+          
+          // Calculate raw progress percentage
+          let progress = Math.min(100, (currentAmount / requiredAmount) * 100);
+          
+          // Apply oppression effect to slow down progress
+          progress = Math.max(0, progress - (oppressionFactor * 10));
+          
+          totalProgress += progress;
+          requirementCount++;
+        } else {
+          // For non-resource requirements, check if met
+          const isRequirementMet = this.evaluateRequirement(req);
+          totalProgress += isRequirementMet ? 100 : 0;
+          requirementCount++;
+        }
+      }
+      
+      // Calculate average progress across all requirements
+      return requirementCount > 0 ? Math.max(0, totalProgress / requirementCount) : 0;
+    } catch (error) {
+      console.error(`Error calculating milestone progress for ${milestoneId}:`, error);
+      return 0;
+    }
+  }
+  
+  /**
+   * Get the current oppression factor affecting milestone progress
+   * @returns Oppression factor (0-1)
+   */
+  private getOppressionFactor(): number {
+    try {
+      const state = store.getState();
+      
+      // Get oppression and power resources
+      const oppression = (state.resources['corporate-oppression']?.amount || 0) as number;
+      const power = (state.resources['collective-power']?.amount || 1) as number;
+      
+      // Calculate ratio of oppression to power (higher = more oppression)
+      const ratio = Math.min(1, oppression / (power || 1));
+      
+      // Apply game stage multiplier - oppression gets more effective in later stages
+      const currentStage = selectCurrentStage(state);
+      const stageMultiplier = {
+        [GameStage.EARLY]: 0.5,
+        [GameStage.MID]: 0.75,
+        [GameStage.LATE]: 1.0,
+        [GameStage.END_GAME]: 1.25
+      }[currentStage] || 0.5;
+      
+      return ratio * stageMultiplier;
+    } catch (error) {
+      console.error('Error calculating oppression factor:', error);
+      return 0;
+    }
   }
 
   /**

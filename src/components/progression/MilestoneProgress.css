@@ -88,13 +88,55 @@
 
 .milestone-progress-fill {
   height: 100%;
-  background: #555;
+  background: linear-gradient(90deg, #4caf50, #8bc34a);
   transition: width 0.5s ease-out;
 }
 
 .milestone-requirements {
   list-style: none;
   padding: 0;
+  margin: 0;
+}
+
+/* Milestone rewards section */
+.milestone-rewards {
+  background-color: #222;
+  border-left: 2px solid #ff9800;
+  padding: 8px;
+  margin-top: 10px;
+  margin-bottom: 8px;
+  border-radius: 0 3px 3px 0;
+}
+
+.milestone-rewards h4 {
+  margin: 0 0 6px 0;
+  color: #ff9800;
+  font-size: 11px;
+}
+
+.rewards-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.reward-item {
+  font-size: 10px;
+  color: #ccc;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Maintenance requirements warning */
+.maintenance-requirements {
+  margin-top: 8px;
+  font-size: 10px;
+}
+
+.maintenance-note {
+  color: #ff9800;
   margin: 0;
 }
 
