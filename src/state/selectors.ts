@@ -19,8 +19,11 @@ export const selectResourceByIdNullable = (id: string) =>
 export const selectUnlockedResources = createSelector(
   selectAllResources,
   (resources): Resource[] => {
+    // Get resource values, ensuring we don't create a new array each time
+    const resourceList = Object.values(resources);
+    
     // Need to explicitly cast to Resource[] to make TypeScript happy
-    return Object.values(resources).filter(
+    return resourceList.filter(
       (resource): resource is Resource => 
         resource !== undefined && 
         typeof resource === 'object' && 
@@ -37,7 +40,10 @@ export const selectUnlockedResources = createSelector(
 export const selectResourcesByCategory = (category: string) => createSelector(
   selectAllResources,
   (resources): Resource[] => {
-    return Object.values(resources).filter(
+    // Use a memoized Object.values call to avoid creating new array references
+    const resourceList = Object.values(resources);
+    
+    return resourceList.filter(
       (resource): resource is Resource => 
         resource !== undefined && 
         typeof resource === 'object' && 
@@ -59,7 +65,10 @@ export const selectUnlockedResourcesByCategory = (category: string) => createSel
 export const selectTotalResourceGeneration = createSelector(
   selectAllResources,
   (resources): number => {
-    return Object.values(resources).reduce<number>(
+    // Use a memoized Object.values call to avoid creating new array references
+    const resourceList = Object.values(resources);
+    
+    return resourceList.reduce<number>(
       (total, resource) => {
         if (resource && typeof resource === 'object' && 'perSecond' in resource && 
             typeof resource.perSecond === 'number') {
@@ -87,7 +96,10 @@ export const selectStructureByIdNullable = (id: string) =>
 export const selectUnlockedStructures = createSelector(
   selectAllStructures,
   (structures): Structure[] => {
-    return Object.values(structures).filter(
+    // Use a memoized Object.values call to avoid creating new array references
+    const structureList = Object.values(structures);
+    
+    return structureList.filter(
       (structure): structure is Structure => 
         structure !== undefined && 
         typeof structure === 'object' && 
@@ -104,7 +116,10 @@ export const selectUnlockedStructures = createSelector(
 export const selectStructuresByCategory = (category: string) => createSelector(
   selectAllStructures,
   (structures): Structure[] => {
-    return Object.values(structures).filter(
+    // Use a memoized Object.values call to avoid creating new array references
+    const structureList = Object.values(structures);
+    
+    return structureList.filter(
       (structure): structure is Structure => 
         structure !== undefined && 
         typeof structure === 'object' && 
@@ -126,7 +141,10 @@ export const selectUnlockedStructuresByCategory = (category: string) => createSe
 export const selectTotalWorkers = createSelector(
   selectAllStructures,
   (structures): number => {
-    return Object.values(structures).reduce<number>(
+    // Use a memoized Object.values call to avoid creating new array references
+    const structureList = Object.values(structures);
+    
+    return structureList.reduce<number>(
       (total, structure) => {
         if (structure && typeof structure === 'object' && 'workers' in structure && 
             typeof structure.workers === 'number') {
