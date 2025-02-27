@@ -61,8 +61,11 @@ touch docs/features/<feature-area>/<change-description>.md
 # Update critical-fixes.log for bug fixes
 nano docs/project/critical-fixes.md
 
+# Update CHANGELOG.md in the Unreleased section
+nano CHANGELOG.md
+
 # Commit documentation separately
-git add docs/
+git add docs/ CHANGELOG.md
 git commit -m "docs: add documentation for changes"
 ```
 
@@ -87,8 +90,10 @@ Brief description of the changes
 
 ## Documentation
 - Link to documentation created/updated
-"
+" --label "version:patch"
 ```
+
+Note: Always add a version label to your PR (version:major, version:minor, version:patch, or version:patch_level) based on the nature of your changes.
 
 ## PR Validation Process
 
@@ -116,6 +121,8 @@ Following our implementation lessons from the Dependency Injection project, veri
   - [ ] Commits are focused and have clear messages
   - [ ] No unintended files are included in the PR
   - [ ] Todo lists are synchronized (see [Todo Management Process](/docs/processes/todo-management.md))
+  - [ ] CHANGELOG.md is updated in the Unreleased section
+  - [ ] PR has appropriate version label
 
 See [Process Failure Analysis](/docs/processes/lessons/process-failure-analysis.md) for detailed requirements.
 
@@ -173,10 +180,14 @@ npm run lint
 ```bash
 # Merge the PR with appropriate options
 gh pr merge <pr-number> --merge --delete-branch
-
-# Or with squash option if appropriate
-gh pr merge <pr-number> --squash --delete-branch
 ```
+
+Upon merging, our automated versioning process will:
+1. Move changes from `[Unreleased]` to a new version section in CHANGELOG.md
+2. Set today's date as the release date
+3. Update version in `package.json`
+4. Commit the version changes
+5. Create a git tag for the release
 
 ### 4. Explicitly Communicate Merge Status
 
@@ -206,18 +217,6 @@ npm test
 npm start
 ```
 
-### 6. Update Documentation (if needed)
-
-```bash
-# Update any project-level documentation
-git checkout -b docs/update-project-docs
-# Make documentation updates
-git add docs/
-git commit -m "docs: update project documentation after PR merge"
-git push -u origin docs/update-project-docs
-# Create a documentation PR
-```
-
 ## Special Cases
 
 ### Hotfixes
@@ -231,9 +230,10 @@ git pull
 git checkout -b hotfix/critical-issue
 
 # Make minimal focused changes to fix the issue
+# Update CHANGELOG.md in the Unreleased section
 # Follow same testing and documentation process
-# Create PR directly to main
-gh pr create --title "hotfix: fix critical issue" --base main
+# Create PR directly to main with appropriate version label
+gh pr create --title "hotfix: fix critical issue" --base main --label "version:patch"
 ```
 
 ### Large Feature Merges
@@ -243,7 +243,7 @@ For complex features with multiple PRs:
 1. Create a feature integration branch
 2. Merge individual PRs into the integration branch
 3. Test thoroughly on the integration branch
-4. Create a final PR from integration to main
+4. Create a final PR from integration to main with appropriate version label
 
 ### Merge Conflicts
 
@@ -289,15 +289,17 @@ npm test
 git add src/components/App.tsx src/systems/resourceManager.ts
 git commit -m "fix: reduce excessive console logging"
 
-# Create documentation
+# Create documentation and update changelog
 touch docs/features/performance/console-spam-fix.md
 # Add detailed documentation
-git add docs/features/performance/console-spam-fix.md
+nano CHANGELOG.md
+# Add entry to Unreleased section
+git add docs/features/performance/console-spam-fix.md CHANGELOG.md
 git commit -m "docs: add documentation for console spam fix"
 
-# Push branch and create PR
+# Push branch and create PR with version label
 git push -u origin fix/console-spam-reduction
-gh pr create --title "fix: reduce excessive console logging" --body "..."
+gh pr create --title "fix: reduce excessive console logging" --body "..." --label "version:patch"
 
 # Check for conflicts
 gh pr view --json mergeStateStatus
@@ -334,7 +336,7 @@ npm start
 10. **Update Tests**: Always update tests when refactoring or changing behavior
 11. **Verify After Merge**: Always verify the main branch is stable after merging
 12. **Clear Communication**: Explicitly state when PRs are merged and branches are deleted
-13. **Appropriate Versioning**: Use the appropriate version level (major, minor, patch, or patch-level) to match the changes
+13. **Appropriate Versioning**: Use the appropriate version label (major, minor, patch, or patch-level) to match the changes
 14. **Changelog Quality**: Keep changelog entries clear, concise, and properly categorized
 
 By following this workflow, we maintain a high-quality codebase with clear history and thorough documentation.

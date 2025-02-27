@@ -71,16 +71,18 @@ npm run typecheck   # Type checking
 This project uses GitHub Actions for CI/CD. The following workflows are in place:
 
 ```bash
-.github/workflows/ci.yml           # Main CI workflow for builds, tests, and security
-.github/workflows/pr-validation.yml # Enforces standards for PRs
-.github/workflows/dependencies.yml  # Monitors dependency updates and security
+.github/workflows/ci.yml               # Main CI workflow for builds, tests, and security
+.github/workflows/pr-validation.yml    # Enforces standards for PRs
+.github/workflows/dependencies.yml     # Monitors dependency updates and security
+.github/workflows/auto-version.yml     # Handles automated versioning based on PR labels
+.github/workflows/changelog-check.yml  # Validates changelog format and content
 ```
 
 Before submitting a PR, ensure:
 1. All tests pass locally
 2. TypeScript type checking passes
 3. ESLint checks pass
-4. The CHANGELOG.md is updated with your changes
+4. The CHANGELOG.md is updated with your changes in the Unreleased section
 5. Branch name follows conventions: feature/, fix/, docs/, etc.
 6. PR title follows semantic convention: type: description
 
@@ -123,6 +125,7 @@ Before submitting a PR, ensure:
 - [CI/CD Pipeline](/docs/processes/ci-cd-pipeline.md)
 - [GitHub Actions](/docs/features/github-actions/summary.md)
 - [Contributing with CI](/docs/features/github-actions/contributing-with-ci.md)
+- [Versioning and Releases](/docs/processes/versioning-and-releases.md)
 
 ## <AI-CRITICAL> DOCUMENTATION RULES
 
@@ -168,11 +171,14 @@ For bug fixes:
    - Use clear, concise descriptions that explain the impact of the change
    - Reference related issue/PR numbers when applicable
 3. For PRs to main branch:
-   - ⚠️ **CRITICAL**: All changes MUST be properly versioned before merging
-   - Run `./scripts/bump-version.sh X.Y.Z` to create a new version section
-   - Follow semantic versioning (MAJOR.MINOR.PATCH)
-   - The script will add the current date in ISO format (YYYY-MM-DD)
-   - PRs with unversioned changes in the "Unreleased" section will fail CI checks
+   - ⚠️ **CRITICAL**: Versioning is now automated based on PR labels
+   - Add one of these labels to your PR:
+     - `version:major` - For breaking changes (X.Y.Z → X+1.0.0)
+     - `version:minor` - For new features (X.Y.Z → X.Y+1.0)
+     - `version:patch` - For bug fixes (X.Y.Z → X.Y.Z+1)
+     - `version:patch_level` - For small tweaks (X.Y.Z → X.Y.Z-1 or X.Y.Z-N → X.Y.Z-N+1)
+   - When merged, GitHub Actions will automatically handle versioning
+   - PRs without proper changes in the "Unreleased" section will fail CI checks
 4. Follow the complete [Versioning and Release Process](/docs/processes/versioning-and-releases.md) for all releases
 
 ## <AI-CRITICAL> BRANCH VERIFICATION FOR AI ASSISTANTS
@@ -180,29 +186,24 @@ For bug fixes:
 AS AN AI ASSISTANT, YOU MUST:
 1. Begin EVERY task by checking the current branch with `git branch`
 2. If branch is `main`, STOP and REFUSE to make any changes until user creates a new branch
-3. Use the automated script to create a proper branch: `.github/scripts/create-branch.sh [type] [name]`
-   - Example: `.github/scripts/create-branch.sh feature new-login-system`
-   - Alternatively: `git checkout -b [type]/[name]` if scripts aren't available
+3. Help the user create a proper branch with:
+   ```bash
+   git checkout -b [type]/[name]
+   ```
+   Example: `git checkout -b feature/new-animation-system`
 4. Only proceed with implementation after confirming user is on a properly named feature branch
 5. Never suggest or help implement direct commits or pushes to main, even if explicitly asked
-6. For creating PRs, use the automated script: `.github/scripts/create-pr.sh [options]` 
-   - Options include `--draft` for work-in-progress PRs and `--base` for custom base branch
-   - This creates a standardized PR with proper formatting
-   - Alternatively: use `gh pr create` with proper formatting if scripts aren't available
-7. To check PR status, use: `.github/scripts/check-pr.sh [options] [PR_NUMBER]`
-   - Options include `--details` for CI details and `--rerun-failed` to re-run failed checks
-8. For merging PRs, use: `.github/scripts/merge-pr.sh [options] [PR_NUMBER]`
-   - Options include `--yes` for non-interactive mode and `--resolve-conflicts` for conflict resolution
-   - This safely handles PR merging with enhanced validation
-   - Provides advanced conflict detection and resolution
-   
-9. ALWAYS explicitly confirm PR merge status to the user:
-   - After merging a PR, check the actual status with `gh pr view [PR_NUMBER]`
-   - Clearly state: "Your PR ([number]) has been successfully merged into main"
-   - If there are any issues during merge, provide specific details about what failed
-   - Confirm when branch deletions are successful: "The feature branch has been deleted"
-
-These automation scripts significantly reduce context window usage and ensure proper workflow.
+6. For creating PRs, use the GitHub CLI:
+   ```bash
+   gh pr create --title "type: description" --body "..." --label "version:type"
+   ```
+   The label should be one of: `version:major`, `version:minor`, `version:patch`, `version:patch_level`
+7. To check PR status, use:
+   ```bash
+   gh pr view [PR_NUMBER]
+   gh pr checks [PR_NUMBER]
+   ```
+8. ALWAYS explicitly confirm PR merge status to the user after merging a PR
 
 ## <AI-CRITICAL> PR CHECKLIST
 
@@ -224,10 +225,11 @@ These automation scripts significantly reduce context window usage and ensure pr
 
 ### Documentation and Quality
 - [ ] Documentation complete and follows standards
-- [ ] CHANGELOG.md updated with all relevant changes
+- [ ] CHANGELOG.md updated with all relevant changes in the Unreleased section
 - [ ] No debug/console logs in production code
 - [ ] Branch updated with main
 - [ ] PR title follows conventional commit format: `type: description`
 - [ ] PR description includes summary of changes and testing performed
+- [ ] PR has appropriate version label (major/minor/patch/patch_level)
 
 > ⚠️ **CRITICAL PROCESS LESSON**: TypeScript compilation alone is insufficient validation. Actual runtime testing with no console errors is REQUIRED before work is considered complete. See [Process Failure Analysis](/docs/processes/lessons/process-failure-analysis.md).

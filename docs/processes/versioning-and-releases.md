@@ -43,17 +43,17 @@ Example:
 - Bug fix description
 ```
 
-### Creating a Release
+## Automated Versioning Process
 
-We now use a two-step process with automated versioning:
+We use automated versioning through GitHub Actions:
 
-#### Step 1: During PR Development
+### Step 1: During PR Development
 
 1. Document all your changes in the `[Unreleased]` section of `CHANGELOG.md`
 2. Make sure changes are properly categorized (Added, Changed, Fixed, etc.)
 3. Do NOT version the changes yourself - this happens automatically when merging
 
-#### Step 2: During PR Review and Merge
+### Step 2: During PR Review and Merge
 
 1. Apply the appropriate version label to your PR:
    - `version:major` - For breaking changes (X.Y.Z → X+1.0.0)
@@ -74,7 +74,7 @@ This automated approach ensures:
 - Versioning happens at the right time (when merging)
 - No merge conflicts in `CHANGELOG.md`
 
-#### Manual Versioning (if needed)
+### Manual Versioning (if needed)
 
 For special cases where you need to manually version:
 
@@ -86,90 +86,26 @@ For special cases where you need to manually version:
 ./scripts/bump-version.sh X.Y.Z-N
 ```
 
-You can also use the interactive preparation script:
-```bash
-./scripts/prepare-for-main.sh
-```
-
 ## PR Requirements
 
 PRs to main must meet these requirements:
 
-1. **No Unreleased Changes**: All changes must be versioned with a proper version number
-2. **Version Match**: `CHANGELOG.md` version must match `package.json` version
-3. **Complete Documentation**: All changes must be documented in the changelog
+1. **Documented Changes**: All changes must be documented in the `[Unreleased]` section of `CHANGELOG.md`
+2. **Complete Documentation**: All changes must be properly categorized and described
+3. **Version Label**: PR must have one of the version labels applied
 4. **Appropriate Version Level**: Version increments should match the significance of changes:
    - Major version for breaking changes
    - Minor version for new features
    - Patch version for significant bug fixes
    - Patch level for small fixes and tweaks
-5. **Clean Version History**: Changes should be organized chronologically and labeled correctly
 
 ## CI/CD Integration
 
 Our CI/CD pipeline includes:
 
-1. **Changelog Check**: Validates that no unversioned changes are merged to main
-2. **Version Consistency**: Ensures version numbers are consistent across the codebase
+1. **Changelog Check**: Validates that all PRs to main have changes documented in the changelog
+2. **Auto-Version**: Automatically versions changes when merging to main
 3. **Release Automation**: Creates GitHub releases based on tags
-
-## Release Workflow
-
-### Standard Release Process
-
-1. Create a release branch: `release/vX.Y.Z`
-2. Update the version using `./scripts/bump-version.sh X.Y.Z`
-3. Commit and push changes
-4. Create a PR to main
-5. After PR is approved and merged, tag the release:
-   ```bash
-   git tag vX.Y.Z
-   git push origin vX.Y.Z
-   ```
-6. The CI/CD pipeline will create a GitHub release automatically
-
-### Hotfix Process
-
-For urgent fixes to production:
-
-1. Create a hotfix branch from main: `hotfix/description`
-2. Make the fixes and update `CHANGELOG.md`
-3. Version using `./scripts/bump-version.sh X.Y.Z+1`
-4. Follow the standard PR and tagging process
-
-## Post-Release Tasks
-
-After a release:
-
-1. Verify the GitHub release was created properly
-2. Update the demo environment with the new version
-3. Update the project roadmap as needed
-4. Communicate the release to stakeholders
-
-## Tools and Commands
-
-### Version Bumping Script
-
-```bash
-# For standard versions
-./scripts/bump-version.sh X.Y.Z
-
-# For patch level versions
-./scripts/bump-version.sh X.Y.Z-N
-```
-
-### Checking for Unreleased Changes
-
-```bash
-.github/workflows/scripts/check-changelog.sh
-```
-
-### Manual Tag Creation
-
-```bash
-git tag vX.Y.Z
-git push origin vX.Y.Z
-```
 
 ## Common Issues and Solutions
 
@@ -190,8 +126,6 @@ Use patch level versioning (X.Y.Z-N) when:
 3. Making minor documentation updates
 4. Adding small enhancements to existing features
 5. Making changes that don't affect core functionality
-
-This approach helps maintain a cleaner version history while still tracking all changes.
 
 ### When to Create a New Major Version
 

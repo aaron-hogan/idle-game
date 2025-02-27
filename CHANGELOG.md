@@ -13,12 +13,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - ResourceAnimation component for visualizing resource changes
 - AnimatedNumber component for smooth number transitions
 - Animation context provider with performance optimization settings
+- Updated GitHub process documentation to match current automated workflows
+- Improved instructions for AI assistants when working with PRs and versioning
 
 ### Changed
+- Simplified versioning-and-releases.md to focus on the current automated process
+- Updated PR workflow to include version labels and changelog instructions
+- Modernized CLAUDE.md instructions for GitHub workflows
 
 ### Fixed
 
 ### Removed
+- Legacy example semantic-release configuration
+- Outdated references to non-existent GitHub scripts
 
 ## [1.5.0] - 2025-02-15
 
