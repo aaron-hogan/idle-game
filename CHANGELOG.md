@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Implemented enhanced memoization for component selectors with useMemoSelector hook
 - Created reusable selector utilities in redux/utils.ts
 - Fixed infinite update loop in MilestoneProgressStrip component by properly handling dependency arrays in useEffect hooks and memoizing values
+- Fixed EventPanel selector warning by implementing proper memoization with createSelector
 - Fixed entire test suite to bring all tests to passing status
   - Fixed GameManager tests with proper mocking of setTotalPlayTime
   - Added null safety checks in gameLoop.ts for tickInterval
