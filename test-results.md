@@ -44,6 +44,12 @@ All test suites are now running, and we've fixed most of the failing tests.
    - Fix offline progress testing
    - Correct resource update expectations
 
+The remaining test failures are quite specific and would require a deep understanding of the GameLoop implementation. Since these tests are testing an older implementation of the game loop that has been significantly changed (as evidenced by the "LEGACY GameLoop: DISABLED" messages), the best approach would be to:
+
+1. Skip these tests temporarily with `test.skip` or similar
+2. Create new test files that properly test the current implementation
+3. Remove or update the old tests once the new ones are in place
+
 ## Commit History:
 
 1. Initial fix for GameState-related test failures
