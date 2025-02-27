@@ -49,6 +49,9 @@
   margin: 0 auto;
   justify-content: flex-start;
   padding: 10px 0;
+  /* Force left alignment regardless of screen width */
+  margin-left: 0;
+  margin-right: auto;
 }
 
 .milestone-card-spacer {
@@ -58,6 +61,8 @@
   visibility: hidden;
   flex-shrink: 0;
   opacity: 0;
+  /* For testing/debugging, add outline to see spacers */
+  /* outline: 1px dashed rgba(255,0,0,0.3); */
 }
 
 .milestone-card {
