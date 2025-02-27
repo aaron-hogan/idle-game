@@ -24,6 +24,8 @@ This patch level extension allows us to make smaller incremental updates without
 1. **Every version MUST have content** - Empty versions are not allowed and will cause failures
 2. **The Unreleased section MUST have content** before creating a new version
 3. **All changes MUST be categorized** under appropriate headings
+4. **Changes are for humans, not machines** - Write clear, understandable entries
+5. **Group similar types of changes together** - For better readability
 
 ### Adding Changes
 
@@ -32,11 +34,11 @@ During development:
 1. Add all changes to the `[Unreleased]` section in `CHANGELOG.md`
 2. Categorize changes under:
    - **Added**: New features
-   - **Changed**: Changes to existing functionality
-   - **Deprecated**: Features that will be removed
-   - **Removed**: Features that were removed
-   - **Fixed**: Bug fixes
-   - **Security**: Security-related changes
+   - **Changed**: Changes in existing functionality
+   - **Deprecated**: Soon-to-be removed features
+   - **Removed**: Now removed features
+   - **Fixed**: Any bug fixes
+   - **Security**: In case of vulnerabilities
 
 Example:
 ```markdown
@@ -191,6 +193,16 @@ If multiple branches modify the changelog:
 1. Keep both sets of changes in the `[Unreleased]` section
 2. Organize changes into appropriate categories
 3. Remove duplicates
+4. Ensure all entries follow a consistent style and format
+
+### Changelog Anti-patterns to Avoid
+
+1. **Commit log dumps**: Never just paste git commit logs; changelogs are curated, meaningful notes
+2. **Inconsistent changes**: Missing important changes makes the changelog unreliable
+3. **Technical jargon**: Remember that changelogs are for humans
+4. **Empty versions**: Every version must have meaningful content
+5. **Confusing dates**: Always use ISO 8601 format (YYYY-MM-DD)
+6. **Unclear descriptions**: Changes should clearly explain what was modified and why
 
 ### When to Use Patch Level Versioning
 
