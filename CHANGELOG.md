@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Branch and PR cleanup scripts:
+  - cleanup-branches.sh: Tool for safely deleting merged branches
+  - cleanup-stale-prs.sh: Tool for managing and closing stale PRs
+- Added branch-management.md documentation for branch and PR management
+
 ### Fixed
 - Updated test files to handle tutorial state in Redux store
 - Fixed type issues in TutorialManager to use RootState instead of AppState
