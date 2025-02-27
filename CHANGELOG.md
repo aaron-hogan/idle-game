@@ -21,6 +21,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `.github/scripts/ai/check.sh` - Token-efficient PR status checking
   - `.github/scripts/ai/merge.sh` - Token-efficient PR merging
 - Documentation for token-efficient Git workflow in CLAUDE.md
+- Updated GitHub process documentation to match current automated workflows
+- Improved instructions for AI assistants when working with PRs and versioning
 
 ### Changed
 - Updated release process documentation with automation guidelines
@@ -29,12 +31,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Refactored release and hotfix scripts to defer versioning to GitHub Actions
 - Improved PR labeling for version type detection
 - Simplified workflow with clearer division between local and remote responsibilities
+- Simplified versioning-and-releases.md to focus on the current automated process
+- Updated PR workflow to include version labels and changelog instructions
+- Modernized CLAUDE.md instructions for GitHub workflows
 
 ### Fixed
 - Fixed YAML syntax issue in PR validation workflow by completely redesigning the workflow structure
 - Removed redundant changelog check workflow to prevent duplication
 - Fixed regex patterns in PR validation workflow to use more compatible syntax
 - Made PR title validation case-insensitive to accept both "fix:" and "Fix:" format
+
+### Removed
+- Legacy example semantic-release configuration
+- Outdated references to non-existent GitHub scripts
 
 ## [0.5.0-4] - 2025-02-27
 
