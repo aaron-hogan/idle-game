@@ -43,32 +43,28 @@
 /* Milestone cards styling */
 .milestone-cards {
   display: flex;
-  gap: 15px;
+  gap: 20px; /* Increased from 15px to create more space between cards */
   min-height: 140px;
   position: relative;
   padding: 10px 0;
   /* Ensure proper alignment */
   margin: 0;
   justify-content: flex-start;
-  /* DEBUG: Add outline to visualize container */
-  /* outline: 1px solid yellow; */
 }
 
 .milestone-card-spacer {
-  min-width: 220px;
-  width: 220px;
+  min-width: 210px;
+  width: 210px;
   height: 150px;
   visibility: hidden;
   flex-shrink: 0;
   opacity: 0;
-  /* For testing/debugging, add outline to see spacers */
-  /* outline: 1px dashed rgba(255,0,0,0.3); */
 }
 
 .milestone-card {
-  width: 220px;
-  min-width: 220px;
-  max-width: 220px;
+  width: 210px; /* Slightly reduced width to prevent overflow */
+  min-width: 210px;
+  max-width: 210px;
   height: 150px;
   background-color: #1a1a1a;
   border: 1px solid #333;
@@ -89,13 +85,16 @@
 }
 
 .milestone-card.active-center {
-  transform: scale(1.15);
+  transform: scale(1.08);
   box-shadow: 0 6px 16px rgba(33, 150, 243, 0.25);
   z-index: 10;
+  /* Add margin to prevent overlap with neighboring cards */
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .milestone-card.active-center:hover {
-  transform: scale(1.15);
+  transform: scale(1.08);
 }
 
 .milestone-state-indicator {
@@ -225,13 +224,16 @@
 
 /* Glowing effect for active-center card */
 @keyframes pulse-glow {
-  0% { box-shadow: 0 0 10px rgba(33, 150, 243, 0.5); }
-  50% { box-shadow: 0 0 20px rgba(33, 150, 243, 0.7); }
-  100% { box-shadow: 0 0 10px rgba(33, 150, 243, 0.5); }
+  0% { box-shadow: 0 0 8px rgba(33, 150, 243, 0.4); }
+  50% { box-shadow: 0 0 16px rgba(33, 150, 243, 0.6); }
+  100% { box-shadow: 0 0 8px rgba(33, 150, 243, 0.4); }
 }
 
 .milestone-card.active.active-center {
-  animation: pulse-glow 2s infinite ease-in-out;
+  animation: pulse-glow 2.5s infinite ease-in-out;
+  /* Enhance appearance of active card */
+  border-color: rgba(33, 150, 243, 0.6);
+  background-color: rgba(21, 101, 192, 0.15);
 }
 
 /* Slot machine style effect */
