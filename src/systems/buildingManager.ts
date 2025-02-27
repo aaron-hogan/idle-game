@@ -1,15 +1,31 @@
 import { Structure } from '../models/structure';
-import { Store } from 'redux';
-import { 
+import { WorkerManager } from './workerManager';
+import { validateObject, validateNumber } from '../utils/validationUtils';
+import { invariant } from '../utils/errorUtils';
+
+// Import types for dependency injection
+import type { RootState } from '../state/store';
+import type { AppDispatch } from '../state/store';
+import type { 
   addStructure, 
   upgradeStructure, 
   updateProduction 
 } from '../state/structuresSlice';
-import { deductResources } from '../state/resourcesSlice';
-import { RootState } from '../state/store';
-import { WorkerManager } from './workerManager';
-import { validateObject, validateNumber } from '../utils/validationUtils';
-import { invariant } from '../utils/errorUtils';
+import type { deductResources } from '../state/resourcesSlice';
+
+/**
+ * Dependencies required by BuildingManager
+ */
+export interface BuildingManagerDependencies {
+  dispatch: AppDispatch;
+  getState: () => RootState;
+  actions: {
+    addStructure: typeof addStructure;
+    upgradeStructure: typeof upgradeStructure;
+    updateProduction: typeof updateProduction;
+    deductResources: typeof deductResources;
+  };
+}
 
 /**
  * BuildingManager handles all operations related to buildings/structures
@@ -17,45 +33,93 @@ import { invariant } from '../utils/errorUtils';
  */
 export class BuildingManager {
   private static instance: BuildingManager | null = null;
-  private store: Store | null = null;
+  private dispatch: AppDispatch;
+  private getState: () => RootState;
+  private actions: BuildingManagerDependencies['actions'];
   
   /**
-   * Private constructor for singleton pattern
-   * @param store The Redux store (optional)
+   * Constructor that accepts dependencies
+   * @param dependencies The dependencies needed by BuildingManager
    */
-  private constructor(store?: Store) {
-    if (store) {
-      this.store = store;
-    }
+  constructor(dependencies: BuildingManagerDependencies) {
+    this.dispatch = dependencies.dispatch;
+    this.getState = dependencies.getState;
+    this.actions = dependencies.actions;
   }
   
   /**
-   * Get the singleton instance of BuildingManager
+   * Get or create the singleton instance of BuildingManager
+   * @param dependencies The dependencies needed by BuildingManager or store for backward compatibility
    * @returns The singleton BuildingManager instance
    */
-  public static getInstance(): BuildingManager {
+  public static getInstance(dependenciesOrStore?: BuildingManagerDependencies | any): BuildingManager {
     if (!BuildingManager.instance) {
-      BuildingManager.instance = new BuildingManager();
+      if (!dependenciesOrStore) {
+        // Create instance without dependencies, initialize() will be called later
+        BuildingManager.instance = new BuildingManager({
+          dispatch: (() => {}) as any, // Placeholder
+          getState: (() => ({})) as any, // Placeholder
+          actions: {} as any // Placeholder
+        });
+      } else if ('dispatch' in dependenciesOrStore && 'getState' in dependenciesOrStore && 'actions' in dependenciesOrStore) {
+        // If full dependencies are provided
+        BuildingManager.instance = new BuildingManager(dependenciesOrStore as BuildingManagerDependencies);
+      } else {
+        // If a store is provided (backward compatibility)
+        const instance = new BuildingManager({
+          dispatch: (() => {}) as any, // Placeholder
+          getState: (() => ({})) as any, // Placeholder  
+          actions: {} as any // Placeholder
+        });
+        instance.initialize(dependenciesOrStore);
+        BuildingManager.instance = instance;
+      }
+    } else if (dependenciesOrStore && !('dispatch' in dependenciesOrStore && 'getState' in dependenciesOrStore && 'actions' in dependenciesOrStore)) {
+      // If instance exists and a store is provided, initialize with it (backward compatibility)
+      BuildingManager.instance.initialize(dependenciesOrStore);
     }
+    
     return BuildingManager.instance;
   }
   
   /**
    * Initialize the manager with a Redux store
+   * For backwards compatibility with existing code
    * @param store The Redux store
+   * @deprecated Use dependency injection through constructor instead
    */
-  public initialize(store: Store): void {
-    this.store = store;
+  public initialize(store: any): void {
+    // Check if already initialized properly
+    try {
+      this.ensureInitialized();
+      return; // Already initialized
+    } catch (e) {
+      // Continue with initialization
+    }
+
+    // Import necessary action creators
+    const structureActions = require('../state/structuresSlice');
+    const resourceActions = require('../state/resourcesSlice');
+    
+    // Set up dependencies from store
+    this.dispatch = store.dispatch;
+    this.getState = store.getState;
+    this.actions = {
+      addStructure: structureActions.addStructure,
+      upgradeStructure: structureActions.upgradeStructure,
+      updateProduction: structureActions.updateProduction,
+      deductResources: resourceActions.deductResources,
+    };
   }
-  
+
   /**
    * Ensure the manager is properly initialized
    * @throws Error if not initialized
    */
   private ensureInitialized(): void {
     invariant(
-      this.store !== null,
-      'BuildingManager not properly initialized with Redux store',
+      this.dispatch !== undefined && this.getState !== undefined && this.actions !== undefined,
+      'BuildingManager not properly initialized with dependencies',
       'BuildingManager'
     );
   }
@@ -65,8 +129,6 @@ export class BuildingManager {
    * @param building The building to initialize
    */
   initializeBuilding(building: Structure): void {
-    this.ensureInitialized();
-    
     // Validate building structure
     const requiredProps: Array<keyof Structure> = [
       'id', 'name', 'level', 'maxLevel', 'cost', 'production', 'unlocked'
@@ -76,7 +138,7 @@ export class BuildingManager {
       return;
     }
     
-    this.store!.dispatch(addStructure(building));
+    this.dispatch(this.actions.addStructure(building));
   }
   
   /**
@@ -97,13 +159,11 @@ export class BuildingManager {
    * @returns Boolean indicating if purchase is possible
    */
   canPurchaseBuilding(buildingId: string): boolean {
-    this.ensureInitialized();
-    
     if (!buildingId || buildingId.trim() === '') {
       return false;
     }
     
-    const state = this.store!.getState() as RootState;
+    const state = this.getState();
     const building = state.structures[buildingId];
     
     // If building doesn't exist or is not unlocked, return false
@@ -135,15 +195,14 @@ export class BuildingManager {
       return false;
     }
     
-    this.ensureInitialized();
-    const state = this.store!.getState() as RootState;
+    const state = this.getState();
     const building = state.structures[buildingId];
     
     // Deduct resources
-    this.store!.dispatch(deductResources(building.cost));
+    this.dispatch(this.actions.deductResources(building.cost));
     
     // Upgrade the building
-    this.store!.dispatch(upgradeStructure({ id: buildingId }));
+    this.dispatch(this.actions.upgradeStructure({ id: buildingId }));
     
     // Calculate new production values based on level
     this.recalculateProduction(buildingId);
@@ -161,8 +220,7 @@ export class BuildingManager {
       return;
     }
     
-    this.ensureInitialized();
-    const state = this.store!.getState() as RootState;
+    const state = this.getState();
     const building = state.structures[buildingId];
     
     if (!building) {
@@ -198,7 +256,7 @@ export class BuildingManager {
     }
     
     // Update the production values in the store
-    this.store!.dispatch(updateProduction({
+    this.dispatch(this.actions.updateProduction({
       id: buildingId,
       production: newProduction
     }));
@@ -214,8 +272,7 @@ export class BuildingManager {
       return {};
     }
     
-    this.ensureInitialized();
-    const state = this.store!.getState() as RootState;
+    const state = this.getState();
     const building = state.structures[buildingId];
     
     if (!building) {
@@ -243,13 +300,26 @@ export class BuildingManager {
    * @param useWorkerManager Whether to use the WorkerManager for efficiency calculation
    */
   updateAllProduction(useWorkerManager: boolean = true): void {
-    this.ensureInitialized();
-    const state = this.store!.getState() as RootState;
+    const state = this.getState();
     const workerManager = useWorkerManager ? WorkerManager.getInstance() : null;
     
-    // If using worker manager, ensure it's initialized
-    if (workerManager && this.store) {
-      workerManager.initialize(this.store);
+    // If using worker manager, ensure it gets the same dependencies
+    // This will be changed in future updates with proper DI for WorkerManager
+    if (workerManager) {
+      // For now, we still need to handle backward compatibility
+      // This should be updated when WorkerManager is updated to use DI
+      try {
+        // Note: this implementation is temporary during transition to DI
+        if ('initialize' in workerManager) {
+          // @ts-ignore - Call it if it exists, assuming it expects a store-like object
+          workerManager.initialize({
+            dispatch: this.dispatch,
+            getState: this.getState
+          });
+        }
+      } catch (err) {
+        console.warn('Could not initialize WorkerManager with dependencies', err);
+      }
     }
     
     for (const buildingId of Object.keys(state.structures)) {

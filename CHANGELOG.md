@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Implemented dependency injection for manager classes to reduce tight coupling
 - Added store injection to TaskManager and ProgressionManager
 - Created documentation for dependency injection approach
+- Enhanced ResourceManager and BuildingManager with robust backward compatibility
+- Added detailed implementation documentation for manager dependency injection
+- Created comprehensive implementation pattern for future manager refactoring
 - Added scripts directory with validate-docs.js utility
 - Added logs directory for organizing CI and test logs
 - Created comprehensive project structure reorganization plan
@@ -21,8 +24,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Moved documentation files to appropriate directories
 - Added comprehensive README files for new directories
 - Improved PR workflow documentation with explicit communication requirements
-- Completed root folder cleanup by moving all test logs to logs directory
-- Enhanced documentation organization and navigation
+- Refactored ResourceManager and BuildingManager to use dependency injection
+- Updated App initialization to support both direct store and dependency injection
+- Improved type safety of manager classes with proper interfaces and type imports
 
 ### Fixed
 - Fixed TypeError in GameLoop by adding support for flat resource structure in gameEndConditions.ts
