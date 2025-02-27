@@ -13,6 +13,9 @@ The Milestone Progress Strip provides a visual timeline of the player's progress
 - **Progress Tracking**: Shows percentage completion for in-progress milestones
 - **Navigation Dots**: Visual reference for overall position in milestone sequence
 - **Responsive Design**: Adapts to different screen sizes and orientations
+- **Limited Scrolling**: Shows only 10 milestones at a time to prevent infinite scrolling
+- **Auto-recenter**: Automatically returns to the active milestone after 2 seconds of inactivity
+- **Scroll Snapping**: Milestones snap into place during slow scrolling for better positioning
 
 ## Implementation Details
 
@@ -94,24 +97,95 @@ The component includes a connecting line between milestones with dots representi
 When the active milestone changes, the component automatically scrolls to center it in the viewport:
 
 ```tsx
+// Initial centering when active milestone changes
 useEffect(() => {
-  if (!stripRef.current || !activeMilestoneId) return;
-  
-  // Find the active milestone element
-  const activeMilestoneElement = stripRef.current.querySelector(
-    `[data-milestone-id="${activeMilestoneId}"]`
-  ) as HTMLElement;
-  
-  if (activeMilestoneElement) {
-    // Calculate the center position
-    const containerWidth = stripRef.current.offsetWidth;
-    const cardWidth = activeMilestoneElement.offsetWidth;
-    const cardLeft = activeMilestoneElement.offsetLeft;
+  // Use a reasonable delay to ensure DOM elements have rendered
+  const timer = setTimeout(() => {
+    if (!stripRef.current) return;
     
-    // Scroll to center the card
-    stripRef.current.scrollLeft = cardLeft - (containerWidth / 2) + (cardWidth / 2);
-  }
+    // Find active milestone by ID
+    let targetElement: HTMLElement | null = null;
+    
+    if (activeMilestoneId) {
+      targetElement = stripRef.current.querySelector(
+        `.milestone-card[data-milestone-id="${activeMilestoneId}"]`
+      ) as HTMLElement;
+    }
+    
+    // Fallback to first milestone if no active one found
+    if (!targetElement) {
+      targetElement = stripRef.current.querySelector('.milestone-card:not(.milestone-card-spacer)') as HTMLElement;
+    }
+    
+    if (targetElement && stripRef.current) {
+      // Get actual measurements rather than using fixed values
+      const containerWidth = stripRef.current.offsetWidth;
+      const targetWidth = targetElement.offsetWidth;
+      const targetLeft = targetElement.offsetLeft;
+      
+      // Calculate how far from center
+      const scrollToCenter = Math.max(0, targetLeft - (containerWidth / 2) + (targetWidth / 2));
+      
+      // Apply scroll directly
+      stripRef.current.scrollLeft = scrollToCenter;
+    }
+  }, 500);
+  
+  return () => clearTimeout(timer);
 }, [activeMilestoneId]);
+
+// Re-center after user stops scrolling
+useEffect(() => {
+  if (!stripRef.current) return;
+  
+  // Create a debounced function to recenter after scrolling stops
+  let scrollTimeout: NodeJS.Timeout | null = null;
+  
+  const handleScroll = () => {
+    // Clear any existing timeout
+    if (scrollTimeout) {
+      clearTimeout(scrollTimeout);
+    }
+    
+    // Set a new timeout for 2 seconds of inactivity
+    scrollTimeout = setTimeout(() => {
+      if (!stripRef.current || !activeMilestoneId) return;
+      
+      // Find the active milestone element
+      const targetElement = stripRef.current.querySelector(
+        `.milestone-card[data-milestone-id="${activeMilestoneId}"]`
+      ) as HTMLElement;
+      
+      if (targetElement) {
+        // Calculate scroll position to center the active milestone
+        const containerWidth = stripRef.current.offsetWidth;
+        const targetWidth = targetElement.offsetWidth;
+        const targetLeft = targetElement.offsetLeft;
+        
+        const scrollToCenter = Math.max(0, targetLeft - (containerWidth / 2) + (targetWidth / 2));
+        
+        // Animate scroll back to center
+        stripRef.current.scrollTo({
+          left: scrollToCenter,
+          behavior: 'smooth'
+        });
+      }
+    }, 2000); // 2 seconds delay
+  };
+  
+  // Add scroll event listener
+  stripRef.current.addEventListener('scroll', handleScroll);
+  
+  // Clean up
+  return () => {
+    if (stripRef.current) {
+      stripRef.current.removeEventListener('scroll', handleScroll);
+    }
+    if (scrollTimeout) {
+      clearTimeout(scrollTimeout);
+    }
+  };
+}, [stripRef.current, activeMilestoneId]);
 ```
 
 ## Component Integration
@@ -153,6 +227,66 @@ The component adapts to different screen sizes:
 - **Mobile**: Focuses on active milestone with reduced width cards
 - **Small Screens**: Truncates description text and simplifies layout
 
+### Visible Milestone Limiting
+
+To prevent infinite scrolling, the component limits the number of visible milestones:
+
+```tsx
+// Define a constant for how many milestones to display
+// This limits the scroll length without completely hiding milestones
+const MILESTONES_TO_SHOW = 10; 
+
+// Calculate which milestones should be visible based on some basic rules
+// This ensures the player has a more focused view while still allowing exploration
+const visibleMilestones = useMemo(() => {
+  // If we have 10 or fewer milestones total, just show them all
+  if (milestoneCards.length <= MILESTONES_TO_SHOW) {
+    return milestoneCards;
+  }
+  
+  // Find the index of the active milestone
+  const activeIndex = milestoneCards.findIndex(
+    card => card.milestone.id === activeMilestoneId
+  );
+  
+  // If no active milestone found, show the first few milestones
+  if (activeIndex === -1) {
+    return milestoneCards.slice(0, MILESTONES_TO_SHOW);
+  }
+  
+  // Calculate how many milestones to show on each side of the active one
+  const halfRange = Math.floor((MILESTONES_TO_SHOW - 1) / 2);
+  
+  // Calculate the start and end indices, ensuring we always show MILESTONES_TO_SHOW total cards
+  let startIndex = Math.max(0, activeIndex - halfRange);
+  let endIndex = Math.min(milestoneCards.length - 1, startIndex + MILESTONES_TO_SHOW - 1);
+  
+  // If we hit the end, adjust the start to ensure we always show MILESTONES_TO_SHOW cards
+  if (endIndex - startIndex + 1 < MILESTONES_TO_SHOW) {
+    startIndex = Math.max(0, endIndex - MILESTONES_TO_SHOW + 1);
+  }
+  
+  // Return the slice of milestones that are within our visible range
+  return milestoneCards.slice(startIndex, endIndex + 1);
+}, [milestoneCards, activeMilestoneId]);
+```
+
+### Scroll Snapping
+
+CSS is used to implement scroll snapping for better positioning:
+
+```css
+.milestone-cards-container {
+  /* Other properties */
+  scroll-snap-type: x proximity; /* Enable scroll snapping */
+}
+
+.milestone-card {
+  /* Other properties */
+  scroll-snap-align: center; /* Snap cards to center when scrolling */
+}
+```
+
 ## Future Improvements
 
 Potential future enhancements include:
@@ -162,3 +296,5 @@ Potential future enhancements include:
 3. Milestone category filtering or grouping
 4. Notification badges for newly unlocked milestones
 5. Hover tooltips with additional milestone details
+6. Filter view options (completed only, upcoming only, etc.)
+7. Zoom controls for viewing more or fewer milestones at once
