@@ -1,26 +1,31 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
+import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from '../../state/store';
 import { IEvent } from '../../interfaces/Event';
 import EventCard from './EventCard';
 import { EventManager } from '../../systems/eventManager';
+import { useMemoSelector } from '../../state/hooks';
 import './EventPanel.css';
 
 /**
  * Panel to display active events
  */
 const EventPanel: React.FC = () => {
-  // Use memoized selector to prevent unnecessary rerenders
-  const activeEvents = useSelector((state: RootState) => {
-    // Get active event IDs from state
-    const activeEventIds = state.events.activeEvents;
-    
-    // Map IDs to actual event objects
-    return activeEventIds
-      .map(id => state.events.availableEvents[id])
-      .filter(Boolean)
-      .sort((a, b) => b.priority - a.priority); // Sort by priority
-  });
+  // Create a memoized selector to prevent unnecessary rerenders
+  const selectActiveEvents = useMemo(() => createSelector(
+    (state: RootState) => state.events.activeEvents,
+    (state: RootState) => state.events.availableEvents,
+    (activeEventIds, availableEvents) => {
+      return activeEventIds
+        .map(id => availableEvents[id])
+        .filter(Boolean)
+        .sort((a, b) => b.priority - a.priority); // Sort by priority
+    }
+  ), []);
+  
+  // Use the memoized selector with useMemoSelector for enhanced stability
+  const activeEvents = useMemoSelector(selectActiveEvents);
   
   // Get event manager instance once
   const eventManager = EventManager.getInstance();
