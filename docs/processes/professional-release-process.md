@@ -97,12 +97,22 @@ Once develop contains all desired features for a release:
 
 1. **Create a release branch**
    ```bash
-   # Use the helper script
+   # Interactive mode (with prompts)
    npm run release
    
-   # Or directly
-   ./scripts/create-release.sh
+   # Non-interactive mode with automatic version selection
+   npm run release:minor    # For minor version bump
+   npm run release:patch    # For patch version bump
+   npm run release:major    # For major version bump
+   
+   # For complete control with non-interactive automation
+   ./scripts/create-release.sh --minor --non-interactive --force
+   
+   # Custom version with all automation
+   ./scripts/create-release.sh --version 1.2.3 --non-interactive --force
    ```
+
+   > **For AI Assistants**: Always use non-interactive mode with explicit version selection
 
 2. **Verify changelog and final testing**
    - Ensure all changes are properly documented
@@ -110,12 +120,14 @@ Once develop contains all desired features for a release:
    - Fix any issues found directly on release branch
 
 3. **Create PRs from release branch**
-   - PR to develop (to bring fixes back to develop)
+   > Note: When using `--non-interactive` flag, PRs are created automatically 
+   
+   - Manual PR creation to develop (to bring fixes back to develop)
    ```bash
    .github/scripts/create-pr.sh --base develop --title "chore: update develop with version changes"
    ```
    
-   - PR to main (for actual release)
+   - Manual PR creation to main (for actual release)
    ```bash
    .github/scripts/create-pr.sh --base main --title "chore(release): X.Y.Z"
    ```
@@ -152,19 +164,24 @@ For urgent fixes to production code:
 
 1. **Create a hotfix branch from main**
    ```bash
-   # Use the helper script
+   # Interactive mode (with prompts)
    npm run hotfix
    
-   # Or directly
-   ./scripts/create-hotfix.sh
+   # Non-interactive mode 
+   ./scripts/create-hotfix.sh --description login-timeout --non-interactive
+   
+   # Fully automated with PR creation
+   ./scripts/create-hotfix.sh -d database-connection --non-interactive --create-prs
    ```
+
+   > **For AI Assistants**: Always use non-interactive mode with explicit description
 
 2. **Implement and test fix**
    ```bash
    git commit -m "fix: resolve critical issue"
    ```
 
-3. **Create two PRs**
+3. **Create two PRs** (skip if using --create-prs option)
    - PR to main (for immediate fix)
    ```bash
    .github/scripts/create-pr.sh --base main --title "fix: critical issue fix"
@@ -259,6 +276,51 @@ Here's an example of a complete release workflow:
    # Should show no differences
    ```
 
+## Non-Interactive Mode for Automation & AI Assistants
+
+This section is particularly important for automation tools and AI assistants that need to operate without human interaction.
+
+### Release Automation for AI Assistants
+
+When creating releases or hotfixes as an AI assistant:
+
+1. **Always use non-interactive mode**
+   ```bash
+   # For creating releases (select appropriate version type)
+   ./scripts/create-release.sh --minor --non-interactive --force
+   
+   # For creating hotfixes
+   ./scripts/create-hotfix.sh -d brief-description --non-interactive
+   ```
+
+2. **Use explicit versioning options**
+   - Always specify the version type (--major, --minor, --patch) or exact version (--version X.Y.Z)
+   - When in doubt, default to --patch for the safest option
+
+3. **Use the --force flag for releases**
+   - This prevents script failure when there's uncertainty about changelog contents
+   - Avoids any prompt that would block automation
+
+4. **Recommend PR creation strategies**
+   - For releases, let the script automatically create PRs when using non-interactive mode
+   - For hotfixes, use the --create-prs flag to automate the entire process
+
+### Common AI Assistant Tasks (One-liners)
+
+```bash
+# Create minor release with all automation
+./scripts/create-release.sh --minor --non-interactive --force
+
+# Create patch release with all automation
+./scripts/create-release.sh --patch --non-interactive --force
+
+# Create hotfix with automatic PR creation
+./scripts/create-hotfix.sh -d concise-description --non-interactive --create-prs
+
+# Check sync status between branches
+git checkout main && git pull && git checkout develop && git pull && git log --oneline --left-right main...develop
+```
+
 ## Benefits of This Approach
 
 1. **Clear Separation of Concerns**
@@ -280,3 +342,8 @@ Here's an example of a complete release workflow:
 5. **Complete Audit Trail**
    - All changes documented in conventional commits
    - Automatic release notes generation
+   
+6. **Full Automation Support**
+   - Non-interactive options for CI/CD pipelines
+   - AI assistant friendly with clear command-line options
+   - Reduced human error through automation
