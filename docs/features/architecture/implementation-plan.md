@@ -12,17 +12,18 @@ This document outlines the step-by-step implementation plan for reorganizing the
 - [x] Create detailed implementation plan (this document)
 - [x] Create branch for documentation
 
-## Phase 1: Dependency Injection (Partially Complete)
+## Phase 1: Dependency Injection (Mostly Complete)
 
 **Goal**: Break direct store dependencies to enable safe refactoring.
 
 - [x] Implement dependency injection for TaskManager
 - [x] Implement dependency injection for ProgressionManager
-- [x] Implement dependency injection for ResourceManager
-- [x] Implement dependency injection for BuildingManager
+- [x] Implement dependency injection for ResourceManager with backward compatibility
+- [x] Implement dependency injection for BuildingManager with backward compatibility
 - [ ] Implement dependency injection for EventManager
 - [ ] Implement dependency injection for SaveManager
 - [x] Update App.tsx to inject store to managers
+- [ ] Fix tests for updated manager classes
 
 **PR**: `refactor/complete-dependency-injection`
 
