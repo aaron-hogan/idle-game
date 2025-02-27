@@ -4,6 +4,9 @@ import { INITIAL_RESOURCES } from '../../constants/resources';
 import resourcesReducer, { addResource } from '../../state/resourcesSlice';
 import gameReducer, { updateLastSaveTime } from '../../state/gameSlice';
 import structuresReducer from '../../state/structuresSlice';
+import eventsReducer from '../../state/eventsSlice';
+import tasksReducer from '../../state/tasksSlice';
+import progressionReducer from '../../redux/progressionSlice';
 import { resetSingleton } from '../../utils/testUtils';
 
 // Mock setInterval and clearInterval
@@ -40,6 +43,9 @@ const createTestStore = () => {
       resources: resourcesReducer,
       game: gameReducer,
       structures: structuresReducer,
+      events: eventsReducer,
+      tasks: tasksReducer,
+      progression: progressionReducer,
     },
   });
   

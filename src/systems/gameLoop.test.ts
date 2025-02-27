@@ -83,7 +83,7 @@ describe('GameLoop', () => {
   
   test('should start the game loop', () => {
     // Mock setInterval
-    jest.spyOn(window, 'setInterval').mockReturnValue(123 as unknown as number);
+    jest.spyOn(window, 'setInterval').mockReturnValue(123 as unknown as NodeJS.Timeout);
     
     gameLoop.start();
     
@@ -96,7 +96,7 @@ describe('GameLoop', () => {
   
   test('should stop the game loop', () => {
     // Mock setInterval and clearInterval
-    jest.spyOn(window, 'setInterval').mockReturnValue(123 as unknown as number);
+    jest.spyOn(window, 'setInterval').mockReturnValue(123 as unknown as NodeJS.Timeout);
     jest.spyOn(window, 'clearInterval').mockImplementation(() => {});
     
     // Start and then stop

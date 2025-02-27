@@ -531,10 +531,12 @@ export class GameLoop {
     multiplier = Math.max(0.1, Math.min(10, multiplier));
     
     // Adjust tick interval
-    const newInterval = Math.round(DEFAULT_CONFIG.tickInterval / multiplier);
+    const defaultInterval = DEFAULT_CONFIG.tickInterval || 100; // Use 100ms as fallback
+    const newInterval = Math.round(defaultInterval / multiplier);
     
     // Only restart if there's a significant change
-    if (Math.abs(this.config.tickInterval - newInterval) > 50) {
+    const currentInterval = this.config.tickInterval || 100; // Use 100ms as fallback
+    if (Math.abs(currentInterval - newInterval) > 50) {
       this.config.tickInterval = newInterval;
       
       // Restart the game loop if it's running
@@ -559,7 +561,7 @@ export class GameLoop {
     return {
       isRunning: this.intervalId !== null,
       isPaused: this.isPaused,
-      tickInterval: this.config.tickInterval,
+      tickInterval: this.config.tickInterval || 100, // Use default if undefined
       tickCount: this.tickCount,
       elapsedSinceLastTick: calculateElapsedSeconds(Date.now(), this.lastTickTime)
     };
