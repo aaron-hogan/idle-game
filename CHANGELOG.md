@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2025-02-27
+
 ### Added
 - Added Process Failure Analysis document with critical learnings from dependency injection implementation
 - Added enhanced Pre-PR Validation Checklist to safe workflow process
@@ -16,10 +18,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Created add-doc-exception.sh script for managing documentation git exceptions
 - Added .gitattributes file to properly handle documentation file exclusions
 - Created git_exceptions.md to track documentation files explicitly added to git
+- Added setup-git-hooks.sh script for automating validation via git hooks
+- Added prepare-for-main.sh script to automate branch preparation for PRs
+- Added sync-feature-todos.sh script to automate todo synchronization
+- Added comprehensive documentation for automation scripts
+- Added resolving-merge-conflicts.md with guidelines and case studies
 
 ### Changed
 - Enhanced .gitignore with better comments and organization
 - Updated documentation README.md with git exclusion information
+- Expanded scripts/README.md with new automation tools
+
 
 ## [0.4.0] - 2025-02-27
 
