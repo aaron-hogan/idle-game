@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Comprehensive documentation for professional release process
+- Detailed examples of complete release workflow
+- Enhanced script documentation with usage examples
+
 ## [0.5.0-3] - 2025-02-27
 
 ### Added
