@@ -142,3 +142,45 @@ taskManager.initialize(mockStore);
 // Now we can verify actions dispatched to the store or test behavior
 // with controlled state responses
 ```
+
+### Testing Considerations
+
+1. **Store Initialization**: Always initialize managers with a mock store in tests
+2. **Mock State**: Configure the mock store's getState to return appropriate test data
+3. **Action Verification**: Use jest.fn() to mock dispatch and verify actions are correctly dispatched
+4. **Reset Between Tests**: Clear manager instances between tests to avoid state leakage
+5. **Type Safety**: Ensure mocks implement the same interfaces as production code
+
+Example test setup:
+
+```typescript
+// Reset instance before test
+// @ts-ignore - accessing private static for testing
+TaskManager.instance = null;
+const taskManager = TaskManager.getInstance();
+
+// Create mock store
+const mockDispatch = jest.fn();
+const mockGetState = jest.fn().mockReturnValue({
+  // Test state here
+});
+const mockStore = {
+  dispatch: mockDispatch,
+  getState: mockGetState
+};
+
+// Initialize with mock store
+taskManager.initialize(mockStore as any);
+
+// Now run your test
+```
+
+### Build Verification
+
+After implementing dependency injection, always verify:
+
+1. Type compatibility with `npm run typecheck`
+2. Application builds successfully with `npm run build`
+3. Tests pass with correct store initialization
+
+Ensure any errors are addressed, especially type errors in the components you modified. It's acceptable to have type errors in unrelated deprecated files, but your code should be type-safe.
