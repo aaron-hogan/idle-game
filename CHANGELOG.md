@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Fixed
+- Fixed TypeError in GameLoop by adding support for flat resource structure in gameEndConditions.ts
+- Optimized Redux selectors to prevent unnecessary rerenders
+- Resolved "Selector unknown returned a different result when called with the same parameters" warning
+- Added memoization to Object.values calls in selectors to prevent new reference creation
 - Fixed entire test suite to bring all tests to passing status
   - Fixed GameManager tests with proper mocking of setTotalPlayTime
   - Added null safety checks in gameLoop.ts for tickInterval
