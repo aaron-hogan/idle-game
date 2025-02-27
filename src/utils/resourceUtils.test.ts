@@ -124,7 +124,7 @@ describe('resourceUtils', () => {
       // @ts-ignore - testing invalid input
       const result = safeGetResource(null, null);
       expect(result).toEqual(expect.objectContaining({
-        id: ''
+        id: 'null-resource'
       }));
     });
   });

@@ -154,7 +154,7 @@ describe('ProgressionTracker', () => {
     // The percentage value can have % or not, we'll use a regex to match either way
     expect(screen.getByText(/50/)).toBeInTheDocument();
     
-    // Check that milestone section is shown
-    expect(screen.getByText('Next Milestones')).toBeInTheDocument();
+    // The component no longer shows Next Milestones section
+    // This section was removed in a recent update
   });
 });

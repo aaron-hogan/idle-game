@@ -14,7 +14,10 @@ describe('game reducer', () => {
     isRunning: true,
     tickRate: 1000,
     gameTimeScale: 1,
-    startDate: expect.any(Number)
+    startDate: expect.any(Number),
+    gameEnded: false,
+    gameWon: false,
+    endReason: null
   };
 
   test('should handle initial state', () => {
@@ -26,7 +29,10 @@ describe('game reducer', () => {
       isRunning: true,
       tickRate: 1000,
       gameTimeScale: 1,
-      startDate: expect.any(Number)
+      startDate: expect.any(Number),
+      gameEnded: false,
+      gameWon: false,
+      endReason: null
     });
   });
 
@@ -69,7 +75,10 @@ describe('game reducer', () => {
       isRunning: false,
       tickRate: 500,
       gameTimeScale: 2,
-      startDate: 1644700000000
+      startDate: 1644700000000,
+      gameEnded: true,
+      gameWon: true,
+      endReason: "Test"
     };
     const actual = gameReducer(modifiedState, resetGame());
     expect(actual).toMatchObject({
@@ -79,7 +88,10 @@ describe('game reducer', () => {
       isRunning: true,
       tickRate: 1000,
       gameTimeScale: 1,
-      startDate: expect.any(Number)
+      startDate: expect.any(Number),
+      gameEnded: false,
+      gameWon: false,
+      endReason: null
     });
   });
 });
