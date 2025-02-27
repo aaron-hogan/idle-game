@@ -159,23 +159,59 @@ const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({
     }
   }, [activeMilestoneId]);
   
-  // Ensure correct initial positioning on component mount
+  // Force initial centering with a longer delay to ensure complete layout
   useEffect(() => {
-    if (!stripRef.current || !activeMilestoneId) return;
-    
-    // Initial positioning without animation for immediate centering on load
-    const activeMilestoneElement = stripRef.current.querySelector(
-      `[data-milestone-id="${activeMilestoneId}"]`
-    ) as HTMLElement;
-    
-    if (activeMilestoneElement) {
-      const containerWidth = stripRef.current.offsetWidth;
-      const cardWidth = activeMilestoneElement.offsetWidth;
-      const cardLeft = activeMilestoneElement.offsetLeft;
+    // Initial setup to center the active milestone
+    const initialCenterTimer = setTimeout(() => {
+      if (!stripRef.current || !activeMilestoneId) return;
       
-      stripRef.current.scrollLeft = cardLeft - (containerWidth / 2) + (cardWidth / 2);
-    }
-  }, []); // Empty dependency array for run-once on mount
+      console.log("Executing initial positioning...");
+      
+      const activeMilestoneElement = stripRef.current.querySelector(
+        `[data-milestone-id="${activeMilestoneId}"]`
+      ) as HTMLElement;
+      
+      if (activeMilestoneElement) {
+        const containerWidth = stripRef.current.offsetWidth;
+        const cardWidth = activeMilestoneElement.offsetWidth;
+        const cardLeft = activeMilestoneElement.offsetLeft;
+        
+        // Calculate scroll position to center the active milestone
+        const scrollPosition = cardLeft - (containerWidth / 2) + (cardWidth / 2);
+        
+        console.log("Initial positioning values:", {
+          containerWidth,
+          cardWidth,
+          cardLeft,
+          scrollPosition
+        });
+        
+        // Force initial position with direct DOM manipulation
+        stripRef.current.scrollLeft = scrollPosition;
+        
+        // Additional check and correction after a moment
+        setTimeout(() => {
+          if (stripRef.current && activeMilestoneElement) {
+            // Re-calculate in case of any layout shifts
+            const cardLeft = activeMilestoneElement.offsetLeft;
+            const containerWidth = stripRef.current.offsetWidth;
+            const cardWidth = activeMilestoneElement.offsetWidth;
+            const idealPosition = cardLeft - (containerWidth / 2) + (cardWidth / 2);
+            
+            // If position is off by more than 5px, correct it
+            if (Math.abs(stripRef.current.scrollLeft - idealPosition) > 5) {
+              console.log("Correcting position:", idealPosition);
+              stripRef.current.scrollLeft = idealPosition;
+            }
+            
+            console.log("Final scroll position:", stripRef.current.scrollLeft);
+          }
+        }, 200);
+      }
+    }, 200); // Longer delay to ensure complete layout
+    
+    return () => clearTimeout(initialCenterTimer);
+  }, []); // Empty dependency array to run once on mount
   
   // Listen for milestone completion events to trigger animation to the next active milestone
   useEffect(() => {
@@ -235,58 +271,79 @@ const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({
   // This ensures we can scroll through the complete milestone history 
   const visibleMilestones = milestoneCards;
   
+  // Add a bunch of invisible spacer cards at the start to ensure we can center properly
+  const renderMilestones = () => {
+    const centeringSpacers = [];
+    // Add spacers only on initial render
+    for (let i = 0; i < 10; i++) {
+      centeringSpacers.push(
+        <div key={`spacer-start-${i}`} className="milestone-card-spacer"></div>
+      );
+    }
+    
+    const cardElements = visibleMilestones.map(card => (
+      <div 
+        key={card.milestone.id}
+        data-milestone-id={card.milestone.id}
+        className={`milestone-card ${card.status} ${card.milestone.id === activeMilestoneId ? 'active-center' : ''}`}
+      >
+        <div className="milestone-state-indicator"></div>
+        <div className="milestone-content">
+          <div className="milestone-header">
+            <span className="milestone-name">{card.milestone.name}</span>
+            {card.status !== MilestoneStatus.COMPLETED && (
+              <span className="milestone-percentage">
+                {Math.floor(card.progress)}%
+              </span>
+            )}
+          </div>
+          
+          <div className="milestone-description">
+            {card.milestone.description}
+          </div>
+          
+          {card.status !== MilestoneStatus.COMPLETED && (
+            <div className="milestone-progress-bar">
+              <div 
+                className="milestone-progress-fill" 
+                style={{ width: `${card.progress}%` }}
+              ></div>
+            </div>
+          )}
+          
+          <div className="milestone-footer">
+            {card.status === MilestoneStatus.COMPLETED && (
+              <span className="milestone-completed-badge">✓ Completed</span>
+            )}
+            
+            {card.status === MilestoneStatus.ACTIVE && (
+              <span className="milestone-active-badge">In Progress</span>
+            )}
+            
+            {card.status === MilestoneStatus.LOCKED && (
+              <span className="milestone-locked-badge">Locked</span>
+            )}
+          </div>
+        </div>
+      </div>
+    ));
+    
+    // Add more spacers at the end
+    for (let i = 0; i < 10; i++) {
+      centeringSpacers.push(
+        <div key={`spacer-end-${i}`} className="milestone-card-spacer"></div>
+      );
+    }
+    
+    return [...centeringSpacers, ...cardElements, ...centeringSpacers];
+  };
+
   return (
     <div className="milestone-progress-strip">
       <div className="milestone-cards-container" ref={stripRef}>
         {/* Milestone cards */}
         <div className="milestone-cards">
-          {visibleMilestones.map(card => (
-            <div 
-              key={card.milestone.id}
-              data-milestone-id={card.milestone.id}
-              className={`milestone-card ${card.status} ${card.milestone.id === activeMilestoneId ? 'active-center' : ''}`}
-            >
-              <div className="milestone-state-indicator"></div>
-              
-              <div className="milestone-content">
-                <div className="milestone-header">
-                  <span className="milestone-name">{card.milestone.name}</span>
-                  {card.status !== MilestoneStatus.COMPLETED && (
-                    <span className="milestone-percentage">
-                      {Math.floor(card.progress)}%
-                    </span>
-                  )}
-                </div>
-                
-                <div className="milestone-description">
-                  {card.milestone.description}
-                </div>
-                
-                {card.status !== MilestoneStatus.COMPLETED && (
-                  <div className="milestone-progress-bar">
-                    <div 
-                      className="milestone-progress-fill" 
-                      style={{ width: `${card.progress}%` }}
-                    ></div>
-                  </div>
-                )}
-                
-                <div className="milestone-footer">
-                  {card.status === MilestoneStatus.COMPLETED && (
-                    <span className="milestone-completed-badge">✓ Completed</span>
-                  )}
-                  
-                  {card.status === MilestoneStatus.ACTIVE && (
-                    <span className="milestone-active-badge">In Progress</span>
-                  )}
-                  
-                  {card.status === MilestoneStatus.LOCKED && (
-                    <span className="milestone-locked-badge">Locked</span>
-                  )}
-                </div>
-              </div>
-            </div>
-          ))}
+          {renderMilestones()}
         </div>
       </div>
     </div>
