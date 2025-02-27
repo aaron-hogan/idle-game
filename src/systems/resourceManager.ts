@@ -1,18 +1,6 @@
 import { Structure, NULL_RESOURCE } from '../models/types';
 import { Resource } from '../models/resource';
 import { INITIAL_RESOURCES, ResourceId } from '../constants/resources';
-import { AppDispatch, RootState } from '../state/store';
-import { Store } from 'redux';
-import { 
-  addResource, 
-  updateResourceAmount, 
-  addResourceAmount, 
-  updateResourcePerSecond,
-  toggleResourceUnlocked,
-  updateClickPower,
-  updateUpgradeLevel,
-  updateBaseResourcePerSecond,
-} from '../state/resourcesSlice';
 import { invariant } from '../utils/errorUtils';
 import { validateObject } from '../utils/validationUtils';
 import { GameLoop } from '../core/GameLoop';
@@ -26,69 +14,89 @@ import {
   calculateUpgradeCost
 } from '../config/gameBalance';
 
+// Import only the types needed for dependency injection
+import type { AppDispatch, RootState } from '../state/store';
+import type { 
+  addResource, 
+  updateResourceAmount, 
+  addResourceAmount, 
+  updateResourcePerSecond,
+  toggleResourceUnlocked,
+  updateClickPower,
+  updateUpgradeLevel,
+  updateBaseResourcePerSecond,
+} from '../state/resourcesSlice';
+
+/**
+ * Dependencies needed by ResourceManager
+ */
+export interface ResourceManagerDependencies {
+  dispatch: AppDispatch;
+  getState: () => RootState;
+  actions: {
+    addResource: typeof addResource;
+    updateResourceAmount: typeof updateResourceAmount;
+    addResourceAmount: typeof addResourceAmount;
+    updateResourcePerSecond: typeof updateResourcePerSecond;
+    toggleResourceUnlocked: typeof toggleResourceUnlocked;
+    updateClickPower: typeof updateClickPower;
+    updateUpgradeLevel: typeof updateUpgradeLevel;
+    updateBaseResourcePerSecond: typeof updateBaseResourcePerSecond;
+  };
+}
+
 /**
  * Manages all resource-related operations
  */
 export class ResourceManager {
   private static instance: ResourceManager | null = null;
-  private store: Store | null = null;
-  private dispatch: AppDispatch | null = null;
-  private getState: (() => RootState) | null = null;
+  private dispatch: AppDispatch;
+  private getState: () => RootState;
+  private actions: ResourceManagerDependencies['actions'];
   private unregisterHandler: (() => void) | null = null;
   
   /**
-   * Private constructor for singleton pattern
-   * @param store Redux store (optional)
+   * Constructor that accepts dependencies
+   * @param dependencies The dependencies needed by ResourceManager
    */
-  private constructor(store?: Store) {
-    if (store) {
-      this.initialize(store);
-    }
+  constructor(dependencies: ResourceManagerDependencies) {
+    this.dispatch = dependencies.dispatch;
+    this.getState = dependencies.getState;
+    this.actions = dependencies.actions;
   }
   
   /**
-   * Get the singleton instance of ResourceManager
+   * Get or create the singleton instance of ResourceManager
+   * @param dependencies The dependencies needed by ResourceManager (required only on first call)
    * @returns The singleton ResourceManager instance
    */
-  public static getInstance(): ResourceManager {
+  public static getInstance(dependencies?: ResourceManagerDependencies): ResourceManager {
     if (!ResourceManager.instance) {
-      ResourceManager.instance = new ResourceManager();
+      if (!dependencies) {
+        throw new Error('ResourceManager.getInstance requires dependencies on first call');
+      }
+      ResourceManager.instance = new ResourceManager(dependencies);
     }
     return ResourceManager.instance;
   }
   
   /**
-   * Initialize the manager with a Redux store
-   * @param store The Redux store
-   */
-  public initialize(store: Store): void {
-    this.store = store;
-    this.dispatch = store.dispatch as AppDispatch;
-    this.getState = store.getState as () => RootState;
-  }
-  
-  /**
-   * Ensure the manager is properly initialized
-   * @throws Error if not initialized
+   * Method is no longer needed since dependencies are required in constructor.
+   * Kept as a no-op for backward compatibility.
+   * @deprecated
    */
   private ensureInitialized(): void {
-    invariant(
-      this.store !== null && this.dispatch !== null && this.getState !== null,
-      'ResourceManager not properly initialized with Redux store',
-      'ResourceManager'
-    );
+    // Dependencies are now guaranteed to exist because they are required in the constructor
   }
   
   /**
    * Initialize resources in the Redux store
    */
   initializeResources(): void {
-    this.ensureInitialized();
-    
     // Add each initial resource to the store
     Object.values(INITIAL_RESOURCES).forEach(resource => {
       if (validateObject(resource, ['id', 'name', 'amount', 'perSecond', 'unlocked'], 'initializeResources')) {
-        this.dispatch!(addResource(resource));
+        this.dispatch(this.actions.addResource(resource));
       }
     });
   }
@@ -98,8 +106,6 @@ export class ResourceManager {
    * @param gameTimeInSeconds Scaled game time elapsed since last update (in seconds)
    */
   updateResources(gameTimeInSeconds: number): void {
-    this.ensureInitialized();
-    
     if (gameTimeInSeconds < 0) {
       return; // Don't process negative time
     }
@@ -108,10 +114,9 @@ export class ResourceManager {
       // Even if elapsed time is 0, we'll add a tiny amount to ensure progress
       // This is mainly for debugging the issue with game not ticking
       gameTimeInSeconds = 0.01;
-      // Removed excessive logging here
     }
     
-    const state = this.getState!();
+    const state = this.getState();
     // Use any type to work with both state formats
     const resources: any = state.resources;
     
@@ -124,7 +129,7 @@ export class ResourceManager {
       
       // If the perSecond value is incorrect, update it
       if (oppression.perSecond !== OPPRESSION_RATE) {
-        this.dispatch!(updateResourcePerSecond({
+        this.dispatch(this.actions.updateResourcePerSecond({
           id: ResourceId.OPPRESSION,
           perSecond: OPPRESSION_RATE,
         }));
@@ -134,7 +139,7 @@ export class ResourceManager {
       
       // Only dispatch if we have a positive amount to add
       if (oppressionAmount > 0) {
-        this.dispatch!(addResourceAmount({
+        this.dispatch(this.actions.addResourceAmount({
           id: ResourceId.OPPRESSION,
           amount: oppressionAmount,
         }));
@@ -158,12 +163,10 @@ export class ResourceManager {
           // Calculate generation based on scaled game time
           const generatedAmount = resource.perSecond * gameTimeInSeconds;
           
-          this.dispatch!(addResourceAmount({
+          this.dispatch(this.actions.addResourceAmount({
             id: resource.id,
             amount: generatedAmount,
           }));
-          
-          // Removed excessive logging for resource updates
         } else if (!('name' in resource) || !resource.name) {
           // Log only occasionally to reduce console spam
           if (Math.random() < 0.01) { // Only log 1% of the time
@@ -178,9 +181,7 @@ export class ResourceManager {
    * Calculate and update resource generation rates based on structures
    */
   calculateResourceGeneration(): void {
-    this.ensureInitialized();
-    
-    const state = this.getState!();
+    const state = this.getState();
     const resources = state.resources;
     const structures = state.structures;
     
@@ -234,7 +235,7 @@ export class ResourceManager {
       // Skip oppression resource - it should always keep its original rate
       if (resourceId === ResourceId.OPPRESSION) {
         // Force oppression rate to constant value
-        this.dispatch!(updateResourcePerSecond({
+        this.dispatch(this.actions.updateResourcePerSecond({
           id: resourceId,
           perSecond: 0.05,
         }));
@@ -251,16 +252,14 @@ export class ResourceManager {
           const passiveLevel = resource.upgrades?.passiveGeneration || 0;
           
           // Update base rate
-          this.dispatch!(updateBaseResourcePerSecond({
+          this.dispatch(this.actions.updateBaseResourcePerSecond({
             id: resourceId,
             basePerSecond: baseRate,
           }));
-          
-          // Removed excessive logging
         } else {
           // If the resource doesn't exist yet, just set the base rate
           // This will automatically set perSecond to the same value
-          this.dispatch!(updateBaseResourcePerSecond({
+          this.dispatch(this.actions.updateBaseResourcePerSecond({
             id: resourceId,
             basePerSecond: baseRate,
           }));
@@ -275,13 +274,11 @@ export class ResourceManager {
    * @returns True if all resources are available and sufficient
    */
   canAfford(costs: Record<string, number>): boolean {
-    this.ensureInitialized();
-    
     if (!costs || Object.keys(costs).length === 0) {
       return true; // No costs, so it's free
     }
     
-    const state = this.getState!();
+    const state = this.getState();
     const resources = state.resources;
     
     // Check each resource cost
@@ -302,8 +299,6 @@ export class ResourceManager {
    * @returns True if costs were successfully applied
    */
   applyResourceCost(costs: Record<string, number>): boolean {
-    this.ensureInitialized();
-    
     if (!costs || Object.keys(costs).length === 0) {
       return true; // No costs to apply
     }
@@ -315,7 +310,7 @@ export class ResourceManager {
     
     // Apply all costs
     for (const [resourceId, amount] of Object.entries(costs)) {
-      this.dispatch!(addResourceAmount({
+      this.dispatch(this.actions.addResourceAmount({
         id: resourceId,
         amount: -amount, // Negative amount to deduct
       }));
@@ -330,9 +325,7 @@ export class ResourceManager {
    * @returns True if the resource was newly unlocked, false if it was already unlocked or doesn't exist
    */
   unlockResource(resourceId: string): boolean {
-    this.ensureInitialized();
-    
-    const state = this.getState!();
+    const state = this.getState();
     const resource = state.resources[resourceId];
     
     // Can't unlock a resource that doesn't exist or is already unlocked
@@ -341,7 +334,7 @@ export class ResourceManager {
     }
     
     // Toggle the resource to unlocked
-    this.dispatch!(toggleResourceUnlocked({
+    this.dispatch(this.actions.toggleResourceUnlocked({
       id: resourceId,
       unlocked: true,
     }));
@@ -356,9 +349,7 @@ export class ResourceManager {
    * @returns True if successful
    */
   addResourceAmount(resourceId: string, amount: number): boolean {
-    this.ensureInitialized();
-    
-    const state = this.getState!();
+    const state = this.getState();
     const resource = state.resources[resourceId];
     
     // Can't add to a resource that doesn't exist
@@ -367,7 +358,7 @@ export class ResourceManager {
     }
     
     // Add the amount
-    this.dispatch!(addResourceAmount({
+    this.dispatch(this.actions.addResourceAmount({
       id: resourceId,
       amount: amount,
     }));
@@ -382,9 +373,7 @@ export class ResourceManager {
    * @returns True if successful
    */
   setResourceAmount(resourceId: string, amount: number): boolean {
-    this.ensureInitialized();
-    
-    const state = this.getState!();
+    const state = this.getState();
     const resource = state.resources[resourceId];
     
     // Can't set a resource that doesn't exist
@@ -393,7 +382,7 @@ export class ResourceManager {
     }
     
     // Set the amount
-    this.dispatch!(updateResourceAmount({
+    this.dispatch(this.actions.updateResourceAmount({
       id: resourceId,
       amount: amount,
     }));
@@ -407,9 +396,7 @@ export class ResourceManager {
    * @returns The amount of resources added
    */
   handleResourceClick(resourceId: string): number {
-    this.ensureInitialized();
-    
-    const state = this.getState!();
+    const state = this.getState();
     const resource = state.resources[resourceId];
     
     // Can't generate a resource that doesn't exist or isn't unlocked
@@ -421,7 +408,7 @@ export class ResourceManager {
     const clickPower = resource.clickPower || 1;
     
     // Add the resources
-    this.dispatch!(addResourceAmount({
+    this.dispatch(this.actions.addResourceAmount({
       id: resourceId,
       amount: clickPower,
     }));
@@ -436,9 +423,7 @@ export class ResourceManager {
    * @returns True if the upgrade was successful
    */
   upgradeClickPower(resourceId: string): boolean {
-    this.ensureInitialized();
-    
-    const state = this.getState!();
+    const state = this.getState();
     const resource = state.resources[resourceId];
     
     // Can't upgrade a resource that doesn't exist or isn't unlocked
@@ -470,7 +455,7 @@ export class ResourceManager {
     const newLevel = currentLevel + 1;
     
     // Update the upgrade level (this will also update clickPower)
-    this.dispatch!(updateUpgradeLevel({
+    this.dispatch(this.actions.updateUpgradeLevel({
       id: resourceId,
       upgradeType: UpgradeType.CLICK_POWER,
       level: newLevel,
@@ -490,9 +475,7 @@ export class ResourceManager {
    * @returns The cost to upgrade or -1 if resource doesn't exist
    */
   getClickUpgradeCost(resourceId: string): number {
-    this.ensureInitialized();
-    
-    const state = this.getState!();
+    const state = this.getState();
     const resource = state.resources[resourceId];
     
     // Can't get cost for a resource that doesn't exist
@@ -527,15 +510,13 @@ export class ResourceManager {
    * @returns True if the upgrade was successful
    */
   upgradePassiveGeneration(resourceId: string): boolean {
-    this.ensureInitialized();
-    
     // Prevent upgrading oppression - it should always generate at constant rate
     if (resourceId === ResourceId.OPPRESSION) {
       console.warn('Cannot upgrade oppression resource - it has a fixed generation rate');
       return false;
     }
     
-    const state = this.getState!();
+    const state = this.getState();
     const resource = state.resources[resourceId];
     
     // Can't upgrade a resource that doesn't exist or isn't unlocked
@@ -569,7 +550,7 @@ export class ResourceManager {
     const newLevel = currentLevel + 1;
     
     // Update the upgrade level (this will also update perSecond based on basePerSecond)
-    this.dispatch!(updateUpgradeLevel({
+    this.dispatch(this.actions.updateUpgradeLevel({
       id: resourceId,
       upgradeType: UpgradeType.PASSIVE_GENERATION,
       level: newLevel,
@@ -589,9 +570,7 @@ export class ResourceManager {
    * @returns The cost to upgrade or -1 if resource doesn't exist
    */
   getPassiveUpgradeCost(resourceId: string): number {
-    this.ensureInitialized();
-    
-    const state = this.getState!();
+    const state = this.getState();
     const resource = state.resources[resourceId];
     
     // Can't get cost for a resource that doesn't exist

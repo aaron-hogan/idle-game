@@ -18,11 +18,11 @@ This document outlines the step-by-step implementation plan for reorganizing the
 
 - [x] Implement dependency injection for TaskManager
 - [x] Implement dependency injection for ProgressionManager
-- [ ] Implement dependency injection for ResourceManager
-- [ ] Implement dependency injection for BuildingManager
+- [x] Implement dependency injection for ResourceManager
+- [x] Implement dependency injection for BuildingManager
 - [ ] Implement dependency injection for EventManager
 - [ ] Implement dependency injection for SaveManager
-- [ ] Update App.tsx to inject store to all managers
+- [x] Update App.tsx to inject store to managers
 
 **PR**: `refactor/complete-dependency-injection`
 

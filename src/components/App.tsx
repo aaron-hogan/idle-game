@@ -84,17 +84,45 @@ const App: React.FC = () => {
   
   // Initialize resources and game loop when the app first loads - only once on mount
   useEffect(() => {
-    // Get singleton instances
-    const resourceManager = ResourceManager.getInstance();
+    // Import required action creators for dependency injection
+    const resourceActions = require('../state/resourcesSlice');
+    const structureActions = require('../state/structuresSlice');
     
-    // Initialize resource manager with store
-    resourceManager.initialize(store);
+    // Initialize resource manager with dependencies
+    const resourceManager = ResourceManager.getInstance({
+      dispatch: store.dispatch,
+      getState: store.getState,
+      actions: {
+        addResource: resourceActions.addResource,
+        updateResourceAmount: resourceActions.updateResourceAmount,
+        addResourceAmount: resourceActions.addResourceAmount,
+        updateResourcePerSecond: resourceActions.updateResourcePerSecond,
+        toggleResourceUnlocked: resourceActions.toggleResourceUnlocked,
+        updateClickPower: resourceActions.updateClickPower,
+        updateUpgradeLevel: resourceActions.updateUpgradeLevel,
+        updateBaseResourcePerSecond: resourceActions.updateBaseResourcePerSecond,
+      }
+    });
+    
+    // Initialize building manager with dependencies
+    const buildingManager = require('../systems/buildingManager').BuildingManager.getInstance({
+      dispatch: store.dispatch,
+      getState: store.getState,
+      actions: {
+        addStructure: structureActions.addStructure,
+        upgradeStructure: structureActions.upgradeStructure,
+        updateProduction: structureActions.updateProduction,
+        deductResources: resourceActions.deductResources,
+      }
+    });
     
     // Initialize task manager with store - using dependency injection
+    // This will be updated in a future PR to use the new pattern
     const taskManager = TaskManager.getInstance();
     taskManager.initialize(store);
     
     // Initialize progression manager with store - using dependency injection
+    // This will be updated in a future PR to use the new pattern
     const progressionManager = ProgressionManager.getInstance();
     progressionManager.initialize(store);
     
@@ -119,6 +147,8 @@ const App: React.FC = () => {
     // Initialize and start the game manager (which controls the game loop)
     // Only initialize if not already initialized
     if (!gameManagerRef.current) {
+      // Note: GameManager will be updated in a future PR to use the new DI pattern
+      // For now, we continue using the existing initialization method
       gameManagerRef.current = GameManager.getInstance(store, { 
         debugMode: true, 
         processOfflineProgress: true 
