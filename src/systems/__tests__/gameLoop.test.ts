@@ -15,6 +15,7 @@ import structuresReducer from '../../state/structuresSlice';
 import eventsReducer from '../../state/eventsSlice';
 import tasksReducer from '../../state/tasksSlice';
 import progressionReducer from '../../redux/progressionSlice';
+import tutorialReducer from '../../state/tutorialSlice';
 import { resetSingleton } from '../../utils/testUtils';
 
 // Mock setInterval and clearInterval
@@ -54,6 +55,7 @@ const createTestStore = () => {
       events: eventsReducer,
       tasks: tasksReducer,
       progression: progressionReducer,
+      tutorial: tutorialReducer,
     },
   });
   

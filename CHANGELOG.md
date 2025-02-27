@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- Updated test files to handle tutorial state in Redux store
+- Fixed type issues in TutorialManager to use RootState instead of AppState
+- Resolved Redux store initialization in various test files
+
 ## [0.5.2] - 2025-02-27
 
 

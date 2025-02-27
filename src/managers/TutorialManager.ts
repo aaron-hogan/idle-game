@@ -1,6 +1,6 @@
 import { Store } from '@reduxjs/toolkit';
 import { tutorialContent, contextualHelpContent } from '../data/tutorialContent';
-import { AppState } from '../state/store';
+import { RootState } from '../state/store';
 import { 
   completeTutorial, 
   setActiveTutorial, 
@@ -16,7 +16,7 @@ import { TutorialContextHelp, TutorialStep } from '../types/tutorial';
  */
 export class TutorialManager {
   private static instance: TutorialManager;
-  private store: Store | null = null;
+  private store: Store<RootState> | null = null;
 
   private constructor() {
     // Private constructor for singleton
@@ -35,7 +35,7 @@ export class TutorialManager {
   /**
    * Initialize the tutorial manager with the Redux store
    */
-  public initialize(store: Store): void {
+  public initialize(store: Store<RootState>): void {
     this.store = store;
     this.checkFirstTimeUser();
   }
@@ -46,7 +46,7 @@ export class TutorialManager {
   private checkFirstTimeUser(): void {
     if (!this.store) return;
 
-    const state = this.store.getState() as AppState;
+    const state = this.store.getState();
     const { firstTimeUser, tutorialsEnabled } = state.tutorial;
 
     if (firstTimeUser && tutorialsEnabled) {
@@ -70,13 +70,13 @@ export class TutorialManager {
   public completeCurrentStep(): void {
     if (!this.store) return;
     
-    const state = this.store.getState() as AppState;
+    const state = this.store.getState();
     const { currentStep } = state.tutorial;
     
     if (currentStep) {
       this.store.dispatch(completeTutorial(currentStep));
       
-      const tutorial = tutorialContent[currentStep];
+      const tutorial = tutorialContent[currentStep as TutorialStep];
       if (tutorial.nextStep) {
         this.store.dispatch(setCurrentStep(tutorial.nextStep));
       } else {
@@ -92,11 +92,11 @@ export class TutorialManager {
   public goToPreviousStep(): void {
     if (!this.store) return;
     
-    const state = this.store.getState() as AppState;
+    const state = this.store.getState();
     const { currentStep } = state.tutorial;
     
     if (currentStep) {
-      const tutorial = tutorialContent[currentStep];
+      const tutorial = tutorialContent[currentStep as TutorialStep];
       if (tutorial.previousStep) {
         this.store.dispatch(setCurrentStep(tutorial.previousStep));
       }
@@ -148,11 +148,11 @@ export class TutorialManager {
   public getCurrentTutorialContent() {
     if (!this.store) return null;
     
-    const state = this.store.getState() as AppState;
+    const state = this.store.getState();
     const { currentStep } = state.tutorial;
     
     if (currentStep) {
-      return tutorialContent[currentStep];
+      return tutorialContent[currentStep as TutorialStep];
     }
     
     return null;
@@ -164,7 +164,7 @@ export class TutorialManager {
   public isTutorialCompleted(tutorialId: string): boolean {
     if (!this.store) return false;
     
-    const state = this.store.getState() as AppState;
-    return state.tutorial.completedTutorials.includes(tutorialId);
+    const state = this.store.getState();
+    return state.tutorial.completed.includes(tutorialId);
   }
 }
