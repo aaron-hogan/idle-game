@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2025-02-27
 ### Added
 - Professional release process with GitFlow-inspired branching strategy
 - Semantic release automation with conventional commits
@@ -116,6 +117,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Updated OfflineProgressModal tests to account for animation timing
   - Corrected structure.test.ts to match actual project structure
   - Fixed type errors and string matching in GameTimer tests
+
 
 ## [0.2.0] - 2025-02-26
 
