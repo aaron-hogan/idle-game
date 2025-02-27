@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Retain only essential files for directory structure (logs/test-results/README.md)
 - Further enhance gitignore with additional patterns for GitHub workflows and wiki
 - Add tracking for wiki Home.md while excluding other wiki files
+- Remove AI-related files (CLAUDE.md, claude-related documentation) from git tracking
+- Enhance gitignore patterns to be more explicit about excluding claude files
 
 ## [0.6.0] - 2025-02-27
 
