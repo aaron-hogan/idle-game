@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Moved documentation files to appropriate directories
 - Added comprehensive README files for new directories
 - Improved PR workflow documentation with explicit communication requirements
+- Completed root folder cleanup by moving all test logs to logs directory
 - Enhanced documentation organization and navigation
 
 ### Fixed
