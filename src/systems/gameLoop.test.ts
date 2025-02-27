@@ -1,3 +1,11 @@
+/**
+ * Tests for the legacy GameLoop implementation
+ * 
+ * TODO: These tests need significant rewriting as the GameLoop implementation
+ * has changed substantially. The skipped tests marked with [OUTDATED] were
+ * testing functionality that now works differently. New tests should be
+ * written that properly test the current implementation.
+ */
 import { GameLoop } from './gameLoop';
 import { addPlayTime, updateLastSaveTime } from '../state/gameSlice';
 import { configureStore } from '@reduxjs/toolkit';

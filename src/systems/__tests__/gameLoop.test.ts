@@ -1,3 +1,11 @@
+/**
+ * Tests for the GameLoop system
+ * 
+ * TODO: These tests need significant rewriting as the GameLoop implementation
+ * has changed substantially. The skipped tests marked with [OUTDATED] were
+ * testing functionality that now works differently. New tests should be
+ * written that properly test the current implementation.
+ */
 import { configureStore } from '@reduxjs/toolkit';
 import { GameLoop, GameLoopConfig } from '../gameLoop';
 import { INITIAL_RESOURCES } from '../../constants/resources';
