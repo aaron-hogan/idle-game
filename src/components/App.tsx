@@ -143,8 +143,8 @@ const App: React.FC = () => {
     });
     
     // Register with GameLoop for periodic event checks
-    const gameLoop = GameLoop.getInstance();
-    gameLoop.registerCallback('eventManager', () => eventManager.processEvents());
+    const gameLoopInstance = require('../core/GameLoop').GameLoop.getInstance();
+    gameLoopInstance.registerCallback('eventManager', () => eventManager.processEvents());
 
     // Import required action creators for save manager
     const gameActions = require('../state/gameSlice');
@@ -167,16 +167,13 @@ const App: React.FC = () => {
       }
     });
     
-    // Import required action creators for worker manager
-    const structureActions = require('../state/structuresSlice');
-    
     // Initialize worker manager with dependencies
     const workerManager = require('../systems/workerManager').WorkerManager.getInstance({
       dispatch: store.dispatch,
       getState: store.getState,
       actions: {
-        assignWorkers: structureActions.assignWorkers,
-        changeWorkerCount: structureActions.changeWorkerCount
+        assignWorkers: structuresActions.assignWorkers,
+        changeWorkerCount: structuresActions.changeWorkerCount
       }
     });
     

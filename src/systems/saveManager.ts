@@ -446,7 +446,7 @@ export class SaveManager {
     this.ensureInitialized();
     
     try {
-      const state = this.store!.getState() as RootState;
+      const state = this.getState();
       const saveData: SaveData = {
         state,
         timestamp: Date.now(),
