@@ -19,6 +19,14 @@ This patch level extension allows us to make smaller incremental updates without
 
 ## Changelog Process
 
+### Critical Requirements
+
+1. **Every version MUST have content** - Empty versions are not allowed and will cause failures
+2. **The Unreleased section MUST have content** before creating a new version
+3. **All changes MUST be categorized** under appropriate headings
+4. **Changes are for humans, not machines** - Write clear, understandable entries
+5. **Group similar types of changes together** - For better readability
+
 ### Adding Changes
 
 During development:
@@ -26,11 +34,11 @@ During development:
 1. Add all changes to the `[Unreleased]` section in `CHANGELOG.md`
 2. Categorize changes under:
    - **Added**: New features
-   - **Changed**: Changes to existing functionality
-   - **Deprecated**: Features that will be removed
-   - **Removed**: Features that were removed
-   - **Fixed**: Bug fixes
-   - **Security**: Security-related changes
+   - **Changed**: Changes in existing functionality
+   - **Deprecated**: Soon-to-be removed features
+   - **Removed**: Now removed features
+   - **Fixed**: Any bug fixes
+   - **Security**: In case of vulnerabilities
 
 Example:
 ```markdown
@@ -42,6 +50,10 @@ Example:
 ### Fixed
 - Bug fix description
 ```
+
+The versioning scripts enforce these requirements and will fail if:
+- You try to create a version with no changes
+- The Unreleased section is empty when versioning
 
 ### Creating a Release
 
@@ -98,12 +110,13 @@ PRs to main must meet these requirements:
 1. **No Unreleased Changes**: All changes must be versioned with a proper version number
 2. **Version Match**: `CHANGELOG.md` version must match `package.json` version
 3. **Complete Documentation**: All changes must be documented in the changelog
-4. **Appropriate Version Level**: Version increments should match the significance of changes:
+4. **No Empty Versions**: Every version MUST contain at least one change entry
+5. **Appropriate Version Level**: Version increments should match the significance of changes:
    - Major version for breaking changes
    - Minor version for new features
    - Patch version for significant bug fixes
    - Patch level for small fixes and tweaks
-5. **Clean Version History**: Changes should be organized chronologically and labeled correctly
+6. **Clean Version History**: Changes should be organized chronologically and labeled correctly
 
 ## CI/CD Integration
 
@@ -180,6 +193,16 @@ If multiple branches modify the changelog:
 1. Keep both sets of changes in the `[Unreleased]` section
 2. Organize changes into appropriate categories
 3. Remove duplicates
+4. Ensure all entries follow a consistent style and format
+
+### Changelog Anti-patterns to Avoid
+
+1. **Commit log dumps**: Never just paste git commit logs; changelogs are curated, meaningful notes
+2. **Inconsistent changes**: Missing important changes makes the changelog unreliable
+3. **Technical jargon**: Remember that changelogs are for humans
+4. **Empty versions**: Every version must have meaningful content
+5. **Confusing dates**: Always use ISO 8601 format (YYYY-MM-DD)
+6. **Unclear descriptions**: Changes should clearly explain what was modified and why
 
 ### When to Use Patch Level Versioning
 

@@ -33,12 +33,16 @@ fi
 UNRELEASED_CONTENT=$(sed -n '/## \[Unreleased\]/,/## \[/p' CHANGELOG.md | grep -v "## \[" | grep -v "^$" | grep -v "\*No unreleased changes" | grep -v "No unreleased changes" | wc -l | tr -d ' ')
 
 if [ "$UNRELEASED_CONTENT" -eq 0 ]; then
-  echo "Warning: No content found in the Unreleased section of CHANGELOG.md."
-  read -p "Continue anyway? (y/N) " CONTINUE
-  if [[ ! "$CONTINUE" =~ ^[Yy]$ ]]; then
-    echo "Operation cancelled."
-    exit 1
-  fi
+  echo "Error: No changes found in the Unreleased section of CHANGELOG.md."
+  echo "Cannot create a new version with no changes. Please add entries to the Unreleased section first."
+  echo ""
+  echo "Example changes to add before versioning:"
+  echo "### Added"
+  echo "- New feature description"
+  echo ""
+  echo "### Fixed"
+  echo "- Bug fix description"
+  exit 1
 fi
 
 # Create backup
