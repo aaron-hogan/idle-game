@@ -54,25 +54,41 @@ jobs:
           # Save PR body to a file to work with it safely
           echo '${{ github.event.pull_request.body }}' > pr_body.txt
           
-          # Create a script to process the PR body and extract changelog
+          # Instead of using a complex piped extraction process, use a more robust approach
+          # with a proper script to find the first line
+          
           cat > extract_changelog.sh << 'EOF'
           #!/bin/bash
-          PR_BODY=$(cat pr_body.txt)
+          set -e  # Exit immediately if a command fails
+          
           PR_TITLE="${{ github.event.pull_request.title }}"
+          CHANGELOG_ENTRY=""
           
-          # Ultra simple extraction strategy:
-          # Get the first non-empty line after the PR title line
-          # Skip heading lines, empty lines, and warning text
-          CHANGELOG_ENTRY=$(grep -v "^#" pr_body.txt | grep -v "^$" | grep -v "⚠️" | head -n 1 || echo "")
-          
-          if [ -n "$CHANGELOG_ENTRY" ]; then
+          # More robust extraction that avoids pipe failures
+          # Go through each line and find the first non-heading, non-empty line
+          while IFS= read -r line || [[ -n "$line" ]]; do
+            trimmed_line=$(echo "$line" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+            
+            # Skip if empty, heading, or has warning symbol
+            if [[ -z "$trimmed_line" || "$trimmed_line" == \#* || "$trimmed_line" == *"⚠️"* ]]; then
+              continue
+            fi
+            
+            # Found a valid line, store it and break
+            CHANGELOG_ENTRY="$trimmed_line"
             echo "Found changelog entry: $CHANGELOG_ENTRY"
-          else
+            break
+          done < pr_body.txt
+          
+          # If no entry found, use PR title as fallback
+          if [ -z "$CHANGELOG_ENTRY" ]; then
             echo "No changelog entry found - using PR title as fallback"
-            CHANGELOG_ENTRY="${{ github.event.pull_request.title }}"
+            # Extract just the description part after the prefix
+            CHANGELOG_ENTRY=$(echo "$PR_TITLE" | sed -E 's/^[^:]*: *//')
+            echo "Using PR title content: $CHANGELOG_ENTRY"
           fi
           
-          # Determine category based on PR title
+          # Determine category based on PR title (case insensitive)
           if [[ "$PR_TITLE" =~ ^[Ff][Ee][Aa][Tt][:\(] ]]; then
             echo "### Added" > changelog_entry.txt
             echo "- $CHANGELOG_ENTRY" >> changelog_entry.txt
@@ -90,7 +106,7 @@ jobs:
             echo "- $CHANGELOG_ENTRY" >> changelog_entry.txt
           fi
           
-          echo "Extracted changelog entry:"
+          echo "Final changelog entry for CHANGELOG.md:"
           cat changelog_entry.txt
           EOF
           
