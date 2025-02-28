@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+*No unreleased changes at this time.*
+
+## [0.7.0] - 2025-02-28
+
 ### Added
 - New test guidelines documentation to standardize testing practices
   - Guidelines for testing managers with proper singleton patterns
@@ -44,7 +48,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - **Added clearer, more visible version label instructions with better formatting**
   - **Created dedicated enhancement.md file with future improvement ideas**
   - **Added detailed example of version selection process**
-
 ### Fixed
 - Fixed linting errors in multiple files:
   - Replaced @ts-ignore comments with proper @ts-expect-error in resourceUtils.ts
@@ -80,7 +83,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - **Enhanced error messages in the PR validation workflow for clarity**
   - **Added clear step-by-step instructions for adding version labels**
   - **Added visual separation for critical instructions in validation output**
-
 ## [0.6.1] - 2025-02-28
 
 ### Fixed
