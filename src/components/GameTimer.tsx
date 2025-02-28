@@ -1,10 +1,6 @@
 import React from 'react';
 import { useAppSelector, useAppDispatch } from '../state/hooks';
-import { 
-  formatTimeAsDays, 
-  getDayProgress,
-  SECONDS_PER_DAY
-} from '../utils/timeUtils';
+import { SECONDS_PER_DAY } from '../utils/timeUtils';
 import { 
   selectTotalPlayTime, 
   selectIsGameRunning, 
@@ -85,8 +81,7 @@ const GameTimer: React.FC<GameTimerProps> = ({ className = '' }) => {
     };
   }, [totalPlayTime, isRunning, gameTimeScale, localDay]);
   
-  // Calculate day progress for progress bar
-  const dayProgress = getDayProgress(totalPlayTime);
+  // Calculate day progress handled by local state now
   
   // DEBUG logging removed after fixing the issue
   

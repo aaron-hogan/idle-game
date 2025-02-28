@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './TabNavigation.css';
 
 export interface NavTab {
@@ -17,8 +17,6 @@ interface TabNavigationProps {
  * Navigation tabs for switching between game pages
  */
 const TabNavigation: React.FC<TabNavigationProps> = ({ tabs }) => {
-  const location = useLocation();
-  
   return (
     <nav className="tab-navigation">
       <div className="tab-container">
