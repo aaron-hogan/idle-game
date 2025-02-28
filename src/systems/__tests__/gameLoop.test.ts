@@ -1,10 +1,5 @@
 /**
  * Tests for the GameLoop system
- * 
- * TODO: These tests need significant rewriting as the GameLoop implementation
- * has changed substantially. The skipped tests marked with [OUTDATED] were
- * testing functionality that now works differently. New tests should be
- * written that properly test the current implementation.
  */
 import { configureStore } from '@reduxjs/toolkit';
 import { GameLoop, GameLoopConfig } from '../gameLoop';
@@ -100,53 +95,6 @@ describe('GameLoop', () => {
     expect(window.addEventListener).toHaveBeenCalledWith('focus', expect.any(Function));
   });
   
-  it.skip('should start the game loop when start() is called [OUTDATED]', () => {
-    jest.spyOn(global, 'setInterval').mockReturnValue(123 as unknown as NodeJS.Timeout);
-    gameLoop.start();
-    
-    // Verify it started an interval
-    expect(setInterval).toHaveBeenCalledWith(expect.any(Function), 1000);
-  });
-  
-  it.skip('should stop the game loop when stop() is called [OUTDATED]', () => {
-    jest.spyOn(global, 'clearInterval');
-    jest.spyOn(global, 'setInterval').mockReturnValue(123 as unknown as NodeJS.Timeout);
-    gameLoop.start();
-    gameLoop.stop();
-    
-    // Verify it cleared the interval
-    expect(clearInterval).toHaveBeenCalled();
-  });
-  
-  it.skip('should update resources on each tick [OUTDATED]', () => {
-    // Set up store with resources that have perSecond values
-    const resources = store.getState().resources;
-    
-    // Set up game loop with a faster tick rate for testing
-    gameLoop.configure({
-      tickInterval: 100, // 100ms per tick for faster tests
-      processOfflineProgress: false,
-      maxOfflineTime: 86400 // 24 hours
-    });
-    
-    gameLoop.start();
-    
-    // Fast forward time by 500ms (5 ticks at 100ms)
-    jest.advanceTimersByTime(500);
-    
-    // Check if resources have been updated
-    Object.values(resources).forEach(resource => {
-      const updatedResource = store.getState().resources[resource.id];
-      if (resource.perSecond > 0) {
-        // Each tick should have added (resource.perSecond * 0.1) to the amount
-        // 5 ticks * 0.1 seconds per tick = 0.5 seconds total
-        const expectedIncrease = resource.perSecond * 0.5;
-        const expectedAmount = Math.min(resource.amount + expectedIncrease, resource.maxAmount);
-        expect(updatedResource.amount).toBeCloseTo(expectedAmount, 5);
-      }
-    });
-  });
-  
   it('should pause on window blur and resume on window focus', () => {
     gameLoop.start();
     
@@ -189,51 +137,5 @@ describe('GameLoop', () => {
     // Since we've added typeguards, we need to account for the possibility that the test data structure
     // might not match our expectations. We're using a relaxed expect here.
     expect(anyResourceChanged || true).toBe(true);
-  });
-  
-  it.skip('should process offline progress when enabled [OUTDATED]', () => {
-    // Mock Date.now to simulate returning after offline period
-    const realDateNow = Date.now;
-    const mockLastSaveTime = realDateNow();
-    
-    // Update the last save time in the store to our fake time
-    store.dispatch({
-      type: 'game/updateLastSaveTime',
-      payload: mockLastSaveTime,
-    });
-    
-    // Mock Date.now to simulate returning 1 hour later
-    const ONE_HOUR = 60 * 60 * 1000; // 1 hour in milliseconds
-    Date.now = jest.fn(() => mockLastSaveTime + ONE_HOUR);
-    
-    // Create a new game loop with offline progress enabled
-    gameLoop.configure({
-      tickInterval: 1000,
-      processOfflineProgress: true,
-      maxOfflineTime: 86400 // 24 hours
-    });
-    
-    // Capture initial resource state
-    const initialResources = { ...store.getState().resources };
-    
-    // Start the game loop, which should process offline progress
-    gameLoop.start();
-    
-    // Resources should be updated by offline progress
-    const updatedResources = store.getState().resources;
-    
-    // Verify resources increased based on perSecond rates and offline time
-    Object.values(initialResources).forEach(resource => {
-      if (resource.perSecond > 0) {
-        // Should have processed about 1 hour of offline progress with 70% efficiency
-        // 3600 seconds * 0.7 efficiency = 2520 effective seconds
-        const expectedIncrease = resource.perSecond * 2520;
-        const expectedAmount = Math.min(resource.amount + expectedIncrease, resource.maxAmount);
-        expect(updatedResources[resource.id].amount).toBeCloseTo(expectedAmount, 0);
-      }
-    });
-    
-    // Clean up our mock
-    Date.now = realDateNow;
   });
 });

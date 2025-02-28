@@ -1,10 +1,5 @@
 /**
- * Tests for the legacy GameLoop implementation
- * 
- * TODO: These tests need significant rewriting as the GameLoop implementation
- * has changed substantially. The skipped tests marked with [OUTDATED] were
- * testing functionality that now works differently. New tests should be
- * written that properly test the current implementation.
+ * Tests for the GameLoop implementation
  */
 import { GameLoop } from './gameLoop';
 import { addPlayTime, updateLastSaveTime } from '../state/gameSlice';
@@ -87,102 +82,6 @@ describe('GameLoop', () => {
   
   test('should initialize properly', () => {
     expect(gameLoop).toBeDefined();
-  });
-  
-  // Legacy GameLoop tests that need to be rewritten to match the new implementation
-  // These tests are skipped as they were testing an older implementation
-  // TODO: Create new tests that properly test the current GameLoop implementation
-  
-  test.skip('should start the game loop', () => {
-    // Mock setInterval
-    jest.spyOn(window, 'setInterval').mockReturnValue(123 as unknown as NodeJS.Timeout);
-    
-    gameLoop.start();
-    
-    // Check if setInterval was called
-    expect(window.setInterval).toHaveBeenCalled();
-    
-    // Clean up
-    gameLoop.stop();
-  });
-  
-  test.skip('should stop the game loop', () => {
-    // Mock setInterval and clearInterval
-    jest.spyOn(window, 'setInterval').mockReturnValue(123 as unknown as NodeJS.Timeout);
-    jest.spyOn(window, 'clearInterval').mockImplementation(() => {});
-    
-    // Start and then stop
-    gameLoop.start();
-    gameLoop.stop();
-    
-    // Check if clearInterval was called
-    expect(window.clearInterval).toHaveBeenCalledWith(123);
-  });
-  
-  test.skip('should update time and resources on tick', () => {
-    // Mock Date.now to simulate time passing
-    const dateSpy = jest.spyOn(Date, 'now');
-    
-    // First call - initialization
-    dateSpy.mockReturnValueOnce(1000000);
-    
-    // Start the loop
-    gameLoop.start();
-    
-    // Reset dispatch tracking
-    (store.dispatch as jest.Mock).mockClear();
-    
-    // Second call - during tick (1 second later)
-    dateSpy.mockReturnValueOnce(1001000);
-    
-    // Simulate a tick by directly calling the private method
-    // @ts-ignore - access private method for testing
-    gameLoop['tick']();
-    
-    // Expect addPlayTime and updateLastSaveTime to be called
-    expect(store.dispatch).toHaveBeenCalledWith(expect.objectContaining({
-      type: expect.stringContaining('game/addPlayTime')
-    }));
-    
-    // Check if total play time was updated
-    const state = store.getState();
-    expect(state.game.totalPlayTime).toBeGreaterThan(0);
-    
-    // Clean up
-    gameLoop.stop();
-  });
-  
-  test.skip('multiple ticks should accumulate play time', () => {
-    // Mock Date.now for controlled testing
-    const dateSpy = jest.spyOn(Date, 'now');
-    
-    // Initialize to 1000 seconds since epoch
-    dateSpy.mockReturnValueOnce(1000000);
-    
-    // Start the loop
-    gameLoop.start();
-    
-    // First tick (1 second later)
-    dateSpy.mockReturnValueOnce(1001000);
-    // @ts-ignore - access private method for testing
-    gameLoop['tick']();
-    
-    // Second tick (another 1 second later)
-    dateSpy.mockReturnValueOnce(1002000);
-    // @ts-ignore - access private method for testing
-    gameLoop['tick']();
-    
-    // Third tick (another 2 seconds later)
-    dateSpy.mockReturnValueOnce(1004000);
-    // @ts-ignore - access private method for testing
-    gameLoop['tick']();
-    
-    // Check if total play time was updated correctly (should be about 4 seconds)
-    const state = store.getState();
-    expect(state.game.totalPlayTime).toBeCloseTo(4, 1);
-    
-    // Clean up
-    gameLoop.stop();
   });
   
   test('dispatches addPlayTime with correct value', () => {
