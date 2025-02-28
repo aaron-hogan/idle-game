@@ -72,7 +72,7 @@ The following files use `Function` type instead of more specific function types:
 
 | Category | Total Files | Fixed Files | Progress |
 |----------|-------------|-------------|----------|
-| Unused Variables | ~40 | 1 | 2.5% |
+| Unused Variables | ~40 | 5 | 12.5% |
 | Explicit Any | ~30 | 0 | 0% |
 | Require Imports | ~5 | 1 | 20% |
 | TS Comments | ~5 | 1 | 20% |

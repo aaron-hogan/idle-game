@@ -85,7 +85,8 @@ As we work through linting issues, we'll track progress by:
 
 ## Next Steps
 
-- [ ] PR for unused variables in core components
-- [ ] PR for require-style imports in system files
-- [ ] PR for @ts-ignore comments in test files
-- [ ] PR for explicit any in GameLoop classes
+- [x] PR for unused variables in core components (GameTimer.tsx, GameTimer.test.tsx, TabNavigation.tsx, ClickableMilestone.tsx)
+- [ ] PR for unused variables in system files (GameLoop.ts, GameTimer.ts, saveManager.ts)
+- [ ] PR for require-style imports in system files (saveContext.tsx, saveManager.ts, workerManager.ts)
+- [ ] PR for @ts-ignore comments in test files (gameSystemCoherenceTest.test.ts, testUtils.ts)
+- [ ] PR for explicit any in GameLoop classes (GameLoop.ts, GameLoop.test.ts)
