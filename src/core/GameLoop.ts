@@ -6,8 +6,10 @@
  * 
  * Uses GameTimer as the authoritative source of time.
  */
+import { Store } from '@reduxjs/toolkit';
 import { GameTimer } from './GameTimer';
 import { checkGameEndConditions } from '../systems/gameEndConditions';
+import { RootState } from '../state/store';
 
 /**
  * Type for tick handlers that receive both real and scaled time
@@ -56,7 +58,7 @@ export class GameLoop {
   private lastFpsUpdateTime: number = 0;
   private currentFps: number = 0;
   private gameTimer: GameTimer;
-  private store: any | null = null;
+  private store: Store<RootState> | null = null;
 
   /**
    * Private constructor for singleton pattern
@@ -272,7 +274,7 @@ export class GameLoop {
    * Set the Redux store to enable game end condition checks
    * @param store The Redux store
    */
-  public setStore(store: any): void {
+  public setStore(store: Store<RootState>): void {
     this.store = store;
   }
   
