@@ -46,7 +46,7 @@ export function saveGame(state: RootState, maxBackups: number = 2): boolean {
 
     // Serialize to JSON
     const serializedState = JSON.stringify(saveData);
-    
+
     // Check if we need to rotate backup saves
     // Only use maxBackups if the number is smaller than our BACKUP_SAVE_KEYS array
     const useMaxBackups = Math.min(maxBackups, BACKUP_SAVE_KEYS.length);
@@ -54,7 +54,7 @@ export function saveGame(state: RootState, maxBackups: number = 2): boolean {
 
     // Save to localStorage
     localStorage.setItem(SAVE_KEY, serializedState);
-    
+
     return true;
   } catch (error) {
     console.error('Failed to save game:', error);
@@ -69,27 +69,27 @@ export function loadGame(): SaveData | null {
   try {
     // Try to get save from localStorage
     const serializedState = localStorage.getItem(SAVE_KEY);
-    
+
     // If no save exists, return null
     if (!serializedState) {
       return null;
     }
-    
+
     // Parse the serialized data
     const saveData: SaveData = JSON.parse(serializedState);
-    
+
     // Basic validation
     if (!saveData || !saveData.version || !saveData.state) {
       console.error('Invalid save data format');
       return null;
     }
-    
+
     // Version compatibility check (to be expanded in future)
     if (saveData.version !== SAVE_VERSION) {
       console.warn(`Save version mismatch: ${saveData.version} vs current ${SAVE_VERSION}`);
       // Future: add migration logic here
     }
-    
+
     return saveData;
   } catch (error) {
     console.error('Failed to load game:', error);
@@ -104,7 +104,7 @@ export function deleteSave(): boolean {
   try {
     localStorage.removeItem(SAVE_KEY);
     // Also remove backups
-    BACKUP_SAVE_KEYS.forEach(key => localStorage.removeItem(key));
+    BACKUP_SAVE_KEYS.forEach((key) => localStorage.removeItem(key));
     return true;
   } catch (error) {
     console.error('Failed to delete save:', error);
@@ -119,7 +119,7 @@ export function backupSave(): boolean {
   try {
     const currentSave = localStorage.getItem(SAVE_KEY);
     if (!currentSave) return false;
-    
+
     // Save to the first backup slot
     localStorage.setItem(BACKUP_SAVE_KEYS[0], currentSave);
     return true;
@@ -139,7 +139,7 @@ export function rotateBackups(): void {
     if (firstBackup) {
       localStorage.setItem(BACKUP_SAVE_KEYS[1], firstBackup);
     }
-    
+
     // Current save becomes the first backup
     const currentSave = localStorage.getItem(SAVE_KEY);
     if (currentSave) {
@@ -159,18 +159,18 @@ export function restoreFromBackup(backupIndex: number = 0): SaveData | null {
       console.error('Invalid backup index');
       return null;
     }
-    
+
     const backupKey = BACKUP_SAVE_KEYS[backupIndex];
     const serializedState = localStorage.getItem(backupKey);
-    
+
     if (!serializedState) {
       console.error('No backup found at index', backupIndex);
       return null;
     }
-    
+
     // Restore backup to current save
     localStorage.setItem(SAVE_KEY, serializedState);
-    
+
     // Parse and return the state
     const saveData: SaveData = JSON.parse(serializedState);
     return saveData;
@@ -195,16 +195,16 @@ export function importSave(saveString: string): SaveData | null {
   try {
     // Parse the string
     const saveData: SaveData = JSON.parse(saveString);
-    
+
     // Validate the data
     if (!saveData || !saveData.version || !saveData.state) {
       console.error('Invalid save data format');
       return null;
     }
-    
+
     // Save to localStorage
     localStorage.setItem(SAVE_KEY, saveString);
-    
+
     return saveData;
   } catch (error) {
     console.error('Failed to import save:', error);

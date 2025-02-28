@@ -14,7 +14,7 @@ const structuresSlice = createSlice({
       const structure = action.payload;
       state[structure.id] = structure;
     },
-    
+
     // Update structure level
     upgradeStructure: (state, action: PayloadAction<{ id: string }>) => {
       const { id } = action.payload;
@@ -23,10 +23,10 @@ const structuresSlice = createSlice({
         // Note: Cost scaling would be applied elsewhere
       }
     },
-    
+
     // Assign workers to a structure
     assignWorkers: (
-      state, 
+      state,
       action: PayloadAction<{ id: string; workers: number; track?: boolean }>
     ) => {
       const { id, workers } = action.payload;
@@ -35,7 +35,7 @@ const structuresSlice = createSlice({
       }
       // Note: track flag is processed by middleware, not in reducer
     },
-    
+
     // Change worker count by a delta amount
     changeWorkerCount: (
       state,
@@ -48,24 +48,21 @@ const structuresSlice = createSlice({
       }
       // Note: track flag is processed by middleware, not in reducer
     },
-    
+
     // Toggle structure visibility
-    toggleStructureUnlocked: (
-      state,
-      action: PayloadAction<{ id: string; unlocked: boolean }>
-    ) => {
+    toggleStructureUnlocked: (state, action: PayloadAction<{ id: string; unlocked: boolean }>) => {
       const { id, unlocked } = action.payload;
       if (state[id]) {
         state[id].unlocked = unlocked;
       }
     },
-    
+
     // Update production values for a structure
     updateProduction: (
       state,
-      action: PayloadAction<{ 
-        id: string; 
-        production: Record<string, number> 
+      action: PayloadAction<{
+        id: string;
+        production: Record<string, number>;
       }>
     ) => {
       const { id, production } = action.payload;
@@ -73,7 +70,7 @@ const structuresSlice = createSlice({
         state[id].production = { ...production };
       }
     },
-    
+
     // Reset all structures
     resetStructures: () => initialState,
   },

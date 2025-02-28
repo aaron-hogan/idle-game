@@ -14,28 +14,28 @@ const ResourceDisplay: React.FC<ResourceDisplayProps> = ({ resource, className =
   const [animateGain, setAnimateGain] = useState(false);
   const [animateLoss, setAnimateLoss] = useState(false);
   const [delta, setDelta] = useState(0);
-  
+
   const animationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  
+
   useEffect(() => {
     // Calculate the change in resource amount
     const difference = resource.amount - previousAmount;
-    
+
     // Only animate if there's a non-zero difference
     if (difference !== 0) {
       setDelta(difference);
-      
+
       if (difference > 0) {
         setAnimateGain(true);
       } else {
         setAnimateLoss(true);
       }
-      
+
       // Clear any existing timeout
       if (animationTimeoutRef.current) {
         clearTimeout(animationTimeoutRef.current);
       }
-      
+
       // Set a timeout to remove the animation class
       animationTimeoutRef.current = setTimeout(() => {
         setAnimateGain(false);
@@ -43,10 +43,10 @@ const ResourceDisplay: React.FC<ResourceDisplayProps> = ({ resource, className =
         animationTimeoutRef.current = null;
       }, 1500);
     }
-    
+
     // Update previous amount for next comparison
     setPreviousAmount(resource.amount);
-    
+
     // Clean up timeout on unmount
     return () => {
       if (animationTimeoutRef.current) {
@@ -54,9 +54,9 @@ const ResourceDisplay: React.FC<ResourceDisplayProps> = ({ resource, className =
       }
     };
   }, [resource.amount, previousAmount]);
-  
+
   const percentFull = Math.min(100, (resource.amount / resource.maxAmount) * 100);
-  
+
   // Determine counter icon type based on resource ID or category
   const getIconType = () => {
     if (resource.id.includes('power')) return 'power';
@@ -69,11 +69,11 @@ const ResourceDisplay: React.FC<ResourceDisplayProps> = ({ resource, className =
     if (resource.category === 'primary') return 'power';
     return 'default';
   };
-  
+
   // Get appropriate icon for the resource
   const getIcon = () => {
     if (resource.icon) return resource.icon;
-    
+
     // Simple mapping based on type
     const iconMap: Record<string, string> = {
       power: '⚡',
@@ -81,34 +81,34 @@ const ResourceDisplay: React.FC<ResourceDisplayProps> = ({ resource, className =
       community: '👥',
       materials: '🧱',
       currency: '💰',
-      default: '■'
+      default: '■',
     };
-    
+
     return iconMap[getIconType()] || iconMap.default;
   };
-  
+
   // Create tooltip details
   const tooltipDetails = [
     { label: 'Current', value: resource.amount.toFixed(2) },
     { label: 'Maximum', value: resource.maxAmount.toFixed(2) },
-    { label: 'Per Second', value: resource.perSecond.toFixed(2) }
+    { label: 'Per Second', value: resource.perSecond.toFixed(2) },
   ];
-  
+
   if (resource.clickPower) {
     tooltipDetails.push({ label: 'Click Value', value: `+${resource.clickPower.toFixed(2)}` });
   }
-  
+
   if (delta !== 0 && (animateGain || animateLoss)) {
-    tooltipDetails.push({ 
-      label: 'Change', 
-      value: `${delta > 0 ? '+' : ''}${delta.toFixed(2)}` 
+    tooltipDetails.push({
+      label: 'Change',
+      value: `${delta > 0 ? '+' : ''}${delta.toFixed(2)}`,
     });
   }
-  
+
   // Special handling for oppression resource to ensure UI always shows correct rate
   let displayRate = resource.perSecond;
   let rateText;
-  
+
   // Check for oppression by both ID and name to be safe
   if (resource.id === 'oppression' || resource.name === 'Corporate Oppression') {
     displayRate = 0.05; // Hard-coded to match actual generation rate
@@ -116,9 +116,11 @@ const ResourceDisplay: React.FC<ResourceDisplayProps> = ({ resource, className =
   } else {
     rateText = `${displayRate > 0 ? '+' : ''}${formatNumber(displayRate)}/sec`;
   }
-  
+
   return (
-    <div className={`resource-display ${className} ${animateGain ? 'gain' : ''} ${animateLoss ? 'loss' : ''}`}>
+    <div
+      className={`resource-display ${className} ${animateGain ? 'gain' : ''} ${animateLoss ? 'loss' : ''}`}
+    >
       <Counter
         icon={getIcon()}
         iconType={getIconType()}
@@ -129,7 +131,7 @@ const ResourceDisplay: React.FC<ResourceDisplayProps> = ({ resource, className =
         tooltip={{
           title: resource.name,
           description: resource.description || `${resource.name} resource`,
-          details: tooltipDetails
+          details: tooltipDetails,
         }}
         className={delta !== 0 ? (delta > 0 ? 'resource-increasing' : 'resource-decreasing') : ''}
       />

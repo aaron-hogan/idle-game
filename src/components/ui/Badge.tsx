@@ -21,14 +21,12 @@ const Badge: React.FC<BadgeProps> = ({
     `game-badge-${variant}`,
     `game-badge-${size}`,
     pill ? 'game-badge-pill' : '',
-    className
-  ].filter(Boolean).join(' ');
-  
-  return (
-    <span className={badgeClasses}>
-      {children}
-    </span>
-  );
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ');
+
+  return <span className={badgeClasses}>{children}</span>;
 };
 
 export default Badge;

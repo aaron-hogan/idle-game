@@ -12,7 +12,7 @@ describe('Project Structure', () => {
       'styles',
       'core',
       'interfaces',
-      'managers'
+      'managers',
     ];
 
     for (const dir of requiredDirs) {

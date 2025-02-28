@@ -18,14 +18,14 @@ export const earlyGameMilestones: Milestone[] = [
       {
         type: 'resourceAmount',
         target: 'collective-power',
-        value: 10
+        value: 10,
       },
       {
         type: 'resourceRate',
         target: 'collective-power',
         value: 0.1,
-        maintenance: true
-      }
+        maintenance: true,
+      },
     ],
     unlocks: ['basic-resources'],
     rewards: [
@@ -33,17 +33,17 @@ export const earlyGameMilestones: Milestone[] = [
         type: 'resource',
         target: 'awareness',
         value: 5,
-        description: 'Gain 5 Awareness'
+        description: 'Gain 5 Awareness',
       },
       {
         type: 'boost',
         target: 'collective-power',
         value: 0.2,
-        description: 'Increase Power generation by 0.2/sec'
-      }
+        description: 'Increase Power generation by 0.2/sec',
+      },
     ],
     order: 1,
-    visible: true
+    visible: true,
   },
   {
     id: 'growing-power',
@@ -56,14 +56,14 @@ export const earlyGameMilestones: Milestone[] = [
       {
         type: 'resourceAmount',
         target: 'collective-power',
-        value: 50
+        value: 50,
       },
       {
         type: 'resourceRate',
         target: 'collective-power',
         value: 0.3,
-        maintenance: true
-      }
+        maintenance: true,
+      },
     ],
     unlocks: ['community-events'],
     rewards: [
@@ -71,17 +71,17 @@ export const earlyGameMilestones: Milestone[] = [
         type: 'resource',
         target: 'connections',
         value: 10,
-        description: 'Gain 10 Connections'
+        description: 'Gain 10 Connections',
       },
       {
         type: 'boost',
         target: 'awareness',
         value: 0.1,
-        description: 'Increase Awareness generation by 0.1/sec'
-      }
+        description: 'Increase Awareness generation by 0.1/sec',
+      },
     ],
     order: 2,
-    visible: true
+    visible: true,
   },
   {
     id: 'resource-sharing',
@@ -94,17 +94,17 @@ export const earlyGameMilestones: Milestone[] = [
       {
         type: 'resourceAmount',
         target: 'connections',
-        value: 30
+        value: 30,
       },
       {
         type: 'resourceAmount',
         target: 'materials',
-        value: 25
-      }
+        value: 25,
+      },
     ],
     unlocks: ['sharing-economy'],
     order: 3,
-    visible: true
+    visible: true,
   },
   {
     id: 'study-circle',
@@ -117,17 +117,17 @@ export const earlyGameMilestones: Milestone[] = [
       {
         type: 'resourceAmount',
         target: 'awareness',
-        value: 40
+        value: 40,
       },
       {
         type: 'resourceAmount',
         target: 'connections',
-        value: 15
-      }
+        value: 15,
+      },
     ],
     unlocks: ['theory-development'],
     order: 4,
-    visible: true
+    visible: true,
   },
   {
     id: 'first-protest',
@@ -140,23 +140,23 @@ export const earlyGameMilestones: Milestone[] = [
       {
         type: 'resourceAmount',
         target: 'connections',
-        value: 50
+        value: 50,
       },
       {
         type: 'resourceAmount',
         target: 'awareness',
-        value: 30
+        value: 30,
       },
       {
         type: 'resourceAmount',
         target: 'organization',
-        value: 10
-      }
+        value: 10,
+      },
     ],
     unlocks: ['organizing-skills'],
     order: 5,
-    visible: true
-  }
+    visible: true,
+  },
 ];
 
 /**
@@ -174,22 +174,22 @@ export const midGameMilestones: Milestone[] = [
       {
         type: 'resourceAmount',
         target: 'materials',
-        value: 100
+        value: 100,
       },
       {
         type: 'resourceAmount',
         target: 'connections',
-        value: 80
+        value: 80,
       },
       {
         type: 'resourceAmount',
         target: 'organization',
-        value: 50
-      }
+        value: 50,
+      },
     ],
     unlocks: ['cooperative-economy'],
     order: 6,
-    visible: false
+    visible: false,
   },
   {
     id: 'community-garden',
@@ -202,17 +202,17 @@ export const midGameMilestones: Milestone[] = [
       {
         type: 'resourceAmount',
         target: 'materials',
-        value: 120
+        value: 120,
       },
       {
         type: 'resourceAmount',
         target: 'land',
-        value: 30
-      }
+        value: 30,
+      },
     ],
     unlocks: ['food-sovereignty'],
     order: 7,
-    visible: false
+    visible: false,
   },
   {
     id: 'mutual-aid-network',
@@ -225,22 +225,22 @@ export const midGameMilestones: Milestone[] = [
       {
         type: 'resourceAmount',
         target: 'connections',
-        value: 150
+        value: 150,
       },
       {
         type: 'resourceAmount',
         target: 'awareness',
-        value: 100
+        value: 100,
       },
       {
         type: 'resourceAmount',
         target: 'organization',
-        value: 80
-      }
+        value: 80,
+      },
     ],
     unlocks: ['community-support'],
     order: 8,
-    visible: false
+    visible: false,
   },
   {
     id: 'alternative-education',
@@ -253,17 +253,17 @@ export const midGameMilestones: Milestone[] = [
       {
         type: 'resourceAmount',
         target: 'awareness',
-        value: 200
+        value: 200,
       },
       {
         type: 'resourceAmount',
         target: 'organization',
-        value: 100
-      }
+        value: 100,
+      },
     ],
     unlocks: ['knowledge-sharing'],
     order: 9,
-    visible: false
+    visible: false,
   },
   {
     id: 'legal-defense-fund',
@@ -276,18 +276,18 @@ export const midGameMilestones: Milestone[] = [
       {
         type: 'resourceAmount',
         target: 'materials',
-        value: 250
+        value: 250,
       },
       {
         type: 'resourceAmount',
         target: 'connections',
-        value: 200
-      }
+        value: 200,
+      },
     ],
     unlocks: ['legal-protection'],
     order: 10,
-    visible: false
-  }
+    visible: false,
+  },
 ];
 
 /**
@@ -305,22 +305,22 @@ export const lateGameMilestones: Milestone[] = [
       {
         type: 'resourceAmount',
         target: 'organization',
-        value: 300
+        value: 300,
       },
       {
         type: 'resourceAmount',
         target: 'connections',
-        value: 400
+        value: 400,
       },
       {
         type: 'resourceAmount',
         target: 'awareness',
-        value: 350
-      }
+        value: 350,
+      },
     ],
     unlocks: ['economic-autonomy'],
     order: 11,
-    visible: false
+    visible: false,
   },
   {
     id: 'housing-collective',
@@ -333,22 +333,22 @@ export const lateGameMilestones: Milestone[] = [
       {
         type: 'resourceAmount',
         target: 'land',
-        value: 100
+        value: 100,
       },
       {
         type: 'resourceAmount',
         target: 'materials',
-        value: 500
+        value: 500,
       },
       {
         type: 'resourceAmount',
         target: 'organization',
-        value: 350
-      }
+        value: 350,
+      },
     ],
     unlocks: ['housing-security'],
     order: 12,
-    visible: false
+    visible: false,
   },
   {
     id: 'regional-network',
@@ -361,17 +361,17 @@ export const lateGameMilestones: Milestone[] = [
       {
         type: 'resourceAmount',
         target: 'connections',
-        value: 600
+        value: 600,
       },
       {
         type: 'resourceAmount',
         target: 'organization',
-        value: 400
-      }
+        value: 400,
+      },
     ],
     unlocks: ['regional-coordination'],
     order: 13,
-    visible: false
+    visible: false,
   },
   {
     id: 'democratic-workplaces',
@@ -384,22 +384,22 @@ export const lateGameMilestones: Milestone[] = [
       {
         type: 'resourceAmount',
         target: 'awareness',
-        value: 500
+        value: 500,
       },
       {
         type: 'resourceAmount',
         target: 'connections',
-        value: 500
+        value: 500,
       },
       {
         type: 'resourceAmount',
         target: 'organization',
-        value: 450
-      }
+        value: 450,
+      },
     ],
     unlocks: ['workplace-democracy'],
     order: 14,
-    visible: false
+    visible: false,
   },
   {
     id: 'popular-assembly',
@@ -412,23 +412,23 @@ export const lateGameMilestones: Milestone[] = [
       {
         type: 'resourceAmount',
         target: 'connections',
-        value: 700
+        value: 700,
       },
       {
         type: 'resourceAmount',
         target: 'awareness',
-        value: 600
+        value: 600,
       },
       {
         type: 'resourceAmount',
         target: 'organization',
-        value: 500
-      }
+        value: 500,
+      },
     ],
     unlocks: ['direct-democracy'],
     order: 15,
-    visible: false
-  }
+    visible: false,
+  },
 ];
 
 /**
@@ -446,27 +446,27 @@ export const endGameMilestones: Milestone[] = [
       {
         type: 'resourceAmount',
         target: 'land',
-        value: 200
+        value: 200,
       },
       {
         type: 'resourceAmount',
         target: 'materials',
-        value: 1000
+        value: 1000,
       },
       {
         type: 'resourceAmount',
         target: 'organization',
-        value: 800
+        value: 800,
       },
       {
         type: 'resourceAmount',
         target: 'connections',
-        value: 1000
-      }
+        value: 1000,
+      },
     ],
     unlocks: ['territorial-autonomy'],
     order: 16,
-    visible: false
+    visible: false,
   },
   {
     id: 'systemic-alternative',
@@ -479,23 +479,23 @@ export const endGameMilestones: Milestone[] = [
       {
         type: 'resourceAmount',
         target: 'awareness',
-        value: 1000
+        value: 1000,
       },
       {
         type: 'resourceAmount',
         target: 'organization',
-        value: 900
+        value: 900,
       },
       {
         type: 'resourceAmount',
         target: 'connections',
-        value: 1200
-      }
+        value: 1200,
+      },
     ],
     unlocks: ['new-society'],
     order: 17,
-    visible: false
-  }
+    visible: false,
+  },
 ];
 
 /**
@@ -505,5 +505,5 @@ export const allMilestones: Milestone[] = [
   ...earlyGameMilestones,
   ...midGameMilestones,
   ...lateGameMilestones,
-  ...endGameMilestones
+  ...endGameMilestones,
 ];

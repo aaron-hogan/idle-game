@@ -22,12 +22,12 @@ const TabSystem: React.FC<TabSystemProps> = ({ tabs, defaultTabId }) => {
   };
 
   // Find the active tab
-  const activeTabContent = tabs.find(tab => tab.id === activeTab)?.content;
+  const activeTabContent = tabs.find((tab) => tab.id === activeTab)?.content;
 
   return (
     <div className="tab-system">
       <div className="debugger-tabs">
-        {tabs.map(tab => (
+        {tabs.map((tab) => (
           <div
             key={tab.id}
             className={`debugger-tab ${activeTab === tab.id ? 'active' : ''}`}
@@ -37,9 +37,7 @@ const TabSystem: React.FC<TabSystemProps> = ({ tabs, defaultTabId }) => {
           </div>
         ))}
       </div>
-      <div className="debugger-content">
-        {activeTabContent}
-      </div>
+      <div className="debugger-content">{activeTabContent}</div>
     </div>
   );
 };

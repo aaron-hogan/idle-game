@@ -18,7 +18,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     this.state = {
       hasError: false,
       error: null,
-      errorInfo: null
+      errorInfo: null,
     };
   }
 
@@ -30,12 +30,12 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
     // Log the error to an error reporting service
     console.error('Error caught by ErrorBoundary:', error, errorInfo);
-    
+
     // Update state to store the error info
     this.setState({
-      errorInfo
+      errorInfo,
     });
-    
+
     // Call the onError callback if provided
     if (this.props.onError) {
       this.props.onError(error, errorInfo);
@@ -48,7 +48,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
       if (this.props.fallback) {
         return this.props.fallback;
       }
-      
+
       return (
         <div className="error-boundary">
           <h2>Something went wrong.</h2>

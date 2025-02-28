@@ -17,28 +17,28 @@ const GameDebugger: React.FC = () => {
     {
       id: 'gameLoop',
       label: 'Game Loop',
-      content: <GameLoopDebugTab />
+      content: <GameLoopDebugTab />,
     },
     {
       id: 'resources',
       label: 'Resources',
-      content: <ResourceDebugTab />
+      content: <ResourceDebugTab />,
     },
     {
       id: 'progression',
       label: 'Progression',
-      content: <ProgressionDebugTab />
+      content: <ProgressionDebugTab />,
     },
     {
       id: 'events',
       label: 'Events',
-      content: <EventDebugTab />
+      content: <EventDebugTab />,
     },
     {
       id: 'tutorial',
       label: 'Tutorial',
-      content: <TutorialDebugTab />
-    }
+      content: <TutorialDebugTab />,
+    },
   ];
 
   // Control visibility - always show in development mode

@@ -1,0 +1,28 @@
+﻿2025-02-28T11:15:49.9198669Z Current runner version: '2.322.0'
+2025-02-28T11:15:49.9225448Z ##[group]Operating System
+2025-02-28T11:15:49.9226403Z Ubuntu
+2025-02-28T11:15:49.9226926Z 24.04.2
+2025-02-28T11:15:49.9227425Z LTS
+2025-02-28T11:15:49.9227914Z ##[endgroup]
+2025-02-28T11:15:49.9228402Z ##[group]Runner Image
+2025-02-28T11:15:49.9229007Z Image: ubuntu-24.04
+2025-02-28T11:15:49.9229546Z Version: 20250223.1.0
+2025-02-28T11:15:49.9230538Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20250223.1/images/ubuntu/Ubuntu2404-Readme.md
+2025-02-28T11:15:49.9231978Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20250223.1
+2025-02-28T11:15:49.9232862Z ##[endgroup]
+2025-02-28T11:15:49.9233401Z ##[group]Runner Image Provisioner
+2025-02-28T11:15:49.9233978Z 2.0.422.1
+2025-02-28T11:15:49.9234853Z ##[endgroup]
+2025-02-28T11:15:49.9236428Z ##[group]GITHUB_TOKEN Permissions
+2025-02-28T11:15:49.9238565Z Contents: read
+2025-02-28T11:15:49.9239089Z Metadata: read
+2025-02-28T11:15:49.9239653Z Packages: read
+2025-02-28T11:15:49.9240410Z ##[endgroup]
+2025-02-28T11:15:49.9242333Z Secret source: Actions
+2025-02-28T11:15:49.9243113Z Prepare workflow directory
+2025-02-28T11:15:49.9552470Z Prepare all required actions
+2025-02-28T11:15:49.9589833Z Getting action download info
+2025-02-28T11:15:50.2947719Z Download action repository 'actions/checkout@v4' (SHA:11bd71901bbe5b1630ceea73d27597364c9af683)
+2025-02-28T11:15:50.3849355Z Download action repository 'actions/setup-node@v3' (SHA:1a4442cacd436585916779262731d5b162bc6ec7)
+2025-02-28T11:15:50.4819183Z Download action repository 'gitleaks/gitleaks-action@v2' (SHA:83373cf2f8c4db6e24b41c1a9b086bb9619e9cd3)
+2025-02-28T11:15:50.7888661Z Complete job name: Security Scan

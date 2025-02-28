@@ -6,11 +6,11 @@ jest.mock('../../state/store', () => {
   const mockStore = {
     getState: jest.fn(),
     dispatch: jest.fn(),
-    subscribe: jest.fn().mockImplementation(() => jest.fn())
+    subscribe: jest.fn().mockImplementation(() => jest.fn()),
   };
-  
+
   return {
-    store: mockStore
+    store: mockStore,
   };
 });
 
@@ -25,10 +25,10 @@ jest.mock('../../redux/progressionSlice', () => ({
   selectCompletedMilestones: jest.fn(),
   selectUnlockedAchievements: jest.fn(),
   selectVisibleMilestones: jest.fn(),
-  selectVisibleAchievements: jest.fn()
+  selectVisibleAchievements: jest.fn(),
 }));
 
 // Mock the time utils
 jest.mock('../../utils/timeUtils', () => ({
-  getCurrentTime: jest.fn().mockReturnValue(1000)
+  getCurrentTime: jest.fn().mockReturnValue(1000),
 }));

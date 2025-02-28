@@ -6,27 +6,27 @@
  */
 export function formatNumber(value: number, decimals: number = 1): string {
   if (value === 0) return '0';
-  
+
   if (value < 0.01) {
     return value.toExponential(decimals);
   }
-  
+
   if (value < 1) {
     return value.toFixed(2);
   }
-  
+
   if (value < 1000) {
     return value.toFixed(decimals);
   }
-  
+
   const units = ['', 'K', 'M', 'B', 'T', 'Qa', 'Qi', 'Sx', 'Sp', 'Oc', 'No', 'Dc'];
-  
+
   // Calculate the appropriate unit index
   const unitIndex = Math.floor(Math.log10(value) / 3);
   const unitValue = value / Math.pow(1000, unitIndex);
-  
+
   const cappedUnitIndex = Math.min(unitIndex, units.length - 1);
-  
+
   return `${unitValue.toFixed(decimals)}${units[cappedUnitIndex]}`;
 }
 
@@ -39,19 +39,19 @@ export function formatTime(seconds: number): string {
   if (seconds < 60) {
     return `${Math.floor(seconds)}s`;
   }
-  
+
   if (seconds < 3600) {
     const mins = Math.floor(seconds / 60);
     const secs = Math.floor(seconds % 60);
     return `${mins}m ${secs}s`;
   }
-  
+
   if (seconds < 86400) {
     const hours = Math.floor(seconds / 3600);
     const mins = Math.floor((seconds % 3600) / 60);
     return `${hours}h ${mins}m`;
   }
-  
+
   const days = Math.floor(seconds / 86400);
   const hours = Math.floor((seconds % 86400) / 3600);
   return `${days}d ${hours}h`;
@@ -75,11 +75,11 @@ export function formatPercent(value: number, decimals: number = 0): string {
  */
 export function formatDate(timestamp: number): string {
   const date = new Date(timestamp);
-  
+
   // Format: HH:MM:SS
   const hours = date.getHours().toString().padStart(2, '0');
   const minutes = date.getMinutes().toString().padStart(2, '0');
   const seconds = date.getSeconds().toString().padStart(2, '0');
-  
+
   return `${hours}:${minutes}:${seconds}`;
 }

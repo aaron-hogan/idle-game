@@ -12,16 +12,16 @@ interface PassiveUpgradePanelProps {
 /**
  * Panel for upgrading resource passive generation rate
  */
-const PassiveUpgradePanel: React.FC<PassiveUpgradePanelProps> = ({ 
-  resourceId = ResourceId.COLLECTIVE_POWER 
+const PassiveUpgradePanel: React.FC<PassiveUpgradePanelProps> = ({
+  resourceId = ResourceId.COLLECTIVE_POWER,
 }) => {
   // Get the resource from the store
-  const resource = useAppSelector(state => state.resources[resourceId]);
-  
+  const resource = useAppSelector((state) => state.resources[resourceId]);
+
   // Get cost and affordability with error handling
   const [upgradeCost, setUpgradeCost] = useState(20);
   const [canAfford, setCanAfford] = useState(false);
-  
+
   // Effect to calculate costs safely
   useEffect(() => {
     try {
@@ -30,12 +30,12 @@ const PassiveUpgradePanel: React.FC<PassiveUpgradePanelProps> = ({
       setUpgradeCost(cost > 0 ? cost : 20);
       setCanAfford(resource && resource.amount >= cost);
     } catch (error) {
-      console.error("Error calculating passive upgrade cost:", error);
+      console.error('Error calculating passive upgrade cost:', error);
       setUpgradeCost(20);
       setCanAfford(false);
     }
   }, [resourceId, resource]);
-  
+
   // Handle upgrade click
   const handleUpgrade = useCallback(() => {
     if (canAfford) {
@@ -43,22 +43,22 @@ const PassiveUpgradePanel: React.FC<PassiveUpgradePanelProps> = ({
         const resourceManager = ResourceManager.getInstance();
         resourceManager.upgradePassiveGeneration(resourceId);
       } catch (error) {
-        console.error("Error upgrading passive generation:", error);
+        console.error('Error upgrading passive generation:', error);
       }
     }
   }, [resourceId, canAfford]);
-  
+
   // If the resource doesn't exist, don't render
   if (!resource) {
     return null;
   }
-  
+
   // Get current generation rate and upgrade level
   const generationRate = resource.perSecond || 0;
   const upgradeLevel = resource.upgrades?.[UpgradeType.PASSIVE_GENERATION] || 0;
   const baseRate = resource.basePerSecond || 0;
   const upgradeBonus = upgradeLevel * 0.1;
-  
+
   return (
     <div className="upgrade-panel">
       <div className="upgrade-info">
@@ -72,8 +72,8 @@ const PassiveUpgradePanel: React.FC<PassiveUpgradePanelProps> = ({
           <span className="upgrade-detail">Bonus: +{upgradeBonus.toFixed(1)}</span>
         </div>
       </div>
-      
-      <button 
+
+      <button
         className={`upgrade-button ${canAfford ? 'affordable' : 'expensive'}`}
         onClick={handleUpgrade}
         disabled={!canAfford}

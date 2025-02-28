@@ -16,16 +16,16 @@ function withErrorBoundary<P extends object>(
   Component: React.ComponentType<P>,
   options: WithErrorBoundaryOptions = {}
 ): React.FC<P> {
-  const { 
-    fallback, 
-    onError, 
-    componentName = Component.displayName || Component.name || 'Component' 
+  const {
+    fallback,
+    onError,
+    componentName = Component.displayName || Component.name || 'Component',
   } = options;
 
   const defaultFallback = (
-    <ErrorFallback 
+    <ErrorFallback
       componentName={componentName}
-      resetErrorBoundary={() => window.location.reload()} 
+      resetErrorBoundary={() => window.location.reload()}
     />
   );
 

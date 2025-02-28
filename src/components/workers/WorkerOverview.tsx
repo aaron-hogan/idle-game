@@ -15,18 +15,20 @@ const WorkerOverview: React.FC = () => {
     if (typeof game !== 'object' || game === null) return 0;
     return 'gameStage' in game ? game.gameStage : 0;
   });
-  
+
   // Calculate worker stats
-  const totalWorkers = 5 + (gameStage * 3); // Base workers + 3 per game stage
-  
+  const totalWorkers = 5 + gameStage * 3; // Base workers + 3 per game stage
+
   return (
-    <div style={{ 
-      margin: '1rem 0',
-      padding: '1rem',
-      backgroundColor: '#f8f9fa',
-      borderRadius: '4px',
-      border: '1px solid #dee2e6'
-    }}>
+    <div
+      style={{
+        margin: '1rem 0',
+        padding: '1rem',
+        backgroundColor: '#f8f9fa',
+        borderRadius: '4px',
+        border: '1px solid #dee2e6',
+      }}
+    >
       <h3>Worker Overview</h3>
       <div>
         <p>Total Workers Available: {totalWorkers}</p>
@@ -41,5 +43,5 @@ export default withErrorBoundary(WorkerOverview, {
   componentName: 'WorkerOverview',
   onError: (error, errorInfo) => {
     console.error('Error in WorkerOverview component:', error, errorInfo);
-  }
+  },
 });

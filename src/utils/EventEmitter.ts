@@ -1,20 +1,25 @@
 /**
+ * Type for event callback functions that can receive any arguments
+ */
+export type EventCallback = (...args: unknown[]) => void;
+
+/**
  * Simple type-safe event emitter implementation
  * Used for communication between managers and components
  */
 export class EventEmitter {
-  private listeners: Map<string, Function[]> = new Map();
+  private listeners: Map<string, EventCallback[]> = new Map();
 
   /**
    * Register a callback for a specific event
    * @param eventName Name of the event to listen for
    * @param callback Function to call when event is emitted
    */
-  public on(eventName: string, callback: Function): void {
+  public on(eventName: string, callback: EventCallback): void {
     if (!this.listeners.has(eventName)) {
       this.listeners.set(eventName, []);
     }
-    
+
     const callbacks = this.listeners.get(eventName);
     if (callbacks && !callbacks.includes(callback)) {
       callbacks.push(callback);
@@ -26,15 +31,15 @@ export class EventEmitter {
    * @param eventName Name of the event to stop listening for
    * @param callback Function to remove
    */
-  public off(eventName: string, callback: Function): void {
+  public off(eventName: string, callback: EventCallback): void {
     const callbacks = this.listeners.get(eventName);
-    
+
     if (callbacks) {
       const index = callbacks.indexOf(callback);
       if (index !== -1) {
         callbacks.splice(index, 1);
       }
-      
+
       // Clean up if no listeners remain
       if (callbacks.length === 0) {
         this.listeners.delete(eventName);
@@ -49,12 +54,12 @@ export class EventEmitter {
    */
   public emit<T extends unknown[]>(eventName: string, ...args: T): void {
     const callbacks = this.listeners.get(eventName);
-    
+
     if (callbacks) {
       // Create a copy of the callbacks array to safely iterate
       // This prevents issues if callbacks modify the listeners during iteration
       const callbacksCopy = [...callbacks];
-      
+
       for (const callback of callbacksCopy) {
         try {
           callback(...args);

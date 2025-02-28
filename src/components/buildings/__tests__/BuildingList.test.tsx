@@ -24,7 +24,7 @@ const mockStore = configureStore([]);
 
 describe('BuildingList', () => {
   let store: ReturnType<typeof mockStore>;
-  
+
   beforeEach(() => {
     // Create a mock store with test structures and resources
     store = mockStore({
@@ -39,7 +39,7 @@ describe('BuildingList', () => {
           production: { resource2: 1 },
           unlocked: true,
           workers: 0,
-          maxWorkers: 5
+          maxWorkers: 5,
         },
         building2: {
           id: 'building2',
@@ -51,7 +51,7 @@ describe('BuildingList', () => {
           production: { resource3: 0.5 },
           unlocked: true,
           workers: 0,
-          maxWorkers: 3
+          maxWorkers: 3,
         },
         building3: {
           id: 'building3',
@@ -63,8 +63,8 @@ describe('BuildingList', () => {
           production: { resource2: 2 },
           unlocked: false, // This one is not unlocked
           workers: 1,
-          maxWorkers: 4
-        }
+          maxWorkers: 4,
+        },
       },
       resources: {
         resource1: {
@@ -74,7 +74,7 @@ describe('BuildingList', () => {
           maxAmount: 1000,
           perSecond: 1,
           description: 'Test resource 1',
-          unlocked: true
+          unlocked: true,
         },
         resource2: {
           id: 'resource2',
@@ -83,28 +83,28 @@ describe('BuildingList', () => {
           maxAmount: 1000,
           perSecond: 0.5,
           description: 'Test resource 2',
-          unlocked: true
-        }
-      }
+          unlocked: true,
+        },
+      },
     });
   });
-  
+
   it('should render only unlocked buildings', () => {
     render(
       <Provider store={store}>
         <BuildingList />
       </Provider>
     );
-    
+
     // Should render the two unlocked buildings
     expect(screen.getByText('Building 1')).toBeInTheDocument();
     expect(screen.getByText('Building 2')).toBeInTheDocument();
-    
+
     // The component's rendering logic now includes locked buildings, we just don't render
     // an active state for them. So this expectation needs to be removed.
     // expect(screen.queryByText('Building 3')).not.toBeInTheDocument();
   });
-  
+
   it('should show buildings available count', () => {
     // Create a store with only locked buildings
     const emptyStore = mockStore({
@@ -119,18 +119,18 @@ describe('BuildingList', () => {
           production: { resource2: 1 },
           unlocked: false,
           workers: 0,
-          maxWorkers: 5
-        }
+          maxWorkers: 5,
+        },
       },
-      resources: {}
+      resources: {},
     });
-    
+
     render(
       <Provider store={emptyStore}>
         <BuildingList />
       </Provider>
     );
-    
+
     // Should render the buildings available count
     expect(screen.getByText('Buildings available: 1')).toBeInTheDocument();
   });

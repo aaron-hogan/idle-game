@@ -8,12 +8,12 @@ export interface CounterProps {
   icon: string;
   iconType?: 'day' | 'power' | 'knowledge' | 'materials' | 'community' | 'currency' | 'default';
   value: string | number;
-  
+
   // Optional rate/progress properties
   rate?: string | number;
   rateType?: 'positive' | 'negative' | 'neutral';
   progress?: number; // 0 to 1 for fill progress
-  
+
   // Dropdown properties
   hasDropdown?: boolean;
   dropdownTrigger?: string; // If not provided, will use rate
@@ -23,7 +23,7 @@ export interface CounterProps {
     isActive?: boolean;
   }>;
   dropdownTitle?: string;
-  
+
   // Tooltip properties
   tooltip?: {
     title: string;
@@ -33,7 +33,7 @@ export interface CounterProps {
       value: string | number;
     }>;
   };
-  
+
   // Style properties
   className?: string;
   minWidth?: string;
@@ -47,21 +47,21 @@ const Counter: React.FC<CounterProps> = ({
   icon,
   iconType = 'default',
   value,
-  
+
   // Rate and progress
   rate,
   rateType = 'neutral',
   progress = 0,
-  
+
   // Dropdown props
   hasDropdown = false,
   dropdownTrigger,
   dropdownItems = [],
   dropdownTitle = 'Options',
-  
+
   // Tooltip props
   tooltip,
-  
+
   // Style props
   className = '',
   minWidth,
@@ -69,25 +69,25 @@ const Counter: React.FC<CounterProps> = ({
   // State for tooltip and dropdown
   const [showTooltip, setShowTooltip] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
-  
+
   // Refs for positioning
   const counterRef = useRef<HTMLDivElement>(null);
   const rateRef = useRef<HTMLSpanElement>(null);
   const [rateRect, setRateRect] = useState<DOMRect | null>(null);
-  
+
   // Format the progress style
   const progressStyle = {
     width: `${Math.min(Math.max(progress, 0), 1) * 100}%`,
   };
-  
+
   // Custom min-width if specified
   const customStyle = minWidth ? { minWidth } : {};
-  
+
   // Toggle dropdown
   const toggleDropdown = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (!hasDropdown) return;
-    
+
     // Get the dropdown trigger position
     if (rateRef.current) {
       setRateRect(rateRef.current.getBoundingClientRect());
@@ -96,39 +96,34 @@ const Counter: React.FC<CounterProps> = ({
   };
 
   return (
-    <div 
+    <div
       className={`counter ${className}`}
       ref={counterRef}
       onMouseEnter={() => setShowTooltip(true)}
       onMouseLeave={() => setShowTooltip(false)}
     >
       <div className="counter-container">
-        <div 
-          className="counter-display" 
-          style={customStyle}
-        >
+        <div className="counter-display" style={customStyle}>
           {/* Progress indicator (if specified) */}
           {progress > 0 && (
-            <div 
+            <div
               className={`counter-progress ${iconType}`}
               style={progressStyle}
               aria-hidden="true"
             />
           )}
-          
+
           {/* Left icon */}
           <span className={`counter-icon ${iconType}`} title={iconType}>
             {icon}
           </span>
-          
+
           {/* Center value */}
-          <span className="counter-value">
-            {value}
-          </span>
-          
+          <span className="counter-value">{value}</span>
+
           {/* Right rate/dropdown trigger */}
           {(rate || hasDropdown) && (
-            <span 
+            <span
               ref={rateRef}
               className={`counter-rate ${rateType} ${hasDropdown ? 'dropdown-trigger' : ''}`}
               onClick={hasDropdown ? toggleDropdown : undefined}
@@ -138,7 +133,7 @@ const Counter: React.FC<CounterProps> = ({
             </span>
           )}
         </div>
-        
+
         {/* Dropdown (if enabled) */}
         {hasDropdown && (
           <Dropdown
@@ -148,7 +143,7 @@ const Counter: React.FC<CounterProps> = ({
             position="bottom-right"
             className="counter-dropdown"
           >
-            <div 
+            <div
               className="dropdown-header"
               style={{
                 fontSize: '10px',
@@ -158,7 +153,7 @@ const Counter: React.FC<CounterProps> = ({
                 borderBottom: '1px solid #333',
                 textTransform: 'uppercase',
                 letterSpacing: '0.5px',
-                fontFamily: 'monospace'
+                fontFamily: 'monospace',
               }}
             >
               {dropdownTitle}
@@ -180,9 +175,9 @@ const Counter: React.FC<CounterProps> = ({
                   margin: '2px 0',
                   fontFamily: 'monospace',
                   fontWeight: 500,
-                  boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.05)'
+                  boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.05)',
                 };
-                
+
                 return (
                   <button
                     key={index}
@@ -197,7 +192,7 @@ const Counter: React.FC<CounterProps> = ({
             </div>
           </Dropdown>
         )}
-        
+
         {/* Tooltip (if specified) */}
         {tooltip && showTooltip && (
           <div className="counter-tooltip">

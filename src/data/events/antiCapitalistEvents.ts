@@ -1,9 +1,4 @@
-import { 
-  IEvent, 
-  EventType, 
-  EventCategory, 
-  EventStatus 
-} from '../../interfaces/Event';
+import { IEvent, EventType, EventCategory, EventStatus } from '../../interfaces/Event';
 
 /**
  * Anti-capitalist themed events for the game
@@ -13,7 +8,8 @@ export const antiCapitalistEvents: IEvent[] = [
   {
     id: 'corporate-media-smear',
     title: 'Corporate Media Smear Campaign',
-    description: 'A local corporate media outlet has begun running negative stories about your organization, painting it as dangerous and extreme. Community trust is being affected.',
+    description:
+      'A local corporate media outlet has begun running negative stories about your organization, painting it as dangerous and extreme. Community trust is being affected.',
     type: EventType.STORY,
     category: EventCategory.CRISIS,
     status: EventStatus.PENDING,
@@ -22,15 +18,15 @@ export const antiCapitalistEvents: IEvent[] = [
         type: 'resourceAmount',
         target: 'community-trust',
         value: 50,
-        operator: '>='
-      }
+        operator: '>=',
+      },
     ],
     consequences: [
       {
         type: 'addResource',
         target: 'community-trust',
-        value: -10
-      }
+        value: -10,
+      },
     ],
     choices: [
       {
@@ -40,9 +36,9 @@ export const antiCapitalistEvents: IEvent[] = [
           {
             type: 'addResource',
             target: 'collective-power',
-            value: 5
-          }
-        ]
+            value: 5,
+          },
+        ],
       },
       {
         id: 'counter-narrative',
@@ -51,14 +47,14 @@ export const antiCapitalistEvents: IEvent[] = [
           {
             type: 'addResource',
             target: 'community-trust',
-            value: 15
+            value: 15,
           },
           {
             type: 'addResource',
             target: 'collective-power',
-            value: -10
-          }
-        ]
+            value: -10,
+          },
+        ],
       },
       {
         id: 'community-meeting',
@@ -67,28 +63,29 @@ export const antiCapitalistEvents: IEvent[] = [
           {
             type: 'addResource',
             target: 'community-trust',
-            value: 25
+            value: 25,
           },
           {
             type: 'addResource',
             target: 'collective-power',
-            value: -5
-          }
-        ]
-      }
+            value: -5,
+          },
+        ],
+      },
     ],
     priority: 80,
     seen: false,
     repeatable: true,
     cooldown: 600,
-    tags: ['media', 'crisis', 'community']
+    tags: ['media', 'crisis', 'community'],
   },
-  
+
   // Spontaneous Strike Event
   {
     id: 'spontaneous-strike',
     title: 'Spontaneous Strike',
-    description: 'Workers at a local factory have walked out in protest of unsafe conditions. This unexpected action presents an opportunity for solidarity and potential growth.',
+    description:
+      'Workers at a local factory have walked out in protest of unsafe conditions. This unexpected action presents an opportunity for solidarity and potential growth.',
     type: EventType.STORY,
     category: EventCategory.OPPORTUNITY,
     status: EventStatus.PENDING,
@@ -97,8 +94,8 @@ export const antiCapitalistEvents: IEvent[] = [
         type: 'resourceAmount',
         target: 'organization',
         value: 30,
-        operator: '>='
-      }
+        operator: '>=',
+      },
     ],
     consequences: [],
     choices: [
@@ -109,14 +106,14 @@ export const antiCapitalistEvents: IEvent[] = [
           {
             type: 'addResource',
             target: 'solidarity',
-            value: 15
+            value: 15,
           },
           {
             type: 'addResource',
             target: 'bargaining-power',
-            value: 10
-          }
-        ]
+            value: 10,
+          },
+        ],
       },
       {
         id: 'provide-resources',
@@ -125,14 +122,14 @@ export const antiCapitalistEvents: IEvent[] = [
           {
             type: 'addResource',
             target: 'community-support',
-            value: 20
+            value: 20,
           },
           {
             type: 'addResource',
             target: 'resources',
-            value: -15
-          }
-        ]
+            value: -15,
+          },
+        ],
       },
       {
         id: 'organize-support',
@@ -141,33 +138,34 @@ export const antiCapitalistEvents: IEvent[] = [
           {
             type: 'addResource',
             target: 'solidarity',
-            value: 10
+            value: 10,
           },
           {
             type: 'addResource',
             target: 'community-support',
-            value: 15
+            value: 15,
           },
           {
             type: 'addResource',
             target: 'organization',
-            value: -5
-          }
-        ]
-      }
+            value: -5,
+          },
+        ],
+      },
     ],
     priority: 75,
     seen: false,
     repeatable: true,
     cooldown: 900,
-    tags: ['labor', 'opportunity', 'solidarity']
+    tags: ['labor', 'opportunity', 'solidarity'],
   },
-  
+
   // Community Support Rally Event
   {
     id: 'community-support-rally',
     title: 'Community Support Rally',
-    description: 'An opportunity has arisen to organize a community rally to build support for your cause and increase solidarity among community members.',
+    description:
+      'An opportunity has arisen to organize a community rally to build support for your cause and increase solidarity among community members.',
     type: EventType.STORY,
     category: EventCategory.OPPORTUNITY,
     status: EventStatus.PENDING,
@@ -176,8 +174,8 @@ export const antiCapitalistEvents: IEvent[] = [
         type: 'resourceAmount',
         target: 'organization',
         value: 20,
-        operator: '>='
-      }
+        operator: '>=',
+      },
     ],
     consequences: [],
     choices: [
@@ -188,14 +186,14 @@ export const antiCapitalistEvents: IEvent[] = [
           {
             type: 'addResource',
             target: 'community-support',
-            value: 25
+            value: 25,
           },
           {
             type: 'addResource',
             target: 'organization',
-            value: -10
-          }
-        ]
+            value: -10,
+          },
+        ],
       },
       {
         id: 'downtown-march',
@@ -204,19 +202,19 @@ export const antiCapitalistEvents: IEvent[] = [
           {
             type: 'addResource',
             target: 'solidarity',
-            value: 20
+            value: 20,
           },
           {
             type: 'addResource',
             target: 'community-support',
-            value: 15
+            value: 15,
           },
           {
             type: 'addResource',
             target: 'organization',
-            value: -15
-          }
-        ]
+            value: -15,
+          },
+        ],
       },
       {
         id: 'online-campaign',
@@ -225,28 +223,29 @@ export const antiCapitalistEvents: IEvent[] = [
           {
             type: 'addResource',
             target: 'community-support',
-            value: 10
+            value: 10,
           },
           {
             type: 'addResource',
             target: 'organization',
-            value: -5
-          }
-        ]
-      }
+            value: -5,
+          },
+        ],
+      },
     ],
     priority: 70,
     seen: false,
     repeatable: true,
     cooldown: 600,
-    tags: ['community', 'opportunity', 'organizing']
+    tags: ['community', 'opportunity', 'organizing'],
   },
-  
+
   // Police Harassment Event
   {
     id: 'police-harassment',
     title: 'Police Harassment',
-    description: 'Local authorities have begun increasing surveillance and harassment of your organization. Members report being followed and intimidated.',
+    description:
+      'Local authorities have begun increasing surveillance and harassment of your organization. Members report being followed and intimidated.',
     type: EventType.STORY,
     category: EventCategory.CRISIS,
     status: EventStatus.PENDING,
@@ -255,21 +254,21 @@ export const antiCapitalistEvents: IEvent[] = [
         type: 'resourceAmount',
         target: 'organization',
         value: 40,
-        operator: '>='
+        operator: '>=',
       },
       {
         type: 'resourceAmount',
         target: 'community-support',
         value: 60,
-        operator: '>='
-      }
+        operator: '>=',
+      },
     ],
     consequences: [
       {
         type: 'addResource',
         target: 'organization',
-        value: -5
-      }
+        value: -5,
+      },
     ],
     choices: [
       {
@@ -279,14 +278,14 @@ export const antiCapitalistEvents: IEvent[] = [
           {
             type: 'addResource',
             target: 'organization',
-            value: 15
+            value: 15,
           },
           {
             type: 'addResource',
             target: 'resources',
-            value: -20
-          }
-        ]
+            value: -20,
+          },
+        ],
       },
       {
         id: 'public-documentation',
@@ -295,14 +294,14 @@ export const antiCapitalistEvents: IEvent[] = [
           {
             type: 'addResource',
             target: 'community-support',
-            value: 25
+            value: 25,
           },
           {
             type: 'addResource',
             target: 'solidarity',
-            value: 10
-          }
-        ]
+            value: 10,
+          },
+        ],
       },
       {
         id: 'adapt-tactics',
@@ -311,28 +310,29 @@ export const antiCapitalistEvents: IEvent[] = [
           {
             type: 'addResource',
             target: 'organization',
-            value: 10
+            value: 10,
           },
           {
             type: 'addResource',
             target: 'community-support',
-            value: -5
-          }
-        ]
-      }
+            value: -5,
+          },
+        ],
+      },
     ],
     priority: 85,
     seen: false,
     repeatable: true,
     cooldown: 1200,
-    tags: ['repression', 'crisis', 'security']
+    tags: ['repression', 'crisis', 'security'],
   },
-  
+
   // Gentrification Threat Event
   {
     id: 'gentrification-threat',
     title: 'Gentrification Threat',
-    description: 'A corporate developer has announced plans to build luxury condos in a working-class neighborhood, threatening to displace local residents.',
+    description:
+      'A corporate developer has announced plans to build luxury condos in a working-class neighborhood, threatening to displace local residents.',
     type: EventType.STORY,
     category: EventCategory.CRISIS,
     status: EventStatus.PENDING,
@@ -341,8 +341,8 @@ export const antiCapitalistEvents: IEvent[] = [
         type: 'resourceAmount',
         target: 'community-support',
         value: 75,
-        operator: '>='
-      }
+        operator: '>=',
+      },
     ],
     consequences: [],
     choices: [
@@ -353,19 +353,19 @@ export const antiCapitalistEvents: IEvent[] = [
           {
             type: 'addResource',
             target: 'organization',
-            value: 20
+            value: 20,
           },
           {
             type: 'addResource',
             target: 'solidarity',
-            value: 15
+            value: 15,
           },
           {
             type: 'addResource',
             target: 'resources',
-            value: -10
-          }
-        ]
+            value: -10,
+          },
+        ],
       },
       {
         id: 'protest-development',
@@ -374,14 +374,14 @@ export const antiCapitalistEvents: IEvent[] = [
           {
             type: 'addResource',
             target: 'community-support',
-            value: 30
+            value: 30,
           },
           {
             type: 'addResource',
             target: 'organization',
-            value: -5
-          }
-        ]
+            value: -5,
+          },
+        ],
       },
       {
         id: 'alternative-plan',
@@ -390,25 +390,25 @@ export const antiCapitalistEvents: IEvent[] = [
           {
             type: 'addResource',
             target: 'community-support',
-            value: 20
+            value: 20,
           },
           {
             type: 'addResource',
             target: 'resources',
-            value: -25
+            value: -25,
           },
           {
             type: 'addResource',
             target: 'solidarity',
-            value: 25
-          }
-        ]
-      }
+            value: 25,
+          },
+        ],
+      },
     ],
     priority: 75,
     seen: false,
     repeatable: true,
     cooldown: 900,
-    tags: ['housing', 'crisis', 'development']
-  }
+    tags: ['housing', 'crisis', 'development'],
+  },
 ];

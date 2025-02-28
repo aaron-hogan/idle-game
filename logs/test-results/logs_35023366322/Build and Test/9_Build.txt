@@ -1,0 +1,31 @@
+﻿2025-02-28T11:16:23.0724643Z ##[group]Run npm run build:dev
+2025-02-28T11:16:23.0724921Z [36;1mnpm run build:dev[0m
+2025-02-28T11:16:23.0767306Z shell: /usr/bin/bash -e {0}
+2025-02-28T11:16:23.0767538Z ##[endgroup]
+2025-02-28T11:16:23.1848554Z 
+2025-02-28T11:16:23.1849058Z > idle-game@0.6.1 build:dev
+2025-02-28T11:16:23.1849642Z > webpack --mode production --env ignoreTypeErrors=true
+2025-02-28T11:16:23.1849996Z 
+2025-02-28T11:16:32.1438898Z assets by status 537 KiB [1m[32m[cached][39m[22m 2 assets
+2025-02-28T11:16:32.1439989Z orphan modules 1.01 MiB [1m[33m[orphan][39m[22m 155 modules
+2025-02-28T11:16:32.1440665Z runtime modules 972 bytes 5 modules
+2025-02-28T11:16:32.1441148Z cacheable modules 1.74 MiB
+2025-02-28T11:16:32.1441752Z   modules by path [1m./src/[39m[22m 1.08 MiB
+2025-02-28T11:16:32.1442563Z     modules by path [1m./src/components/[39m[22m 84.3 KiB 32 modules
+2025-02-28T11:16:32.1443325Z     modules by path [1m./src/styles/[39m[22m 26.5 KiB 8 modules
+2025-02-28T11:16:32.1443996Z     modules by path [1m./src/state/*.ts[39m[22m 16.2 KiB
+2025-02-28T11:16:32.1444937Z       [1m./src/state/resourcesSlice.ts[39m[22m 5.48 KiB [1m[33m[built][39m[22m [1m[33m[code generated][39m[22m
+2025-02-28T11:16:32.1445754Z       + 3 modules
+2025-02-28T11:16:32.1445996Z     + 8 modules
+2025-02-28T11:16:32.1446471Z   modules by path [1m./node_modules/[39m[22m 681 KiB 22 modules
+2025-02-28T11:16:32.1446778Z 
+2025-02-28T11:16:32.1447415Z [1m[31mERROR[39m[22m in [1m/home/runner/work/idle-game/idle-game/src/components/GameTimer.tsx[39m[22m
+2025-02-28T11:16:32.1448476Z [1m./src/components/GameTimer.tsx[39m[22m [1m[32m4:0-7[39m[22m
+2025-02-28T11:16:32.1449653Z [1m[tsl] [1m[31mERROR[39m[22m[1m in /home/runner/work/idle-game/idle-game/src/components/GameTimer.tsx(4,1)
+2025-02-28T11:16:32.1451104Z       TS1185: Merge [1m[31mconflict[39m[22m[1m marker encountered.[39m[22m
+2025-02-28T11:16:32.1451726Z ts-loader-default_8c1ff2f85f3e5f59
+2025-02-28T11:16:32.1452159Z  @ ./src/components/App.tsx 9:0-36 177:254-263
+2025-02-28T11:16:32.1452579Z  @ ./src/index.tsx 6:0-35 17:93-96
+2025-02-28T11:16:32.1452790Z 
+2025-02-28T11:16:32.1453214Z webpack 5.98.0 compiled with [1m[31m1 error[39m[22m in 8488 ms
+2025-02-28T11:16:32.1954086Z ##[error]Process completed with exit code 1.

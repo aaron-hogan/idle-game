@@ -76,7 +76,7 @@ export class SaveManager {
     this.actions = dependencies.actions;
     this.config = { ...DEFAULT_CONFIG, ...(dependencies.config || {}) };
     this.initialized = true;
-    
+
     // Only start autosave if explicitly enabled
     if (this.config.autosaveEnabled) {
       this.startAutosave();
@@ -88,33 +88,46 @@ export class SaveManager {
    * @param dependenciesOrStore The dependencies needed by SaveManager or store for backward compatibility
    * @returns The singleton SaveManager instance
    */
-  public static getInstance(dependenciesOrStore?: SaveManagerDependencies | { dispatch: unknown; getState: unknown }): SaveManager {
+  public static getInstance(
+    dependenciesOrStore?: SaveManagerDependencies | { dispatch: unknown; getState: unknown }
+  ): SaveManager {
     if (!SaveManager.instance) {
       if (!dependenciesOrStore) {
         // Create instance without dependencies, initialize() will be called later
         SaveManager.instance = new SaveManager({
           dispatch: (() => {}) as AppDispatch, // Placeholder
-          getState: (() => ({} as RootState)), // Placeholder
-          actions: {} as SaveManagerDependencies['actions'] // Placeholder
+          getState: () => ({}) as RootState, // Placeholder
+          actions: {} as SaveManagerDependencies['actions'], // Placeholder
         });
-      } else if ('dispatch' in dependenciesOrStore && 'getState' in dependenciesOrStore && 'actions' in dependenciesOrStore) {
+      } else if (
+        'dispatch' in dependenciesOrStore &&
+        'getState' in dependenciesOrStore &&
+        'actions' in dependenciesOrStore
+      ) {
         // If full dependencies are provided
         SaveManager.instance = new SaveManager(dependenciesOrStore as SaveManagerDependencies);
       } else {
         // If a store is provided (backward compatibility)
         const instance = new SaveManager({
           dispatch: (() => {}) as AppDispatch, // Placeholder
-          getState: (() => ({} as RootState)), // Placeholder  
-          actions: {} as SaveManagerDependencies['actions'] // Placeholder
+          getState: () => ({}) as RootState, // Placeholder
+          actions: {} as SaveManagerDependencies['actions'], // Placeholder
         });
         instance.initialize(dependenciesOrStore);
         SaveManager.instance = instance;
       }
-    } else if (dependenciesOrStore && !('dispatch' in dependenciesOrStore && 'getState' in dependenciesOrStore && 'actions' in dependenciesOrStore)) {
+    } else if (
+      dependenciesOrStore &&
+      !(
+        'dispatch' in dependenciesOrStore &&
+        'getState' in dependenciesOrStore &&
+        'actions' in dependenciesOrStore
+      )
+    ) {
       // If instance exists and a store is provided, initialize with it (backward compatibility)
       SaveManager.instance.initialize(dependenciesOrStore);
     }
-    
+
     return SaveManager.instance;
   }
 
@@ -124,20 +137,23 @@ export class SaveManager {
    * @param config Optional configuration parameters
    * @deprecated Use dependency injection through constructor instead
    */
-  public initialize(store: { dispatch: unknown; getState: unknown } | Store, config: Partial<SaveManagerConfig> = {}): void {
+  public initialize(
+    store: { dispatch: unknown; getState: unknown } | Store,
+    config: Partial<SaveManagerConfig> = {}
+  ): void {
     // Check if already initialized properly
     try {
       this.ensureInitialized();
-      
+
       // Just update config if already initialized
       this.setConfig(config);
       return;
     } catch (_e) {
       // Continue with initialization
     }
-    
+
     // Use the imported action creators
-    
+
     // Set up dependencies from store
     this.dispatch = store.dispatch as AppDispatch;
     this.getState = store.getState as () => RootState;
@@ -146,18 +162,21 @@ export class SaveManager {
       resetResources: resourcesActions.resetResources,
       resetStructures: structuresActions.resetStructures,
     };
-    
+
     this.setConfig(config);
     this.initialized = true;
   }
-  
+
   /**
    * Ensure the manager is properly initialized
    * @throws Error if not initialized
    */
   private ensureInitialized(): void {
     invariant(
-      this.initialized && this.dispatch !== undefined && this.getState !== undefined && this.actions !== undefined,
+      this.initialized &&
+        this.dispatch !== undefined &&
+        this.getState !== undefined &&
+        this.actions !== undefined,
       'SaveManager not properly initialized with dependencies',
       'SaveManager'
     );
@@ -168,16 +187,16 @@ export class SaveManager {
    */
   saveGame(): boolean {
     this.ensureInitialized();
-    
+
     try {
       const state = this.getState();
       const saved = saveGame(state, this.config.maxBackups);
-      
+
       if (saved) {
         // Update last save time in the store
         this.dispatch({ type: 'game/updateLastSaveTime' });
       }
-      
+
       return saved;
     } catch (error) {
       this.logger.logError(
@@ -193,7 +212,7 @@ export class SaveManager {
    */
   loadGame(): boolean {
     this.ensureInitialized();
-    
+
     try {
       const saveData = loadGame();
       if (!saveData || !saveData.state) return false;
@@ -215,7 +234,7 @@ export class SaveManager {
    */
   resetGame(): void {
     this.ensureInitialized();
-    
+
     this.dispatch(this.actions.resetGame());
     this.dispatch(this.actions.resetResources());
     this.dispatch(this.actions.resetStructures());
@@ -226,7 +245,7 @@ export class SaveManager {
    */
   deleteSaveAndReset(): boolean {
     this.ensureInitialized();
-    
+
     try {
       const deleted = deleteSave();
       if (deleted) {
@@ -247,7 +266,7 @@ export class SaveManager {
    */
   startAutosave(): void {
     this.ensureInitialized();
-    
+
     if (this.autosaveIntervalId !== null) {
       this.stopAutosave();
     }
@@ -291,7 +310,7 @@ export class SaveManager {
    */
   restoreFromBackup(backupIndex: number = 0): boolean {
     this.ensureInitialized();
-    
+
     try {
       const saveData = restoreFromBackup(backupIndex);
       if (!saveData || !saveData.state) return false;
@@ -346,7 +365,7 @@ export class SaveManager {
    */
   private applyLoadedState(saveData: SaveData): void {
     this.ensureInitialized();
-    
+
     // Reset current state first to clear any data
     this.resetGame();
 
@@ -354,13 +373,13 @@ export class SaveManager {
       // Set game state
       if (saveData.state.game) {
         // Update individual properties to avoid type issues with unknown properties
-        const { 
-          gameStage, 
+        const {
+          gameStage,
           // lastSaveTime not used, so not destructured
           totalPlayTime,
           isRunning,
           tickRate,
-          gameTimeScale
+          gameTimeScale,
         } = saveData.state.game;
 
         if (gameStage !== undefined) {
@@ -370,8 +389,8 @@ export class SaveManager {
           this.dispatch({ type: 'game/setTotalPlayTime', payload: totalPlayTime });
         }
         if (isRunning !== undefined) {
-          this.dispatch({ 
-            type: isRunning ? 'game/startGame' : 'game/stopGame' 
+          this.dispatch({
+            type: isRunning ? 'game/startGame' : 'game/stopGame',
           });
         }
         if (tickRate !== undefined) {
@@ -387,7 +406,7 @@ export class SaveManager {
       // Load resources
       if (saveData.state.resources) {
         const resources = saveData.state.resources;
-        Object.values(resources).forEach(resource => {
+        Object.values(resources).forEach((resource) => {
           this.dispatch({ type: 'resources/addResource', payload: resource });
         });
       }
@@ -395,7 +414,7 @@ export class SaveManager {
       // Load structures
       if (saveData.state.structures) {
         const structures = saveData.state.structures;
-        Object.values(structures).forEach(structure => {
+        Object.values(structures).forEach((structure) => {
           this.dispatch({ type: 'structures/addStructure', payload: structure });
         });
       }
@@ -415,17 +434,17 @@ export class SaveManager {
    */
   importSaveFromJSON(json: string): boolean {
     this.ensureInitialized();
-    
+
     try {
       // Parse the JSON string with safety measures
       const saveData = safeJsonParse<SaveData>(json, { state: {}, timestamp: 0, version: '0' });
-      
+
       // Validate the imported data
       if (!saveData || !saveData.state || !saveData.version) {
         this.logger.logError('Invalid save data format', 'SaveManager.importSaveFromJSON');
         return false;
       }
-      
+
       // Apply the imported state
       this.applyLoadedState(saveData);
       return true;
@@ -444,15 +463,15 @@ export class SaveManager {
    */
   exportSaveAsJSON(): string | null {
     this.ensureInitialized();
-    
+
     try {
       const state = this.getState();
       const saveData: SaveData = {
         state,
         timestamp: Date.now(),
-        version: '1.0'  // You should use your game's actual version
+        version: '1.0', // You should use your game's actual version
       };
-      
+
       return JSON.stringify(saveData);
     } catch (error) {
       this.logger.logError(

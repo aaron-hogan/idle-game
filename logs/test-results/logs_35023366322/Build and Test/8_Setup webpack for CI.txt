@@ -1,0 +1,57 @@
+﻿2025-02-28T11:16:23.0550805Z ##[group]Run echo "Converting webpack.config.js from ES module to CommonJS format"
+2025-02-28T11:16:23.0551646Z [36;1mecho "Converting webpack.config.js from ES module to CommonJS format"[0m
+2025-02-28T11:16:23.0552099Z [36;1mcat > webpack.config.js << 'EOF'[0m
+2025-02-28T11:16:23.0552437Z [36;1mconst path = require('path');[0m
+2025-02-28T11:16:23.0552946Z [36;1mconst HtmlWebpackPlugin = require('html-webpack-plugin');[0m
+2025-02-28T11:16:23.0553350Z [36;1m[0m
+2025-02-28T11:16:23.0553616Z [36;1mmodule.exports = (env, argv) => ({[0m
+2025-02-28T11:16:23.0554039Z [36;1m  entry: './src/index.tsx',[0m
+2025-02-28T11:16:23.0554324Z [36;1m  output: {[0m
+2025-02-28T11:16:23.0554623Z [36;1m    path: path.resolve(__dirname, 'dist'),[0m
+2025-02-28T11:16:23.0555062Z [36;1m    filename: 'bundle.js',[0m
+2025-02-28T11:16:23.0555691Z [36;1m    publicPath: '/',[0m
+2025-02-28T11:16:23.0555953Z [36;1m  },[0m
+2025-02-28T11:16:23.0556314Z [36;1m  resolve: {[0m
+2025-02-28T11:16:23.0566925Z [36;1m    extensions: ['.tsx', '.ts', '.js'],[0m
+2025-02-28T11:16:23.0567381Z [36;1m    alias: {[0m
+2025-02-28T11:16:23.0567618Z [36;1m      '@': path.resolve(__dirname, 'src'),[0m
+2025-02-28T11:16:23.0567876Z [36;1m    },[0m
+2025-02-28T11:16:23.0568047Z [36;1m  },[0m
+2025-02-28T11:16:23.0568214Z [36;1m  devServer: {[0m
+2025-02-28T11:16:23.0568428Z [36;1m    historyApiFallback: true,[0m
+2025-02-28T11:16:23.0568875Z [36;1m    port: 3000,[0m
+2025-02-28T11:16:23.0569065Z [36;1m    hot: true,[0m
+2025-02-28T11:16:23.0569247Z [36;1m  },[0m
+2025-02-28T11:16:23.0569410Z [36;1m  module: {[0m
+2025-02-28T11:16:23.0569583Z [36;1m    rules: [[0m
+2025-02-28T11:16:23.0569761Z [36;1m      {[0m
+2025-02-28T11:16:23.0569940Z [36;1m        test: /\.(ts|tsx)$/,[0m
+2025-02-28T11:16:23.0570177Z [36;1m        exclude: /node_modules/,[0m
+2025-02-28T11:16:23.0570408Z [36;1m        use: {[0m
+2025-02-28T11:16:23.0570603Z [36;1m          loader: 'ts-loader',[0m
+2025-02-28T11:16:23.0570826Z [36;1m          options: {[0m
+2025-02-28T11:16:23.0571181Z [36;1m            // Ignore TypeScript errors in development mode or when explicitly specified[0m
+2025-02-28T11:16:23.0571705Z [36;1m            transpileOnly: argv.mode === 'development' || (env && env.ignoreTypeErrors === 'true'),[0m
+2025-02-28T11:16:23.0572084Z [36;1m          },[0m
+2025-02-28T11:16:23.0572265Z [36;1m        },[0m
+2025-02-28T11:16:23.0572436Z [36;1m      },[0m
+2025-02-28T11:16:23.0572603Z [36;1m      {[0m
+2025-02-28T11:16:23.0572773Z [36;1m        test: /\.css$/,[0m
+2025-02-28T11:16:23.0573015Z [36;1m        use: ['style-loader', 'css-loader'],[0m
+2025-02-28T11:16:23.0573264Z [36;1m      },[0m
+2025-02-28T11:16:23.0573419Z [36;1m      {[0m
+2025-02-28T11:16:23.0573613Z [36;1m        test: /\.(png|svg|jpg|jpeg|gif)$/i,[0m
+2025-02-28T11:16:23.0573872Z [36;1m        type: 'asset/resource',[0m
+2025-02-28T11:16:23.0574087Z [36;1m      },[0m
+2025-02-28T11:16:23.0574253Z [36;1m    ],[0m
+2025-02-28T11:16:23.0574419Z [36;1m  },[0m
+2025-02-28T11:16:23.0574587Z [36;1m  plugins: [[0m
+2025-02-28T11:16:23.0574794Z [36;1m    new HtmlWebpackPlugin({[0m
+2025-02-28T11:16:23.0575047Z [36;1m      template: './src/index.html',[0m
+2025-02-28T11:16:23.0575504Z [36;1m    }),[0m
+2025-02-28T11:16:23.0575680Z [36;1m  ],[0m
+2025-02-28T11:16:23.0575839Z [36;1m});[0m
+2025-02-28T11:16:23.0575997Z [36;1mEOF[0m
+2025-02-28T11:16:23.0622811Z shell: /usr/bin/bash -e {0}
+2025-02-28T11:16:23.0623040Z ##[endgroup]
+2025-02-28T11:16:23.0689412Z Converting webpack.config.js from ES module to CommonJS format

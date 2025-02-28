@@ -9,7 +9,7 @@ export enum GameStage {
   EARLY = 'EARLY',
   MID = 'MID',
   LATE = 'LATE',
-  END_GAME = 'END_GAME'
+  END_GAME = 'END_GAME',
 }
 
 /**
@@ -22,7 +22,7 @@ export enum MilestoneType {
   AWARENESS = 'AWARENESS',
   RESISTANCE = 'RESISTANCE',
   TRANSFORMATION = 'TRANSFORMATION',
-  SPECIAL = 'SPECIAL'
+  SPECIAL = 'SPECIAL',
 }
 
 /**
@@ -35,15 +35,15 @@ export enum AchievementType {
   COMMUNITY = 'COMMUNITY',
   RESISTANCE = 'RESISTANCE',
   TIMED = 'TIMED',
-  SPECIAL = 'SPECIAL'
+  SPECIAL = 'SPECIAL',
 }
 
 /**
  * Requirement types for progression items
  */
-export type RequirementType = 
+export type RequirementType =
   | 'resourceAmount'
-  | 'resourceRate' 
+  | 'resourceRate'
   | 'milestonesCompleted'
   | 'achievementsUnlocked'
   | 'gameStage'

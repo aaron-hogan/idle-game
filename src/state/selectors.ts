@@ -7,28 +7,28 @@ import { Structure } from '../models/structure';
 // Resource selectors
 export const selectAllResources = (state: RootState) => state.resources;
 
-export const selectResourceById = (id: string) => 
-  (state: RootState) => state.resources[id] || NULL_RESOURCE;
+export const selectResourceById = (id: string) => (state: RootState) =>
+  state.resources[id] || NULL_RESOURCE;
 
 /**
  * Safe version of selectResourceById that returns null if resource doesn't exist
  */
-export const selectResourceByIdNullable = (id: string) => 
-  (state: RootState) => state.resources[id] || null;
+export const selectResourceByIdNullable = (id: string) => (state: RootState) =>
+  state.resources[id] || null;
 
 export const selectUnlockedResources = createSelector(
   selectAllResources,
   (resources): Resource[] => {
     // Get resource values, ensuring we don't create a new array each time
     const resourceList = Object.values(resources);
-    
+
     // Need to explicitly cast to Resource[] to make TypeScript happy
     return resourceList.filter(
-      (resource): resource is Resource => 
-        resource !== undefined && 
-        typeof resource === 'object' && 
-        resource !== null && 
-        'unlocked' in resource && 
+      (resource): resource is Resource =>
+        resource !== undefined &&
+        typeof resource === 'object' &&
+        resource !== null &&
+        'unlocked' in resource &&
         resource.unlocked === true
     );
   }
@@ -37,74 +37,73 @@ export const selectUnlockedResources = createSelector(
 /**
  * Selects resources by category
  */
-export const selectResourcesByCategory = (category: string) => createSelector(
-  selectAllResources,
-  (resources): Resource[] => {
+export const selectResourcesByCategory = (category: string) =>
+  createSelector(selectAllResources, (resources): Resource[] => {
     // Use a memoized Object.values call to avoid creating new array references
     const resourceList = Object.values(resources);
-    
+
     return resourceList.filter(
-      (resource): resource is Resource => 
-        resource !== undefined && 
-        typeof resource === 'object' && 
-        resource !== null && 
-        'category' in resource && 
+      (resource): resource is Resource =>
+        resource !== undefined &&
+        typeof resource === 'object' &&
+        resource !== null &&
+        'category' in resource &&
         resource.category === category
     );
-  }
-);
+  });
 
 /**
  * Selects unlocked resources by category
  */
-export const selectUnlockedResourcesByCategory = (category: string) => createSelector(
-  selectUnlockedResources,
-  (resources): Resource[] => resources.filter(resource => resource.category === category)
-);
+export const selectUnlockedResourcesByCategory = (category: string) =>
+  createSelector(selectUnlockedResources, (resources): Resource[] =>
+    resources.filter((resource) => resource.category === category)
+  );
 
 export const selectTotalResourceGeneration = createSelector(
   selectAllResources,
   (resources): number => {
     // Use a memoized Object.values call to avoid creating new array references
     const resourceList = Object.values(resources);
-    
-    return resourceList.reduce<number>(
-      (total, resource) => {
-        if (resource && typeof resource === 'object' && 'perSecond' in resource && 
-            typeof resource.perSecond === 'number') {
-          return total + resource.perSecond;
-        }
-        return total;
-      },
-      0
-    );
+
+    return resourceList.reduce<number>((total, resource) => {
+      if (
+        resource &&
+        typeof resource === 'object' &&
+        'perSecond' in resource &&
+        typeof resource.perSecond === 'number'
+      ) {
+        return total + resource.perSecond;
+      }
+      return total;
+    }, 0);
   }
 );
 
 // Structure selectors
 export const selectAllStructures = (state: RootState) => state.structures;
 
-export const selectStructureById = (id: string) => 
-  (state: RootState) => state.structures[id] || NULL_STRUCTURE;
+export const selectStructureById = (id: string) => (state: RootState) =>
+  state.structures[id] || NULL_STRUCTURE;
 
 /**
  * Safe version of selectStructureById that returns null if structure doesn't exist
  */
-export const selectStructureByIdNullable = (id: string) => 
-  (state: RootState) => state.structures[id] || null;
+export const selectStructureByIdNullable = (id: string) => (state: RootState) =>
+  state.structures[id] || null;
 
 export const selectUnlockedStructures = createSelector(
   selectAllStructures,
   (structures): Structure[] => {
     // Use a memoized Object.values call to avoid creating new array references
     const structureList = Object.values(structures);
-    
+
     return structureList.filter(
-      (structure): structure is Structure => 
-        structure !== undefined && 
-        typeof structure === 'object' && 
-        structure !== null && 
-        'unlocked' in structure && 
+      (structure): structure is Structure =>
+        structure !== undefined &&
+        typeof structure === 'object' &&
+        structure !== null &&
+        'unlocked' in structure &&
         structure.unlocked === true
     );
   }
@@ -113,49 +112,45 @@ export const selectUnlockedStructures = createSelector(
 /**
  * Selects structures by category
  */
-export const selectStructuresByCategory = (category: string) => createSelector(
-  selectAllStructures,
-  (structures): Structure[] => {
+export const selectStructuresByCategory = (category: string) =>
+  createSelector(selectAllStructures, (structures): Structure[] => {
     // Use a memoized Object.values call to avoid creating new array references
     const structureList = Object.values(structures);
-    
+
     return structureList.filter(
-      (structure): structure is Structure => 
-        structure !== undefined && 
-        typeof structure === 'object' && 
-        structure !== null && 
-        'category' in structure && 
+      (structure): structure is Structure =>
+        structure !== undefined &&
+        typeof structure === 'object' &&
+        structure !== null &&
+        'category' in structure &&
         structure.category === category
     );
-  }
-);
+  });
 
 /**
  * Selects unlocked structures by category
  */
-export const selectUnlockedStructuresByCategory = (category: string) => createSelector(
-  selectUnlockedStructures,
-  (structures): Structure[] => structures.filter(structure => structure.category === category)
-);
+export const selectUnlockedStructuresByCategory = (category: string) =>
+  createSelector(selectUnlockedStructures, (structures): Structure[] =>
+    structures.filter((structure) => structure.category === category)
+  );
 
-export const selectTotalWorkers = createSelector(
-  selectAllStructures,
-  (structures): number => {
-    // Use a memoized Object.values call to avoid creating new array references
-    const structureList = Object.values(structures);
-    
-    return structureList.reduce<number>(
-      (total, structure) => {
-        if (structure && typeof structure === 'object' && 'workers' in structure && 
-            typeof structure.workers === 'number') {
-          return total + structure.workers;
-        }
-        return total;
-      },
-      0
-    );
-  }
-);
+export const selectTotalWorkers = createSelector(selectAllStructures, (structures): number => {
+  // Use a memoized Object.values call to avoid creating new array references
+  const structureList = Object.values(structures);
+
+  return structureList.reduce<number>((total, structure) => {
+    if (
+      structure &&
+      typeof structure === 'object' &&
+      'workers' in structure &&
+      typeof structure.workers === 'number'
+    ) {
+      return total + structure.workers;
+    }
+    return total;
+  }, 0);
+});
 
 // Game state selectors
 export const selectGameStage = (state: RootState) => state.game.gameStage;

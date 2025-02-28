@@ -1,0 +1,10 @@
+﻿2025-02-28T11:15:58.4022582Z ##[group]Run npm run typecheck
+2025-02-28T11:15:58.4022851Z [36;1mnpm run typecheck[0m
+2025-02-28T11:15:58.4070418Z shell: /usr/bin/bash -e {0}
+2025-02-28T11:15:58.4070649Z ##[endgroup]
+2025-02-28T11:15:58.5244326Z 
+2025-02-28T11:15:58.5244958Z > idle-game@0.6.1 typecheck
+2025-02-28T11:15:58.5245433Z > tsc --noEmit
+2025-02-28T11:15:58.5245643Z 
+2025-02-28T11:16:00.0436478Z ##[error]src/components/GameTimer.tsx(4,1): error TS1185: Merge conflict marker encountered.
+2025-02-28T11:16:00.0922296Z ##[error]Process completed with exit code 2.

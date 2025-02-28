@@ -17,18 +17,18 @@ export const resourceAchievements: Achievement[] = [
       {
         type: 'resourceAmount',
         target: 'collective-power',
-        value: 5
-      }
+        value: 5,
+      },
     ],
     rewards: [
       {
         type: 'resource',
         target: 'collective-power',
-        value: 5
-      }
+        value: 5,
+      },
     ],
     hidden: false,
-    hint: 'Start gathering community influence resources'
+    hint: 'Start gathering community influence resources',
   },
   {
     id: 'resource-gatherer',
@@ -40,18 +40,18 @@ export const resourceAchievements: Achievement[] = [
       {
         type: 'resourceAmount',
         target: 'materials',
-        value: 50
-      }
+        value: 50,
+      },
     ],
     rewards: [
       {
         type: 'boost',
         target: 'materials',
-        value: 0.1 // 10% boost to materials generation
-      }
+        value: 0.1, // 10% boost to materials generation
+      },
     ],
     hidden: false,
-    hint: 'Keep gathering materials'
+    hint: 'Keep gathering materials',
   },
   {
     id: 'connection-network',
@@ -63,18 +63,18 @@ export const resourceAchievements: Achievement[] = [
       {
         type: 'resourceAmount',
         target: 'connections',
-        value: 100
-      }
+        value: 100,
+      },
     ],
     rewards: [
       {
         type: 'boost',
         target: 'connections',
-        value: 0.15 // 15% boost to connections generation
-      }
+        value: 0.15, // 15% boost to connections generation
+      },
     ],
     hidden: false,
-    hint: 'Expand your community connections'
+    hint: 'Expand your community connections',
   },
   {
     id: 'organized-movement',
@@ -86,19 +86,19 @@ export const resourceAchievements: Achievement[] = [
       {
         type: 'resourceAmount',
         target: 'organization',
-        value: 100
-      }
+        value: 100,
+      },
     ],
     rewards: [
       {
         type: 'boost',
         target: 'organization',
-        value: 0.15 // 15% boost to organization generation
-      }
+        value: 0.15, // 15% boost to organization generation
+      },
     ],
     hidden: false,
-    hint: 'Build organizational capacity'
-  }
+    hint: 'Build organizational capacity',
+  },
 ];
 
 /**
@@ -114,18 +114,18 @@ export const strategicAchievements: Achievement[] = [
     requirements: [
       {
         type: 'milestonesCompleted',
-        value: 3
-      }
+        value: 3,
+      },
     ],
     rewards: [
       {
         type: 'boost',
         target: 'organization',
-        value: 0.2 // 20% boost to organization generation
-      }
+        value: 0.2, // 20% boost to organization generation
+      },
     ],
     hidden: false,
-    hint: 'Complete your first milestones'
+    hint: 'Complete your first milestones',
   },
   {
     id: 'movement-builder',
@@ -137,18 +137,18 @@ export const strategicAchievements: Achievement[] = [
       {
         type: 'milestonesCompleted',
         target: 'MOVEMENT',
-        value: 2
-      }
+        value: 2,
+      },
     ],
     rewards: [
       {
         type: 'resource',
         target: 'connections',
-        value: 30
-      }
+        value: 30,
+      },
     ],
     hidden: false,
-    hint: 'Focus on building community milestones'
+    hint: 'Focus on building community milestones',
   },
   {
     id: 'resource-strategist',
@@ -160,19 +160,19 @@ export const strategicAchievements: Achievement[] = [
       {
         type: 'milestonesCompleted',
         target: 'RESOURCE',
-        value: 2
-      }
+        value: 2,
+      },
     ],
     rewards: [
       {
         type: 'resource',
         target: 'materials',
-        value: 50
-      }
+        value: 50,
+      },
     ],
     hidden: false,
-    hint: 'Complete resource-focused milestones'
-  }
+    hint: 'Complete resource-focused milestones',
+  },
 ];
 
 /**
@@ -188,27 +188,27 @@ export const ethicalAchievements: Achievement[] = [
     requirements: [
       {
         type: 'gameTime',
-        value: 3600 // 1 hour of gameplay
+        value: 3600, // 1 hour of gameplay
       },
       {
         type: 'milestonesCompleted',
-        value: 5
-      }
+        value: 5,
+      },
     ],
     rewards: [
       {
         type: 'resource',
         target: 'connections',
-        value: 25
+        value: 25,
       },
       {
         type: 'resource',
         target: 'awareness',
-        value: 25
-      }
+        value: 25,
+      },
     ],
     hidden: true,
-    hint: 'Continue playing and making progress ethically'
+    hint: 'Continue playing and making progress ethically',
   },
   {
     id: 'community-care',
@@ -220,24 +220,24 @@ export const ethicalAchievements: Achievement[] = [
       {
         type: 'resourceAmount',
         target: 'connections',
-        value: 150
+        value: 150,
       },
       {
         type: 'milestonesCompleted',
         target: 'ORGANIZATION',
-        value: 2
-      }
+        value: 2,
+      },
     ],
     rewards: [
       {
         type: 'boost',
         target: 'awareness',
-        value: 0.2 // 20% boost to awareness generation
-      }
+        value: 0.2, // 20% boost to awareness generation
+      },
     ],
     hidden: true,
-    hint: 'Focus on connections and organization'
-  }
+    hint: 'Focus on connections and organization',
+  },
 ];
 
 /**
@@ -254,23 +254,23 @@ export const communityAchievements: Achievement[] = [
       {
         type: 'resourceAmount',
         target: 'connections',
-        value: 200
+        value: 200,
       },
       {
         type: 'resourceAmount',
         target: 'organization',
-        value: 100
-      }
+        value: 100,
+      },
     ],
     rewards: [
       {
         type: 'resource',
         target: 'awareness',
-        value: 50
-      }
+        value: 50,
+      },
     ],
     hidden: false,
-    hint: 'Build connections and organization together'
+    hint: 'Build connections and organization together',
   },
   {
     id: 'solidarity-network',
@@ -282,24 +282,24 @@ export const communityAchievements: Achievement[] = [
       {
         type: 'milestonesCompleted',
         target: 'ORGANIZATION',
-        value: 3
+        value: 3,
       },
       {
         type: 'resourceAmount',
         target: 'connections',
-        value: 250
-      }
+        value: 250,
+      },
     ],
     rewards: [
       {
         type: 'boost',
         target: 'connections',
-        value: 0.25 // 25% boost to connections generation
-      }
+        value: 0.25, // 25% boost to connections generation
+      },
     ],
     hidden: false,
-    hint: 'Continue building community organizations'
-  }
+    hint: 'Continue building community organizations',
+  },
 ];
 
 /**
@@ -316,18 +316,18 @@ export const resistanceAchievements: Achievement[] = [
       {
         type: 'milestonesCompleted',
         target: 'RESISTANCE',
-        value: 1
-      }
+        value: 1,
+      },
     ],
     rewards: [
       {
         type: 'resource',
         target: 'organization',
-        value: 25
-      }
+        value: 25,
+      },
     ],
     hidden: false,
-    hint: 'Complete challenge-focused milestones'
+    hint: 'Complete challenge-focused milestones',
   },
   {
     id: 'solidarity-forever',
@@ -339,24 +339,24 @@ export const resistanceAchievements: Achievement[] = [
       {
         type: 'milestonesCompleted',
         target: 'ORGANIZATION',
-        value: 4
+        value: 4,
       },
       {
         type: 'milestonesCompleted',
         target: 'RESISTANCE',
-        value: 2
-      }
+        value: 2,
+      },
     ],
     rewards: [
       {
         type: 'boost',
         target: 'organization',
-        value: 0.25 // 25% boost to organization generation
-      }
+        value: 0.25, // 25% boost to organization generation
+      },
     ],
     hidden: true,
-    hint: 'Focus on both organization and challenges'
-  }
+    hint: 'Focus on both organization and challenges',
+  },
 ];
 
 /**
@@ -372,28 +372,28 @@ export const timedAchievements: Achievement[] = [
     requirements: [
       {
         type: 'milestonesCompleted',
-        value: 3
+        value: 3,
       },
       {
         type: 'gameTime',
         value: 1800, // Within 30 minutes of gameplay
-        operator: '<='
-      }
+        operator: '<=',
+      },
     ],
     rewards: [
       {
         type: 'resource',
         target: 'awareness',
-        value: 30
+        value: 30,
       },
       {
         type: 'resource',
         target: 'connections',
-        value: 30
-      }
+        value: 30,
+      },
     ],
     hidden: true,
-    hint: 'Try to complete milestones quickly'
+    hint: 'Try to complete milestones quickly',
   },
   {
     id: 'persistent-organizer',
@@ -404,29 +404,29 @@ export const timedAchievements: Achievement[] = [
     requirements: [
       {
         type: 'gameTime',
-        value: 10800 // 3 hours of gameplay
-      }
+        value: 10800, // 3 hours of gameplay
+      },
     ],
     rewards: [
       {
         type: 'boost',
         target: 'awareness',
-        value: 0.2
+        value: 0.2,
       },
       {
         type: 'boost',
         target: 'connections',
-        value: 0.2
+        value: 0.2,
       },
       {
         type: 'boost',
         target: 'organization',
-        value: 0.2
-      }
+        value: 0.2,
+      },
     ],
     hidden: false,
-    hint: 'Continue playing over time'
-  }
+    hint: 'Continue playing over time',
+  },
 ];
 
 /**
@@ -442,18 +442,18 @@ export const specialAchievements: Achievement[] = [
     requirements: [
       {
         type: 'gameStage',
-        value: 'MID'
-      }
+        value: 'MID',
+      },
     ],
     rewards: [
       {
         type: 'boost',
         target: 'awareness',
-        value: 0.3 // 30% boost to awareness generation
-      }
+        value: 0.3, // 30% boost to awareness generation
+      },
     ],
     hidden: false,
-    hint: 'Advance to the mid-game stage'
+    hint: 'Advance to the mid-game stage',
   },
   {
     id: 'revolutionary-potential',
@@ -464,51 +464,52 @@ export const specialAchievements: Achievement[] = [
     requirements: [
       {
         type: 'gameStage',
-        value: 'LATE'
-      }
+        value: 'LATE',
+      },
     ],
     rewards: [
       {
         type: 'boost',
         target: 'organization',
-        value: 0.3 // 30% boost to organization generation
-      }
+        value: 0.3, // 30% boost to organization generation
+      },
     ],
     hidden: false,
-    hint: 'Advance to the late-game stage'
+    hint: 'Advance to the late-game stage',
   },
   {
     id: 'another-world-is-possible',
     name: 'A Better Future Is Possible',
-    description: 'Demonstrate that communities can thrive through cooperation and collaborative effort.',
+    description:
+      'Demonstrate that communities can thrive through cooperation and collaborative effort.',
     type: AchievementType.SPECIAL,
     unlocked: false,
     requirements: [
       {
         type: 'gameStage',
-        value: 'END_GAME'
-      }
+        value: 'END_GAME',
+      },
     ],
     rewards: [
       {
         type: 'boost',
         target: 'connections',
-        value: 0.4 // 40% boost to connections generation
+        value: 0.4, // 40% boost to connections generation
       },
       {
         type: 'boost',
         target: 'awareness',
-        value: 0.4 // 40% boost to awareness generation
+        value: 0.4, // 40% boost to awareness generation
       },
       {
         type: 'boost',
         target: 'organization',
-        value: 0.4 // 40% boost to organization generation
-      }
+        value: 0.4, // 40% boost to organization generation
+      },
     ],
     hidden: false,
-    hint: 'Reach the final stage of the game'
-  }
+    hint: 'Reach the final stage of the game',
+  },
 ];
 
 /**
@@ -521,5 +522,5 @@ export const allAchievements: Achievement[] = [
   ...communityAchievements,
   ...resistanceAchievements,
   ...timedAchievements,
-  ...specialAchievements
+  ...specialAchievements,
 ];

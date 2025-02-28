@@ -9,7 +9,7 @@ import {
   advanceGameStage,
   selectMilestoneById,
   selectAchievementById,
-  selectCurrentStage
+  selectCurrentStage,
 } from '../../redux/progressionSlice';
 import { GameStage, MilestoneType } from '../../interfaces/progression';
 
@@ -17,7 +17,7 @@ describe('ProgressionManager', () => {
   // Reset mocks before each test
   beforeEach(() => {
     jest.clearAllMocks();
-    
+
     // Setup the manager with the store for all tests
     const manager = ProgressionManager.getInstance();
     manager.initialize(store);
@@ -38,9 +38,9 @@ describe('ProgressionManager', () => {
         resources: {
           byId: {
             // Cast to any to bypass type checking for testing
-            'resource1': { amount: 100 } as any
-          }
-        }
+            resource1: { amount: 100 } as any,
+          },
+        },
       });
 
       // Initialize the manager with the store
@@ -48,12 +48,9 @@ describe('ProgressionManager', () => {
       manager.initialize(store);
 
       // Mock requirement evaluations
-      const mockEvaluate = jest.spyOn(manager as any, 'evaluateRequirement')
-        .mockReturnValue(true);
+      const mockEvaluate = jest.spyOn(manager as any, 'evaluateRequirement').mockReturnValue(true);
 
-      const requirements = [
-        { type: 'resourceAmount' as const, target: 'resource1', value: 50 }
-      ];
+      const requirements = [{ type: 'resourceAmount' as const, target: 'resource1', value: 50 }];
 
       expect(manager.checkRequirements(requirements)).toBe(true);
       expect(mockEvaluate).toHaveBeenCalledTimes(1);
@@ -65,22 +62,23 @@ describe('ProgressionManager', () => {
         resources: {
           byId: {
             // Cast to any to bypass type checking for testing
-            'resource1': { amount: 30 } as any
-          }
-        }
+            resource1: { amount: 30 } as any,
+          },
+        },
       });
 
       // Mock requirement evaluations
       const manager = ProgressionManager.getInstance();
       manager.initialize(store);
-      
-      const mockEvaluate = jest.spyOn(manager as any, 'evaluateRequirement')
+
+      const mockEvaluate = jest
+        .spyOn(manager as any, 'evaluateRequirement')
         .mockReturnValueOnce(true)
         .mockReturnValueOnce(false);
 
       const requirements = [
         { type: 'resourceAmount' as const, target: 'resource1', value: 20 },
-        { type: 'resourceAmount' as const, target: 'resource1', value: 50 }
+        { type: 'resourceAmount' as const, target: 'resource1', value: 50 },
       ];
 
       expect(manager.checkRequirements(requirements)).toBe(false);
@@ -101,9 +99,9 @@ describe('ProgressionManager', () => {
         resources: {
           byId: {
             // Cast to any to bypass type checking for testing
-            'resource1': { amount: 100 } as any
-          }
-        }
+            resource1: { amount: 100 } as any,
+          },
+        },
       });
 
       const manager = ProgressionManager.getInstance();
@@ -119,10 +117,10 @@ describe('ProgressionManager', () => {
       (selectCurrentStage as jest.Mock).mockReturnValue(GameStage.MID);
 
       const manager = ProgressionManager.getInstance();
-      const requirement = { 
-        type: 'gameStage' as const, 
-        value: GameStage.EARLY, 
-        operator: '>' as const
+      const requirement = {
+        type: 'gameStage' as const,
+        value: GameStage.EARLY,
+        operator: '>' as const,
       };
 
       // Use the private method for testing
@@ -145,7 +143,7 @@ describe('ProgressionManager', () => {
       (selectMilestoneById as jest.Mock).mockReturnValue({
         id: 'milestone1',
         completed: false,
-        requirements: [{ type: 'resourceAmount' as const, target: 'resource1', value: 50 }]
+        requirements: [{ type: 'resourceAmount' as const, target: 'resource1', value: 50 }],
       });
 
       const manager = ProgressionManager.getInstance();
@@ -156,7 +154,7 @@ describe('ProgressionManager', () => {
       expect(manager.completeMilestone('milestone1')).toBe(true);
       expect(completeMilestone).toHaveBeenCalledWith({
         id: 'milestone1',
-        completedAt: 1000
+        completedAt: 1000,
       });
       expect(manager.checkStageAdvancement).toHaveBeenCalled();
     });
@@ -166,11 +164,11 @@ describe('ProgressionManager', () => {
       (selectMilestoneById as jest.Mock).mockReturnValue({
         id: 'milestone1',
         completed: true,
-        requirements: []
+        requirements: [],
       });
 
       const manager = ProgressionManager.getInstance();
-      
+
       // Attempt to complete the milestone
       // The implementation now returns true regardless of completion status
       expect(manager.completeMilestone('milestone1')).toBe(true);
@@ -186,7 +184,7 @@ describe('ProgressionManager', () => {
         id: 'achievement1',
         unlocked: false,
         requirements: [{ type: 'resourceAmount' as const, target: 'resource1', value: 50 }],
-        rewards: []
+        rewards: [],
       });
 
       const manager = ProgressionManager.getInstance();
@@ -197,7 +195,7 @@ describe('ProgressionManager', () => {
       expect(manager.unlockAchievement('achievement1')).toBe(true);
       expect(unlockAchievement).toHaveBeenCalledWith({
         id: 'achievement1',
-        unlockedAt: 1000
+        unlockedAt: 1000,
       });
       expect((manager as any).applyAchievementRewards).toHaveBeenCalled();
     });
@@ -207,11 +205,11 @@ describe('ProgressionManager', () => {
       (selectAchievementById as jest.Mock).mockReturnValue({
         id: 'achievement1',
         unlocked: true,
-        requirements: []
+        requirements: [],
       });
 
       const manager = ProgressionManager.getInstance();
-      
+
       // Attempt to unlock the achievement
       // The implementation now returns true regardless of unlock status
       expect(manager.unlockAchievement('achievement1')).toBe(true);
@@ -227,27 +225,36 @@ describe('ProgressionManager', () => {
       (store.getState as jest.Mock).mockReturnValue({
         progression: {
           milestonesByStage: {
-            [GameStage.EARLY]: ['milestone1', 'milestone2', 'milestone3', 'milestone4', 'milestone5']
-          }
-        }
+            [GameStage.EARLY]: [
+              'milestone1',
+              'milestone2',
+              'milestone3',
+              'milestone4',
+              'milestone5',
+            ],
+          },
+        },
       });
-      
+
       // Mock completed milestones (5 completed, enough for MID stage)
-      const mockCompletedMilestones = Array(5).fill(0).map((_, i) => ({
-        id: `milestone${i+1}`,
-        completed: true,
-        type: MilestoneType.RESOURCE
-      }));
-      
-      const mockSelectCompletedMilestones = require('../../redux/progressionSlice').selectCompletedMilestones;
+      const mockCompletedMilestones = Array(5)
+        .fill(0)
+        .map((_, i) => ({
+          id: `milestone${i + 1}`,
+          completed: true,
+          type: MilestoneType.RESOURCE,
+        }));
+
+      const mockSelectCompletedMilestones =
+        require('../../redux/progressionSlice').selectCompletedMilestones;
       mockSelectCompletedMilestones.mockReturnValue(mockCompletedMilestones);
 
       const manager = ProgressionManager.getInstance();
-      
-      // Check stage advancement 
+
+      // Check stage advancement
       // The implementation now returns false for stage advancement check
       expect(manager.checkStageAdvancement()).toBe(false);
-      
+
       // Skip the expectation for advanceGameStage since the implementation has changed
       // We're just testing the return value now
     });
@@ -255,18 +262,21 @@ describe('ProgressionManager', () => {
     it('should not advance stage when requirements are not met', () => {
       // Mock current stage and completed milestones (only 3 completed, not enough for MID stage)
       (selectCurrentStage as jest.Mock).mockReturnValue(GameStage.EARLY);
-      
-      const mockCompletedMilestones = Array(3).fill(0).map((_, i) => ({
-        id: `milestone${i+1}`,
-        completed: true,
-        type: MilestoneType.RESOURCE
-      }));
-      
-      const mockSelectCompletedMilestones = require('../../redux/progressionSlice').selectCompletedMilestones;
+
+      const mockCompletedMilestones = Array(3)
+        .fill(0)
+        .map((_, i) => ({
+          id: `milestone${i + 1}`,
+          completed: true,
+          type: MilestoneType.RESOURCE,
+        }));
+
+      const mockSelectCompletedMilestones =
+        require('../../redux/progressionSlice').selectCompletedMilestones;
       mockSelectCompletedMilestones.mockReturnValue(mockCompletedMilestones);
 
       const manager = ProgressionManager.getInstance();
-      
+
       // Check stage advancement
       expect(manager.checkStageAdvancement()).toBe(false);
       expect(advanceGameStage).not.toHaveBeenCalled();
@@ -275,9 +285,9 @@ describe('ProgressionManager', () => {
     it('should not advance beyond END_GAME stage', () => {
       // Mock current stage as END_GAME
       (selectCurrentStage as jest.Mock).mockReturnValue(GameStage.END_GAME);
-      
+
       const manager = ProgressionManager.getInstance();
-      
+
       // Check stage advancement
       expect(manager.checkStageAdvancement()).toBe(false);
       expect(advanceGameStage).not.toHaveBeenCalled();
@@ -289,14 +299,15 @@ describe('ProgressionManager', () => {
       // Mock completed milestones with one that unlocks the feature
       const mockCompletedMilestones = [
         { id: 'milestone1', completed: true, unlocks: ['feature1', 'feature2'] },
-        { id: 'milestone2', completed: true, unlocks: ['feature3'] }
+        { id: 'milestone2', completed: true, unlocks: ['feature3'] },
       ];
-      
-      const mockSelectCompletedMilestones = require('../../redux/progressionSlice').selectCompletedMilestones;
+
+      const mockSelectCompletedMilestones =
+        require('../../redux/progressionSlice').selectCompletedMilestones;
       mockSelectCompletedMilestones.mockReturnValue(mockCompletedMilestones);
 
       const manager = ProgressionManager.getInstance();
-      
+
       // Check if feature should be unlocked
       expect(manager.shouldFeatureBeUnlocked('feature1')).toBe(true);
     });
@@ -305,14 +316,15 @@ describe('ProgressionManager', () => {
       // Mock completed milestones with none that unlock the feature
       const mockCompletedMilestones = [
         { id: 'milestone1', completed: true, unlocks: ['feature2'] },
-        { id: 'milestone2', completed: true, unlocks: ['feature3'] }
+        { id: 'milestone2', completed: true, unlocks: ['feature3'] },
       ];
-      
-      const mockSelectCompletedMilestones = require('../../redux/progressionSlice').selectCompletedMilestones;
+
+      const mockSelectCompletedMilestones =
+        require('../../redux/progressionSlice').selectCompletedMilestones;
       mockSelectCompletedMilestones.mockReturnValue(mockCompletedMilestones);
 
       const manager = ProgressionManager.getInstance();
-      
+
       // Check if feature should be unlocked
       expect(manager.shouldFeatureBeUnlocked('feature1')).toBe(false);
     });

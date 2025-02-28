@@ -9,7 +9,7 @@ export interface TasksState {
 
 const initialState: TasksState = {
   tasks: {},
-  activeTaskId: null
+  activeTaskId: null,
 };
 
 const tasksSlice = createSlice({
@@ -21,12 +21,12 @@ const tasksSlice = createSlice({
      */
     initializeTasks: (state) => {
       // Convert initial tasks array to a record and set default values
-      initialTasks.forEach(taskData => {
+      initialTasks.forEach((taskData) => {
         state.tasks[taskData.id] = {
           ...taskData,
           status: TaskStatus.LOCKED,
           progress: 0,
-          completionCount: 0
+          completionCount: 0,
         };
       });
     },
@@ -44,11 +44,14 @@ const tasksSlice = createSlice({
     /**
      * Start a task
      */
-    startTask: (state, action: PayloadAction<{
-      taskId: string;
-      startTime: number;
-      endTime: number;
-    }>) => {
+    startTask: (
+      state,
+      action: PayloadAction<{
+        taskId: string;
+        startTime: number;
+        endTime: number;
+      }>
+    ) => {
       const { taskId, startTime, endTime } = action.payload;
       if (state.tasks[taskId]) {
         state.tasks[taskId].status = TaskStatus.IN_PROGRESS;
@@ -62,10 +65,13 @@ const tasksSlice = createSlice({
     /**
      * Update task progress
      */
-    updateTaskProgress: (state, action: PayloadAction<{
-      taskId: string;
-      progress: number;
-    }>) => {
+    updateTaskProgress: (
+      state,
+      action: PayloadAction<{
+        taskId: string;
+        progress: number;
+      }>
+    ) => {
       const { taskId, progress } = action.payload;
       if (state.tasks[taskId] && state.tasks[taskId].status === TaskStatus.IN_PROGRESS) {
         state.tasks[taskId].progress = progress;
@@ -81,12 +87,12 @@ const tasksSlice = createSlice({
         state.tasks[taskId].status = TaskStatus.COMPLETED;
         state.tasks[taskId].progress = 100;
         state.tasks[taskId].completionCount += 1;
-        
+
         // If task is repeatable, set it back to available after completion
         if (state.tasks[taskId].repeatable) {
           state.tasks[taskId].status = TaskStatus.AVAILABLE;
         }
-        
+
         state.activeTaskId = null;
       }
     },
@@ -116,17 +122,27 @@ const tasksSlice = createSlice({
         state.tasks[taskId].startTime = undefined;
         state.tasks[taskId].endTime = undefined;
       }
-    }
+    },
   },
   extraReducers: (builder) => {
     // When a saved game is loaded, replace the tasks state
-    builder.addCase('game/gameLoaded' as any, (state, action: PayloadAction<any>) => {
-      if (action.payload && action.payload.tasks) {
-        return action.payload.tasks as TasksState;
+    // Using builder.addMatcher for a more flexible approach since the action may not be explicitly defined
+    builder.addMatcher(
+      (action): action is { type: string; payload: unknown } => action.type === 'game/gameLoaded',
+      (state, action) => {
+        // Type guard to check if the payload has the expected structure
+        if (
+          action.payload &&
+          typeof action.payload === 'object' &&
+          'tasks' in action.payload &&
+          action.payload.tasks
+        ) {
+          return action.payload.tasks as TasksState;
+        }
+        return state;
       }
-      return state;
-    });
-  }
+    );
+  },
 });
 
 // Action creators
@@ -137,22 +153,23 @@ export const {
   updateTaskProgress,
   completeTask,
   cancelTask,
-  resetTask
+  resetTask,
 } = tasksSlice.actions;
 
 // Selectors
 export const selectAllTasks = (state: RootState) => state.tasks.tasks;
 export const selectTaskById = (state: RootState, taskId: string) => state.tasks.tasks[taskId];
-export const selectTasksByCategory = (state: RootState, category: string) => 
-  Object.values(state.tasks.tasks).filter(task => task.category === category);
+export const selectTasksByCategory = (state: RootState, category: string) =>
+  Object.values(state.tasks.tasks).filter((task) => task.category === category);
 export const selectAvailableTasks = (state: RootState) =>
-  Object.values(state.tasks.tasks).filter(task => task.status === TaskStatus.AVAILABLE);
-export const selectActiveTask = (state: RootState) => 
+  Object.values(state.tasks.tasks).filter((task) => task.status === TaskStatus.AVAILABLE);
+export const selectActiveTask = (state: RootState) =>
   state.tasks.activeTaskId ? state.tasks.tasks[state.tasks.activeTaskId] : null;
 export const selectCompletedTasks = (state: RootState) =>
-  Object.values(state.tasks.tasks).filter(task => 
-    task.status === TaskStatus.COMPLETED || 
-    (task.status === TaskStatus.AVAILABLE && task.completionCount > 0)
+  Object.values(state.tasks.tasks).filter(
+    (task) =>
+      task.status === TaskStatus.COMPLETED ||
+      (task.status === TaskStatus.AVAILABLE && task.completionCount > 0)
   );
 
 export default tasksSlice.reducer;

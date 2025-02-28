@@ -14,7 +14,7 @@ const GameLoopDebugTab: React.FC = () => {
   const gameTime = useAppSelector(selectTotalPlayTime);
   const gameTimeScale = useAppSelector(selectGameTimeScale);
   const dispatch = useAppDispatch();
-  
+
   // Local state
   const [startTime] = useState(performance.now() / 1000);
   const [tickRate, setTickRate] = useState(1);
@@ -24,7 +24,7 @@ const GameLoopDebugTab: React.FC = () => {
     realTime: 0,
     timeRatio: 0,
     timeScale: 0,
-    lastUpdate: performance.now() / 1000
+    lastUpdate: performance.now() / 1000,
   });
 
   // Sync Redux time with timer
@@ -33,10 +33,10 @@ const GameLoopDebugTab: React.FC = () => {
       const gameLoop = GameLoop.getInstance();
       const gameTimer = gameLoop.getGameTimer();
       const timerTime = gameTimer.getTotalGameTime();
-      
+
       dispatch(setTotalPlayTime(timerTime));
     } catch (error) {
-      console.error("Error syncing time:", error);
+      console.error('Error syncing time:', error);
     }
   }, [dispatch]);
 
@@ -46,13 +46,13 @@ const GameLoopDebugTab: React.FC = () => {
       const gameLoop = GameLoop.getInstance();
       gameLoop.setTimeScale(1.0);
       setTickRate(1.0);
-      
+
       if (gameLoop.isRunning()) {
         gameLoop.stop();
         setTimeout(() => gameLoop.start(), 50);
       }
     } catch (error) {
-      console.error("Error resetting time scale:", error);
+      console.error('Error resetting time scale:', error);
     }
   }, []);
 
@@ -60,17 +60,17 @@ const GameLoopDebugTab: React.FC = () => {
   const handleTickRateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newTickRate = parseFloat(event.target.value);
     setTickRate(newTickRate);
-    
+
     try {
       const gameLoop = GameLoop.getInstance();
       gameLoop.setTimeScale(newTickRate);
-      
+
       if (gameLoop.isRunning()) {
         gameLoop.stop();
         setTimeout(() => gameLoop.start(), 50);
       }
     } catch (error) {
-      console.error("Error changing tick rate:", error);
+      console.error('Error changing tick rate:', error);
     }
   };
 
@@ -78,30 +78,28 @@ const GameLoopDebugTab: React.FC = () => {
   useEffect(() => {
     let animationFrameId: number;
     let lastUpdateTime = performance.now();
-    
+
     const updateStats = (time: number) => {
       try {
         // Throttle updates to approximately 60fps (16.7ms)
         if (time - lastUpdateTime >= 16) {
           lastUpdateTime = time;
-          
+
           // Get current time
           const now = performance.now() / 1000;
           const realTimeElapsed = now - startTime;
-          
+
           // Get GameLoop stats
           const gameLoop = GameLoop.getInstance();
           const loopStats = gameLoop.getStats();
           const gameTimer = gameLoop.getGameTimer();
-          
+
           // Get timer time from game timer directly
           const timerTime = gameTimer.getTotalGameTime();
-          
+
           // Calculate time ratio using timer time instead of game time
-          const actualTimeRatio = realTimeElapsed > 0 ? 
-            timerTime / realTimeElapsed : 
-            gameTimeScale;
-          
+          const actualTimeRatio = realTimeElapsed > 0 ? timerTime / realTimeElapsed : gameTimeScale;
+
           // Update stats
           setStats({
             fps: loopStats.fps,
@@ -109,21 +107,21 @@ const GameLoopDebugTab: React.FC = () => {
             realTime: realTimeElapsed,
             timeRatio: actualTimeRatio,
             timeScale: loopStats.timeScale,
-            lastUpdate: now
+            lastUpdate: now,
           });
         }
-        
+
         // Continue animation loop
         animationFrameId = requestAnimationFrame(updateStats);
       } catch (error) {
-        console.error("Error updating debug stats:", error);
+        console.error('Error updating debug stats:', error);
         animationFrameId = requestAnimationFrame(updateStats);
       }
     };
-    
+
     // Start animation frame loop
     animationFrameId = requestAnimationFrame(updateStats);
-    
+
     // Cleanup on unmount
     return () => {
       if (animationFrameId) {
@@ -134,78 +132,90 @@ const GameLoopDebugTab: React.FC = () => {
 
   // Import the same constant used by the GameTimer component
   const secondsPerDay = SECONDS_PER_DAY; // From timeUtils.ts (60 seconds)
-  
+
   // Initialize day tracking variables
-  let currentDay = 1;
-  let dayProgress = 0;
-  
+  const currentDay = 1;
+  const dayProgress = 0;
+
   // We'll set these in real-time during the render phase
-  
+
   // Generate metrics for display
   const timeMetrics: MetricItem[] = [
-    { 
-      name: "Real Time", 
+    {
+      name: 'Real Time',
       value: stats.realTime,
-      status: 'neutral'
+      status: 'neutral',
     },
-    { 
-      name: "Game Time", 
+    {
+      name: 'Game Time',
       value: gameTime,
-      status: 'neutral'
+      status: 'neutral',
     },
-    { 
-      name: "Current Day", 
+    {
+      name: 'Current Day',
       value: currentDay,
-      status: 'neutral'
+      status: 'neutral',
     },
-    { 
-      name: "Day Progress", 
+    {
+      name: 'Day Progress',
       value: `${(dayProgress * 100).toFixed(1)}%`,
-      status: 'neutral'
+      status: 'neutral',
     },
-    { 
-      name: "Time Ratio", 
+    {
+      name: 'Time Ratio',
       value: stats.timeRatio,
-      status: Math.abs(stats.timeRatio - 1.0) < 0.1 ? 'good' : 
-              Math.abs(stats.timeRatio - 1.0) < 0.2 ? 'warning' : 'bad'
+      status:
+        Math.abs(stats.timeRatio - 1.0) < 0.1
+          ? 'good'
+          : Math.abs(stats.timeRatio - 1.0) < 0.2
+            ? 'warning'
+            : 'bad',
     },
-    { 
-      name: "Time Scale", 
+    {
+      name: 'Time Scale',
       value: stats.timeScale,
-      status: 'neutral'
+      status: 'neutral',
     },
-    { 
-      name: "FPS", 
+    {
+      name: 'FPS',
       value: stats.fps,
-      status: stats.fps > 55 ? 'good' : 
-              stats.fps > 30 ? 'warning' : 'bad'
-    }
+      status: stats.fps > 55 ? 'good' : stats.fps > 30 ? 'warning' : 'bad',
+    },
   ];
-  
+
   // Generate additional timing metrics
   const advancedMetrics: MetricItem[] = [
     {
-      name: "Ideal Rate",
+      name: 'Ideal Rate',
       value: `${tickRate.toFixed(1)}x`,
-      status: 'neutral'
+      status: 'neutral',
     },
     {
-      name: "Actual Rate",
+      name: 'Actual Rate',
       value: stats.timeRatio,
-      status: Math.abs(stats.timeRatio - tickRate) < (tickRate * 0.1) ? 'good' : 
-              Math.abs(stats.timeRatio - tickRate) < (tickRate * 0.2) ? 'warning' : 'bad'
+      status:
+        Math.abs(stats.timeRatio - tickRate) < tickRate * 0.1
+          ? 'good'
+          : Math.abs(stats.timeRatio - tickRate) < tickRate * 0.2
+            ? 'warning'
+            : 'bad',
     },
     {
-      name: "Accuracy",
-      value: stats.timeRatio > 0 && tickRate > 0 ? 
-        `${(Math.min(stats.timeRatio / tickRate, 2) * 100).toFixed(1)}%` : '0%',
-      status: stats.timeRatio > 0 && tickRate > 0 && 
-        Math.abs(stats.timeRatio / tickRate - 1) < 0.1 ? 'good' : 
-        Math.abs(stats.timeRatio / tickRate - 1) < 0.2 ? 'warning' : 'bad'
-    }
+      name: 'Accuracy',
+      value:
+        stats.timeRatio > 0 && tickRate > 0
+          ? `${(Math.min(stats.timeRatio / tickRate, 2) * 100).toFixed(1)}%`
+          : '0%',
+      status:
+        stats.timeRatio > 0 && tickRate > 0 && Math.abs(stats.timeRatio / tickRate - 1) < 0.1
+          ? 'good'
+          : Math.abs(stats.timeRatio / tickRate - 1) < 0.2
+            ? 'warning'
+            : 'bad',
+    },
   ];
 
-  // Generate day information metrics 
+  // Generate day information metrics
   // Create a special test section to diagnose the issue
   const [diagnosticInfo, setDiagnosticInfo] = useState({
     componentTimestamp: Date.now(),
@@ -215,13 +225,13 @@ const GameLoopDebugTab: React.FC = () => {
     reduxTime: gameTime,
     calculatedDay: 0,
     calculatedProgress: 0,
-    isDiagnosticMode: true
+    isDiagnosticMode: true,
   });
-  
+
   // Update diagnostics every frame
   React.useEffect(() => {
     if (!diagnosticInfo.isDiagnosticMode) return;
-    
+
     let animationFrameId: number;
     const updateDiagnostics = () => {
       try {
@@ -229,17 +239,17 @@ const GameLoopDebugTab: React.FC = () => {
         const gameLoop = GameLoop.getInstance();
         const gameTimer = gameLoop.getGameTimer();
         const timerTime = gameTimer.getTotalGameTime();
-        
+
         // GameTimer.tsx now initializes with 0 seconds as we fixed it
         // This aligns with the debug panel's correct values
-        
+
         // Get time values directly from the timer
         const adjustedTime = timerTime;
-                
+
         // Calculate days exactly as GameTimer does
         const calculatedDay = Math.floor(adjustedTime / SECONDS_PER_DAY) + 1;
         const calculatedProgress = (adjustedTime % SECONDS_PER_DAY) / SECONDS_PER_DAY;
-        
+
         // Update diagnostics
         setDiagnosticInfo({
           componentTimestamp: Date.now(),
@@ -249,118 +259,114 @@ const GameLoopDebugTab: React.FC = () => {
           reduxTime: gameTime,
           calculatedDay,
           calculatedProgress,
-          isDiagnosticMode: true
+          isDiagnosticMode: true,
         });
-        
+
         // Log useful diagnostic info occasionally
         if (Math.random() < 0.01) {
-          console.log(`DIAGNOSTIC: timer=${timerTime.toFixed(2)}s, ` +
-                      `day=${calculatedDay}, ` +
-                      `progress=${(calculatedProgress*100).toFixed(1)}%`);
+          console.log(
+            `DIAGNOSTIC: timer=${timerTime.toFixed(2)}s, ` +
+              `day=${calculatedDay}, ` +
+              `progress=${(calculatedProgress * 100).toFixed(1)}%`
+          );
         }
       } catch (error) {
-        console.error("Error in diagnostics:", error);
+        console.error('Error in diagnostics:', error);
       }
-      
+
       animationFrameId = requestAnimationFrame(updateDiagnostics);
     };
-    
+
     animationFrameId = requestAnimationFrame(updateDiagnostics);
-    
+
     return () => {
       if (animationFrameId) {
         cancelAnimationFrame(animationFrameId);
       }
     };
   }, [gameTime, diagnosticInfo.isDiagnosticMode]);
-  
+
   // Use diagnostic info for metrics display
   const currentDayInfo = diagnosticInfo.localDay;
   const dayProgressInfo = diagnosticInfo.localDayProgress;
-  
+
   const dayMetrics: MetricItem[] = [
     {
-      name: "Current Day",
+      name: 'Current Day',
       value: currentDayInfo,
-      status: 'neutral'
+      status: 'neutral',
     },
     {
-      name: "Day Progress",
+      name: 'Day Progress',
       value: `${(dayProgressInfo * 100).toFixed(1)}%`,
-      status: 'neutral'
+      status: 'neutral',
     },
     {
-      name: "Seconds per Day",
+      name: 'Seconds per Day',
       value: secondsPerDay,
-      status: 'neutral'
+      status: 'neutral',
     },
     {
-      name: "Time until next day",
+      name: 'Time until next day',
       value: `${((1 - dayProgressInfo) * secondsPerDay).toFixed(1)}s`,
-      status: 'neutral'
+      status: 'neutral',
     },
     {
-      name: "Real time until next day",
-      value: `${((1 - dayProgressInfo) * secondsPerDay / gameTimeScale).toFixed(1)}s`,
-      status: 'neutral'
+      name: 'Real time until next day',
+      value: `${(((1 - dayProgressInfo) * secondsPerDay) / gameTimeScale).toFixed(1)}s`,
+      status: 'neutral',
     },
     // Add raw timer value for debugging
     {
-      name: "Raw Game Time",
+      name: 'Raw Game Time',
       value: `${diagnosticInfo.timerGameTime.toFixed(1)}s`,
-      status: 'warning'
+      status: 'warning',
     },
     {
-      name: "Redux Time",
+      name: 'Redux Time',
       value: `${gameTime.toFixed(1)}s`,
-      status: 'warning'
-    }
+      status: 'warning',
+    },
   ];
 
   return (
     <div>
       <h3 style={{ margin: '0 0 10px 0', fontSize: '14px' }}>Game Loop Statistics</h3>
-      
+
       {/* Day information panel */}
       <MetricsPanel title="Day Information" metrics={dayMetrics} />
-      
+
       {/* Time metrics panel */}
       <MetricsPanel title="Time Metrics" metrics={timeMetrics} />
-      
+
       {/* Advanced metrics panel */}
       <MetricsPanel title="Time Scale Analysis" metrics={advancedMetrics} />
-      
+
       {/* Controls panel */}
       <div className="controls-panel">
         <div className="metrics-panel-title">Tick Rate Control</div>
-        
+
         <div className="slider-container">
           <div className="slider-label">
             <span>Speed: {tickRate.toFixed(1)}x</span>
             <span>{stats.timeRatio.toFixed(2)}x actual</span>
           </div>
-          <input 
-            type="range" 
-            min="0.1" 
-            max="10" 
-            step="0.1" 
+          <input
+            type="range"
+            min="0.1"
+            max="10"
+            step="0.1"
             value={tickRate}
             onChange={handleTickRateChange}
             className="slider-input"
           />
         </div>
-        
+
         <div className="button-row">
-          <button 
-            className="debug-button"
-            onClick={handleResetTimeScale}
-          >
+          <button className="debug-button" onClick={handleResetTimeScale}>
             Reset Scale
           </button>
-          <button 
-            className="debug-button primary"
-            onClick={handleSyncTime}
-          >
+          <button className="debug-button primary" onClick={handleSyncTime}>
             Sync Time
           </button>
         </div>

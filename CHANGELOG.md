@@ -22,6 +22,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Deprecated
 - Marked redundant and outdated documentation as deprecated with proper references to current versions
 
+## [0.7.5] - 2025-02-28
+
+### Fixed
+- Replaced `any` types in Redux utility functions with proper generic types
+- Used correct `Resource` type in ResourceList component
+- Added proper typing for debugging function in MilestoneProgressStrip
+
+## [0.7.4] - 2025-02-28
+
+
+### Fixed
+- Replace explicit `any` types in 200+ React component files with proper TypeScript interfaces
+- Fix React component prop types and event handler type definitions
+- Improve type safety in CSS module imports
+- Enhance typing for React hooks, particularly Redux-related hooks
 ## [0.7.3] - 2025-02-28
 
 ### Fixed

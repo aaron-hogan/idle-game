@@ -25,7 +25,7 @@ export function validateNumber(
     }
     throw new Error(`Invalid number value: ${value}`);
   }
-  
+
   // Clamp between min and max
   return Math.max(min, Math.min(value, max));
 }
@@ -51,7 +51,7 @@ export function validateString(
     }
     throw new Error(`Invalid string value: ${value}`);
   }
-  
+
   // Check length constraints
   if (value.length < minLength || value.length > maxLength) {
     if (defaultValue !== undefined) {
@@ -59,7 +59,7 @@ export function validateString(
     }
     throw new Error(`String length outside bounds (${minLength}-${maxLength}): ${value.length}`);
   }
-  
+
   return value;
 }
 
@@ -80,7 +80,7 @@ export function validateObject<T extends object>(
     ErrorLogger.getInstance().logError(`Invalid object: ${obj}`, context);
     return false;
   }
-  
+
   // Check all required properties
   for (const prop of requiredProps) {
     if (!(prop in obj) || obj[prop] === undefined) {
@@ -88,7 +88,7 @@ export function validateObject<T extends object>(
       return false;
     }
   }
-  
+
   return true;
 }
 

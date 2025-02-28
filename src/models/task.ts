@@ -6,7 +6,7 @@ export enum TaskCategory {
   COMMUNITY = 'community',
   EDUCATION = 'education',
   DIRECT_ACTION = 'direct_action',
-  MUTUAL_AID = 'mutual_aid'
+  MUTUAL_AID = 'mutual_aid',
 }
 
 /**
@@ -16,7 +16,7 @@ export enum TaskStatus {
   AVAILABLE = 'available',
   IN_PROGRESS = 'in_progress',
   COMPLETED = 'completed',
-  LOCKED = 'locked'
+  LOCKED = 'locked',
 }
 
 /**
@@ -25,10 +25,10 @@ export enum TaskStatus {
 export interface TaskRequirement {
   /** The type of requirement (resource amount, structure level, etc.) */
   type: 'resource' | 'structure' | 'gameStage' | 'taskCompleted';
-  
+
   /** The ID of the entity this requirement is checking */
   id: string;
-  
+
   /** The required value to meet this requirement */
   value: number;
 }
@@ -39,49 +39,49 @@ export interface TaskRequirement {
 export interface Task {
   /** Unique identifier for the task */
   id: string;
-  
+
   /** Display name of the task */
   name: string;
-  
+
   /** Description of the task and its purpose */
   description: string;
-  
+
   /** Category the task belongs to */
   category: TaskCategory;
-  
+
   /** Duration of the task in seconds */
   duration: number;
-  
+
   /** Resources required to start the task */
   cost: Record<string, number>;
-  
+
   /** Resources rewarded when the task completes */
   rewards: Record<string, number>;
-  
+
   /** Current status of the task */
   status: TaskStatus;
-  
+
   /** Current progress of the task (0-100) */
   progress: number;
-  
+
   /** Requirements that must be met to unlock this task */
   requirements: TaskRequirement[];
-  
+
   /** Whether this task can be repeated after completion */
   repeatable: boolean;
-  
+
   /** Cooldown time in seconds before a repeatable task can be started again */
   cooldown?: number;
-  
+
   /** Time when the task was started (used for progress calculation) */
   startTime?: number;
-  
+
   /** Time when the task will complete (used for progress calculation) */
   endTime?: number;
-  
+
   /** Number of times this task has been completed */
   completionCount: number;
-  
+
   /** Optional icon for the task */
   icon?: string;
 }
@@ -89,7 +89,10 @@ export interface Task {
 /**
  * Initial task data
  */
-export const initialTasks: Omit<Task, 'status' | 'progress' | 'startTime' | 'endTime' | 'completionCount'>[] = [
+export const initialTasks: Omit<
+  Task,
+  'status' | 'progress' | 'startTime' | 'endTime' | 'completionCount'
+>[] = [
   {
     id: 'distribute_flyers',
     name: 'Distribute Flyers',
@@ -97,16 +100,16 @@ export const initialTasks: Omit<Task, 'status' | 'progress' | 'startTime' | 'end
     category: TaskCategory.ORGANIZING,
     duration: 60, // 1 minute
     cost: {
-      collective_bargaining_power: 5
+      collective_bargaining_power: 5,
     },
     rewards: {
       solidarity: 10,
-      community_trust: 5
+      community_trust: 5,
     },
     requirements: [],
     repeatable: true,
     cooldown: 120, // 2 minutes
-    icon: 'flyer'
+    icon: 'flyer',
   },
   {
     id: 'community_meeting',
@@ -116,23 +119,23 @@ export const initialTasks: Omit<Task, 'status' | 'progress' | 'startTime' | 'end
     duration: 300, // 5 minutes
     cost: {
       collective_bargaining_power: 15,
-      solidarity: 10
+      solidarity: 10,
     },
     rewards: {
       solidarity: 30,
       community_trust: 20,
-      collective_bargaining_power: 5
+      collective_bargaining_power: 5,
     },
     requirements: [
       {
         type: 'resource',
         id: 'solidarity',
-        value: 20
-      }
+        value: 20,
+      },
     ],
     repeatable: true,
     cooldown: 600, // 10 minutes
-    icon: 'meeting'
+    icon: 'meeting',
   },
   {
     id: 'workplace_organizing',
@@ -142,22 +145,22 @@ export const initialTasks: Omit<Task, 'status' | 'progress' | 'startTime' | 'end
     duration: 600, // 10 minutes
     cost: {
       collective_bargaining_power: 25,
-      solidarity: 15
+      solidarity: 15,
     },
     rewards: {
       collective_bargaining_power: 40,
-      solidarity: 20
+      solidarity: 20,
     },
     requirements: [
       {
         type: 'structure',
         id: 'union_office',
-        value: 1
-      }
+        value: 1,
+      },
     ],
     repeatable: true,
     cooldown: 900, // 15 minutes
-    icon: 'workplace'
+    icon: 'workplace',
   },
   {
     id: 'mutual_aid_project',
@@ -167,22 +170,22 @@ export const initialTasks: Omit<Task, 'status' | 'progress' | 'startTime' | 'end
     duration: 450, // 7.5 minutes
     cost: {
       collective_bargaining_power: 20,
-      solidarity: 20
+      solidarity: 20,
     },
     rewards: {
       community_trust: 40,
-      solidarity: 15
+      solidarity: 15,
     },
     requirements: [
       {
         type: 'resource',
         id: 'community_trust',
-        value: 10
-      }
+        value: 10,
+      },
     ],
     repeatable: true,
     cooldown: 300, // 5 minutes
-    icon: 'mutual_aid'
+    icon: 'mutual_aid',
   },
   {
     id: 'educational_workshop',
@@ -192,22 +195,22 @@ export const initialTasks: Omit<Task, 'status' | 'progress' | 'startTime' | 'end
     duration: 360, // 6 minutes
     cost: {
       collective_bargaining_power: 15,
-      solidarity: 10
+      solidarity: 10,
     },
     rewards: {
       collective_bargaining_power: 20,
       solidarity: 25,
-      community_trust: 10
+      community_trust: 10,
     },
     requirements: [
       {
         type: 'resource',
         id: 'collective_bargaining_power',
-        value: 30
-      }
+        value: 30,
+      },
     ],
     repeatable: true,
     cooldown: 720, // 12 minutes
-    icon: 'education'
-  }
+    icon: 'education',
+  },
 ];

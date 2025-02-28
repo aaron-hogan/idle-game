@@ -73,7 +73,7 @@ describe('ResourceDisplay', () => {
       perSecond: -2.5,
     };
     render(<ResourceDisplay resource={resourceWithNegativeGeneration} />);
-    const rateElement = screen.getByText(/s$/);  // Find text ending with '/s'
+    const rateElement = screen.getByText(/s$/); // Find text ending with '/s'
     expect(rateElement.textContent).toBe('-2.50/s');
   });
 
@@ -83,7 +83,7 @@ describe('ResourceDisplay', () => {
       perSecond: 0,
     };
     render(<ResourceDisplay resource={resourceWithZeroGeneration} />);
-    const rateElement = screen.getByText(/s$/);  // Find text ending with '/s'
+    const rateElement = screen.getByText(/s$/); // Find text ending with '/s'
     expect(rateElement.textContent).toBe('+0/s');
   });
 

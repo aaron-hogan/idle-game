@@ -1,13 +1,13 @@
 import { Store } from '@reduxjs/toolkit';
 import { RootState } from '../state/store';
-import { 
-  IEvent, 
-  EventCondition, 
-  EventConsequence, 
+import {
+  IEvent,
+  EventCondition,
+  EventConsequence,
   EventChoice,
   EventStatus,
   EventCategory,
-  EventType
+  EventType,
 } from '../interfaces/Event';
 import { getCurrentTime } from '../utils/timeUtils';
 import { ErrorLogger, invariant } from '../utils/errorUtils';
@@ -15,12 +15,12 @@ import { GameLoop } from '../core/GameLoop';
 
 // Import only the types needed for dependency injection
 import type { AppDispatch } from '../state/store';
-import type { 
-  addEvent, 
+import type {
+  addEvent,
   addEvents,
-  triggerEvent as triggerEventActionType, 
+  triggerEvent as triggerEventActionType,
   resolveEvent as resolveEventActionType,
-  updateEvent as updateEventType
+  updateEvent as updateEventType,
 } from '../state/eventsSlice';
 
 /**
@@ -65,33 +65,46 @@ export class EventManager {
    * @param dependenciesOrStore The dependencies needed by EventManager or store for backward compatibility
    * @returns The singleton EventManager instance
    */
-  public static getInstance(dependenciesOrStore?: EventManagerDependencies | { dispatch: unknown; getState: unknown }): EventManager {
+  public static getInstance(
+    dependenciesOrStore?: EventManagerDependencies | { dispatch: unknown; getState: unknown }
+  ): EventManager {
     if (!EventManager.instance) {
       if (!dependenciesOrStore) {
         // Create instance without dependencies, initialize() will be called later
         EventManager.instance = new EventManager({
           dispatch: (() => {}) as AppDispatch, // Placeholder
-          getState: (() => ({} as RootState)), // Placeholder
-          actions: {} as EventManagerDependencies['actions'] // Placeholder
+          getState: () => ({}) as RootState, // Placeholder
+          actions: {} as EventManagerDependencies['actions'], // Placeholder
         });
-      } else if ('dispatch' in dependenciesOrStore && 'getState' in dependenciesOrStore && 'actions' in dependenciesOrStore) {
+      } else if (
+        'dispatch' in dependenciesOrStore &&
+        'getState' in dependenciesOrStore &&
+        'actions' in dependenciesOrStore
+      ) {
         // If full dependencies are provided
         EventManager.instance = new EventManager(dependenciesOrStore as EventManagerDependencies);
       } else {
         // If a store is provided (backward compatibility)
         const instance = new EventManager({
           dispatch: (() => {}) as AppDispatch, // Placeholder
-          getState: (() => ({} as RootState)), // Placeholder  
-          actions: {} as EventManagerDependencies['actions'] // Placeholder
+          getState: () => ({}) as RootState, // Placeholder
+          actions: {} as EventManagerDependencies['actions'], // Placeholder
         });
         instance.initialize(dependenciesOrStore);
         EventManager.instance = instance;
       }
-    } else if (dependenciesOrStore && !('dispatch' in dependenciesOrStore && 'getState' in dependenciesOrStore && 'actions' in dependenciesOrStore)) {
+    } else if (
+      dependenciesOrStore &&
+      !(
+        'dispatch' in dependenciesOrStore &&
+        'getState' in dependenciesOrStore &&
+        'actions' in dependenciesOrStore
+      )
+    ) {
       // If instance exists and a store is provided, initialize with it (backward compatibility)
       EventManager.instance.initialize(dependenciesOrStore);
     }
-    
+
     return EventManager.instance;
   }
 
@@ -111,7 +124,7 @@ export class EventManager {
 
     // Import necessary action creators
     const eventActions = require('../state/eventsSlice');
-    
+
     // Set up dependencies from store
     this.dispatch = store.dispatch as AppDispatch;
     this.getState = store.getState as () => RootState;
@@ -122,20 +135,20 @@ export class EventManager {
       resolveEvent: eventActions.resolveEvent,
       updateEvent: eventActions.updateEvent,
     };
-    
+
     this.initialized = true;
-    
+
     // Register with GameLoop for periodic event checks
     const gameLoop = GameLoop.getInstance();
     gameLoop.registerCallback('eventManager', () => this.processEvents());
-    
+
     // Initialize with proper event statuses
     this.initializeEventStatuses();
-    
+
     // Simple log message
     console.log('EventManager initialized and registered with GameLoop');
   }
-  
+
   /**
    * Set initial statuses for all events
    */
@@ -144,21 +157,22 @@ export class EventManager {
       this.ensureInitialized();
       const state = this.getState();
       const events = state.events.availableEvents;
-      
+
       // Set initial statuses for all events
-      Object.values(events).forEach(event => {
+      Object.values(events).forEach((event) => {
         if (!event.status) {
           // Set status to PENDING by default
-          this.dispatch(this.actions.updateEvent({
-            id: event.id,
-            changes: { status: EventStatus.PENDING }
-          }));
+          this.dispatch(
+            this.actions.updateEvent({
+              id: event.id,
+              changes: { status: EventStatus.PENDING },
+            })
+          );
         }
       });
-      
+
       // Fix any inconsistencies with active events
       this.healEventInconsistencies();
-      
     } catch (error) {
       this.logger.logError(
         error instanceof Error ? error : new Error(String(error)),
@@ -166,7 +180,7 @@ export class EventManager {
       );
     }
   }
-  
+
   /**
    * Heal any inconsistencies in event states
    */
@@ -174,42 +188,49 @@ export class EventManager {
     try {
       this.ensureInitialized();
       const state = this.getState();
-      
+
       // Safety check - ensure event state exists
       if (!state.events || !state.events.activeEvents || !state.events.availableEvents) {
         return;
       }
-      
+
       // For each active event ID, check if the event actually exists
-      state.events.activeEvents.forEach(eventId => {
+      state.events.activeEvents.forEach((eventId) => {
         const event = state.events.availableEvents[eventId];
-        
+
         if (!event) {
           // If event doesn't exist, resolve it to remove from active list
           console.warn(`Found inconsistency: Active event ${eventId} doesn't exist, fixing...`);
           this.dispatch(this.actions.resolveEvent({ eventId }));
         } else if (event.status !== EventStatus.ACTIVE) {
           // If event status doesn't match its presence in active events
-          console.warn(`Found inconsistency: Event ${eventId} is in active list but has status ${event.status}, fixing...`);
-          this.dispatch(this.actions.updateEvent({
-            id: eventId,
-            changes: { status: EventStatus.ACTIVE }
-          }));
+          console.warn(
+            `Found inconsistency: Event ${eventId} is in active list but has status ${event.status}, fixing...`
+          );
+          this.dispatch(
+            this.actions.updateEvent({
+              id: eventId,
+              changes: { status: EventStatus.ACTIVE },
+            })
+          );
         }
       });
-      
+
       // Check for any events with ACTIVE status not in the active list
-      Object.values(state.events.availableEvents).forEach(event => {
+      Object.values(state.events.availableEvents).forEach((event) => {
         if (event.status === EventStatus.ACTIVE && !state.events.activeEvents.includes(event.id)) {
-          console.warn(`Found inconsistency: Event ${event.id} has ACTIVE status but is not in active list, fixing...`);
+          console.warn(
+            `Found inconsistency: Event ${event.id} has ACTIVE status but is not in active list, fixing...`
+          );
           // Either add to active list or fix status
-          this.dispatch(this.actions.updateEvent({
-            id: event.id,
-            changes: { status: EventStatus.PENDING }
-          }));
+          this.dispatch(
+            this.actions.updateEvent({
+              id: event.id,
+              changes: { status: EventStatus.PENDING },
+            })
+          );
         }
       });
-      
     } catch (error) {
       this.logger.logError(
         error instanceof Error ? error : new Error(String(error)),
@@ -224,7 +245,10 @@ export class EventManager {
    */
   private ensureInitialized(): void {
     invariant(
-      this.initialized && this.dispatch !== undefined && this.getState !== undefined && this.actions !== undefined,
+      this.initialized &&
+        this.dispatch !== undefined &&
+        this.getState !== undefined &&
+        this.actions !== undefined,
       'EventManager not properly initialized with dependencies',
       'EventManager'
     );
@@ -254,29 +278,32 @@ export class EventManager {
     try {
       this.ensureInitialized();
       const state = this.getState();
-      
+
       // Safety check - ensure event state exists
       if (!state.events || !state.events.availableEvents) {
         return [];
       }
-      
+
       const events = state.events.availableEvents;
       const currentTime = getCurrentTime();
-      
+
       const triggerable: string[] = [];
-      
+
       // Check each event's conditions
-      Object.values(events).forEach(event => {
+      Object.values(events).forEach((event) => {
         // Skip events that are already active - with safety check
-        if (state.events.activeEvents && state.events.activeEvents.some(activeId => activeId === event.id)) {
+        if (
+          state.events.activeEvents &&
+          state.events.activeEvents.some((activeId) => activeId === event.id)
+        ) {
           return;
         }
-        
+
         // Skip non-repeatable events that have been seen
         if (!event.repeatable && event.seen) {
           return;
         }
-        
+
         // Check cooldown for repeatable events
         if (event.repeatable && event.lastTriggered && event.cooldown) {
           const timeSinceLastTrigger = (currentTime - event.lastTriggered) / 1000;
@@ -284,14 +311,14 @@ export class EventManager {
             return;
           }
         }
-        
+
         // Check if all conditions are met
         const conditionsMet = this.evaluateConditions(event.conditions);
         if (conditionsMet) {
           triggerable.push(event.id);
         }
       });
-      
+
       return triggerable;
     } catch (error) {
       this.logger.logError(
@@ -311,50 +338,50 @@ export class EventManager {
     try {
       this.ensureInitialized();
       const state = this.getState();
-      
+
       // If no conditions, event is always triggerable
       if (!conditions || conditions.length === 0) {
         return true;
       }
-      
+
       // Check all conditions - all must be true
-      return conditions.every(condition => {
+      return conditions.every((condition) => {
         const operator = condition.operator || '>=';
-        
+
         switch (condition.type) {
           case 'resourceAmount': {
             const resourceId = condition.target;
             if (!resourceId) return false;
-            
+
             const resource = state.resources[resourceId];
             if (!resource) return false;
-            
+
             const amount = resource.amount;
             return this.compareValues(amount, condition.value, operator);
           }
-          
+
           case 'structureCount': {
             const structureId = condition.target;
             if (!structureId) return false;
-            
+
             const structure = state.structures[structureId];
             if (!structure) return false;
-            
+
             // Use level instead of count for structures
             const level = structure.level;
             return this.compareValues(level, condition.value, operator);
           }
-          
+
           case 'gameTime': {
             const gameTime = state.game.totalPlayTime;
             return this.compareValues(gameTime, condition.value, operator);
           }
-          
+
           case 'gameStage': {
             const gameStage = state.game.gameStage;
             return this.compareValues(gameStage, condition.value, operator);
           }
-          
+
           default:
             return false;
         }
@@ -377,12 +404,18 @@ export class EventManager {
    */
   private compareValues(a: number, b: number, operator: string): boolean {
     switch (operator) {
-      case '>=': return a >= b;
-      case '>': return a > b;
-      case '=': return a === b;
-      case '<': return a < b;
-      case '<=': return a <= b;
-      default: return false;
+      case '>=':
+        return a >= b;
+      case '>':
+        return a > b;
+      case '=':
+        return a === b;
+      case '<':
+        return a < b;
+      case '<=':
+        return a <= b;
+      default:
+        return false;
     }
   }
 
@@ -395,7 +428,7 @@ export class EventManager {
     try {
       // Generate a unique ID if not provided
       const id = template.id || `event-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
-      
+
       // Create a complete event from the template
       const event: IEvent = {
         id,
@@ -414,14 +447,14 @@ export class EventManager {
         tags: template.tags || [],
         imageUrl: template.imageUrl,
       };
-      
+
       return event;
     } catch (error) {
       this.logger.logError(
         error instanceof Error ? error : new Error(String(error)),
         'EventManager.createEvent'
       );
-      
+
       // Return a minimal valid event as fallback
       return {
         id: `error-event-${Date.now()}`,
@@ -448,41 +481,43 @@ export class EventManager {
       this.ensureInitialized();
       const state = this.getState();
       const event = state.events.availableEvents[eventId];
-      
+
       // Validate event exists
       if (!event) {
         console.warn(`Event with ID ${eventId} not found`);
         return false;
       }
-      
+
       // Check if event is already active
       if (state.events.activeEvents.includes(eventId)) {
         console.warn(`Event with ID ${eventId} is already active`);
         return false;
       }
-      
+
       // Update event status
-      this.dispatch(this.actions.updateEvent({
-        id: eventId,
-        changes: { 
-          status: EventStatus.ACTIVE,
-          lastTriggered: getCurrentTime()
-        }
-      }));
-      
+      this.dispatch(
+        this.actions.updateEvent({
+          id: eventId,
+          changes: {
+            status: EventStatus.ACTIVE,
+            lastTriggered: getCurrentTime(),
+          },
+        })
+      );
+
       // Trigger the event
       this.dispatch(this.actions.triggerEvent(eventId));
-      
+
       // If the event has no choices, apply consequences immediately
       if (!event.choices || event.choices.length === 0) {
         this.applyConsequences(event.consequences || []);
-        
+
         // Auto-resolve events with no choices after a short delay
         setTimeout(() => {
           this.resolveEvent(eventId, '');
         }, 5000); // 5 second display time for notification-style events
       }
-      
+
       return true;
     } catch (error) {
       this.logger.logError(
@@ -504,49 +539,51 @@ export class EventManager {
       this.ensureInitialized();
       const state = this.getState();
       const event = state.events.availableEvents[eventId];
-      
+
       // Validate event exists and is active
       if (!event) {
         console.warn(`Event with ID ${eventId} not found`);
         return false;
       }
-      
+
       if (!state.events.activeEvents.includes(eventId)) {
         console.warn(`Event with ID ${eventId} is not active`);
         return false;
       }
-      
+
       // Find the selected choice if a choice ID was provided
       let choice = undefined;
       if (choiceId && event.choices && event.choices.length > 0) {
-        choice = event.choices.find(c => c.id === choiceId);
+        choice = event.choices.find((c) => c.id === choiceId);
         if (!choice && choiceId !== '') {
           console.warn(`Choice with ID ${choiceId} not found in event ${eventId}`);
           return false;
         }
       }
-      
+
       // Apply choice consequences if a valid choice was made
       if (choice && choice.consequences && choice.consequences.length > 0) {
         this.applyConsequences(choice.consequences);
       }
-      
+
       // Update event status
-      this.dispatch(this.actions.updateEvent({
-        id: eventId,
-        changes: { status: EventStatus.RESOLVED }
-      }));
-      
+      this.dispatch(
+        this.actions.updateEvent({
+          id: eventId,
+          changes: { status: EventStatus.RESOLVED },
+        })
+      );
+
       // Resolve the event
       this.dispatch(this.actions.resolveEvent({ eventId, choiceId }));
-      
+
       // Trigger next event if specified
       if (choice && choice.nextEventId) {
         setTimeout(() => {
           this.triggerEvent(choice.nextEventId!);
         }, 500); // Short delay for better UX
       }
-      
+
       return true;
     } catch (error) {
       this.logger.logError(
@@ -556,7 +593,7 @@ export class EventManager {
       return false;
     }
   }
-  
+
   /**
    * Expire an event that is no longer relevant
    * @param eventId The ID of the event to expire
@@ -567,24 +604,26 @@ export class EventManager {
       this.ensureInitialized();
       const state = this.getState();
       const event = state.events.availableEvents[eventId];
-      
+
       // Validate event exists
       if (!event) {
         console.warn(`Event with ID ${eventId} not found`);
         return false;
       }
-      
+
       // Update event status
-      this.dispatch(this.actions.updateEvent({
-        id: eventId,
-        changes: { status: EventStatus.EXPIRED }
-      }));
-      
+      this.dispatch(
+        this.actions.updateEvent({
+          id: eventId,
+          changes: { status: EventStatus.EXPIRED },
+        })
+      );
+
       // If event is active, resolve it
       if (state.events.activeEvents.includes(eventId)) {
         this.dispatch(this.actions.resolveEvent({ eventId, choiceId: '' }));
       }
-      
+
       return true;
     } catch (error) {
       this.logger.logError(
@@ -602,36 +641,40 @@ export class EventManager {
   private applyConsequences(consequences: EventConsequence[]): void {
     try {
       this.ensureInitialized();
-      
-      consequences.forEach(consequence => {
+
+      consequences.forEach((consequence) => {
         switch (consequence.type) {
           case 'addResource': {
             // Import action creator directly from resourcesSlice
             const { addResourceAmount } = require('../state/resourcesSlice');
-            this.dispatch(addResourceAmount({
-              id: consequence.target,
-              amount: consequence.value as number
-            }));
+            this.dispatch(
+              addResourceAmount({
+                id: consequence.target,
+                amount: consequence.value as number,
+              })
+            );
             break;
           }
-          
+
           case 'unlockStructure': {
             // Import action creator from structuresSlice
             const { toggleStructureUnlocked } = require('../state/structuresSlice');
-            this.dispatch(toggleStructureUnlocked({
-              id: consequence.target,
-              unlocked: true
-            }));
+            this.dispatch(
+              toggleStructureUnlocked({
+                id: consequence.target,
+                unlocked: true,
+              })
+            );
             break;
           }
-          
+
           case 'setGameStage': {
             // Import action creator from gameSlice
             const { setGameStage } = require('../state/gameSlice');
             this.dispatch(setGameStage(consequence.value as number));
             break;
           }
-          
+
           default:
             console.warn(`Unknown consequence type: ${consequence.type}`);
         }
@@ -652,14 +695,14 @@ export class EventManager {
     try {
       this.ensureInitialized();
       const state = this.getState();
-      
+
       // Safety check - ensure event state exists
       if (!state.events || !state.events.activeEvents || !state.events.availableEvents) {
         return [];
       }
-      
+
       return state.events.activeEvents
-        .map(id => state.events.availableEvents[id])
+        .map((id) => state.events.availableEvents[id])
         .filter(Boolean)
         .sort((a, b) => b.priority - a.priority);
     } catch (error) {
@@ -679,12 +722,12 @@ export class EventManager {
     try {
       this.ensureInitialized();
       const state = this.getState();
-      
+
       // Safety check - ensure event state exists
       if (!state.events || !state.events.availableEvents) {
         return {};
       }
-      
+
       return state.events.availableEvents;
     } catch (error) {
       this.logger.logError(
@@ -698,7 +741,7 @@ export class EventManager {
   // Track last process time to prevent too frequent checks
   private lastProcessTime: number = 0;
   private lastHealTime: number = 0;
-  
+
   /**
    * Check for events that can be triggered and do so if appropriate
    * This should be called regularly by the game loop
@@ -706,61 +749,62 @@ export class EventManager {
   public processEvents(): void {
     try {
       this.ensureInitialized();
-      
+
       // Throttle event processing to prevent excessive updates
       const currentTime = Date.now();
       const timeSinceLastProcess = currentTime - this.lastProcessTime;
-      
+
       // Only process events every 2 seconds (2000ms) at most
       if (timeSinceLastProcess < 2000) {
         return;
       }
-      
+
       // Update last process time
       this.lastProcessTime = currentTime;
-      
+
       // Self-heal inconsistencies occasionally (every 30 seconds)
       const timeSinceLastHeal = currentTime - this.lastHealTime;
       if (timeSinceLastHeal > 30000) {
         this.healEventInconsistencies();
         this.lastHealTime = currentTime;
       }
-      
+
       const state = this.getState();
-      
+
       // Safety check - ensure event state exists
       if (!state.events || !state.events.availableEvents) {
         return;
       }
-      
+
       // If there are already active events that require player input, don't trigger new ones
       const activeEvents = this.getActiveEvents();
-      const hasChoiceEvents = activeEvents.some(event => event.choices && event.choices.length > 0);
-      
+      const hasChoiceEvents = activeEvents.some(
+        (event) => event.choices && event.choices.length > 0
+      );
+
       if (hasChoiceEvents) {
         return;
       }
-      
+
       // Check for triggerable events
       const triggerableEvents = this.checkEventConditions();
-      
+
       // Sort by priority and trigger one event at a time
       if (triggerableEvents.length > 0) {
         // Get the events and sort by priority
         const events = triggerableEvents
-          .map(id => state.events.availableEvents[id])
+          .map((id) => state.events.availableEvents[id])
           .filter(Boolean)
           .sort((a, b) => b.priority - a.priority);
-        
+
         // Trigger the highest priority event
         if (events.length > 0) {
           this.triggerEvent(events[0].id);
         }
       }
-      
+
       // Check for expired events
       this.checkForExpiredEvents();
-      
     } catch (error) {
       this.logger.logError(
         error instanceof Error ? error : new Error(String(error)),
@@ -768,39 +812,40 @@ export class EventManager {
       );
     }
   }
-  
+
   /**
    * Check for events that have expired and should be removed
    */
   private checkForExpiredEvents(): void {
     try {
       this.ensureInitialized();
-      
+
       // Get all active events
       const activeEvents = this.getActiveEvents();
-      
+
       // Current time
       const currentTime = getCurrentTime();
-      
+
       // Events that should expire after some time (e.g., notifications without choices)
-      activeEvents.forEach(event => {
+      activeEvents.forEach((event) => {
         // If event has no choices and has been active for more than 30 seconds
         const isAutoResolvable = !event.choices || event.choices.length === 0;
-        
+
         if (isAutoResolvable && event.lastTriggered) {
           const activeTime = (currentTime - event.lastTriggered) / 1000; // in seconds
-          
+
           // If active for more than 30 seconds, auto-resolve
           if (activeTime > 30) {
             // Only log in development when debugging
             if (process.env.NODE_ENV === 'development' && process.env.DEBUG_LOGS === 'true') {
-              console.log(`Auto-resolving event ${event.id} after ${activeTime.toFixed(2)} seconds`);
+              console.log(
+                `Auto-resolving event ${event.id} after ${activeTime.toFixed(2)} seconds`
+              );
             }
             this.resolveEvent(event.id, '');
           }
         }
       });
-      
     } catch (error) {
       this.logger.logError(
         error instanceof Error ? error : new Error(String(error)),

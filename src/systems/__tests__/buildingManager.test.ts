@@ -7,8 +7,8 @@ import { resetSingleton, createMockStore } from '../../utils/testUtils';
 
 // Helper function to create test building
 const createTestBuilding = (
-  id: string, 
-  name: string, 
+  id: string,
+  name: string,
   description: string,
   level: number = 0,
   maxLevel: number = 3,
@@ -30,7 +30,7 @@ const createTestBuilding = (
     unlocked,
     workers,
     maxWorkers,
-    category
+    category,
   };
 };
 
@@ -39,19 +39,19 @@ describe('BuildingManager', () => {
   let store: Store;
   let mockDispatch: jest.Mock;
   let mockGetState: jest.Mock;
-  
+
   // Helper function to create a properly initialized BuildingManager
   const createBuildingManager = (state: any) => {
     // Reset singleton instance
     resetSingleton(BuildingManager);
-    
+
     // Import action creators
     const structureActions = require('../../state/structuresSlice');
     const resourceActions = require('../../state/resourcesSlice');
-    
+
     // Set up mockGetState to return the provided state
     mockGetState.mockReturnValue(state);
-    
+
     // Create BuildingManager with explicit dependencies
     return BuildingManager.getInstance({
       dispatch: mockDispatch,
@@ -60,21 +60,21 @@ describe('BuildingManager', () => {
         addStructure: structureActions.addStructure,
         upgradeStructure: structureActions.upgradeStructure,
         updateProduction: structureActions.updateProduction,
-        deductResources: resourceActions.deductResources
-      }
+        deductResources: resourceActions.deductResources,
+      },
     });
   };
 
   beforeEach(() => {
     // Reset singleton instance for each test
     resetSingleton(BuildingManager);
-    
+
     // Set up mock store
     const mocks = createMockStore();
     store = mocks.mockStore;
     mockDispatch = mocks.mockDispatch;
     mockGetState = mocks.mockGetState;
-    
+
     // Set up complete mock state with structures
     const mockState = {
       resources: {
@@ -86,7 +86,7 @@ describe('BuildingManager', () => {
           perSecond: 1,
           description: 'Test resource',
           unlocked: true,
-          category: 'primary'
+          category: 'primary',
         },
         solidarity: {
           id: 'solidarity',
@@ -96,15 +96,11 @@ describe('BuildingManager', () => {
           perSecond: 0,
           description: 'Test resource',
           unlocked: true,
-          category: 'primary'
-        }
+          category: 'primary',
+        },
       },
       structures: {
-        test_building: createTestBuilding(
-          'test_building',
-          'Test Building',
-          'A test building'
-        )
+        test_building: createTestBuilding('test_building', 'Test Building', 'A test building'),
       },
       game: {
         gameStage: 1,
@@ -116,21 +112,21 @@ describe('BuildingManager', () => {
         startDate: Date.now(),
         gameEnded: false,
         gameWon: false,
-        endReason: null
+        endReason: null,
       },
       tasks: {},
       events: {},
       progression: {},
-      tutorial: {}
+      tutorial: {},
     };
-    
+
     // Create BuildingManager with proper dependencies
     buildingManager = createBuildingManager(mockState);
-    
+
     // Reset mocks before each test
     mockDispatch.mockReset();
   });
-  
+
   describe('initialization', () => {
     it('should initialize a building', () => {
       // Create a new test building
@@ -139,37 +135,33 @@ describe('BuildingManager', () => {
         'New Test Building',
         'A new test building'
       );
-      
+
       // Initialize with empty structures
       const emptyState = {
         resources: {},
         structures: {},
         game: {
-          gameStage: 1
-        }
+          gameStage: 1,
+        },
       };
-      
+
       const emptyManager = createBuildingManager(emptyState);
-      
+
       // Initialize the building
       emptyManager.initializeBuilding(testBuilding);
-      
+
       // Check that dispatch was called with the correct action
       expect(mockDispatch).toHaveBeenCalledWith(
         expect.objectContaining({
           type: expect.stringContaining('structures/addStructure'),
-          payload: testBuilding
+          payload: testBuilding,
         })
       );
     });
-    
+
     it('should initialize multiple buildings', () => {
       const testBuildings = [
-        createTestBuilding(
-          'test_building1',
-          'Test Building 1',
-          'Test building 1'
-        ),
+        createTestBuilding('test_building1', 'Test Building 1', 'Test building 1'),
         createTestBuilding(
           'test_building2',
           'Test Building 2',
@@ -181,59 +173,55 @@ describe('BuildingManager', () => {
           true,
           0,
           3
-        )
+        ),
       ];
-      
+
       // Create manager with empty structures
       const emptyState = {
         resources: {},
         structures: {},
         game: {
-          gameStage: 1
-        }
+          gameStage: 1,
+        },
       };
-      
+
       const emptyManager = createBuildingManager(emptyState);
-      
+
       // Initialize the buildings
       emptyManager.initializeBuildings(testBuildings);
-      
+
       // Check that dispatch was called twice
       expect(mockDispatch).toHaveBeenCalledTimes(2);
-      
+
       // Check that it was called with the correct actions
       expect(mockDispatch).toHaveBeenCalledWith(
         expect.objectContaining({
           type: expect.stringContaining('structures/addStructure'),
-          payload: testBuildings[0]
+          payload: testBuildings[0],
         })
       );
-      
+
       expect(mockDispatch).toHaveBeenCalledWith(
         expect.objectContaining({
           type: expect.stringContaining('structures/addStructure'),
-          payload: testBuildings[1]
+          payload: testBuildings[1],
         })
       );
     });
   });
-  
+
   describe('purchase validation', () => {
     // Default state already has a building with 15 resources, which is enough to buy
-    
+
     it('should correctly validate if player can afford a building', () => {
       // Test with default state (enough resources - 15 > 10 cost)
       const result1 = buildingManager.canPurchaseBuilding('test_building');
       expect(result1).toBe(true);
-      
+
       // Create a new manager with insufficient resources
       const notEnoughState = {
         structures: {
-          test_building: createTestBuilding(
-            'test_building',
-            'Test Building',
-            'A test building'
-          )
+          test_building: createTestBuilding('test_building', 'Test Building', 'A test building'),
         },
         resources: {
           collective_bargaining_power: {
@@ -244,35 +232,31 @@ describe('BuildingManager', () => {
             perSecond: 1,
             description: 'Test resource',
             unlocked: true,
-            category: 'primary'
-          }
-        }
+            category: 'primary',
+          },
+        },
       };
-      
+
       const poorManager = createBuildingManager(notEnoughState);
-      
+
       // Test with insufficient resources
       const result2 = poorManager.canPurchaseBuilding('test_building');
       expect(result2).toBe(false);
     });
-    
+
     it('should return false for non-existent buildings', () => {
       const result = buildingManager.canPurchaseBuilding('non_existent');
       expect(result).toBe(false);
     });
-    
+
     it('should return false for locked buildings', () => {
       // Create a state with locked building
       const lockedState = {
         structures: {
           test_building: {
-            ...createTestBuilding(
-              'test_building',
-              'Test Building',
-              'A test building'
-            ),
-            unlocked: false
-          }
+            ...createTestBuilding('test_building', 'Test Building', 'A test building'),
+            unlocked: false,
+          },
         },
         resources: {
           collective_bargaining_power: {
@@ -283,58 +267,58 @@ describe('BuildingManager', () => {
             perSecond: 1,
             description: 'Test resource',
             unlocked: true,
-            category: 'primary'
-          }
-        }
+            category: 'primary',
+          },
+        },
       };
-      
+
       const lockedManager = createBuildingManager(lockedState);
-      
+
       const result = lockedManager.canPurchaseBuilding('test_building');
       expect(result).toBe(false);
     });
   });
-  
+
   describe('purchasing', () => {
     // Default state has a building and enough resources
-    
+
     it('should purchase a building and deduct resources', () => {
       // Mock that the building can be purchased
       jest.spyOn(buildingManager, 'canPurchaseBuilding').mockReturnValue(true);
-      
+
       const result = buildingManager.purchaseBuilding('test_building');
-      
+
       expect(result).toBe(true);
-      
+
       // Check that the right actions were dispatched
       expect(mockDispatch).toHaveBeenCalledWith(
         expect.objectContaining({
           type: expect.stringContaining('structures/upgradeStructure'),
-          payload: { id: 'test_building' }
+          payload: { id: 'test_building' },
         })
       );
-      
+
       expect(mockDispatch).toHaveBeenCalledWith(
         expect.objectContaining({
           type: expect.stringContaining('resources/deductResources'),
-          payload: { collective_bargaining_power: 10 }
+          payload: { collective_bargaining_power: 10 },
         })
       );
     });
-    
+
     it('should not purchase if player cannot afford it', () => {
       // Mock that the building cannot be purchased
       jest.spyOn(buildingManager, 'canPurchaseBuilding').mockReturnValue(false);
-      
+
       const result = buildingManager.purchaseBuilding('test_building');
-      
+
       expect(result).toBe(false);
-      
+
       // Check that no actions were dispatched
       expect(mockDispatch).not.toHaveBeenCalled();
     });
   });
-  
+
   describe('production calculation', () => {
     it('should correctly calculate production based on level and workers', () => {
       // Create a state with a leveled building and workers
@@ -350,16 +334,16 @@ describe('BuildingManager', () => {
             { solidarity: 0.5 },
             true, // unlocked
             2, // workers
-            5  // maxWorkers
-          )
+            5 // maxWorkers
+          ),
         },
-        resources: {}
+        resources: {},
       };
-      
+
       const productionManager = createBuildingManager(state);
-      
+
       productionManager.recalculateProduction('test_building');
-      
+
       // Check that the updateProduction action was dispatched
       expect(mockDispatch).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -367,39 +351,39 @@ describe('BuildingManager', () => {
           payload: expect.objectContaining({
             id: 'test_building',
             production: expect.objectContaining({
-              solidarity: expect.any(Number)
-            })
-          })
+              solidarity: expect.any(Number),
+            }),
+          }),
         })
       );
     });
   });
-  
+
   describe('createInitialBuildings', () => {
     it('should create the correct number of initial buildings', () => {
       const buildings = createInitialBuildings();
-      
+
       // Check if we have all 5 buildings from the spec
       expect(buildings.length).toBe(5);
-      
+
       // Check if we have the expected buildings
-      const buildingIds = buildings.map(b => b.id);
+      const buildingIds = buildings.map((b) => b.id);
       expect(buildingIds).toContain('community_center');
       expect(buildingIds).toContain('union_office');
       expect(buildingIds).toContain('alt_media_outlet');
       expect(buildingIds).toContain('mutual_aid_network');
       expect(buildingIds).toContain('study_group');
     });
-    
+
     it('should set Community Center as the only initially unlocked building', () => {
       const buildings = createInitialBuildings();
-      
-      const communityCenter = buildings.find(b => b.id === 'community_center');
+
+      const communityCenter = buildings.find((b) => b.id === 'community_center');
       expect(communityCenter?.unlocked).toBe(true);
-      
+
       // Check that other buildings are locked
-      const otherBuildings = buildings.filter(b => b.id !== 'community_center');
-      otherBuildings.forEach(building => {
+      const otherBuildings = buildings.filter((b) => b.id !== 'community_center');
+      otherBuildings.forEach((building) => {
         expect(building.unlocked).toBe(false);
       });
     });

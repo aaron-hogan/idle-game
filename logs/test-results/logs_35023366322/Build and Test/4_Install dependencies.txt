@@ -1,0 +1,16 @@
+﻿2025-02-28T11:15:51.7070296Z ##[group]Run npm ci --prefer-offline
+2025-02-28T11:15:51.7070666Z [36;1mnpm ci --prefer-offline[0m
+2025-02-28T11:15:51.7123016Z shell: /usr/bin/bash -e {0}
+2025-02-28T11:15:51.7123295Z ##[endgroup]
+2025-02-28T11:15:54.3843968Z npm warn deprecated react-testing-library@8.0.1: 🚨  react-testing-library has moved to @testing-library/react. Please uninstall react-testing-library and install @testing-library/react instead, or use an older version of react-testing-library. Learn more about this change here: https://github.com/testing-library/dom-testing-library/issues/260 Thanks! :)
+2025-02-28T11:15:54.4477783Z npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+2025-02-28T11:15:54.6238636Z npm warn deprecated abab@2.0.6: Use your platform's native atob() and btoa() methods instead
+2025-02-28T11:15:54.7081901Z npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+2025-02-28T11:15:54.7827581Z npm warn deprecated domexception@4.0.0: Use your platform's native DOMException instead
+2025-02-28T11:15:56.7923126Z 
+2025-02-28T11:15:56.7924007Z added 900 packages, and audited 901 packages in 5s
+2025-02-28T11:15:56.7924476Z 
+2025-02-28T11:15:56.7924767Z 193 packages are looking for funding
+2025-02-28T11:15:56.7925384Z   run `npm fund` for details
+2025-02-28T11:15:56.7939937Z 
+2025-02-28T11:15:56.7940493Z found 0 vulnerabilities
