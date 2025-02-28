@@ -1,10 +1,20 @@
 # Testing Documentation
 
-This directory contains documentation related to testing strategies, results, and guidelines for the codebase.
+This directory contains test result reports and examples related to the testing process. Note that most feature-specific test plans have been moved to their respective feature directories.
 
 ## Directories
 
 - [Results](results/) - Test result reports and summaries
+
+## Key Documents
+
+- [Task System Test Plan](/docs/features/task-system/task-system-test-plan.md) - Test plan for the task and activities system
+
+## Testing Resources
+
+For comprehensive testing guidance, please refer to:
+
+- [Testing Guide](/docs/processes/testing/testing-guide.md) - **CURRENT** - Comprehensive guide to testing standards and practices
 
 ## Testing Framework
 
@@ -36,6 +46,7 @@ npm test -- -t "component name"
 - Unit tests are located alongside the implementation files they test
 - Integration tests are in `src/integration/` or `*.integration.test.tsx` files
 - Test utilities are in `src/utils/test-utils.tsx` and similar files
+- Feature-specific test plans are located in their respective feature directories
 
 ## Best Practices
 
@@ -46,4 +57,4 @@ npm test -- -t "component name"
 5. Test both happy paths and edge cases
 6. Verify that tests actually fail when they should
 
-For detailed testing standards, see the [Testing Standards](/docs/processes/code-quality/testing-standards.md) document.
+For detailed testing standards, see the [Testing Guide](/docs/processes/testing/testing-guide.md).

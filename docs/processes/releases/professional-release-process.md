@@ -1,4 +1,6 @@
-# Professional Release Process
+# [DEPRECATED] Professional Release Process
+
+> **DEPRECATED**: This document is no longer maintained. Please refer to the updated [Release Process Guide](/docs/processes/releases/release-process-guide.md) which consolidates all versioning and release information.
 
 This document outlines our release process, branching strategy, and versioning approach.
 

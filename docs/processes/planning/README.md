@@ -4,7 +4,7 @@ This directory contains documentation for our project planning processes.
 
 ## Key Documents
 
-- [Implementation Plan](implementation-plan.md) - Strategic implementation planning for features
+- [Release Process Implementation](release-process-implementation.md) - Implementation plan for the release process
 - [Research Analysis](research-analysis.md) - Guidelines for conducting research and analysis
 - [Merge Plan](merge-plan.md) - Planning for complex multi-branch merges
 

@@ -10,6 +10,10 @@ This directory contains standards and processes for project documentation.
 ## Key Documents
 
 - [Documentation Standards](documentation-standards.md) - Standards for creating and maintaining documentation
+- [Documentation Management](DOCS_MANAGEMENT.md) - Management approach for documentation files
+- [Documentation Maintenance Guide](doc-maintenance-guide.md) - Best practices for maintaining documentation quality
+- [Documentation Reorganization Plan](doc-reorganization-plan.md) - Plan for documentation structure improvement
+- [Documentation Cleanup Results](doc-cleanup-results.md) - Results of the documentation reorganization
 
 ## Documentation Types
 

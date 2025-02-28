@@ -4,9 +4,10 @@ This directory contains documentation for our versioning and release processes.
 
 ## Key Documents
 
-- [Streamlined Versioning](streamlined-versioning.md) - Our automated versioning process based on PR titles
+- [Release Process Guide](/docs/processes/releases/release-process-guide.md) - **CURRENT** - Consolidated guide to our versioning and release processes
+- [Streamlined Versioning](streamlined-versioning.md) - **DEPRECATED** - Former automated versioning process
 - [Versioning Learnings](streamlined-versioning-learnings.md) - Lessons learned from implementing the automated versioning process
-- [Versioning and Releases](versioning-and-releases.md) - General versioning guidelines and release processes
+- [Versioning and Releases](versioning-and-releases.md) - **DEPRECATED** - Former versioning guidelines
 
 ## Versioning Workflow Overview
 

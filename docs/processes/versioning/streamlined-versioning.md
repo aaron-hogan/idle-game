@@ -1,4 +1,6 @@
-# Streamlined Versioning Process
+# [DEPRECATED] Streamlined Versioning Process
+
+> **DEPRECATED**: This document is no longer maintained. Please refer to the updated [Release Process Guide](/docs/processes/releases/release-process-guide.md) which consolidates all versioning and release information.
 
 This document explains our streamlined versioning process that eliminates manual steps and automates the version management process.
 

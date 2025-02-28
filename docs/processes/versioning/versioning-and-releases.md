@@ -1,4 +1,6 @@
-# Versioning and Release Process
+# [DEPRECATED] Versioning and Release Process
+
+> **DEPRECATED**: This document is no longer maintained. Please refer to the updated [Release Process Guide](/docs/processes/releases/release-process-guide.md) which consolidates all versioning and release information.
 
 This document outlines our process for versioning the application and creating releases. Following this process helps maintain a clear release history and ensures changes are properly documented.
 

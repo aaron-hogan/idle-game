@@ -24,7 +24,8 @@ Welcome to the Anti-Capitalist Idle Game documentation. This repository contains
 - [Code Quality](/docs/processes/code-quality/) - Code standards and quality processes
 - [Documentation](/docs/processes/documentation/) - Documentation standards and processes
 - [Git](/docs/processes/git/) - Git workflow and practices
-- [Testing Processes](/docs/processes/testing/) - Testing processes and standards
+- [Release Process](/docs/processes/releases/release-process-guide.md) - Versioning and release processes
+- [Testing](/docs/processes/testing/testing-guide.md) - Testing standards and practices
 
 ### Project Information
 - [Project Status](/docs/project/status.md) - Current project status
@@ -33,7 +34,7 @@ Welcome to the Anti-Capitalist Idle Game documentation. This repository contains
 
 ### Guides and Specifications
 - [Game Specification](/docs/specifications/game-specification.md) - Comprehensive game design specification
-- [Implementation Plan](/docs/specifications/implementation-plan.md) - Technical implementation plan
+- [Game Implementation Plan](/docs/specifications/implementation-plan.md) - Game technical implementation plan
 - [Getting Started](/docs/guides/getting-started.md) - New developer onboarding
 - [Development Setup](/docs/guides/development-setup.md) - Environment setup guide
 - [Contributing](/docs/guides/contributing.md) - Guidelines for contributors
@@ -63,7 +64,7 @@ For more information, see the [Documentation Processes](/docs/processes/document
 
 ## Documentation and Git
 
-**Important**: Most documentation files are excluded from git by default. See [DOCS_MANAGEMENT.md](/DOCS_MANAGEMENT.md) in the root folder for our documentation management approach.
+**Important**: Most documentation files are excluded from git by default. See [DOCS_MANAGEMENT.md](/docs/processes/DOCS_MANAGEMENT.md) for our documentation management approach.
 
 - Only README files and specifically exempted documentation are tracked in git
 - For critical documentation that should be tracked in git, use our exception script:

@@ -4,8 +4,9 @@ This directory contains documentation for release processes and workflows.
 
 ## Key Documents
 
-- [Release Process](release-process.md) - Standard process for releasing new versions
-- [Professional Release Process](professional-release-process.md) - Enhanced process for major releases
+- [Release Process Guide](release-process-guide.md) - **CURRENT** - Consolidated guide to our versioning and release processes
+- [Release Process](release-process.md) - **DEPRECATED** - Former standard release process
+- [Professional Release Process](professional-release-process.md) - **DEPRECATED** - Former enhanced process for major releases
 
 ## Release Workflow Overview
 
