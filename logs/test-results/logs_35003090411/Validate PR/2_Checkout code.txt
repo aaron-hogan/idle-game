@@ -1,0 +1,83 @@
+﻿2025-02-28T00:02:18.9559766Z ##[group]Run actions/checkout@v4
+2025-02-28T00:02:18.9560649Z with:
+2025-02-28T00:02:18.9561065Z   repository: aaron-hogan/idle-game
+2025-02-28T00:02:18.9561718Z   token: ***
+2025-02-28T00:02:18.9562107Z   ssh-strict: true
+2025-02-28T00:02:18.9562539Z   ssh-user: git
+2025-02-28T00:02:18.9562994Z   persist-credentials: true
+2025-02-28T00:02:18.9563444Z   clean: true
+2025-02-28T00:02:18.9563848Z   sparse-checkout-cone-mode: true
+2025-02-28T00:02:18.9564345Z   fetch-depth: 1
+2025-02-28T00:02:18.9564734Z   fetch-tags: false
+2025-02-28T00:02:18.9565157Z   show-progress: true
+2025-02-28T00:02:18.9565554Z   lfs: false
+2025-02-28T00:02:18.9565920Z   submodules: false
+2025-02-28T00:02:18.9566326Z   set-safe-directory: true
+2025-02-28T00:02:18.9566961Z ##[endgroup]
+2025-02-28T00:02:19.1415743Z Syncing repository: aaron-hogan/idle-game
+2025-02-28T00:02:19.1418548Z ##[group]Getting Git version info
+2025-02-28T00:02:19.1419948Z Working directory is '/home/runner/work/idle-game/idle-game'
+2025-02-28T00:02:19.1421532Z [command]/usr/bin/git version
+2025-02-28T00:02:19.1474457Z git version 2.48.1
+2025-02-28T00:02:19.1501839Z ##[endgroup]
+2025-02-28T00:02:19.1515080Z Temporarily overriding HOME='/home/runner/work/_temp/6b6054c4-9c7a-4429-9676-17270f48ad4b' before making global git config changes
+2025-02-28T00:02:19.1519936Z Adding repository directory to the temporary git global config as a safe directory
+2025-02-28T00:02:19.1521182Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/idle-game/idle-game
+2025-02-28T00:02:19.1554562Z Deleting the contents of '/home/runner/work/idle-game/idle-game'
+2025-02-28T00:02:19.1558374Z ##[group]Initializing the repository
+2025-02-28T00:02:19.1562470Z [command]/usr/bin/git init /home/runner/work/idle-game/idle-game
+2025-02-28T00:02:19.1786331Z hint: Using 'master' as the name for the initial branch. This default branch name
+2025-02-28T00:02:19.1787574Z hint: is subject to change. To configure the initial branch name to use in all
+2025-02-28T00:02:19.1788870Z hint: of your new repositories, which will suppress this warning, call:
+2025-02-28T00:02:19.1789940Z hint:
+2025-02-28T00:02:19.1790468Z hint: 	git config --global init.defaultBranch <name>
+2025-02-28T00:02:19.1791072Z hint:
+2025-02-28T00:02:19.1791996Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2025-02-28T00:02:19.1793390Z hint: 'development'. The just-created branch can be renamed via this command:
+2025-02-28T00:02:19.1794129Z hint:
+2025-02-28T00:02:19.1794530Z hint: 	git branch -m <name>
+2025-02-28T00:02:19.1795554Z Initialized empty Git repository in /home/runner/work/idle-game/idle-game/.git/
+2025-02-28T00:02:19.1803217Z [command]/usr/bin/git remote add origin https://github.com/aaron-hogan/idle-game
+2025-02-28T00:02:19.1835886Z ##[endgroup]
+2025-02-28T00:02:19.1836703Z ##[group]Disabling automatic garbage collection
+2025-02-28T00:02:19.1839719Z [command]/usr/bin/git config --local gc.auto 0
+2025-02-28T00:02:19.1870510Z ##[endgroup]
+2025-02-28T00:02:19.1871971Z ##[group]Setting up auth
+2025-02-28T00:02:19.1877997Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2025-02-28T00:02:19.1909846Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2025-02-28T00:02:19.2195524Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2025-02-28T00:02:19.2226630Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2025-02-28T00:02:19.2474490Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2025-02-28T00:02:19.2512012Z ##[endgroup]
+2025-02-28T00:02:19.2513498Z ##[group]Fetching the repository
+2025-02-28T00:02:19.2522317Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +243f0c15e0251810fd0708353357fe3c0df60ef4:refs/remotes/pull/100/merge
+2025-02-28T00:02:19.7380300Z From https://github.com/aaron-hogan/idle-game
+2025-02-28T00:02:19.7382516Z  * [new ref]         243f0c15e0251810fd0708353357fe3c0df60ef4 -> pull/100/merge
+2025-02-28T00:02:19.7403241Z ##[endgroup]
+2025-02-28T00:02:19.7404476Z ##[group]Determining the checkout info
+2025-02-28T00:02:19.7405795Z ##[endgroup]
+2025-02-28T00:02:19.7410396Z [command]/usr/bin/git sparse-checkout disable
+2025-02-28T00:02:19.7447738Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2025-02-28T00:02:19.7475797Z ##[group]Checking out the ref
+2025-02-28T00:02:19.7479426Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/100/merge
+2025-02-28T00:02:19.7796274Z Note: switching to 'refs/remotes/pull/100/merge'.
+2025-02-28T00:02:19.7797361Z 
+2025-02-28T00:02:19.7798191Z You are in 'detached HEAD' state. You can look around, make experimental
+2025-02-28T00:02:19.7801192Z changes and commit them, and you can discard any commits you make in this
+2025-02-28T00:02:19.7804595Z state without impacting any branches by switching back to a branch.
+2025-02-28T00:02:19.7806314Z 
+2025-02-28T00:02:19.7807332Z If you want to create a new branch to retain commits you create, you may
+2025-02-28T00:02:19.7809909Z do so (now or later) by using -c with the switch command. Example:
+2025-02-28T00:02:19.7811418Z 
+2025-02-28T00:02:19.7812035Z   git switch -c <new-branch-name>
+2025-02-28T00:02:19.7813053Z 
+2025-02-28T00:02:19.7813593Z Or undo this operation with:
+2025-02-28T00:02:19.7814480Z 
+2025-02-28T00:02:19.7814948Z   git switch -
+2025-02-28T00:02:19.7815612Z 
+2025-02-28T00:02:19.7816759Z Turn off this advice by setting config variable advice.detachedHead to false
+2025-02-28T00:02:19.7818159Z 
+2025-02-28T00:02:19.7819742Z HEAD is now at 243f0c1 Merge babcdc45e51b1616c802a98994c5de1320bd599d into 24079cb2e681ad94c54e715b7b4bdc4f37cb93ba
+2025-02-28T00:02:19.7824667Z ##[endgroup]
+2025-02-28T00:02:19.7844819Z [command]/usr/bin/git log -1 --format=%H
+2025-02-28T00:02:19.7867237Z 243f0c15e0251810fd0708353357fe3c0df60ef4

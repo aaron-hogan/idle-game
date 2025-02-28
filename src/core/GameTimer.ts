@@ -118,7 +118,7 @@ export class GameTimer {
     }
     
     // Create and add new handler
-    this.visibilityHandler = (event: Event) => {
+    this.visibilityHandler = (_event: Event) => {
       if (document.hidden) {
         // Tab lost focus
         if (this.config.pauseOnHidden && this.running) {
@@ -270,7 +270,7 @@ export class GameTimer {
   private getTimestamp(): number {
     try {
       return performance.now() / 1000; // Convert ms to seconds
-    } catch (e) {
+    } catch (_e) {
       // Fallback in case performance.now() is not available
       console.warn('GameTimer: performance.now() not available, falling back to Date.now()');
       return Date.now() / 1000;

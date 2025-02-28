@@ -1,0 +1,25 @@
+﻿2025-02-28T00:02:19.7802301Z ##[group]Run # Get PR title for type detection
+2025-02-28T00:02:19.7803842Z [36;1m# Get PR title for type detection[0m
+2025-02-28T00:02:19.7805371Z [36;1mPR_TITLE="Fix failing tests with proper dependency injection"[0m
+2025-02-28T00:02:19.7806871Z [36;1mecho "PR title: $PR_TITLE"[0m
+2025-02-28T00:02:19.7807904Z [36;1m[0m
+2025-02-28T00:02:19.7808771Z [36;1m# Skip this check for specific PR types[0m
+2025-02-28T00:02:19.7810340Z [36;1mif echo "$PR_TITLE" | grep -E "^(docs|chore|ci|test):" > /dev/null; then[0m
+2025-02-28T00:02:19.7812175Z [36;1m  echo "PR type doesn't require CHANGELOG update, skipping check"[0m
+2025-02-28T00:02:19.7813751Z [36;1m  exit 0[0m
+2025-02-28T00:02:19.7814542Z [36;1mfi[0m
+2025-02-28T00:02:19.7815271Z [36;1m[0m
+2025-02-28T00:02:19.7816112Z [36;1m# Check if CHANGELOG.md was modified[0m
+2025-02-28T00:02:19.7818934Z [36;1mif ! git diff --name-only 24079cb2e681ad94c54e715b7b4bdc4f37cb93ba babcdc45e51b1616c802a98994c5de1320bd599d | grep "CHANGELOG.md" > /dev/null; then[0m
+2025-02-28T00:02:19.7822022Z [36;1m  echo "Error: CHANGELOG.md was not updated"[0m
+2025-02-28T00:02:19.7823979Z [36;1m  echo "Please add an entry for your changes to the [Unreleased] section of CHANGELOG.md"[0m
+2025-02-28T00:02:19.7825682Z [36;1m  exit 1[0m
+2025-02-28T00:02:19.7826450Z [36;1mfi[0m
+2025-02-28T00:02:19.7827191Z [36;1m[0m
+2025-02-28T00:02:19.7828119Z [36;1mecho "CHANGELOG.md has been updated correctly"[0m
+2025-02-28T00:02:19.7879906Z shell: /usr/bin/bash -e {0}
+2025-02-28T00:02:19.7880919Z ##[endgroup]
+2025-02-28T00:02:19.7971404Z PR title: Fix failing tests with proper dependency injection
+2025-02-28T00:02:19.8008753Z Error: CHANGELOG.md was not updated
+2025-02-28T00:02:19.8012510Z Please add an entry for your changes to the [Unreleased] section of CHANGELOG.md
+2025-02-28T00:02:19.8028174Z ##[error]Process completed with exit code 1.
