@@ -7,6 +7,9 @@ import { RootState } from '../state/store';
 import { saveGame, loadGame, SaveData, deleteSave, restoreFromBackup } from '../utils/saveUtils';
 import { ErrorLogger, invariant } from '../utils/errorUtils';
 import { safeJsonParse } from '../utils/validationUtils';
+import * as gameActions from '../state/gameSlice';
+import * as resourcesActions from '../state/resourcesSlice';
+import * as structuresActions from '../state/structuresSlice';
 
 // Import only the types needed for dependency injection
 import type { AppDispatch } from '../state/store';
@@ -129,14 +132,11 @@ export class SaveManager {
       // Just update config if already initialized
       this.setConfig(config);
       return;
-    } catch (e) {
+    } catch (_e) {
       // Continue with initialization
     }
     
-    // Import necessary action creators
-    const gameActions = require('../state/gameSlice');
-    const resourcesActions = require('../state/resourcesSlice');
-    const structuresActions = require('../state/structuresSlice');
+    // Use the imported action creators
     
     // Set up dependencies from store
     this.dispatch = store.dispatch;
@@ -356,7 +356,7 @@ export class SaveManager {
         // Update individual properties to avoid type issues with unknown properties
         const { 
           gameStage, 
-          lastSaveTime, 
+          // lastSaveTime not used, so not destructured
           totalPlayTime,
           isRunning,
           tickRate,

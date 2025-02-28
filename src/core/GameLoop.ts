@@ -158,7 +158,7 @@ export class GameLoop {
   /**
    * Main game loop function called by requestAnimationFrame
    */
-  private gameLoop(timestamp: number): void {
+  private gameLoop(_timestamp: number): void {
     try {
       // Update the game timer
       this.gameTimer.update();
