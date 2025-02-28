@@ -19,6 +19,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Removed unused imports and variables in App.tsx and App.test.tsx
   - Replaced require-style imports with ES module imports
   - Removed unused screen imports in test files
+  - Replaced explicit 'any' types with proper typed alternatives in multiple files:
+    - System files: eventManager.ts, saveManager.ts, workerManager.ts
+    - ResourceManager and resourceUtils.ts with proper RootState typing
+    - GameLoop.ts and gameLoopTest.ts with Resource typing
+    - ProgressionManager.ts and tasksSlice.ts
 
 ## [0.6.1] - 2025-02-28
 
