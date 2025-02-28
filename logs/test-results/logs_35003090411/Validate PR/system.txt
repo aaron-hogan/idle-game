@@ -1,0 +1,5 @@
+2025-02-28T00:02:14.1289623Z Requested labels: ubuntu-latest
+2025-02-28T00:02:14.1289623Z Job defined at: aaron-hogan/idle-game/.github/workflows/pr-validation.yml@refs/pull/100/merge
+2025-02-28T00:02:14.1289623Z Waiting for a runner to pick up this job...
+2025-02-28T00:02:14.2770986Z Job is waiting for a hosted runner to come online.
+2025-02-28T00:02:14.2771139Z Job is about to start running on the hosted runner: GitHub Actions

@@ -2,8 +2,7 @@
  * Component that combines milestone progress display with clickable resource functionality
  */
 import React, { useState, useCallback, useEffect, useMemo } from 'react';
-import { useSelector } from 'react-redux';
-import { useAppDispatch, useMemoSelector } from '../../state/hooks';
+import { useMemoSelector } from '../../state/hooks';
 import { RootState } from '../../state/store';
 import { Milestone } from '../../interfaces/progression';
 import { allMilestones } from '../../data/progression/milestones';
@@ -54,7 +53,6 @@ const ClickableMilestone: React.FC<ClickableMilestoneProps> = ({
   limit = 1,
   resourceId = ResourceId.COLLECTIVE_POWER
 }) => {
-  const dispatch = useAppDispatch();
   const [particles, setParticles] = useState<ClickParticle[]>([]);
   const [nextParticleId, setNextParticleId] = useState(0);
   const [isClicking, setIsClicking] = useState(false);
