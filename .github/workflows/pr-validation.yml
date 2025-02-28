@@ -77,59 +77,90 @@ jobs:
             console.log("✅ Using streamlined versioning: PR title is used to determine version bump");
             console.log("✅ You no longer need to add version labels to PRs");
   
-  # This job is temporarily commented out for the transition PR
-  # It will be uncommented in a future PR once the transition is complete
-  # check-pr-description:
-  #   name: Check PR Description
-  #   runs-on: ubuntu-latest
-  #   
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v4
-  #       with:
-  #         fetch-depth: 0
-  #         
-  #     - name: Check PR description for changelog entry
-  #       uses: actions/github-script@v6
-  #       with:
-  #         script: |
-  #           const PR_TITLE = context.payload.pull_request.title;
-  #           const PR_BODY = context.payload.pull_request.body || '';
-  #           
-  #           console.log(`PR title: ${PR_TITLE}`);
-  #           
-  #           // Skip check for specific PR types that don't need changelog entries
-  #           if (PR_TITLE.match(/^(docs|chore|ci|test):/i)) {
-  #             console.log("PR type doesn't require changelog entry, skipping check");
-  #             return;
-  #           }
-  #           
-  #           // Check if PR body contains a changelog entry section
-  #           if (!PR_BODY.includes('## Changelog Entry')) {
-  #             core.setFailed("PR description must include a ## Changelog Entry section");
-  #           } else {
-  #             console.log("✅ Found '## Changelog Entry' section in PR description");
-  #             
-  #             // Just check if there's any content
-  #             if (PR_BODY.includes('### Added') || 
-  #                 PR_BODY.includes('### Changed') || 
-  #                 PR_BODY.includes('### Fixed') || 
-  #                 PR_BODY.includes('### Removed')) {
-  #               console.log("✅ Found changelog subsections in PR description");
-  #             } else {
-  #               core.setFailed("Changelog entry must include at least one subsection (### Added, ### Changed, etc.)");
-  #             }
-  #           }
-  
-  # Temporary placeholder for PR description check during transition
-  check-pr-description-placeholder:
+  check-pr-description:
     name: Check PR Description
     runs-on: ubuntu-latest
     
     steps:
-      - name: Simple PR description check
-        run: |
-          echo "✅ PR description check temporarily bypassed for transition process"
-          echo "This allows us to merge the workflow update PR without validation errors"
-          echo "Full validation will be restored in future PRs"
-          echo "Developers should still include a ## Changelog Entry section in their PRs"
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: Check PR description for changelog entry
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const PR_TITLE = context.payload.pull_request.title;
+            const PR_BODY = context.payload.pull_request.body || '';
+            
+            console.log(`PR title: ${PR_TITLE}`);
+            
+            // Skip check for specific PR types that don't need changelog entries
+            if (PR_TITLE.match(/^(docs|chore|ci|test|style):/i)) {
+              console.log("PR type doesn't require changelog entry, skipping check");
+              return;
+            }
+            
+            // Check if PR body contains a changelog entry section
+            if (!PR_BODY.includes('## Changelog Entry')) {
+              core.setFailed(`
+              ❌ PR description must include a "## Changelog Entry" section.
+              
+              Please update your PR description to include this section with at least one of the following subsections:
+              - ### Added (for new features)
+              - ### Changed (for changes in existing functionality)
+              - ### Fixed (for bug fixes)
+              - ### Removed (for removed features)
+              
+              Example:
+              
+              ## Changelog Entry
+              
+              ### Added
+              - New feature that does X
+              
+              ### Fixed
+              - Bug that caused Y
+              `);
+            } else {
+              console.log("✅ Found '## Changelog Entry' section in PR description");
+              
+              // Check if there's any content in the subsections
+              if (PR_BODY.includes('### Added') || 
+                  PR_BODY.includes('### Changed') || 
+                  PR_BODY.includes('### Fixed') || 
+                  PR_BODY.includes('### Removed')) {
+                console.log("✅ Found changelog subsections in PR description");
+                
+                // Extract the changelog entry section to check if it has actual content
+                const changelogSectionMatch = PR_BODY.match(/## Changelog Entry([\s\S]*?)(?=##|$)/);
+                if (changelogSectionMatch && changelogSectionMatch[1]) {
+                  const changelogContent = changelogSectionMatch[1].trim();
+                  // Check if there's any content besides just the subsection headers
+                  const subsectionContentCheck = changelogContent.replace(/### (Added|Changed|Fixed|Removed)/g, '').trim();
+                  
+                  if (!subsectionContentCheck) {
+                    core.setFailed(`
+                    ❌ Changelog subsections are empty. 
+                    
+                    Please add content to at least one subsection. Example:
+                    
+                    ### Added
+                    - New login feature with OAuth support
+                    `);
+                  }
+                }
+              } else {
+                core.setFailed(`
+                ❌ Changelog entry must include at least one subsection:
+                
+                ### Added
+                ### Changed
+                ### Fixed
+                ### Removed
+                
+                Please add at least one of these subsections with a description of your changes.
+                `);
+              }
+            }
