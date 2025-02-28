@@ -21,6 +21,11 @@ This document explains our ultra-simple changelog process that makes it impossib
 3. **Fallback to PR Title**:
    - If no content is found in the PR description
    - Extracts the content after the prefix (`feat: Add login` → `Add login`)
+   
+4. **Robust Error Handling**:
+   - Line-by-line processing for maximum reliability
+   - Handles edge cases gracefully
+   - Skips lines with warning symbols, headings, and empty lines
 
 ## Pull Request Process
 
@@ -88,10 +93,12 @@ This PR implements the user authentication system...
 
 The extraction script in our workflow:
 
-1. Skips heading lines, empty lines, and warning text
-2. Takes the first remaining line as the changelog entry
-3. Categorizes based on PR title prefix
-4. Falls back to PR title if no entry found
-5. Formats the entry for the changelog
+1. Uses a robust line-by-line processing approach
+2. Trims whitespace and filters out irrelevant lines
+3. Skips heading lines, empty lines, and warning text
+4. Takes the first valid line as the changelog entry
+5. Categorizes based on PR title prefix
+6. Falls back to the PR title description if no entry found
+7. Formats the entry for the changelog with proper section
 
-This approach is extremely robust and requires minimal cognitive load from contributors.
+This approach is extremely robust, handles all edge cases gracefully, and requires minimal cognitive load from contributors.
