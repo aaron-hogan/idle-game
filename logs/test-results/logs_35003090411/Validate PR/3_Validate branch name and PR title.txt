@@ -1,0 +1,31 @@
+﻿2025-02-28T00:02:19.8117153Z ##[group]Run # Get branch name
+2025-02-28T00:02:19.8118444Z [36;1m# Get branch name[0m
+2025-02-28T00:02:19.8119818Z [36;1mBRANCH_NAME="fix/failing-tests"[0m
+2025-02-28T00:02:19.8121161Z [36;1mecho "Branch: $BRANCH_NAME"[0m
+2025-02-28T00:02:19.8122368Z [36;1m[0m
+2025-02-28T00:02:19.8123272Z [36;1m# Check branch name format[0m
+2025-02-28T00:02:19.8125663Z [36;1mif ! echo "$BRANCH_NAME" | grep -E "^(feature|fix|docs|refactor|ci|chore|test)/[a-z0-9-]+" > /dev/null; then[0m
+2025-02-28T00:02:19.8128842Z [36;1m  echo "Error: Branch name doesn't follow the pattern: (feature|fix|docs|refactor|ci|chore|test)/name"[0m
+2025-02-28T00:02:19.8131462Z [36;1m  echo "Examples: feature/login-page, fix/auth-bug"[0m
+2025-02-28T00:02:19.8132964Z [36;1m  exit 1[0m
+2025-02-28T00:02:19.8133865Z [36;1mfi[0m
+2025-02-28T00:02:19.8134719Z [36;1m[0m
+2025-02-28T00:02:19.8135578Z [36;1m# Get PR title[0m
+2025-02-28T00:02:19.8137037Z [36;1mPR_TITLE="Fix failing tests with proper dependency injection"[0m
+2025-02-28T00:02:19.8138818Z [36;1mecho "PR title: $PR_TITLE"[0m
+2025-02-28T00:02:19.8140103Z [36;1m[0m
+2025-02-28T00:02:19.8141155Z [36;1m# Check PR title format (conventional commits)[0m
+2025-02-28T00:02:19.8143993Z [36;1mif ! echo "$PR_TITLE" | grep -Ei "^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\\([a-z0-9-]+\\))?: [A-Za-z]" > /dev/null; then[0m
+2025-02-28T00:02:19.8147014Z [36;1m  echo "Error: PR title must follow the conventional commit format"[0m
+2025-02-28T00:02:19.8149264Z [36;1m  echo "Examples: 'feat: Add user login' or 'fix(auth): Fix password reset'"[0m
+2025-02-28T00:02:19.8151099Z [36;1m  exit 1[0m
+2025-02-28T00:02:19.8151998Z [36;1mfi[0m
+2025-02-28T00:02:19.8152846Z [36;1m[0m
+2025-02-28T00:02:19.8154332Z [36;1mecho "Validation passed: Branch name and PR title are correctly formatted"[0m
+2025-02-28T00:02:19.8207953Z shell: /usr/bin/bash -e {0}
+2025-02-28T00:02:19.8209287Z ##[endgroup]
+2025-02-28T00:02:19.8304624Z Branch: fix/failing-tests
+2025-02-28T00:02:19.8323847Z PR title: Fix failing tests with proper dependency injection
+2025-02-28T00:02:19.8343301Z Error: PR title must follow the conventional commit format
+2025-02-28T00:02:19.8346235Z Examples: 'feat: Add user login' or 'fix(auth): Fix password reset'
+2025-02-28T00:02:19.8361173Z ##[error]Process completed with exit code 1.

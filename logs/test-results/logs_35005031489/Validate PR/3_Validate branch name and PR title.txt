@@ -1,0 +1,29 @@
+﻿2025-02-28T01:07:57.3676152Z ##[group]Run # Get branch name
+2025-02-28T01:07:57.3677371Z [36;1m# Get branch name[0m
+2025-02-28T01:07:57.3678594Z [36;1mBRANCH_NAME="fix/clean-up-skipped-tests"[0m
+2025-02-28T01:07:57.3680100Z [36;1mecho "Branch: $BRANCH_NAME"[0m
+2025-02-28T01:07:57.3681234Z [36;1m[0m
+2025-02-28T01:07:57.3682082Z [36;1m# Check branch name format[0m
+2025-02-28T01:07:57.3684339Z [36;1mif ! echo "$BRANCH_NAME" | grep -E "^(feature|fix|docs|refactor|ci|chore|test)/[a-z0-9-]+" > /dev/null; then[0m
+2025-02-28T01:07:57.3687314Z [36;1m  echo "Error: Branch name doesn't follow the pattern: (feature|fix|docs|refactor|ci|chore|test)/name"[0m
+2025-02-28T01:07:57.3689770Z [36;1m  echo "Examples: feature/login-page, fix/auth-bug"[0m
+2025-02-28T01:07:57.3691195Z [36;1m  exit 1[0m
+2025-02-28T01:07:57.3692043Z [36;1mfi[0m
+2025-02-28T01:07:57.3692838Z [36;1m[0m
+2025-02-28T01:07:57.3693633Z [36;1m# Get PR title[0m
+2025-02-28T01:07:57.3694860Z [36;1mPR_TITLE="Fix: Clean up skipped and outdated tests"[0m
+2025-02-28T01:07:57.3696371Z [36;1mecho "PR title: $PR_TITLE"[0m
+2025-02-28T01:07:57.3697472Z [36;1m[0m
+2025-02-28T01:07:57.3698453Z [36;1m# Check PR title format (conventional commits)[0m
+2025-02-28T01:07:57.3701232Z [36;1mif ! echo "$PR_TITLE" | grep -Ei "^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\\([a-z0-9-]+\\))?: [A-Za-z]" > /dev/null; then[0m
+2025-02-28T01:07:57.3704137Z [36;1m  echo "Error: PR title must follow the conventional commit format"[0m
+2025-02-28T01:07:57.3706189Z [36;1m  echo "Examples: 'feat: Add user login' or 'fix(auth): Fix password reset'"[0m
+2025-02-28T01:07:57.3707829Z [36;1m  exit 1[0m
+2025-02-28T01:07:57.3708665Z [36;1mfi[0m
+2025-02-28T01:07:57.3709548Z [36;1m[0m
+2025-02-28T01:07:57.3710942Z [36;1mecho "Validation passed: Branch name and PR title are correctly formatted"[0m
+2025-02-28T01:07:57.3763815Z shell: /usr/bin/bash -e {0}
+2025-02-28T01:07:57.3764881Z ##[endgroup]
+2025-02-28T01:07:57.3858573Z Branch: fix/clean-up-skipped-tests
+2025-02-28T01:07:57.3877425Z PR title: Fix: Clean up skipped and outdated tests
+2025-02-28T01:07:57.3896968Z Validation passed: Branch name and PR title are correctly formatted
