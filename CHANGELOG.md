@@ -11,14 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.7.3] - 2025-02-28
 
-
 ### Fixed
 - Resolved YAML syntax issues in the streamlined versioning workflow
 - Fixed changelog extraction reliability with a more robust approach
 - Improved the CHANGELOG.md update process by using isolated scripts
-
-
-*No unreleased changes at this time.*
 
 ## [0.7.2] - 2025-02-28
 

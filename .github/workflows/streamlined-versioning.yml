@@ -182,12 +182,12 @@ jobs:
             echo "## [$NEW_VERSION] - $DATE"
             echo
             
-            # Add the changelog entry
+            # Add the changelog entry without any placeholder text
             cat changelog_entry.txt
-            echo
             
             # Get the rest of the file (everything after Unreleased)
-            sed -n '/## \[Unreleased\]/,$ p' CHANGELOG.md | tail -n +2
+            # Skip the Unreleased section and start from the next heading
+            sed -n '/## \[[0-9]/,$p' CHANGELOG.md
           ) > CHANGELOG.md.new
           
           # Replace original with new version
