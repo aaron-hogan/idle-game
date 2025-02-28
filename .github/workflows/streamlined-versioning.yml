@@ -120,8 +120,13 @@ jobs:
           DATE=$(date +%Y-%m-%d)
           echo "Updating CHANGELOG.md with version $NEW_VERSION ($DATE)"
           
+          # Reset any unstaged changes to avoid git conflicts
+          git reset --hard HEAD
+          
           # Make sure we have the latest version of the files
-          git pull origin main --rebase
+          git fetch origin main
+          git checkout main
+          git pull origin main
           
           # Check if Unreleased section exists
           if ! grep -q "## \[Unreleased\]" CHANGELOG.md; then
@@ -129,11 +134,13 @@ jobs:
             exit 1
           fi
           
+          # Save the current changelog entry for later use
+          CHANGELOG_ENTRY=$(cat changelog_entry.txt)
+          
           # Create new version section in CHANGELOG
           sed -i "s/## \[Unreleased\]/## [Unreleased]\n\n*No unreleased changes at this time.*\n\n## [$NEW_VERSION] - $DATE/" CHANGELOG.md
           
           # Insert changelog entry after the new version heading
-          CHANGELOG_ENTRY=$(cat changelog_entry.txt)
           awk -v ver="## [$NEW_VERSION] - $DATE" -v entry="$CHANGELOG_ENTRY" '
           {
             print $0
@@ -144,7 +151,10 @@ jobs:
           }' CHANGELOG.md > CHANGELOG.md.new
           mv CHANGELOG.md.new CHANGELOG.md
           
-          echo "CHANGELOG.md updated successfully"
+          # Update package.json again to ensure it has the right version
+          node -e "const fs = require('fs'); const pkg = JSON.parse(fs.readFileSync('package.json')); pkg.version = '$NEW_VERSION'; fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');"
+          
+          echo "CHANGELOG.md and package.json updated successfully"
           
       - name: Commit and push changes
         if: steps.version-bump.outputs.bump_type != 'none'
@@ -152,15 +162,22 @@ jobs:
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
           
+          # Stage and commit the changes
           git add CHANGELOG.md package.json
           git commit -m "chore: bump version to ${{ steps.bump-version.outputs.new_version }}"
-          git push origin HEAD:main
+          
+          # Push directly to main (since we're already on main branch)
+          git push origin main
           
           echo "Changes committed and pushed to main"
           
       - name: Create tag
         if: steps.version-bump.outputs.bump_type != 'none'
         run: |
+          # Ensure we're on the latest commit
+          git pull origin main
+          
+          # Create and push the tag
           git tag "v${{ steps.bump-version.outputs.new_version }}"
           git push origin "v${{ steps.bump-version.outputs.new_version }}"
           
