@@ -188,6 +188,11 @@ gh run view <run-id> --log-failed
 # - CHANGELOG updates for feature and fix PRs
 # - Documentation requirements
 # - Code coverage requirements
+# - VERSION LABELS - Every feature/fix PR MUST have a version label
+#   * version:major - For breaking changes
+#   * version:minor - For new features (feat:)
+#   * version:patch - For bug fixes (fix:)
+#   * version:patch_level - For minor tweaks
 
 # STEP 5: Check if any PRs that were merged just before yours have failing post-merge workflows
 # - This can indicate problems that might affect your PR
@@ -203,6 +208,10 @@ gh pr merge <pr-number> --squash --delete-branch
 **⚠️ MAJOR PROCESS FAILURE ALERT ⚠️**
 
 PR #115 was merged despite failing the CHANGELOG update check, leading to a broken process. This type of oversight compromises our quality control. You MUST verify EVERY check, not just the summary status.
+
+**⚠️ VERSION LABEL REQUIREMENT ⚠️**
+
+Every feature or fix PR MUST include a version label so auto-versioning can move changes from Unreleased to a proper version heading. Without the correct version label, the PR will be merged with unreleased changes still in the Unreleased section.
 
 ### 4. Explicitly Communicate Merge Status
 
@@ -354,19 +363,28 @@ npm start
    - Check logs for any failed steps
    - Verify all post-merge checks from recent PRs
    - Never assume success based on a green checkmark in GitHub UI
-2. **One Issue, One PR**: Each PR should address a single issue or feature
-3. **Small PRs**: Keep PRs small and focused for easier review and testing
-4. **Clear Commit Messages**: Use conventional commits (fix:, feat:, docs:, etc.)
-5. **Documentation First**: Document your changes as you make them
-6. **Test Early, Test Often**: Write tests before or alongside code changes
-7. **Self-Review**: Always review your own PR before requesting reviews
-8. **Keep CI Green**: Don't merge PRs that break the build or tests
-9. **Communicate**: Use PR comments to explain complex changes or decisions
-10. **Explicit Status Updates**: Always explicitly confirm successful merges to the user
-11. **Update Tests**: Always update tests when refactoring or changing behavior
-12. **Verify After Merge**: Always verify the main branch is stable after merging
-13. **Clear Communication**: Explicitly state when PRs are merged and branches are deleted
-14. **Appropriate Versioning**: Use the appropriate version level (major, minor, patch, or patch-level) to match the changes
-15. **Changelog Quality**: Keep changelog entries clear, concise, and properly categorized
+2. ⚠️ **ALWAYS ADD VERSION LABELS**: Every feature/fix PR must have a version label:
+   - `version:major` - For breaking changes
+   - `version:minor` - For new features (feat:)
+   - `version:patch` - For bug fixes (fix:)
+   - `version:patch_level` - For minor tweaks
+   - This is critical for the auto-versioning process to work properly
+3. ⚠️ **PROPER CHANGELOG MANAGEMENT**:
+   - During development: Add changes to the "Unreleased" section only
+   - Do not create version sections manually in PRs - auto-versioning will do this
+   - Ensure changelog entries are clear, concise, and properly categorized
+   - The auto-versioning process will move entries from "Unreleased" to proper version headings
+4. **One Issue, One PR**: Each PR should address a single issue or feature
+5. **Small PRs**: Keep PRs small and focused for easier review and testing
+6. **Clear Commit Messages**: Use conventional commits (fix:, feat:, docs:, etc.)
+7. **Documentation First**: Document your changes as you make them
+8. **Test Early, Test Often**: Write tests before or alongside code changes
+9. **Self-Review**: Always review your own PR before requesting reviews
+10. **Keep CI Green**: Don't merge PRs that break the build or tests
+11. **Communicate**: Use PR comments to explain complex changes or decisions
+12. **Explicit Status Updates**: Always explicitly confirm successful merges to the user
+13. **Update Tests**: Always update tests when refactoring or changing behavior
+14. **Verify After Merge**: Always verify the main branch is stable after merging
+15. **Clear Communication**: Explicitly state when PRs are merged and branches are deleted
 
 By following this workflow, we maintain a high-quality codebase with clear history and thorough documentation.
