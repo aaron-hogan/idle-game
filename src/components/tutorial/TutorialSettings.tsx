@@ -2,8 +2,8 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../state/store';
 import { TutorialManager } from '../../managers/TutorialManager';
-import { 
-  setTutorialsEnabled, 
+import {
+  setTutorialsEnabled,
   setShowContextualHelp,
   resetTutorials,
 } from '../../state/tutorialSlice';
@@ -20,31 +20,35 @@ const TutorialSettings: React.FC = () => {
   const { tutorialsEnabled, showContextualHelp, completedTutorials } = useSelector(
     (state: RootState) => state.tutorial
   );
-  
+
   const tutorialManager = TutorialManager.getInstance();
-  
+
   const handleToggleTutorials = () => {
     dispatch(setTutorialsEnabled(!tutorialsEnabled));
   };
-  
+
   const handleToggleContextualHelp = () => {
     dispatch(setShowContextualHelp(!showContextualHelp));
   };
-  
+
   const handleResetTutorials = () => {
-    if (window.confirm('Are you sure you want to reset all tutorial progress? You will see all tutorials again.')) {
+    if (
+      window.confirm(
+        'Are you sure you want to reset all tutorial progress? You will see all tutorials again.'
+      )
+    ) {
       dispatch(resetTutorials());
     }
   };
-  
+
   const handleRestartTutorial = (step: TutorialStep) => {
     tutorialManager.startTutorial(step);
   };
-  
+
   return (
     <div className="tutorial-settings">
       <h3>Tutorial Settings</h3>
-      
+
       <div className="settings-options">
         <div className="setting-item">
           <label htmlFor="enable-tutorials">
@@ -56,11 +60,9 @@ const TutorialSettings: React.FC = () => {
             />
             <span>Enable Tutorials</span>
           </label>
-          <p className="setting-description">
-            Show guided tutorials for game mechanics
-          </p>
+          <p className="setting-description">Show guided tutorials for game mechanics</p>
         </div>
-        
+
         <div className="setting-item">
           <label htmlFor="enable-contextual-help">
             <input
@@ -72,39 +74,37 @@ const TutorialSettings: React.FC = () => {
             />
             <span>Show Contextual Help</span>
           </label>
-          <p className="setting-description">
-            Display help icons near game elements
-          </p>
+          <p className="setting-description">Display help icons near game elements</p>
         </div>
       </div>
-      
+
       <div className="tutorial-management">
         <h4>Tutorial Management</h4>
         <p>Restart specific tutorials:</p>
-        
+
         <div className="tutorial-buttons">
-          <button 
+          <button
             onClick={() => handleRestartTutorial(TutorialStep.WELCOME)}
             disabled={!tutorialsEnabled}
             className="restart-tutorial-button"
           >
             Intro Tutorial
           </button>
-          <button 
+          <button
             onClick={() => handleRestartTutorial(TutorialStep.RESOURCES)}
             disabled={!tutorialsEnabled}
             className="restart-tutorial-button"
           >
             Resources Tutorial
           </button>
-          <button 
+          <button
             onClick={() => handleRestartTutorial(TutorialStep.BUILDINGS)}
             disabled={!tutorialsEnabled}
             className="restart-tutorial-button"
           >
             Buildings Tutorial
           </button>
-          <button 
+          <button
             onClick={() => handleRestartTutorial(TutorialStep.WORKERS)}
             disabled={!tutorialsEnabled}
             className="restart-tutorial-button"
@@ -112,8 +112,8 @@ const TutorialSettings: React.FC = () => {
             Workers Tutorial
           </button>
         </div>
-        
-        <button 
+
+        <button
           onClick={handleResetTutorials}
           disabled={!tutorialsEnabled || completedTutorials.length === 0}
           className="reset-tutorials-button"

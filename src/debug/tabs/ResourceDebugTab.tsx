@@ -9,54 +9,63 @@ import { allMilestones } from '../../data/progression/milestones';
  */
 const ResourceDebugTab: React.FC = () => {
   const resources = useAppSelector(selectAllResources);
-  const progression = useAppSelector(state => state.progression);
-  
+  const progression = useAppSelector((state) => state.progression);
+
   // Create resource requirements map
   const resourceRequirements = useMemo(() => {
-    const requirementsMap: Record<string, { 
-      nextTarget: number | null; 
-      milestone: string | null;
-      progress: number;
-    }> = {};
-    
+    const requirementsMap: Record<
+      string,
+      {
+        nextTarget: number | null;
+        milestone: string | null;
+        progress: number;
+      }
+    > = {};
+
     // Initialize for each resource
-    Object.values(resources).forEach(resource => {
+    Object.values(resources).forEach((resource) => {
       requirementsMap[resource.id] = {
         nextTarget: null,
         milestone: null,
-        progress: 0
+        progress: 0,
       };
     });
-    
+
     // Find the next milestone target for each resource
-    allMilestones.forEach(milestone => {
+    allMilestones.forEach((milestone) => {
       // Skip completed milestones
       if (progression?.milestones?.[milestone.id]?.completed) {
         return;
       }
-      
+
       // Check resource requirements
-      milestone.requirements.forEach(req => {
-        if (req.type === 'resourceAmount' && req.target && typeof req.target === 'string' && resources[req.target]) {
+      milestone.requirements.forEach((req) => {
+        if (
+          req.type === 'resourceAmount' &&
+          req.target &&
+          typeof req.target === 'string' &&
+          resources[req.target]
+        ) {
           const currentAmount = resources[req.target].amount;
           const targetAmount = typeof req.value === 'number' ? req.value : 0;
-          
+
           // Only update if this is the next closest target or no target is set yet
-          if (currentAmount < targetAmount && 
-              (requirementsMap[req.target].nextTarget === null || 
-               targetAmount < requirementsMap[req.target].nextTarget!)) {
-            
+          if (
+            currentAmount < targetAmount &&
+            (requirementsMap[req.target].nextTarget === null ||
+              targetAmount < requirementsMap[req.target].nextTarget!)
+          ) {
             requirementsMap[req.target].nextTarget = targetAmount;
             requirementsMap[req.target].milestone = milestone.name;
-            requirementsMap[req.target].progress = currentAmount / targetAmount * 100;
+            requirementsMap[req.target].progress = (currentAmount / targetAmount) * 100;
           }
         }
       });
     });
-    
+
     return requirementsMap;
   }, [resources, progression]);
-  
+
   return (
     <div className="debug-tab resource-debug-tab">
       <h3>Resources and Progression Tracking</h3>
@@ -78,39 +87,47 @@ const ResourceDebugTab: React.FC = () => {
               <tr key={resource.id}>
                 <td>{resource.id}</td>
                 <td>{resource.name}</td>
-                <td>{formatNumber(resource.amount)} / {formatNumber(resource.maxAmount)}</td>
+                <td>
+                  {formatNumber(resource.amount)} / {formatNumber(resource.maxAmount)}
+                </td>
                 <td>
                   {/* Special handling for oppression to ensure correct rate display */}
                   {resource.id === 'oppression' || resource.name === 'Corporate Oppression'
-                    ? '+0.05/s' 
-                    : `${resource.perSecond > 0 ? '+' : ''}${formatNumber(resource.perSecond)}/s`
-                  }
+                    ? '+0.05/s'
+                    : `${resource.perSecond > 0 ? '+' : ''}${formatNumber(resource.perSecond)}/s`}
                 </td>
                 <td>
                   {req.nextTarget ? (
                     <>
-                      {req.milestone}<br/>
-                      <small>({formatNumber(resource.amount)} / {formatNumber(req.nextTarget)})</small>
+                      {req.milestone}
+                      <br />
+                      <small>
+                        ({formatNumber(resource.amount)} / {formatNumber(req.nextTarget)})
+                      </small>
                     </>
-                  ) : <span className="completed">No pending requirement</span>}
+                  ) : (
+                    <span className="completed">No pending requirement</span>
+                  )}
                 </td>
                 <td>
                   {req.nextTarget ? (
                     <div className="progress-bar-container">
-                      <div 
-                        className="progress-bar" 
+                      <div
+                        className="progress-bar"
                         style={{ width: `${Math.min(100, req.progress)}%` }}
                       />
                       <span className="progress-text">{Math.floor(req.progress)}%</span>
                     </div>
-                  ) : '-'}
+                  ) : (
+                    '-'
+                  )}
                 </td>
               </tr>
             );
           })}
         </tbody>
       </table>
-      
+
       {Object.keys(resources).length === 0 && (
         <div className="debug-empty-state">No resources found in state.</div>
       )}

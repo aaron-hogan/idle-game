@@ -18,24 +18,24 @@ export function initializeEventSystem() {
     console.log('Event system already initialized, skipping');
     return EventManager.getInstance();
   }
-  
+
   // Minimal initialization log
   console.log('Initializing event system...');
-  
+
   try {
     // Register events in the store
     // First ensure the event structure is initialized in the state
     store.dispatch({ type: 'events/init' });
-    
+
     // Then add sample demo events
     store.dispatch(addEvents(sampleEvents));
-    
+
     // And finally the anti-capitalist themed events
     store.dispatch(addEvents(antiCapitalistEvents));
-    
+
     // Import necessary action creators
     const eventActions = require('../state/eventsSlice');
-    
+
     // Initialize the EventManager with dependencies
     const eventManager = EventManager.getInstance({
       dispatch: store.dispatch,
@@ -45,21 +45,23 @@ export function initializeEventSystem() {
         addEvents: eventActions.addEvents,
         triggerEvent: eventActions.triggerEvent,
         resolveEvent: eventActions.resolveEvent,
-        updateEvent: eventActions.updateEvent
-      }
+        updateEvent: eventActions.updateEvent,
+      },
     });
-    
+
     // Register with GameLoop for periodic event checks
     const gameLoop = require('../core/GameLoop').GameLoop.getInstance();
     gameLoop.registerCallback('eventManager', () => eventManager.processEvents());
-    
+
     const totalEvents = sampleEvents.length + antiCapitalistEvents.length;
     // Simple log message with event counts
-    console.log(`Initialized event system with ${totalEvents} events (${sampleEvents.length} sample, ${antiCapitalistEvents.length} themed)`);
-    
+    console.log(
+      `Initialized event system with ${totalEvents} events (${sampleEvents.length} sample, ${antiCapitalistEvents.length} themed)`
+    );
+
     // Mark as initialized
     initialized = true;
-    
+
     return eventManager;
   } catch (error) {
     const logger = ErrorLogger.getInstance();

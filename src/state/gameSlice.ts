@@ -45,57 +45,61 @@ const gameSlice = createSlice({
     setGameStage: (state, action: PayloadAction<number>) => {
       state.gameStage = action.payload;
     },
-    
+
     // Update last save time
     updateLastSaveTime: (state) => {
       state.lastSaveTime = getCurrentTime(); // Use centralized time function
     },
-    
+
     // Update total play time
     addPlayTime: (state, action: PayloadAction<number>) => {
       // Ensure we're adding a positive value
       const timeToAdd = Math.max(0, action.payload);
-      
+
       if (timeToAdd > 0) {
         const oldTime = state.totalPlayTime;
         state.totalPlayTime += timeToAdd;
-        console.log(`gameSlice.addPlayTime: Adding ${timeToAdd.toFixed(2)}s, old=${oldTime.toFixed(2)}, new=${state.totalPlayTime.toFixed(2)}`);
+        console.log(
+          `gameSlice.addPlayTime: Adding ${timeToAdd.toFixed(2)}s, old=${oldTime.toFixed(2)}, new=${state.totalPlayTime.toFixed(2)}`
+        );
       }
     },
-    
+
     // Set specific play time (used for loading saves)
     setTotalPlayTime: (state, action: PayloadAction<number>) => {
       const oldTime = state.totalPlayTime;
       state.totalPlayTime = action.payload;
-      console.log(`gameSlice.setTotalPlayTime: Setting time from ${oldTime.toFixed(2)}s to ${state.totalPlayTime.toFixed(2)}s`);
+      console.log(
+        `gameSlice.setTotalPlayTime: Setting time from ${oldTime.toFixed(2)}s to ${state.totalPlayTime.toFixed(2)}s`
+      );
     },
-    
+
     // Start the game loop
     startGame: (state) => {
       state.isRunning = true;
     },
-    
+
     // Stop the game loop
     stopGame: (state) => {
       state.isRunning = false;
     },
-    
+
     // Change tick rate
     setTickRate: (state, action: PayloadAction<number>) => {
       state.tickRate = action.payload;
     },
-    
+
     // Change game time scale
     setGameTimeScale: (state, action: PayloadAction<number>) => {
       state.gameTimeScale = action.payload;
     },
-    
+
     // Process offline progress
     processOfflineProgress: (state, action: PayloadAction<number>) => {
       // This is mostly a marker action for middleware/sagas to handle
       // The actual logic is in the game loop system
     },
-    
+
     // End the game (win or lose)
     endGame: (state, action: PayloadAction<{ won: boolean; reason: string }>) => {
       state.gameEnded = true;
@@ -103,7 +107,7 @@ const gameSlice = createSlice({
       state.endReason = action.payload.reason;
       state.isRunning = false;
     },
-    
+
     // Reset game state
     resetGame: () => initialState,
   },

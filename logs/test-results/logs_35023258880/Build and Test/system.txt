@@ -1,0 +1,5 @@
+2025-02-28T11:13:09.8900814Z Requested labels: ubuntu-latest
+2025-02-28T11:13:09.8900814Z Job defined at: aaron-hogan/idle-game/.github/workflows/ci.yml@refs/heads/main
+2025-02-28T11:13:09.8900814Z Waiting for a runner to pick up this job...
+2025-02-28T11:13:10.0044579Z Job is waiting for a hosted runner to come online.
+2025-02-28T11:13:10.0044681Z Job is about to start running on the hosted runner: GitHub Actions

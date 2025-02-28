@@ -1,10 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useMemoSelector } from '../../state/hooks';
-import { 
-  selectCurrentStage, 
-  selectCompletionPercentage 
-} from '../../redux/progressionSlice';
+import { selectCurrentStage, selectCompletionPercentage } from '../../redux/progressionSlice';
 import './ProgressBar.css';
 
 interface ProgressBarProps {
@@ -22,27 +19,26 @@ interface ProgressBarProps {
 const ProgressBar: React.FC<ProgressBarProps> = ({
   completionPercentage: customPercentage,
   currentStage: customStage,
-  isNegative = false
+  isNegative = false,
 }) => {
   // Get values from Redux state if not provided as props, using our enhanced memoized selector
   const stateCompletionPercentage = useMemoSelector(selectCompletionPercentage);
   const stateCurrentStage = useMemoSelector(selectCurrentStage);
-  
+
   // Use custom values if provided, otherwise use state values
-  const completionPercentage = customPercentage !== undefined 
-    ? customPercentage 
-    : stateCompletionPercentage;
-    
+  const completionPercentage =
+    customPercentage !== undefined ? customPercentage : stateCompletionPercentage;
+
   const currentStage = customStage || stateCurrentStage || 'Starting Out';
   const formattedStage = currentStage.charAt(0).toUpperCase() + currentStage.slice(1);
-  
+
   // Ensure percentage is within bounds
   const clampedPercentage = Math.min(Math.max(completionPercentage, 0), 100);
-  
+
   return (
     <div className="progress-bar-container">
       <div className="progress-bar-track">
-        <div 
+        <div
           className={`progress-bar-fill ${isNegative ? 'negative' : 'positive'}`}
           style={{ width: `${clampedPercentage}%` }}
         />

@@ -17,7 +17,7 @@ describe('game reducer', () => {
     startDate: expect.any(Number),
     gameEnded: false,
     gameWon: false,
-    endReason: null
+    endReason: null,
   };
 
   test('should handle initial state', () => {
@@ -32,7 +32,7 @@ describe('game reducer', () => {
       startDate: expect.any(Number),
       gameEnded: false,
       gameWon: false,
-      endReason: null
+      endReason: null,
     });
   });
 
@@ -46,10 +46,10 @@ describe('game reducer', () => {
     const realDateNow = Date.now;
     const mockNow = 1644700000000; // Specific timestamp for testing
     global.Date.now = jest.fn(() => mockNow);
-    
+
     const actual = gameReducer(initialState, updateLastSaveTime());
     expect(actual.lastSaveTime).toEqual(mockNow);
-    
+
     // Restore original Date.now
     global.Date.now = realDateNow;
   });
@@ -78,7 +78,7 @@ describe('game reducer', () => {
       startDate: 1644700000000,
       gameEnded: true,
       gameWon: true,
-      endReason: "Test"
+      endReason: 'Test',
     };
     const actual = gameReducer(modifiedState, resetGame());
     expect(actual).toMatchObject({
@@ -91,7 +91,7 @@ describe('game reducer', () => {
       startDate: expect.any(Number),
       gameEnded: false,
       gameWon: false,
-      endReason: null
+      endReason: null,
     });
   });
 });

@@ -20,13 +20,11 @@ const TabNavigation: React.FC<TabNavigationProps> = ({ tabs }) => {
   return (
     <nav className="tab-navigation">
       <div className="tab-container">
-        {tabs.map(tab => (
+        {tabs.map((tab) => (
           <NavLink
             key={tab.id}
             to={tab.path}
-            className={({ isActive }) => 
-              `nav-tab ${isActive ? 'active' : ''}`
-            }
+            className={({ isActive }) => `nav-tab ${isActive ? 'active' : ''}`}
             aria-label={tab.label}
           >
             {tab.icon && <span className="tab-icon">{tab.icon}</span>}
@@ -44,26 +42,26 @@ export const DEFAULT_TABS: NavTab[] = [
     id: 'main',
     label: 'Main',
     path: '/',
-    icon: '🏠'
+    icon: '🏠',
   },
   {
     id: 'upgrades',
     label: 'Upgrades',
     path: '/upgrades',
-    icon: '⬆️'
+    icon: '⬆️',
   },
   {
     id: 'progression',
     label: 'Progress',
     path: '/progression',
-    icon: '📊'
+    icon: '📊',
   },
   {
     id: 'settings',
     label: 'Settings',
     path: '/settings',
-    icon: '⚙️'
-  }
+    icon: '⚙️',
+  },
 ];
 
 export default TabNavigation;

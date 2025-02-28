@@ -9,15 +9,15 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ title = 'Anti-Capitalist Idle Game' }) => {
   const gameStage = useAppSelector(selectGameStage);
-  
+
   const stageLabels = [
     'Organizing & Education',
     'Direct Action & Resistance',
-    'Revolutionary Activity'
+    'Revolutionary Activity',
   ];
-  
+
   const currentStageLabel = stageLabels[Math.min(gameStage, stageLabels.length - 1)];
-  
+
   return (
     <header className="game-header">
       <div className="header-content">

@@ -1,0 +1,156 @@
+﻿2025-02-28T11:12:44.8462260Z ##[group]Run actions/checkout@v4
+2025-02-28T11:12:44.8463116Z with:
+2025-02-28T11:12:44.8463517Z   fetch-depth: 0
+2025-02-28T11:12:44.8463956Z   repository: aaron-hogan/idle-game
+2025-02-28T11:12:44.8464620Z   token: ***
+2025-02-28T11:12:44.8465012Z   ssh-strict: true
+2025-02-28T11:12:44.8465426Z   ssh-user: git
+2025-02-28T11:12:44.8465829Z   persist-credentials: true
+2025-02-28T11:12:44.8466283Z   clean: true
+2025-02-28T11:12:44.8466709Z   sparse-checkout-cone-mode: true
+2025-02-28T11:12:44.8467193Z   fetch-tags: false
+2025-02-28T11:12:44.8467583Z   show-progress: true
+2025-02-28T11:12:44.8468164Z   lfs: false
+2025-02-28T11:12:44.8468534Z   submodules: false
+2025-02-28T11:12:44.8468949Z   set-safe-directory: true
+2025-02-28T11:12:44.8469625Z ##[endgroup]
+2025-02-28T11:12:45.0200611Z Syncing repository: aaron-hogan/idle-game
+2025-02-28T11:12:45.0202709Z ##[group]Getting Git version info
+2025-02-28T11:12:45.0203511Z Working directory is '/home/runner/work/idle-game/idle-game'
+2025-02-28T11:12:45.0204660Z [command]/usr/bin/git version
+2025-02-28T11:12:45.0205252Z git version 2.48.1
+2025-02-28T11:12:45.0220960Z ##[endgroup]
+2025-02-28T11:12:45.0234676Z Temporarily overriding HOME='/home/runner/work/_temp/4e122513-a2b6-464c-bf13-2a011421adca' before making global git config changes
+2025-02-28T11:12:45.0236203Z Adding repository directory to the temporary git global config as a safe directory
+2025-02-28T11:12:45.0240069Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/idle-game/idle-game
+2025-02-28T11:12:45.0277570Z Deleting the contents of '/home/runner/work/idle-game/idle-game'
+2025-02-28T11:12:45.0282713Z ##[group]Initializing the repository
+2025-02-28T11:12:45.0288300Z [command]/usr/bin/git init /home/runner/work/idle-game/idle-game
+2025-02-28T11:12:45.0354878Z hint: Using 'master' as the name for the initial branch. This default branch name
+2025-02-28T11:12:45.0357322Z hint: is subject to change. To configure the initial branch name to use in all
+2025-02-28T11:12:45.0359411Z hint: of your new repositories, which will suppress this warning, call:
+2025-02-28T11:12:45.0360834Z hint:
+2025-02-28T11:12:45.0361754Z hint: 	git config --global init.defaultBranch <name>
+2025-02-28T11:12:45.0362950Z hint:
+2025-02-28T11:12:45.0364092Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2025-02-28T11:12:45.0365947Z hint: 'development'. The just-created branch can be renamed via this command:
+2025-02-28T11:12:45.0367858Z hint:
+2025-02-28T11:12:45.0368914Z hint: 	git branch -m <name>
+2025-02-28T11:12:45.0370438Z Initialized empty Git repository in /home/runner/work/idle-game/idle-game/.git/
+2025-02-28T11:12:45.0373694Z [command]/usr/bin/git remote add origin https://github.com/aaron-hogan/idle-game
+2025-02-28T11:12:45.0406891Z ##[endgroup]
+2025-02-28T11:12:45.0407737Z ##[group]Disabling automatic garbage collection
+2025-02-28T11:12:45.0410877Z [command]/usr/bin/git config --local gc.auto 0
+2025-02-28T11:12:45.0440446Z ##[endgroup]
+2025-02-28T11:12:45.0441842Z ##[group]Setting up auth
+2025-02-28T11:12:45.0448151Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2025-02-28T11:12:45.0480142Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2025-02-28T11:12:45.0784745Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2025-02-28T11:12:45.0821192Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2025-02-28T11:12:45.1099524Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2025-02-28T11:12:45.1138518Z ##[endgroup]
+2025-02-28T11:12:45.1139974Z ##[group]Fetching the repository
+2025-02-28T11:12:45.1149801Z [command]/usr/bin/git -c protocol.version=2 fetch --prune --no-recurse-submodules origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/* +9d7ec33a52a79f57cdd5de4cb8b22775c5311cc3:refs/remotes/pull/110/merge
+2025-02-28T11:12:45.5392602Z From https://github.com/aaron-hogan/idle-game
+2025-02-28T11:12:45.5396062Z  * [new branch]      archive/day-timer-fix-feb2025            -> origin/archive/day-timer-fix-feb2025
+2025-02-28T11:12:45.5398772Z  * [new branch]      chore/batch5-explicit-any-core           -> origin/chore/batch5-explicit-any-core
+2025-02-28T11:12:45.5401369Z  * [new branch]      chore/batch6-explicit-any-utils          -> origin/chore/batch6-explicit-any-utils
+2025-02-28T11:12:45.5403889Z  * [new branch]      chore/batch7-explicit-any-systems        -> origin/chore/batch7-explicit-any-systems
+2025-02-28T11:12:45.5406414Z  * [new branch]      chore/batch8-explicit-any-more-systems   -> origin/chore/batch8-explicit-any-more-systems
+2025-02-28T11:12:45.5409325Z  * [new branch]      chore/comprehensive-cleanup              -> origin/chore/comprehensive-cleanup
+2025-02-28T11:12:45.5411872Z  * [new branch]      chore/gitignore-improvements             -> origin/chore/gitignore-improvements
+2025-02-28T11:12:45.5414508Z  * [new branch]      chore/linting-documentation              -> origin/chore/linting-documentation
+2025-02-28T11:12:45.5418132Z  * [new branch]      cleanup/project-structure-organization   -> origin/cleanup/project-structure-organization
+2025-02-28T11:12:45.5421808Z  * [new branch]      cleanup/root-folder-consolidation        -> origin/cleanup/root-folder-consolidation
+2025-02-28T11:12:45.5424596Z  * [new branch]      cleanup/workflow-tests                   -> origin/cleanup/workflow-tests
+2025-02-28T11:12:45.5427175Z  * [new branch]      develop                                  -> origin/develop
+2025-02-28T11:12:45.5429794Z  * [new branch]      docs/add-test-guidelines                 -> origin/docs/add-test-guidelines
+2025-02-28T11:12:45.5432867Z  * [new branch]      docs/enhance-git-documentation           -> origin/docs/enhance-git-documentation
+2025-02-28T11:12:45.5436303Z  * [new branch]      docs/github-workflows-cleanup            -> origin/docs/github-workflows-cleanup
+2025-02-28T11:12:45.5440094Z  * [new branch]      docs/improve-branch-protection           -> origin/docs/improve-branch-protection
+2025-02-28T11:12:45.5443917Z  * [new branch]      docs/improve-documentation-organization  -> origin/docs/improve-documentation-organization
+2025-02-28T11:12:45.5448283Z  * [new branch]      docs/pr-validation-documentation         -> origin/docs/pr-validation-documentation
+2025-02-28T11:12:45.5452019Z  * [new branch]      docs/process-failure-learnings           -> origin/docs/process-failure-learnings
+2025-02-28T11:12:45.5455863Z  * [new branch]      docs/retrospective-changelog-improvements -> origin/docs/retrospective-changelog-improvements
+2025-02-28T11:12:45.5460526Z  * [new branch]      docs/update-changelog-for-test-cleanup   -> origin/docs/update-changelog-for-test-cleanup
+2025-02-28T11:12:45.5464988Z  * [new branch]      docs/update-milestone-strip-documentation -> origin/docs/update-milestone-strip-documentation
+2025-02-28T11:12:45.5469739Z  * [new branch]      feature/branch-management-tools          -> origin/feature/branch-management-tools
+2025-02-28T11:12:45.5473295Z  * [new branch]      feature/dependency-injection             -> origin/feature/dependency-injection
+2025-02-28T11:12:45.5476620Z  * [new branch]      feature/game-balance-config              -> origin/feature/game-balance-config
+2025-02-28T11:12:45.5479933Z  * [new branch]      feature/git-automation                   -> origin/feature/git-automation
+2025-02-28T11:12:45.5483722Z  * [new branch]      feature/milestone-visual-enhancements    -> origin/feature/milestone-visual-enhancements
+2025-02-28T11:12:45.5487557Z  * [new branch]      feature/patch-versioning                 -> origin/feature/patch-versioning
+2025-02-28T11:12:45.5491242Z  * [new branch]      feature/todo-synchronization             -> origin/feature/todo-synchronization
+2025-02-28T11:12:45.5495155Z  * [new branch]      feature/tutorial-help-system             -> origin/feature/tutorial-help-system
+2025-02-28T11:12:45.5498890Z  * [new branch]      feature/versioning-process               -> origin/feature/versioning-process
+2025-02-28T11:12:45.5502637Z  * [new branch]      fix/bump-version-script-enhancement      -> origin/fix/bump-version-script-enhancement
+2025-02-28T11:12:45.5506575Z  * [new branch]      fix/changelog-organization               -> origin/fix/changelog-organization
+2025-02-28T11:12:45.5510443Z  * [new branch]      fix/changelog-versioning                 -> origin/fix/changelog-versioning
+2025-02-28T11:12:45.5514087Z  * [new branch]      fix/ci-workflow-optimization             -> origin/fix/ci-workflow-optimization
+2025-02-28T11:12:45.5517665Z  * [new branch]      fix/clean-up-skipped-tests               -> origin/fix/clean-up-skipped-tests
+2025-02-28T11:12:45.5521376Z  * [new branch]      fix/complete-root-cleanup                -> origin/fix/complete-root-cleanup
+2025-02-28T11:12:45.5524850Z  * [new branch]      fix/dependency-injection-tests           -> origin/fix/dependency-injection-tests
+2025-02-28T11:12:45.5529457Z  * [new branch]      fix/empty-versions-in-changelog          -> origin/fix/empty-versions-in-changelog
+2025-02-28T11:12:45.5533509Z  * [new branch]      fix/events-selector-memoization          -> origin/fix/events-selector-memoization
+2025-02-28T11:12:45.5537187Z  * [new branch]      fix/failing-tests                        -> origin/fix/failing-tests
+2025-02-28T11:12:45.5540275Z  * [new branch]      fix/game-loop-errors                     -> origin/fix/game-loop-errors
+2025-02-28T11:12:45.5542997Z  * [new branch]      fix/github-action-permissions            -> origin/fix/github-action-permissions
+2025-02-28T11:12:45.5546074Z  * [new branch]      fix/lint-require-imports-system-files    -> origin/fix/lint-require-imports-system-files
+2025-02-28T11:12:45.5549500Z  * [new branch]      fix/lint-ts-comments-test-files          -> origin/fix/lint-ts-comments-test-files
+2025-02-28T11:12:45.5552487Z  * [new branch]      fix/lint-unused-vars-core-components     -> origin/fix/lint-unused-vars-core-components
+2025-02-28T11:12:45.5555800Z  * [new branch]      fix/lint-unused-vars-system-files        -> origin/fix/lint-unused-vars-system-files
+2025-02-28T11:12:45.5558980Z  * [new branch]      fix/linting-errors                       -> origin/fix/linting-errors
+2025-02-28T11:12:45.5561661Z  * [new branch]      fix/milestone-centering                  -> origin/fix/milestone-centering
+2025-02-28T11:12:45.5564580Z  * [new branch]      fix/milestone-progress-infinite-update   -> origin/fix/milestone-progress-infinite-update
+2025-02-28T11:12:45.5567672Z  * [new branch]      fix/oppression-rate-display              -> origin/fix/oppression-rate-display
+2025-02-28T11:12:45.5570638Z  * [new branch]      fix/pr-validation-case-sensitivity       -> origin/fix/pr-validation-case-sensitivity
+2025-02-28T11:12:45.5574179Z  * [new branch]      fix/process-env-variables                -> origin/fix/process-env-variables
+2025-02-28T11:12:45.5577406Z  * [new branch]      fix/progression-manager-imports          -> origin/fix/progression-manager-imports
+2025-02-28T11:12:45.5580607Z  * [new branch]      fix/progression-selectors                -> origin/fix/progression-selectors
+2025-02-28T11:12:45.5583383Z  * [new branch]      fix/reduce-console-noise                 -> origin/fix/reduce-console-noise
+2025-02-28T11:12:45.5586753Z  * [new branch]      fix/remaining-selector-issues            -> origin/fix/remaining-selector-issues
+2025-02-28T11:12:45.5589761Z  * [new branch]      fix/remove-gitignored-files              -> origin/fix/remove-gitignored-files
+2025-02-28T11:12:45.5592680Z  * [new branch]      fix/skip-tests-auto-versioning           -> origin/fix/skip-tests-auto-versioning
+2025-02-28T11:12:45.5595535Z  * [new branch]      fix/task-manager-double-initialization   -> origin/fix/task-manager-double-initialization
+2025-02-28T11:12:45.5598441Z  * [new branch]      fix/test-suite-fixes                     -> origin/fix/test-suite-fixes
+2025-02-28T11:12:45.5601066Z  * [new branch]      fix/update-tests-tutorial                -> origin/fix/update-tests-tutorial
+2025-02-28T11:12:45.5603150Z  * [new branch]      main                                     -> origin/main
+2025-02-28T11:12:45.5605526Z  * [new branch]      refactor/manager-dependency-injection    -> origin/refactor/manager-dependency-injection
+2025-02-28T11:12:45.5608465Z  * [new branch]      sync/sync-main-develop                   -> origin/sync/sync-main-develop
+2025-02-28T11:12:45.5610938Z  * [new branch]      test/hello-world-versioning              -> origin/test/hello-world-versioning
+2025-02-28T11:12:45.5613008Z  * [new tag]         v0.5.1                                   -> v0.5.1
+2025-02-28T11:12:45.5614578Z  * [new tag]         v0.5.2                                   -> v0.5.2
+2025-02-28T11:12:45.5616109Z  * [new tag]         v0.5.3                                   -> v0.5.3
+2025-02-28T11:12:45.5617781Z  * [new tag]         v0.5.5                                   -> v0.5.5
+2025-02-28T11:12:45.5619811Z  * [new tag]         v0.5.6                                   -> v0.5.6
+2025-02-28T11:12:45.5621355Z  * [new tag]         v0.6.0                                   -> v0.6.0
+2025-02-28T11:12:45.5622858Z  * [new tag]         v0.6.1                                   -> v0.6.1
+2025-02-28T11:12:45.5625303Z  * [new ref]         9d7ec33a52a79f57cdd5de4cb8b22775c5311cc3 -> pull/110/merge
+2025-02-28T11:12:45.5629733Z ##[endgroup]
+2025-02-28T11:12:45.5631265Z ##[group]Determining the checkout info
+2025-02-28T11:12:45.5632956Z ##[endgroup]
+2025-02-28T11:12:45.5633944Z [command]/usr/bin/git sparse-checkout disable
+2025-02-28T11:12:45.5636986Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2025-02-28T11:12:45.5659859Z ##[group]Checking out the ref
+2025-02-28T11:12:45.5662876Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/110/merge
+2025-02-28T11:12:45.6019493Z Note: switching to 'refs/remotes/pull/110/merge'.
+2025-02-28T11:12:45.6020762Z 
+2025-02-28T11:12:45.6021615Z You are in 'detached HEAD' state. You can look around, make experimental
+2025-02-28T11:12:45.6024489Z changes and commit them, and you can discard any commits you make in this
+2025-02-28T11:12:45.6027609Z state without impacting any branches by switching back to a branch.
+2025-02-28T11:12:45.6029743Z 
+2025-02-28T11:12:45.6031328Z If you want to create a new branch to retain commits you create, you may
+2025-02-28T11:12:45.6034225Z do so (now or later) by using -c with the switch command. Example:
+2025-02-28T11:12:45.6035994Z 
+2025-02-28T11:12:45.6036675Z   git switch -c <new-branch-name>
+2025-02-28T11:12:45.6037779Z 
+2025-02-28T11:12:45.6038649Z Or undo this operation with:
+2025-02-28T11:12:45.6039685Z 
+2025-02-28T11:12:45.6040237Z   git switch -
+2025-02-28T11:12:45.6040970Z 
+2025-02-28T11:12:45.6042293Z Turn off this advice by setting config variable advice.detachedHead to false
+2025-02-28T11:12:45.6043758Z 
+2025-02-28T11:12:45.6045281Z HEAD is now at 9d7ec33 Merge 41abfd7d37e758c5410dccb6559b86b92d6ca11a into bd03fc2ae2e28513154b3aaedd297003fffef6d9
+2025-02-28T11:12:45.6050460Z ##[endgroup]
+2025-02-28T11:12:45.6071941Z [command]/usr/bin/git log -1 --format=%H
+2025-02-28T11:12:45.6096029Z 9d7ec33a52a79f57cdd5de4cb8b22775c5311cc3

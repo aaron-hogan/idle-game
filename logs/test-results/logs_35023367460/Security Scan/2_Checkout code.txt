@@ -1,0 +1,67 @@
+﻿2025-02-28T11:15:50.8533957Z ##[group]Run actions/checkout@v4
+2025-02-28T11:15:50.8534818Z with:
+2025-02-28T11:15:50.8535228Z   repository: aaron-hogan/idle-game
+2025-02-28T11:15:50.8535939Z   token: ***
+2025-02-28T11:15:50.8536485Z   ssh-strict: true
+2025-02-28T11:15:50.8536872Z   ssh-user: git
+2025-02-28T11:15:50.8537302Z   persist-credentials: true
+2025-02-28T11:15:50.8537743Z   clean: true
+2025-02-28T11:15:50.8538146Z   sparse-checkout-cone-mode: true
+2025-02-28T11:15:50.8538620Z   fetch-depth: 1
+2025-02-28T11:15:50.8539009Z   fetch-tags: false
+2025-02-28T11:15:50.8539405Z   show-progress: true
+2025-02-28T11:15:50.8539820Z   lfs: false
+2025-02-28T11:15:50.8540187Z   submodules: false
+2025-02-28T11:15:50.8540592Z   set-safe-directory: true
+2025-02-28T11:15:50.8541262Z ##[endgroup]
+2025-02-28T11:15:51.0440234Z Syncing repository: aaron-hogan/idle-game
+2025-02-28T11:15:51.0442587Z ##[group]Getting Git version info
+2025-02-28T11:15:51.0443747Z Working directory is '/home/runner/work/idle-game/idle-game'
+2025-02-28T11:15:51.0445416Z [command]/usr/bin/git version
+2025-02-28T11:15:51.0510280Z git version 2.48.1
+2025-02-28T11:15:51.0539430Z ##[endgroup]
+2025-02-28T11:15:51.0552737Z Temporarily overriding HOME='/home/runner/work/_temp/ef22d8ed-23cd-4de2-9971-f7be07c51dc5' before making global git config changes
+2025-02-28T11:15:51.0564180Z Adding repository directory to the temporary git global config as a safe directory
+2025-02-28T11:15:51.0565352Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/idle-game/idle-game
+2025-02-28T11:15:51.0599898Z Deleting the contents of '/home/runner/work/idle-game/idle-game'
+2025-02-28T11:15:51.0603636Z ##[group]Initializing the repository
+2025-02-28T11:15:51.0607702Z [command]/usr/bin/git init /home/runner/work/idle-game/idle-game
+2025-02-28T11:15:51.0670609Z hint: Using 'master' as the name for the initial branch. This default branch name
+2025-02-28T11:15:51.0671997Z hint: is subject to change. To configure the initial branch name to use in all
+2025-02-28T11:15:51.0672878Z hint: of your new repositories, which will suppress this warning, call:
+2025-02-28T11:15:51.0673555Z hint:
+2025-02-28T11:15:51.0674006Z hint: 	git config --global init.defaultBranch <name>
+2025-02-28T11:15:51.0674826Z hint:
+2025-02-28T11:15:51.0675789Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2025-02-28T11:15:51.0677562Z hint: 'development'. The just-created branch can be renamed via this command:
+2025-02-28T11:15:51.0678848Z hint:
+2025-02-28T11:15:51.0679548Z hint: 	git branch -m <name>
+2025-02-28T11:15:51.0680839Z Initialized empty Git repository in /home/runner/work/idle-game/idle-game/.git/
+2025-02-28T11:15:51.0688589Z [command]/usr/bin/git remote add origin https://github.com/aaron-hogan/idle-game
+2025-02-28T11:15:51.0720765Z ##[endgroup]
+2025-02-28T11:15:51.0721943Z ##[group]Disabling automatic garbage collection
+2025-02-28T11:15:51.0725652Z [command]/usr/bin/git config --local gc.auto 0
+2025-02-28T11:15:51.0754523Z ##[endgroup]
+2025-02-28T11:15:51.0755697Z ##[group]Setting up auth
+2025-02-28T11:15:51.0762090Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2025-02-28T11:15:51.0792746Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2025-02-28T11:15:51.1080275Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2025-02-28T11:15:51.1110223Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2025-02-28T11:15:51.1336593Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2025-02-28T11:15:51.1370735Z ##[endgroup]
+2025-02-28T11:15:51.1371806Z ##[group]Fetching the repository
+2025-02-28T11:15:51.1379312Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +07e4ce2b047a07f4dd57da0a32efccfbaac639b5:refs/remotes/origin/main
+2025-02-28T11:15:51.4742191Z From https://github.com/aaron-hogan/idle-game
+2025-02-28T11:15:51.4743844Z  * [new ref]         07e4ce2b047a07f4dd57da0a32efccfbaac639b5 -> origin/main
+2025-02-28T11:15:51.4770914Z ##[endgroup]
+2025-02-28T11:15:51.4772207Z ##[group]Determining the checkout info
+2025-02-28T11:15:51.4773886Z ##[endgroup]
+2025-02-28T11:15:51.4778117Z [command]/usr/bin/git sparse-checkout disable
+2025-02-28T11:15:51.4817595Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2025-02-28T11:15:51.4850477Z ##[group]Checking out the ref
+2025-02-28T11:15:51.4851865Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2025-02-28T11:15:51.5192793Z Switched to a new branch 'main'
+2025-02-28T11:15:51.5195867Z branch 'main' set up to track 'origin/main'.
+2025-02-28T11:15:51.5201454Z ##[endgroup]
+2025-02-28T11:15:51.5236748Z [command]/usr/bin/git log -1 --format=%H
+2025-02-28T11:15:51.5259336Z 07e4ce2b047a07f4dd57da0a32efccfbaac639b5

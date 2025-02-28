@@ -9,7 +9,7 @@ interface ErrorBoundaryProps {
   componentName?: string;
   severity?: ErrorSeverity;
   resetOnProps?: boolean; // Reset error state when props change
-  maxRetries?: number;    // Max number of retries allowed
+  maxRetries?: number; // Max number of retries allowed
 }
 
 interface ErrorBoundaryState {
@@ -25,22 +25,22 @@ interface ErrorBoundaryState {
  */
 class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   private readonly componentName: string;
-  
+
   static defaultProps = {
     severity: ErrorSeverity.ERROR,
     resetOnProps: false,
-    maxRetries: 3
+    maxRetries: 3,
   };
-  
+
   constructor(props: ErrorBoundaryProps) {
     super(props);
     this.state = {
       hasError: false,
       error: null,
       errorInfo: null,
-      retryCount: 0
+      retryCount: 0,
     };
-    
+
     this.componentName = props.componentName || 'UnknownComponent';
     this.resetError = this.resetError.bind(this);
   }
@@ -49,17 +49,17 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     // Update state so the next render will show the fallback UI
     return { hasError: true, error };
   }
-  
+
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
     // Update state with error info for displaying details
     this.setState({ errorInfo });
-    
+
     // Log the error to our ErrorLogger service
     ErrorLogger.getInstance().logError(
-      error, 
+      error,
       {
         component: this.componentName,
-        ...errorInfo
+        ...errorInfo,
       },
       this.props.severity
     );
@@ -69,28 +69,24 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
       this.props.onError(error, errorInfo);
     }
   }
-  
+
   componentDidUpdate(prevProps: ErrorBoundaryProps): void {
     // Reset error state if resetOnProps is true and props changed
-    if (
-      this.props.resetOnProps && 
-      this.state.hasError && 
-      prevProps !== this.props
-    ) {
+    if (this.props.resetOnProps && this.state.hasError && prevProps !== this.props) {
       this.resetError();
     }
   }
-  
+
   resetError(): void {
     const newRetryCount = this.state.retryCount + 1;
-    
+
     // Only reset if we haven't exceeded max retries
     if (newRetryCount <= (this.props.maxRetries || 3)) {
       this.setState({
         hasError: false,
         error: null,
         errorInfo: null,
-        retryCount: newRetryCount
+        retryCount: newRetryCount,
       });
     } else {
       // Log that max retries were exceeded
@@ -108,7 +104,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
       if (this.props.fallback) {
         return this.props.fallback;
       }
-      
+
       // Otherwise use our ErrorFallback component
       return (
         <ErrorFallback
@@ -135,7 +131,7 @@ export function withErrorBoundary<P extends object>(
   errorBoundaryProps: Omit<ErrorBoundaryProps, 'children'> = {}
 ): React.ComponentType<P> {
   const displayName = Component.displayName || Component.name || 'Component';
-  
+
   const ComponentWithErrorBoundary = (props: P) => (
     <ErrorBoundary
       {...errorBoundaryProps}
@@ -144,9 +140,9 @@ export function withErrorBoundary<P extends object>(
       <Component {...props} />
     </ErrorBoundary>
   );
-  
+
   ComponentWithErrorBoundary.displayName = `WithErrorBoundary(${displayName})`;
-  
+
   return ComponentWithErrorBoundary;
 }
 

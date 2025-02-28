@@ -32,7 +32,7 @@ const Dropdown: React.FC<DropdownProps> = ({
       portalElement.id = 'dropdown-portal';
       document.body.appendChild(portalElement);
     }
-    
+
     return () => {
       // Clean up portal on unmount
       const portal = document.getElementById('dropdown-portal');
@@ -45,18 +45,18 @@ const Dropdown: React.FC<DropdownProps> = ({
   // Close dropdown when clicking outside
   useEffect(() => {
     if (!isOpen) return;
-    
+
     const handleClickOutside = (e: MouseEvent) => {
       if (
-        dropdownRef.current && 
+        dropdownRef.current &&
         !dropdownRef.current.contains(e.target as Node) &&
-        e.target instanceof Element && 
+        e.target instanceof Element &&
         !e.target.closest('.dropdown-trigger')
       ) {
         onClose();
       }
     };
-    
+
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isOpen, onClose]);
@@ -88,7 +88,7 @@ const Dropdown: React.FC<DropdownProps> = ({
     // We'll need window dimensions and estimated dropdown dimensions
     // Using the triggerRect and a bit of extra width for safety
     const estimatedWidth = Math.max(triggerRect.width * 3, 130); // Minimum dropdown width
-    
+
     // Check right edge overflow
     if (!position.includes('right') && triggerRect.left + estimatedWidth > window.innerWidth) {
       // Switch to right alignment
@@ -117,15 +117,11 @@ const Dropdown: React.FC<DropdownProps> = ({
     borderRadius: '4px',
     boxShadow: '0 6px 16px rgba(0, 0, 0, 0.5)',
     padding: '8px',
-    ...getDropdownStyle()
+    ...getDropdownStyle(),
   };
 
   return ReactDOM.createPortal(
-    <div 
-      ref={dropdownRef}
-      className={`portal-dropdown ${className}`}
-      style={baseStyle}
-    >
+    <div ref={dropdownRef} className={`portal-dropdown ${className}`} style={baseStyle}>
       {children}
     </div>,
     document.getElementById('dropdown-portal') || document.body

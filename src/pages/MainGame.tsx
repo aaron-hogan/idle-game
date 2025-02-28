@@ -13,7 +13,7 @@ const MainGame: React.FC = () => {
       <div className="horizontal-milestone-strip">
         <MilestoneProgressStrip sideCount={2} />
       </div>
-      
+
       {/* Unified resource generators area - populated dynamically as game progresses */}
       <ResourceGenerators />
     </div>

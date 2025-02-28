@@ -12,16 +12,16 @@ interface UpgradePanelProps {
 /**
  * Panel for upgrading resource click power
  */
-const UpgradePanel: React.FC<UpgradePanelProps> = ({ 
-  resourceId = ResourceId.COLLECTIVE_POWER 
+const UpgradePanel: React.FC<UpgradePanelProps> = ({
+  resourceId = ResourceId.COLLECTIVE_POWER,
 }) => {
   // Get the resource from the store
-  const resource = useAppSelector(state => state.resources[resourceId]);
-  
+  const resource = useAppSelector((state) => state.resources[resourceId]);
+
   // Get cost and affordability with error handling
   const [upgradeCost, setUpgradeCost] = useState(10);
   const [canAfford, setCanAfford] = useState(false);
-  
+
   // Effect to calculate costs safely
   useEffect(() => {
     try {
@@ -30,12 +30,12 @@ const UpgradePanel: React.FC<UpgradePanelProps> = ({
       setUpgradeCost(cost > 0 ? cost : 10);
       setCanAfford(resource && resource.amount >= cost);
     } catch (error) {
-      console.error("Error calculating upgrade cost:", error);
+      console.error('Error calculating upgrade cost:', error);
       setUpgradeCost(10);
       setCanAfford(false);
     }
   }, [resourceId, resource]);
-  
+
   // Handle upgrade click
   const handleUpgrade = useCallback(() => {
     if (canAfford) {
@@ -43,20 +43,20 @@ const UpgradePanel: React.FC<UpgradePanelProps> = ({
         const resourceManager = ResourceManager.getInstance();
         resourceManager.upgradeClickPower(resourceId);
       } catch (error) {
-        console.error("Error upgrading click power:", error);
+        console.error('Error upgrading click power:', error);
       }
     }
   }, [resourceId, canAfford]);
-  
+
   // If the resource doesn't exist, don't render
   if (!resource) {
     return null;
   }
-  
+
   // Get current click power and upgrade level
   const clickPower = resource.clickPower || 1;
   const upgradeLevel = resource.upgrades?.[UpgradeType.CLICK_POWER] || 0;
-  
+
   return (
     <div className="upgrade-panel">
       <div className="upgrade-info">
@@ -70,8 +70,8 @@ const UpgradePanel: React.FC<UpgradePanelProps> = ({
           <span className="upgrade-detail">Bonus: +{upgradeLevel.toFixed(1)}</span>
         </div>
       </div>
-      
-      <button 
+
+      <button
         className={`upgrade-button ${canAfford ? 'affordable' : 'expensive'}`}
         onClick={handleUpgrade}
         disabled={!canAfford}

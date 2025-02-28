@@ -16,13 +16,10 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 export function useMemoSelector<T>(selector: (state: RootState) => T): T {
   // Create a memoized version of the selector
   const memoizedSelector = useMemo(
-    () => createSelector(
-      [(state: RootState) => state],
-      (state) => selector(state)
-    ),
+    () => createSelector([(state: RootState) => state], (state) => selector(state)),
     [selector]
   );
-  
+
   // Use the memoized selector with useSelector
   return useSelector(memoizedSelector);
 }

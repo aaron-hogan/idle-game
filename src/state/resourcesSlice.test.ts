@@ -10,14 +10,14 @@ import { Resource } from '../models/resource';
 
 describe('resources reducer', () => {
   const initialState = {};
-  
+
   const mockResource: Resource = {
     id: 'collective-power',
     name: 'Collective Bargaining Power',
     amount: 0,
     maxAmount: 100,
     perSecond: 1,
-    description: 'The primary resource representing the movement\'s strength',
+    description: "The primary resource representing the movement's strength",
     unlocked: true,
     category: 'POWER',
   };
@@ -35,7 +35,7 @@ describe('resources reducer', () => {
     const startState = { [mockResource.id]: { ...mockResource } };
     const newAmount = 50;
     const actual = resourcesReducer(
-      startState, 
+      startState,
       updateResourceAmount({ id: mockResource.id, amount: newAmount })
     );
     expect(actual[mockResource.id].amount).toEqual(newAmount);
@@ -45,7 +45,7 @@ describe('resources reducer', () => {
     const startState = { [mockResource.id]: { ...mockResource } };
     const tooLarge = mockResource.maxAmount + 50;
     const actual = resourcesReducer(
-      startState, 
+      startState,
       updateResourceAmount({ id: mockResource.id, amount: tooLarge })
     );
     expect(actual[mockResource.id].amount).toEqual(mockResource.maxAmount);
@@ -53,12 +53,12 @@ describe('resources reducer', () => {
 
   test('should handle addResourceAmount', () => {
     const startAmount = 25;
-    const startState = { 
-      [mockResource.id]: { ...mockResource, amount: startAmount } 
+    const startState = {
+      [mockResource.id]: { ...mockResource, amount: startAmount },
     };
     const addAmount = 10;
     const actual = resourcesReducer(
-      startState, 
+      startState,
       addResourceAmount({ id: mockResource.id, amount: addAmount })
     );
     expect(actual[mockResource.id].amount).toEqual(startAmount + addAmount);
@@ -75,8 +75,8 @@ describe('resources reducer', () => {
   });
 
   test('should handle toggleResourceUnlocked', () => {
-    const startState = { 
-      [mockResource.id]: { ...mockResource, unlocked: false } 
+    const startState = {
+      [mockResource.id]: { ...mockResource, unlocked: false },
     };
     const actual = resourcesReducer(
       startState,

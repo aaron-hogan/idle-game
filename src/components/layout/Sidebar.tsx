@@ -7,23 +7,21 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
-  
+
   const toggleSidebar = () => {
     setCollapsed(!collapsed);
   };
-  
+
   return (
     <div className={`sidebar ${collapsed ? 'collapsed' : ''}`}>
-      <button 
-        className="sidebar-toggle" 
+      <button
+        className="sidebar-toggle"
         onClick={toggleSidebar}
-        aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+        aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
       >
         {collapsed ? '»' : '«'}
       </button>
-      <div className="sidebar-content">
-        {children}
-      </div>
+      <div className="sidebar-content">{children}</div>
     </div>
   );
 };

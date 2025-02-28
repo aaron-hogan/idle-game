@@ -27,12 +27,12 @@ root.render(
 setTimeout(() => {
   // Initialize debug tools
   initializeDebugTools();
-  
+
   // Initialize event system
   initializeEventSystem();
-  
+
   // Initialize progression system
   initializeProgression();
-  
+
   console.log('All game systems initialized');
 }, 1000);

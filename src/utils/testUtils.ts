@@ -67,20 +67,30 @@ export const createMockStore = () => {
 };
 
 /**
+ * Common interface for singleton classes in the game
+ * This creates a more flexible type for working with singletons in tests
+ */
+export interface SingletonClass {
+  getInstance: (...args: unknown[]) => unknown;
+}
+
+/**
  * Helper to reset singleton instances for testing
  * This is used to reset singleton classes between tests
  * @param singletonClass Class with private constructor and static getInstance method
  */
-export function resetSingleton(singletonClass: any): void {
+export function resetSingleton(singletonClass: unknown): void {
   // Access private static instance field and reset it
   // Note: This is a hack for testing purposes only
-  if ('instance' in singletonClass) {
-    // @ts-ignore - Private field access for testing
-    singletonClass.instance = null;
+  const classWithInstance = singletonClass as { instance?: unknown };
+
+  if (classWithInstance && 'instance' in classWithInstance) {
+    // Direct private field access for testing - intentionally bypassing TypeScript protection
+    classWithInstance.instance = null;
   }
 
-  // For error logger, use the proper reset method if available
-  if (singletonClass === ErrorLogger && typeof ErrorLogger.resetInstance === 'function') {
+  // Special case for ErrorLogger which has a proper reset method
+  if (singletonClass === ErrorLogger) {
     ErrorLogger.resetInstance();
   }
 }
@@ -91,8 +101,23 @@ export function resetSingleton(singletonClass: any): void {
  * @param singletonClass Class to mock
  * @param mockInstance Mock instance to return from getInstance
  */
-export function mockGetInstance<T>(singletonClass: any, mockInstance: T): jest.SpyInstance {
+export function mockGetInstance<T>(
+  singletonClass: SingletonClass,
+  mockInstance: T
+): jest.SpyInstance {
   return jest.spyOn(singletonClass, 'getInstance').mockReturnValue(mockInstance);
+}
+
+/**
+ * Type for constructor function with static getInstance method
+ */
+interface SingletonConstructor<T> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  new (...args: any[]): T;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getInstance(...args: any[]): T;
+  // Private static field that we'll access in tests
+  instance?: T;
 }
 
 /**
@@ -101,18 +126,23 @@ export function mockGetInstance<T>(singletonClass: any, mockInstance: T): jest.S
  * @param BaseClass The singleton class to extend
  * @returns A class that can be instantiated for testing
  */
-export function createTestableManager<T>(BaseClass: any): new (...args: any[]) => T {
+export function createTestableManager<T>(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  BaseClass: any
+): { new (...args: unknown[]): T } {
   // Create a test subclass that can be directly instantiated
-  return class TestManager extends BaseClass {
+  // We use any here because we're purposely breaking the type system to access private members
+  class TestManager extends BaseClass {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     constructor(...args: any[]) {
-      // @ts-ignore - Private constructor access for testing
       super(...args);
     }
 
     // Add static method to set the singleton instance for testing
-    static setTestInstance(instance: any): void {
-      // @ts-ignore - Private static field access for testing
+    static setTestInstance(instance: T): void {
       BaseClass.instance = instance;
     }
-  } as any;
+  }
+
+  return TestManager as unknown as { new (...args: unknown[]): T };
 }

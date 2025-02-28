@@ -19,13 +19,13 @@ const Grid: React.FC<GridProps> = ({
   className = '',
 }) => {
   let gridStyle = {};
-  
+
   if (typeof columns === 'number') {
     // Use a fixed number of columns
     gridStyle = {
       display: 'grid',
-      gridTemplateColumns: autoFit 
-        ? `repeat(auto-fit, minmax(${minColumnWidth}, 1fr))` 
+      gridTemplateColumns: autoFit
+        ? `repeat(auto-fit, minmax(${minColumnWidth}, 1fr))`
         : `repeat(${columns}, 1fr)`,
       gap,
     };
@@ -36,13 +36,15 @@ const Grid: React.FC<GridProps> = ({
       gap,
     };
   }
-  
+
   const gridClasses = [
     'game-grid',
     typeof columns !== 'number' && 'game-grid-responsive',
-    className
-  ].filter(Boolean).join(' ');
-  
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ');
+
   // Create data attributes for responsive columns
   const dataAttributes: Record<string, number> = {};
   if (typeof columns !== 'number') {
@@ -52,13 +54,9 @@ const Grid: React.FC<GridProps> = ({
     if (columns.lg) dataAttributes['data-grid-lg'] = columns.lg;
     if (columns.xl) dataAttributes['data-grid-xl'] = columns.xl;
   }
-  
+
   return (
-    <div 
-      className={gridClasses} 
-      style={gridStyle}
-      {...dataAttributes}
-    >
+    <div className={gridClasses} style={gridStyle} {...dataAttributes}>
       {children}
     </div>
   );

@@ -17,9 +17,9 @@ jest.mock('./resourceManager', () => {
         initialize: jest.fn(),
         calculateResourceGeneration: jest.fn(),
         updateResources: jest.fn(),
-        initializeResources: jest.fn()
-      })
-    }
+        initializeResources: jest.fn(),
+      }),
+    },
   };
 });
 
@@ -28,9 +28,9 @@ jest.mock('./buildingManager', () => {
   return {
     BuildingManager: {
       getInstance: jest.fn().mockReturnValue({
-        initialize: jest.fn()
-      })
-    }
+        initialize: jest.fn(),
+      }),
+    },
   };
 });
 
@@ -40,23 +40,23 @@ jest.mock('../managers/GameLoopManager', () => {
     GameLoopManager: {
       getInstance: jest.fn().mockReturnValue({
         startGameLoop: jest.fn(),
-        isGameLoopRunning: jest.fn().mockReturnValue(false)
-      })
-    }
+        isGameLoopRunning: jest.fn().mockReturnValue(false),
+      }),
+    },
   };
 });
 
 describe('GameLoop', () => {
   let gameLoop: GameLoop;
   let store: any;
-  
+
   beforeEach(() => {
     // Reset mocks
     jest.clearAllMocks();
-    
+
     // Mock Date.now to return predictable values
     jest.spyOn(Date, 'now').mockImplementation(() => 1000000);
-    
+
     // Create a test store
     store = configureStore({
       reducer: {
@@ -64,34 +64,34 @@ describe('GameLoop', () => {
         structures: structuresReducer,
         game: gameReducer,
         tasks: tasksReducer,
-      }
+      },
     });
-    
+
     // Spy on store.dispatch
     jest.spyOn(store, 'dispatch');
-    
+
     // Get GameLoop instance
     gameLoop = GameLoop.getInstance();
     gameLoop.initialize(store);
   });
-  
+
   afterEach(() => {
     // Reset Date.now mock
     jest.restoreAllMocks();
   });
-  
+
   test('should initialize properly', () => {
     expect(gameLoop).toBeDefined();
   });
-  
+
   test('dispatches addPlayTime with correct value', () => {
     // Direct test of the Redux action
     const initialState = store.getState();
     const initialPlayTime = initialState.game.totalPlayTime;
-    
+
     // Dispatch addPlayTime action directly
     store.dispatch(addPlayTime(10));
-    
+
     // Check if state was updated correctly
     const newState = store.getState();
     expect(newState.game.totalPlayTime).toBe(initialPlayTime + 10);

@@ -26,7 +26,7 @@ describe('Redux selectors', () => {
     unlocked: true,
     category: 'POWER',
   };
-  
+
   const resource2: Resource = {
     id: 'solidarity',
     name: 'Solidarity',
@@ -37,7 +37,7 @@ describe('Redux selectors', () => {
     unlocked: true,
     category: 'SOCIAL',
   };
-  
+
   const resource3: Resource = {
     id: 'community-trust',
     name: 'Community Trust',
@@ -45,10 +45,10 @@ describe('Redux selectors', () => {
     maxAmount: 100,
     perSecond: 0.5,
     description: 'Secondary resource',
-    unlocked: false,  // This one is locked
+    unlocked: false, // This one is locked
     category: 'SOCIAL',
   };
-  
+
   const structure1: Structure = {
     id: 'union-office',
     name: 'Union Office',
@@ -62,39 +62,39 @@ describe('Redux selectors', () => {
     maxWorkers: 5,
     category: 'ORGANIZING',
   };
-  
+
   const structure2: Structure = {
     id: 'community-center',
     name: 'Community Center',
     description: 'Generates solidarity',
     level: 1,
     maxLevel: 3,
-    cost: { 'collective-power': 30, 'solidarity': 10 },
-    production: { 'solidarity': 1 },
+    cost: { 'collective-power': 30, solidarity: 10 },
+    production: { solidarity: 1 },
     unlocked: true,
     workers: 1,
     maxWorkers: 3,
     category: 'COMMUNITY',
   };
-  
+
   const structure3: Structure = {
     id: 'alternative-media',
     name: 'Alternative Media Outlet',
     description: 'Counters corporate propaganda',
     level: 1,
     maxLevel: 3,
-    cost: { 'collective-power': 60, 'solidarity': 20 },
+    cost: { 'collective-power': 60, solidarity: 20 },
     production: { 'community-trust': 1 },
-    unlocked: false,  // This one is locked
+    unlocked: false, // This one is locked
     workers: 0,
     maxWorkers: 3,
     category: 'MEDIA',
   };
-  
+
   const mockState: RootState = {
     resources: {
       'collective-power': resource1,
-      'solidarity': resource2,
+      solidarity: resource2,
       'community-trust': resource3,
     },
     structures: {
@@ -112,17 +112,17 @@ describe('Redux selectors', () => {
       startDate: 1644600000000,
       gameEnded: false,
       gameWon: false,
-      endReason: null
+      endReason: null,
     },
     tasks: {
       tasks: {},
       activeTaskId: null,
-      hasInitialized: true
+      hasInitialized: true,
     },
     events: {
       availableEvents: {},
       activeEvents: [],
-      eventHistory: []
+      eventHistory: [],
     },
     progression: {
       currentStage: 'EARLY',
@@ -131,35 +131,35 @@ describe('Redux selectors', () => {
       milestoneIds: [],
       achievementIds: [],
       milestonesByStage: {
-        'EARLY': [],
-        'MID': [],
-        'LATE': [],
-        'END_GAME': []
+        EARLY: [],
+        MID: [],
+        LATE: [],
+        END_GAME: [],
       },
       milestonesByType: {
-        'RESOURCE': [],
-        'ORGANIZATION': [],
-        'MOVEMENT': [],
-        'AWARENESS': [],
-        'RESISTANCE': [],
-        'TRANSFORMATION': [],
-        'SPECIAL': []
+        RESOURCE: [],
+        ORGANIZATION: [],
+        MOVEMENT: [],
+        AWARENESS: [],
+        RESISTANCE: [],
+        TRANSFORMATION: [],
+        SPECIAL: [],
       },
       achievementsByType: {
-        'RESOURCE': [],
-        'STRATEGIC': [],
-        'ETHICAL': [],
-        'COMMUNITY': [],
-        'RESISTANCE': [],
-        'TIMED': [],
-        'SPECIAL': []
+        RESOURCE: [],
+        STRATEGIC: [],
+        ETHICAL: [],
+        COMMUNITY: [],
+        RESISTANCE: [],
+        TIMED: [],
+        SPECIAL: [],
       },
       stageReachedAt: {
-        'EARLY': null,
-        'MID': null,
-        'LATE': null,
-        'END_GAME': null
-      }
+        EARLY: null,
+        MID: null,
+        LATE: null,
+        END_GAME: null,
+      },
     },
     tutorial: {
       active: false,
@@ -167,8 +167,8 @@ describe('Redux selectors', () => {
       completedTutorials: [],
       tutorialsEnabled: true,
       firstTimeUser: true,
-      showContextualHelp: true
-    }
+      showContextualHelp: true,
+    },
   } as RootState;
 
   // Resource selectors
@@ -176,12 +176,12 @@ describe('Redux selectors', () => {
     const result = selectAllResources(mockState);
     expect(result).toEqual(mockState.resources);
   });
-  
+
   test('selectResourceById returns a specific resource', () => {
     const result = selectResourceById('solidarity')(mockState);
     expect(result).toEqual(resource2);
   });
-  
+
   test('selectUnlockedResources returns only unlocked resources', () => {
     const result = selectUnlockedResources(mockState);
     expect(result).toHaveLength(2);
@@ -189,24 +189,24 @@ describe('Redux selectors', () => {
     expect(result).toContainEqual(resource2);
     expect(result).not.toContainEqual(resource3);
   });
-  
+
   test('selectTotalResourceGeneration returns sum of all generation rates', () => {
     const result = selectTotalResourceGeneration(mockState);
     // 2 + 1 + 0.5 = 3.5
     expect(result).toEqual(3.5);
   });
-  
+
   // Structure selectors
   test('selectAllStructures returns all structures', () => {
     const result = selectAllStructures(mockState);
     expect(result).toEqual(mockState.structures);
   });
-  
+
   test('selectStructureById returns a specific structure', () => {
     const result = selectStructureById('union-office')(mockState);
     expect(result).toEqual(structure1);
   });
-  
+
   test('selectUnlockedStructures returns only unlocked structures', () => {
     const result = selectUnlockedStructures(mockState);
     expect(result).toHaveLength(2);
@@ -214,24 +214,24 @@ describe('Redux selectors', () => {
     expect(result).toContainEqual(structure2);
     expect(result).not.toContainEqual(structure3);
   });
-  
+
   test('selectTotalWorkers returns sum of all assigned workers', () => {
     const result = selectTotalWorkers(mockState);
     // 2 + 1 + 0 = 3
     expect(result).toEqual(3);
   });
-  
+
   // Game selectors
   test('selectGameStage returns current game stage', () => {
     const result = selectGameStage(mockState);
     expect(result).toEqual(1);
   });
-  
+
   test('selectLastSaveTime returns last save timestamp', () => {
     const result = selectLastSaveTime(mockState);
     expect(result).toEqual(1644700000000);
   });
-  
+
   test('selectTotalPlayTime returns total play time', () => {
     const result = selectTotalPlayTime(mockState);
     expect(result).toEqual(3600);

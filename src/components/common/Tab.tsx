@@ -26,17 +26,19 @@ const Tab: React.FC<TabProps> = ({
       onClick(id);
     }
   };
-  
+
   // Combine the classes
   const tabClasses = [
     'tab',
     isActive ? 'tab-active' : '',
     disabled ? 'tab-disabled' : '',
     className,
-  ].filter(Boolean).join(' ');
-  
+  ]
+    .filter(Boolean)
+    .join(' ');
+
   return (
-    <div 
+    <div
       className={tabClasses}
       onClick={handleClick}
       role="tab"

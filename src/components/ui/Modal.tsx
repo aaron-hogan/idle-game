@@ -25,7 +25,7 @@ const Modal: React.FC<ModalProps> = ({
   size = 'medium',
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
-  
+
   // Handle ESC key press
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -33,21 +33,21 @@ const Modal: React.FC<ModalProps> = ({
         onClose();
       }
     };
-    
+
     window.addEventListener('keydown', handleKeyDown);
-    
+
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [closeOnEsc, isOpen, onClose]);
-  
+
   // Handle outside clicks
   const handleOutsideClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (closeOnOutsideClick && modalRef.current && e.target === modalRef.current) {
       onClose();
     }
   };
-  
+
   // Prevent scrolling when modal is open
   useEffect(() => {
     if (isOpen) {
@@ -55,25 +55,21 @@ const Modal: React.FC<ModalProps> = ({
     } else {
       document.body.style.overflow = '';
     }
-    
+
     return () => {
       document.body.style.overflow = '';
     };
   }, [isOpen]);
-  
+
   if (!isOpen) return null;
-  
-  const modalClasses = [
-    'game-modal',
-    `game-modal-${size}`,
-    className
-  ].filter(Boolean).join(' ');
-  
+
+  const modalClasses = ['game-modal', `game-modal-${size}`, className].filter(Boolean).join(' ');
+
   return (
     <div className="modal-overlay" ref={modalRef} onClick={handleOutsideClick}>
-      <div 
+      <div
         className={modalClasses}
-        onClick={e => e.stopPropagation()} // Prevent clicks inside modal from closing it
+        onClick={(e) => e.stopPropagation()} // Prevent clicks inside modal from closing it
         role="dialog"
         aria-modal="true"
         aria-labelledby={title ? 'modal-title' : undefined}
@@ -81,28 +77,20 @@ const Modal: React.FC<ModalProps> = ({
         {/* Modal Header */}
         {title && (
           <div className="modal-header">
-            <h3 id="modal-title" className="modal-title">{title}</h3>
-            <button 
-              className="modal-close-button" 
-              onClick={onClose}
-              aria-label="Close modal"
-            >
+            <h3 id="modal-title" className="modal-title">
+              {title}
+            </h3>
+            <button className="modal-close-button" onClick={onClose} aria-label="Close modal">
               ×
             </button>
           </div>
         )}
-        
+
         {/* Modal Body */}
-        <div className="modal-body">
-          {children}
-        </div>
-        
+        <div className="modal-body">{children}</div>
+
         {/* Modal Footer */}
-        {footer && (
-          <div className="modal-footer">
-            {footer}
-          </div>
-        )}
+        {footer && <div className="modal-footer">{footer}</div>}
       </div>
     </div>
   );

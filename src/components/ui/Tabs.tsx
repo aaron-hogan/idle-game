@@ -27,20 +27,20 @@ const Tabs: React.FC<TabsProps> = ({
 }) => {
   const initialTab = defaultActiveTab || (items.length > 0 ? items[0].id : '');
   const [activeTab, setActiveTab] = useState(initialTab);
-  
+
   const handleTabClick = (tabId: string) => {
     setActiveTab(tabId);
     if (onChange) {
       onChange(tabId);
     }
   };
-  
-  const activeTabContent = items.find(item => item.id === activeTab)?.content;
-  
+
+  const activeTabContent = items.find((item) => item.id === activeTab)?.content;
+
   return (
     <div className={`tabs-container ${className}`}>
       <div className="tabs-header" role="tablist">
-        {items.map(item => (
+        {items.map((item) => (
           <button
             key={item.id}
             className={`tab-button ${activeTab === item.id ? 'tab-active' : ''} ${item.disabled ? 'tab-disabled' : ''} ${tabClassName}`}
@@ -54,7 +54,7 @@ const Tabs: React.FC<TabsProps> = ({
           </button>
         ))}
       </div>
-      
+
       <div className={`tab-content ${contentClassName}`} role="tabpanel">
         {activeTabContent}
       </div>

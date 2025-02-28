@@ -1,13 +1,13 @@
 import React from 'react';
 
 // List of available icons (placeholder - would be replaced with actual icons)
-type IconType = 
-  | 'people' 
-  | 'building' 
-  | 'resource' 
-  | 'power' 
-  | 'solidarity' 
-  | 'community' 
+type IconType =
+  | 'people'
+  | 'building'
+  | 'resource'
+  | 'power'
+  | 'solidarity'
+  | 'community'
   | 'money'
   | 'time'
   | 'info'
@@ -33,11 +33,11 @@ const Icon: React.FC<IconProps> = ({
   // This would be replaced with actual icon rendering logic
   // For now, we'll just render a placeholder
   const iconType = type || (name as IconType) || 'info';
-  
+
   return (
-    <span 
+    <span
       className={`icon icon-${iconType} ${className}`}
-      style={{ 
+      style={{
         display: 'inline-block',
         width: `${size}px`,
         height: `${size}px`,

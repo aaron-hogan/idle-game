@@ -11,7 +11,7 @@ const TickRateChecker: React.FC = () => {
   // Use Redux selectors to get game state
   const gameTime = useAppSelector(selectTotalPlayTime);
   const gameTimeScale = useAppSelector(selectGameTimeScale);
-  
+
   // Local state for loop stats
   const [stats, setStats] = useState({
     tickRate: 0,
@@ -22,7 +22,7 @@ const TickRateChecker: React.FC = () => {
     realTime: 0,
     gameTime: 0,
   });
-  
+
   useEffect(() => {
     // Set up interval to update stats every 500ms
     const intervalId = setInterval(() => {
@@ -30,10 +30,10 @@ const TickRateChecker: React.FC = () => {
         // Get stats directly from game loop
         const gameLoop = GameLoop.getInstance();
         const loopStats = gameLoop.getStats();
-        
+
         // Get timer from game loop
         const gameTimer = gameLoop.getGameTimer();
-        
+
         setStats({
           tickRate: loopStats.tickRate,
           tickCount: loopStats.tickCount,
@@ -47,25 +47,27 @@ const TickRateChecker: React.FC = () => {
         console.error('Error updating tick rate stats', error);
       }
     }, 500);
-    
+
     // Cleanup
     return () => clearInterval(intervalId);
   }, []);
-  
+
   return (
-    <div style={{
-      position: 'fixed',
-      bottom: 10,
-      left: 10,
-      backgroundColor: 'rgba(0, 0, 0, 0.7)',
-      color: 'white',
-      padding: '8px 12px',
-      borderRadius: '4px',
-      fontSize: '12px',
-      fontFamily: 'monospace',
-      zIndex: 1000,
-      maxWidth: '300px'
-    }}>
+    <div
+      style={{
+        position: 'fixed',
+        bottom: 10,
+        left: 10,
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+        color: 'white',
+        padding: '8px 12px',
+        borderRadius: '4px',
+        fontSize: '12px',
+        fontFamily: 'monospace',
+        zIndex: 1000,
+        maxWidth: '300px',
+      }}
+    >
       <div style={{ borderBottom: '1px solid #666', paddingBottom: '4px', marginBottom: '4px' }}>
         <strong>Game Timer Metrics</strong>
       </div>
@@ -75,10 +77,12 @@ const TickRateChecker: React.FC = () => {
       <div>Real Time: {stats.realTime.toFixed(1)}s</div>
       <div>Game Time: {stats.gameTime.toFixed(1)}s</div>
       <div>Redux Time: {gameTime.toFixed(1)}s</div>
-      <div style={{ 
-        color: stats.timeRatio > 0.95 && stats.timeRatio < 1.05 ? '#4caf50' : '#ff5252',
-        fontWeight: 'bold'
-      }}>
+      <div
+        style={{
+          color: stats.timeRatio > 0.95 && stats.timeRatio < 1.05 ? '#4caf50' : '#ff5252',
+          fontWeight: 'bold',
+        }}
+      >
         Time Ratio: {stats.timeRatio.toFixed(2)}x {stats.timeRatio > 0 ? '(expected: 1.00x)' : ''}
       </div>
     </div>

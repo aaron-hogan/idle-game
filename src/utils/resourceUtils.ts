@@ -150,11 +150,18 @@ export function checkResourceAvailability(required: Record<string, number>): boo
     }
 
     const state = store.getState() as RootState;
-    const resources = state.resources;
+    // First cast to unknown to bypass type checking, then to the expected format
+    const resources = state.resources.resources as unknown as Record<string, {
+      unlocked: boolean;
+      amount: number;
+    }>;
 
     return Object.entries(required).every(([resourceId, amount]) => {
-      // Use safeGetResource instead of direct indexing
-      const resource = safeGetResource(resources, resourceId, 'checkResourceAvailability');
+      if (!resources) return false;
+      
+      const resource = resources[resourceId];
+      if (!resource) return false;
+      
       return resource.unlocked && resource.amount >= amount;
     });
   } catch (error) {

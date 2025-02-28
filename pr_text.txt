@@ -1,0 +1,20 @@
+This PR fixes the YAML syntax issues in the streamlined versioning workflow.
+
+## Problem
+Previous approaches had recurring YAML syntax errors with multiline strings and shell variable handling in the workflow file, causing failures in extracting changelog entries and updating the CHANGELOG.md file.
+
+## Solution
+- Moved complex script logic into separate shell scripts created at runtime
+- Used temporary files instead of problematic multiline shell variables
+- Simplified the changelog extraction process to avoid YAML parsing issues
+- Used heredocs with single quotes to prevent YAML interpretation problems
+
+## Type of Change
+- [x] Bug fix (fix: ...)
+
+## Changelog Entry
+
+### Fixed
+- Resolved YAML syntax issues in the streamlined versioning workflow
+- Fixed changelog extraction reliability with a more robust approach
+- Improved the CHANGELOG.md update process by using isolated scripts

@@ -34,29 +34,29 @@ interface BuildingItemProps {
 /**
  * Individual building item component that displays building info and controls
  */
-const BuildingItem: React.FC<BuildingItemProps> = ({ 
-  building, 
-  onPurchase, 
+const BuildingItem: React.FC<BuildingItemProps> = ({
+  building,
+  onPurchase,
   onWorkerChange,
-  canAfford 
+  canAfford,
 }) => {
   const resources = useSelector((state: RootState) => state.resources);
-  
+
   const isPurchased = building.level > 0;
   const isMaxLevel = building.level >= building.maxLevel;
-  
+
   // Get resource costs and format them for display
   const getCostDisplay = () => {
     return Object.entries(building.cost).map(([resourceId, amount]) => {
       const resource = resources[resourceId];
       const resourceName = resource ? resource.name : resourceId;
       const formattedAmount = formatNumber(amount);
-      
+
       const hasEnough = resource && resource.amount >= amount;
-      
+
       return (
-        <div 
-          key={resourceId} 
+        <div
+          key={resourceId}
           className={`${styles.costItem} ${hasEnough ? styles.canAfford : styles.cannotAfford}`}
         >
           {formattedAmount} {resourceName}
@@ -64,14 +64,14 @@ const BuildingItem: React.FC<BuildingItemProps> = ({
       );
     });
   };
-  
+
   // Get production details for display
   const getProductionDisplay = () => {
     return Object.entries(building.production).map(([resourceId, amount]) => {
       const resource = resources[resourceId];
       const resourceName = resource ? resource.name : resourceId;
       const formattedAmount = formatNumber(amount);
-      
+
       return (
         <div key={resourceId} className={styles.productionItem}>
           +{formattedAmount} {resourceName}/s
@@ -79,22 +79,24 @@ const BuildingItem: React.FC<BuildingItemProps> = ({
       );
     });
   };
-  
+
   return (
     <Card className={styles.buildingItem}>
       <div className={styles.header}>
         <h3 className={styles.name}>{building.name}</h3>
-        <div className={styles.level}>Level {building.level}/{building.maxLevel}</div>
+        <div className={styles.level}>
+          Level {building.level}/{building.maxLevel}
+        </div>
       </div>
-      
+
       <p className={styles.description}>{building.description}</p>
-      
+
       <div className={styles.details}>
         <div className={styles.production}>
           <h4>Production:</h4>
           {getProductionDisplay()}
         </div>
-        
+
         {!isMaxLevel && (
           <div className={styles.cost}>
             <h4>{isPurchased ? 'Upgrade Cost:' : 'Cost:'}</h4>
@@ -102,32 +104,34 @@ const BuildingItem: React.FC<BuildingItemProps> = ({
           </div>
         )}
       </div>
-      
+
       <div className={styles.actions}>
         {!isMaxLevel && (
-          <Button 
-            onClick={onPurchase} 
+          <Button
+            onClick={onPurchase}
             disabled={!canAfford}
             variant={isPurchased ? 'secondary' : 'primary'}
           >
             {isPurchased ? 'Upgrade' : 'Purchase'}
           </Button>
         )}
-        
+
         {isPurchased && (
           <div className={styles.workers}>
-            <h4>Organizers: {building.workers}/{building.maxWorkers}</h4>
+            <h4>
+              Organizers: {building.workers}/{building.maxWorkers}
+            </h4>
             <div className={styles.workerControls}>
-              <Button 
-                onClick={() => onWorkerChange(-1)} 
+              <Button
+                onClick={() => onWorkerChange(-1)}
                 disabled={building.workers <= 0}
                 variant="secondary"
                 size="small"
               >
                 -
               </Button>
-              <Button 
-                onClick={() => onWorkerChange(1)} 
+              <Button
+                onClick={() => onWorkerChange(1)}
                 disabled={building.workers >= building.maxWorkers}
                 variant="secondary"
                 size="small"
@@ -135,14 +139,14 @@ const BuildingItem: React.FC<BuildingItemProps> = ({
                 +
               </Button>
             </div>
-            
+
             {building.workers > 0 && (
               <div className={styles.efficiency}>
-                <div 
-                  className={styles.efficiencyBar} 
-                  style={{ 
+                <div
+                  className={styles.efficiencyBar}
+                  style={{
                     width: `${Math.min(100, (building.workers / building.maxWorkers) * 100)}%`,
-                    backgroundColor: getEfficiencyColor(building.workers / building.maxWorkers)
+                    backgroundColor: getEfficiencyColor(building.workers / building.maxWorkers),
                   }}
                 />
                 <span className={styles.efficiencyLabel}>

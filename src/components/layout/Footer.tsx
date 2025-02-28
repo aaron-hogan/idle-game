@@ -6,7 +6,7 @@ import './Footer.css';
 
 const Footer: React.FC = () => {
   const totalPlayTime = useAppSelector(selectTotalPlayTime);
-  
+
   return (
     <footer className="game-footer">
       <div className="footer-content">

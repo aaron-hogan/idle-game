@@ -30,16 +30,10 @@ const Card: React.FC<CardProps> = ({
           {subtitle && <div className="game-card-subtitle">{subtitle}</div>}
         </div>
       )}
-      
-      <div className={`game-card-body ${bodyClassName}`}>
-        {children}
-      </div>
-      
-      {footer && (
-        <div className={`game-card-footer ${footerClassName}`}>
-          {footer}
-        </div>
-      )}
+
+      <div className={`game-card-body ${bodyClassName}`}>{children}</div>
+
+      {footer && <div className={`game-card-footer ${footerClassName}`}>{footer}</div>}
     </div>
   );
 };

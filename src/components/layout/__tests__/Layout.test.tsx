@@ -35,8 +35,8 @@ const store = mockStore({
   game: {
     gameStage: 0,
     totalPlayTime: 3600, // 1 hour
-    isRunning: true
-  }
+    isRunning: true,
+  },
 });
 
 describe('Layout Component', () => {
@@ -48,13 +48,13 @@ describe('Layout Component', () => {
         </Layout>
       </Provider>
     );
-    
+
     // Check if all components are rendered
     expect(screen.getByTestId('header')).toBeInTheDocument();
     expect(screen.getByTestId('footer')).toBeInTheDocument();
     expect(screen.getByTestId('sidebar')).toBeInTheDocument();
     expect(screen.getByTestId('main-content')).toBeInTheDocument();
-    
+
     // Check if content is passed correctly
     expect(screen.getByText('Sidebar Content')).toBeInTheDocument();
     expect(screen.getByText('Main Content')).toBeInTheDocument();
