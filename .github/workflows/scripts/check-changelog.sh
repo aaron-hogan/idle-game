@@ -6,6 +6,12 @@
 set -e
 
 CHANGELOG_FILE="CHANGELOG.md"
+PR_MODE=false
+
+# Check for PR mode flag
+if [ "$1" == "--pr-mode" ]; then
+  PR_MODE=true
+fi
 
 if [ ! -f "$CHANGELOG_FILE" ]; then
   echo "Error: $CHANGELOG_FILE not found"
@@ -15,20 +21,46 @@ fi
 # Check if there are entries under [Unreleased] that should be versioned
 # First check if there's anything between [Unreleased] and the next version heading
 if awk '/^## \[Unreleased\]/,/^## \[[0-9]/' "$CHANGELOG_FILE" | grep -q "^### "; then
-  echo "❌ ERROR: Entries exist under [Unreleased] heading."
-  echo ""
-  echo "Before merging to main, please create a proper version section using:"
-  echo "  ./scripts/bump-version.sh X.Y.Z"
-  echo ""
-  echo "Unreleased changes found:"
-  echo "------------------------"
-  awk '/^## \[Unreleased\]/,/^## \[[0-9]/' "$CHANGELOG_FILE" | grep -E "^###|^- "
-  echo "------------------------"
-  echo ""
-  echo "See docs/processes/versioning-and-releases.md for more information."
-  exit 1
+  if [ "$PR_MODE" = true ]; then
+    echo "⚠️ PR VALIDATION: Found unreleased changes in CHANGELOG.md."
+    echo ""
+    echo "Your PR has entries in the [Unreleased] section, which is correct for now."
+    echo "Please ensure your PR has one of these version labels:"
+    echo "  - version:major - For breaking changes"
+    echo "  - version:minor - For new features"
+    echo "  - version:patch - For bug fixes"
+    echo "  - version:patch_level - For minor tweaks"
+    echo ""
+    echo "These unreleased changes will be automatically moved to a proper version"
+    echo "section when your PR is merged to main."
+    echo ""
+    echo "Unreleased changes found:"
+    echo "------------------------"
+    awk '/^## \[Unreleased\]/,/^## \[[0-9]/' "$CHANGELOG_FILE" | grep -E "^###|^- "
+    echo "------------------------"
+    echo ""
+    # In PR mode, having unreleased changes is OK - we'll just warn and continue
+  else
+    echo "❌ ERROR: Entries exist under [Unreleased] heading."
+    echo ""
+    echo "Before merging to main, please create a proper version section using:"
+    echo "  ./scripts/bump-version.sh X.Y.Z"
+    echo ""
+    echo "Unreleased changes found:"
+    echo "------------------------"
+    awk '/^## \[Unreleased\]/,/^## \[[0-9]/' "$CHANGELOG_FILE" | grep -E "^###|^- "
+    echo "------------------------"
+    echo ""
+    echo "See docs/processes/versioning-and-releases.md for more information."
+    exit 1
+  fi
 else 
-  echo "✅ CHANGELOG.md properly versioned. No unreleased changes found."
+  if [ "$PR_MODE" = true ]; then
+    echo "⚠️ WARNING: No unreleased changes found in CHANGELOG.md."
+    echo "If your PR requires a CHANGELOG entry, please add it to the [Unreleased] section."
+  else
+    echo "✅ CHANGELOG.md properly versioned. No unreleased changes found."
+  fi
 fi
 
 # Now check for empty version sections

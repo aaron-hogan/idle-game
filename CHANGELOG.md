@@ -27,6 +27,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Requirements to check each workflow step's logs for failures
   - Real-world case study of PR #115 that was improperly merged
   - Guidelines for detecting "hidden" failures in CI workflows
+- **Enhanced PR validation workflow** to properly enforce versioning:
+  - Added automatic version label checking for all feature/fix PRs
+  - Added suggestions for appropriate version labels based on PR title
+  - Smart detection of PR types to suggest correct version labels
+  - Improved CHANGELOG validation during PR review
+  - Clear validation messages and guidance for developers
 
 ### Fixed
 - Fixed linting errors in multiple files:
@@ -53,6 +59,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Updated best practices with detailed instructions on checking workflow logs
   - Added detailed instructions for verifying CHANGELOG updates
   - Documented actual process failure with PR #115 as a case study
+- **Fixed CHANGELOG versioning process**:
+  - Updated PR validation workflow to enforce version labels
+  - Enhanced check-changelog.sh script to provide better guidance
+  - Fixed workflow for CHANGELOG validation during PR reviews
+  - Enhanced documentation with clear examples and requirements
+  - Added explicit warnings about version label requirements in PR workflow
 
 ## [0.6.1] - 2025-02-28
 

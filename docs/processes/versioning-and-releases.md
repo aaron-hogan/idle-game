@@ -26,6 +26,7 @@ This patch level extension allows us to make smaller incremental updates without
 3. **All changes MUST be categorized** under appropriate headings
 4. **Changes are for humans, not machines** - Write clear, understandable entries
 5. **Group similar types of changes together** - For better readability
+6. **⚠️ ALWAYS ADD VERSION LABELS TO PRs** - Without version labels, auto-versioning won't happen
 
 ### Adding Changes
 
@@ -39,6 +40,7 @@ During development:
    - **Removed**: Now removed features
    - **Fixed**: Any bug fixes
    - **Security**: In case of vulnerabilities
+3. **DO NOT create version sections manually** - The auto-versioning system will do this when your PR is merged
 
 Example:
 ```markdown
@@ -54,6 +56,17 @@ Example:
 The versioning scripts enforce these requirements and will fail if:
 - You try to create a version with no changes
 - The Unreleased section is empty when versioning
+- PR is merged without a proper version label
+
+### Version Label Requirements
+
+Every PR that changes code (features, fixes) MUST have exactly one of these labels:
+- `version:major` - For breaking changes
+- `version:minor` - For new features (feat: PRs)
+- `version:patch` - For bug fixes (fix: PRs)
+- `version:patch_level` - For minor tweaks
+
+These labels tell the auto-versioning system what version number to create and tag when your PR is merged.
 
 ### Creating a Release
 

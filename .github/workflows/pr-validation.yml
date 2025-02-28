@@ -2,7 +2,7 @@ name: PR Validation
 
 on:
   pull_request:
-    types: [opened, edited, synchronize, reopened]
+    types: [opened, edited, synchronize, reopened, labeled, unlabeled]
     branches: [main]
 
 jobs:
@@ -40,6 +40,45 @@ jobs:
           
           echo "Validation passed: Branch name and PR title are correctly formatted"
   
+  check-version-labels:
+    name: Check Version Labels
+    runs-on: ubuntu-latest
+    if: github.base_ref == 'main'
+    
+    steps:
+      - name: Check for version labels
+        id: check-label
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const versionLabels = ['version:major', 'version:minor', 'version:patch', 'version:patch_level'];
+            const labels = context.payload.pull_request.labels.map(label => label.name);
+            const PR_TITLE = context.payload.pull_request.title;
+            
+            // Find if PR has any version label
+            const versionLabel = labels.find(label => versionLabels.includes(label));
+            
+            // Skip this check for specific PR types
+            if (PR_TITLE.match(/^(docs|chore|ci|test):/i)) {
+              console.log("PR type doesn't require version label, skipping check");
+              return;
+            }
+            
+            // For feat, fix, etc. PRs, enforce version label
+            if (!versionLabel) {
+              // Detect PR type to suggest appropriate version label
+              let suggestedLabel = 'version:patch';
+              if (PR_TITLE.startsWith('feat:')) {
+                suggestedLabel = 'version:minor';
+              } else if (PR_TITLE.includes('BREAKING CHANGE')) {
+                suggestedLabel = 'version:major';
+              }
+              
+              core.setFailed(`Missing version label on PR. Please add one of: version:major, version:minor, version:patch, version:patch_level. Based on your PR title, we recommend: ${suggestedLabel}`);
+            } else {
+              console.log(`✅ PR has version label: ${versionLabel}`);
+            }
+  
   check-changelog:
     name: Check CHANGELOG
     runs-on: ubuntu-latest
@@ -70,3 +109,16 @@ jobs:
           fi
           
           echo "CHANGELOG.md has been updated correctly"
+          
+      - name: Verify unreleased changes
+        run: |
+          # Skip this check for specific PR types
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          if echo "$PR_TITLE" | grep -E "^(docs|chore|ci|test):" > /dev/null; then
+            echo "PR type doesn't require validation of unreleased changes, skipping check"
+            exit 0
+          fi
+          
+          # Run the changelog verification script
+          chmod +x .github/workflows/scripts/check-changelog.sh
+          .github/workflows/scripts/check-changelog.sh --pr-mode
