@@ -60,45 +60,34 @@ jobs:
           PR_BODY=$(cat pr_body.txt)
           PR_TITLE="${{ github.event.pull_request.title }}"
           
-          # Check if PR body contains changelog entry section
-          if grep -q "## Changelog Entry" pr_body.txt; then
-            echo "Found changelog entry section"
-            # Use a temporary file approach to extract content
-            sed -n '/## Changelog Entry/,/^## /p' pr_body.txt | grep -v "^## Changelog Entry" | grep -v "^## " > changelog_content.txt
-            
-            # If nothing was extracted (e.g., changelog at end of PR), get everything after the header
-            if [ ! -s changelog_content.txt ]; then
-              sed -n '/## Changelog Entry/,$p' pr_body.txt | grep -v "^## Changelog Entry" > changelog_content.txt
-            fi
-            
-            # Check if we got changelog content with any of the expected headers
-            if grep -q "### " changelog_content.txt; then
-              echo "Using changelog entry from PR description"
-              cat changelog_content.txt > changelog_entry.txt
-            else
-              echo "Changelog section found but no content - fallback to PR title"
-              GOTO_FALLBACK=1
-            fi
+          # Ultra simple extraction strategy:
+          # Get the first non-empty line after the PR title line
+          # Skip heading lines, empty lines, and warning text
+          CHANGELOG_ENTRY=$(grep -v "^#" pr_body.txt | grep -v "^$" | grep -v "⚠️" | head -n 1)
+          
+          if [ -n "$CHANGELOG_ENTRY" ]; then
+            echo "Found changelog entry: $CHANGELOG_ENTRY"
           else
-            echo "No changelog section found - fallback to PR title"
-            GOTO_FALLBACK=1
+            echo "No changelog entry found - using PR title as fallback"
+            CHANGELOG_ENTRY="${{ github.event.pull_request.title }}"
           fi
           
-          # Fallback to PR title if needed
-          if [ "${GOTO_FALLBACK:-0}" == "1" ]; then
-            if [[ "$PR_TITLE" =~ ^feat: ]]; then
-              DESCRIPTION=$(echo "$PR_TITLE" | sed 's/^feat: //')
-              echo "### Added" > changelog_entry.txt
-              echo "- $DESCRIPTION" >> changelog_entry.txt
-            elif [[ "$PR_TITLE" =~ ^fix: ]]; then
-              DESCRIPTION=$(echo "$PR_TITLE" | sed 's/^fix: //')
-              echo "### Fixed" > changelog_entry.txt
-              echo "- $DESCRIPTION" >> changelog_entry.txt
-            else
-              DESCRIPTION=$(echo "$PR_TITLE" | sed 's/^[^:]*: //')
-              echo "### Changed" > changelog_entry.txt
-              echo "- $DESCRIPTION" >> changelog_entry.txt
-            fi
+          # Determine category based on PR title
+          if [[ "$PR_TITLE" =~ ^[Ff][Ee][Aa][Tt][:\(] ]]; then
+            echo "### Added" > changelog_entry.txt
+            echo "- $CHANGELOG_ENTRY" >> changelog_entry.txt
+          elif [[ "$PR_TITLE" =~ ^[Ff][Ii][Xx][:\(] ]]; then
+            echo "### Fixed" > changelog_entry.txt
+            echo "- $CHANGELOG_ENTRY" >> changelog_entry.txt
+          elif [[ "$PR_TITLE" =~ ^[Dd][Oo][Cc][Ss][:\(] ]]; then
+            echo "### Documentation" > changelog_entry.txt
+            echo "- $CHANGELOG_ENTRY" >> changelog_entry.txt
+          elif [[ "$PR_TITLE" =~ ^[Rr][Ee][Mm][Oo][Vv][Ee][:\(] ]]; then
+            echo "### Removed" > changelog_entry.txt
+            echo "- $CHANGELOG_ENTRY" >> changelog_entry.txt
+          else
+            echo "### Changed" > changelog_entry.txt
+            echo "- $CHANGELOG_ENTRY" >> changelog_entry.txt
           fi
           
           echo "Extracted changelog entry:"

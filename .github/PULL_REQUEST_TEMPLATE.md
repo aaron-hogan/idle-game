@@ -1,36 +1,66 @@
-# PR Title: [type]: [brief description]
+# Pull Request
 
-## Summary
-[Brief description of the changes in this PR]
+## ⚠️ FIRST LINE BELOW IS YOUR CHANGELOG ENTRY ⚠️
+Replace this line with a clear description of your change for the changelog
+
+
+## Type of Change
+- [ ] Bug fix (fix: ...)
+- [ ] New feature (feat: ...)
+- [ ] Breaking change (feat!: ...)
+- [ ] Documentation update (docs: ...)
+- [ ] Refactoring (refactor: ...)
+- [ ] Test improvement (test: ...)
+- [ ] Build/CI process update (ci: ...)
+- [ ] Chore (chore: ...)
+
+## Related Issues
+<!-- Reference any related issues (e.g., "Fixes #123") -->
+
+## Description
+<!-- Provide more detailed information about your changes -->
 
 ## Implementation Details
-[More detailed explanation of how you implemented the changes]
+<!-- Briefly explain your implementation approach -->
 
-## Test Results
-- [Test results, including any metrics, screenshots, etc.]
-- [Any known issues or limitations]
+## Testing
+<!-- Describe the testing performed to validate changes -->
 
-## Related PRs/Issues
-- [Links to related PRs or issues]
+## ⚠️ Required Validation Checklist ⚠️
 
-## Next Steps
-- [Any follow-up work needed]
+### Build-Time Validation
+- [ ] All tests pass (`npm test`)
+- [ ] Type checking passes (`npm run typecheck`)
+- [ ] Linting passes (`npm run lint`)
+- [ ] Application builds successfully (`npm run build`)
 
-## Changelog Entry
-<!-- 
-IMPORTANT: This section is REQUIRED for any PR that modifies code 
-(except docs, chore, ci, test, and style changes).
-Include at least one subsection.
--->
+### Runtime Validation (CRITICAL)
+- [ ] Application launches without console errors
+- [ ] Console remains clear during:
+  - [ ] Initial application load
+  - [ ] User interactions
+  - [ ] Component mount/unmount cycles
+  - [ ] State transitions
+- [ ] All user flows function correctly
+- [ ] No regressions in existing functionality
 
-### Added
-<!-- List any new features -->
+### Documentation and Quality
+- [ ] Documentation is updated as needed
+- [ ] PR title follows conventional commit format (e.g., "feat: add login feature")
+- [ ] First line of PR description is a clear changelog entry
+- [ ] No debug/console logs in production code
+- [ ] Branch is updated with main
 
-### Changed
-<!-- List changes in existing functionality -->
+### Versioning Checks
+- [ ] PR title correctly reflects the type of change (feat:, fix:, docs:, etc.)
+- [ ] PR title will trigger appropriate version bump (feat→minor, fix→patch, feat!→major)
 
-### Fixed
-<!-- List any bug fixes -->
+## Screenshots/Recordings
+<!-- If applicable, add screenshots or recordings to help explain the changes -->
 
-### Removed
-<!-- List any removed features -->
+## Additional Notes
+<!-- Any additional information reviewers should know -->
+
+> ⚠️ **CRITICAL REMINDER**: 
+> 1. PR title MUST follow conventional format (feat:, fix:, docs:, etc.) for versioning
+> 2. The FIRST LINE after "Pull Request" will be used as your changelog entry

@@ -25,6 +25,7 @@ examples-*.config.js  # Example configuration files
 examples-*.md         # Example documentation files
 src/*hello-world*     # Test files for versioning
 
+
 # AI Documentation - Not suitable for public repository
 # NOTE: CLAUDE.md is intentionally NOT ignored as it contains critical development instructions
 *claude*                      # Lowercase variations
