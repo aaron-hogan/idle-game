@@ -11,11 +11,11 @@ import { GameLoop } from '../core/GameLoop';
 describe('Game System Time Coherence', () => {
   beforeEach(() => {
     // Reset GameTimer singleton
-    // @ts-ignore - Accessing private field for testing
+    // @ts-expect-error - Accessing private field for testing
     GameTimer.instance = null;
     
     // Reset GameLoop singleton
-    // @ts-ignore
+    // @ts-expect-error - Accessing private field for testing
     GameLoop.instance = null;
   });
   
@@ -47,23 +47,23 @@ describe('Game System Time Coherence', () => {
     });
     
     // Simulate a timer update with 1 second elapsed
-    // @ts-ignore
+    // @ts-expect-error - Accessing private field for testing
     gameTimer.running = true;
-    // @ts-ignore
+    // @ts-expect-error - Accessing private field for testing
     gameTimer.lastRealTime = 0;
-    // @ts-ignore
+    // @ts-expect-error - Accessing private field for testing
     gameTimer.elapsedRealTime = 1.0;
-    // @ts-ignore
+    // @ts-expect-error - Accessing private field for testing
     gameTimer.elapsedGameTime = 1.0 * timeScale;
     
     // Simulate a game loop update
     // This would normally happen in the gameLoop.gameLoop() method
     // We're directly calling processFixedUpdate to test handler invocation
-    // @ts-ignore
+    // @ts-expect-error - Accessing private method for testing
     gameLoop.processFixedUpdate(
-      // @ts-ignore
+      // @ts-expect-error - Accessing private field for testing
       gameTimer.elapsedRealTime, 
-      // @ts-ignore
+      // @ts-expect-error - Accessing private field for testing
       gameTimer.elapsedGameTime
     );
     
@@ -113,24 +113,24 @@ describe('Game System Time Coherence', () => {
     // Total: 3.5 seconds real time -> 10.5 seconds game time
     
     // Initialize timer state
-    // @ts-ignore
+    // @ts-expect-error - Accessing private field for testing
     timer.startRealTime = 0;
-    // @ts-ignore
+    // @ts-expect-error - Accessing private field for testing
     timer.lastRealTime = 0;
-    // @ts-ignore
+    // @ts-expect-error - Accessing private field for testing
     timer.totalGameTime = 0;
     
-    // @ts-ignore
+    // @ts-expect-error - Function used only in test context
     function simulateFrameUpdate(realTimeSinceLastFrame) {
-      // @ts-ignore
+      // @ts-expect-error - Accessing private field for testing
       const currentRealTime = timer.lastRealTime + realTimeSinceLastFrame;
-      // @ts-ignore
+      // @ts-expect-error - Accessing private field for testing
       timer.elapsedRealTime = realTimeSinceLastFrame;
-      // @ts-ignore
+      // @ts-expect-error - Accessing private field for testing
       timer.elapsedGameTime = realTimeSinceLastFrame * timeScale;
-      // @ts-ignore
+      // @ts-expect-error - Accessing private field for testing
       timer.totalGameTime += timer.elapsedGameTime;
-      // @ts-ignore
+      // @ts-expect-error - Accessing private field for testing
       timer.lastRealTime = currentRealTime;
     }
     
@@ -144,20 +144,20 @@ describe('Game System Time Coherence', () => {
     simulateFrameUpdate(2.0);
     
     // Verify final time values
-    // @ts-ignore
+    // @ts-expect-error - Accessing private field for testing
     expect(timer.totalGameTime).toBe(10.5); // 0.5*3 + 1.0*3 + 2.0*3 = 10.5
-    // @ts-ignore
+    // @ts-expect-error - Accessing private field for testing
     expect(timer.lastRealTime).toBe(3.5); // 0.5 + 1.0 + 2.0 = 3.5
     
     // Set up the calculation that happens in getTimeRatio():
     // The real time since start should be 3.5 - 0 = 3.5
-    // @ts-ignore
+    // @ts-expect-error - Accessing private field for testing
     timer.startRealTime = 0;
     
     // Create a manual ratio calculation:
     // totalGameTime / realTimeSinceStart = 10.5 / 3.5 = 3.0
     const manuallyCalculatedRatio = timer.getTotalGameTime() / 
-        // @ts-ignore - Test the calculation directly for verification
+        // @ts-expect-error - Accessing private fields for testing verification
         (timer.lastRealTime - timer.startRealTime);
     
     // Verify manual ratio calculation matches timeScale

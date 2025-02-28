@@ -1,0 +1,153 @@
+﻿2025-02-28T00:02:18.2870175Z Current runner version: '2.322.0'
+2025-02-28T00:02:18.2895034Z ##[group]Operating System
+2025-02-28T00:02:18.2895939Z Ubuntu
+2025-02-28T00:02:18.2896417Z 24.04.2
+2025-02-28T00:02:18.2896912Z LTS
+2025-02-28T00:02:18.2897418Z ##[endgroup]
+2025-02-28T00:02:18.2897928Z ##[group]Runner Image
+2025-02-28T00:02:18.2898546Z Image: ubuntu-24.04
+2025-02-28T00:02:18.2899277Z Version: 20250223.1.0
+2025-02-28T00:02:18.2900485Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20250223.1/images/ubuntu/Ubuntu2404-Readme.md
+2025-02-28T00:02:18.2901876Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20250223.1
+2025-02-28T00:02:18.2902772Z ##[endgroup]
+2025-02-28T00:02:18.2903394Z ##[group]Runner Image Provisioner
+2025-02-28T00:02:18.2903952Z 2.0.422.1
+2025-02-28T00:02:18.2904405Z ##[endgroup]
+2025-02-28T00:02:18.2905520Z ##[group]GITHUB_TOKEN Permissions
+2025-02-28T00:02:18.2907585Z Contents: read
+2025-02-28T00:02:18.2908191Z Metadata: read
+2025-02-28T00:02:18.2908887Z Packages: read
+2025-02-28T00:02:18.2909858Z ##[endgroup]
+2025-02-28T00:02:18.2911883Z Secret source: Actions
+2025-02-28T00:02:18.2912936Z Prepare workflow directory
+2025-02-28T00:02:18.3256332Z Prepare all required actions
+2025-02-28T00:02:18.3295873Z Getting action download info
+2025-02-28T00:02:18.7324358Z Download action repository 'actions/checkout@v4' (SHA:11bd71901bbe5b1630ceea73d27597364c9af683)
+2025-02-28T00:02:18.8910202Z Complete job name: Validate PR
+2025-02-28T00:02:18.9559791Z ##[group]Run actions/checkout@v4
+2025-02-28T00:02:18.9560658Z with:
+2025-02-28T00:02:18.9561070Z   repository: aaron-hogan/idle-game
+2025-02-28T00:02:18.9561721Z   token: ***
+2025-02-28T00:02:18.9562109Z   ssh-strict: true
+2025-02-28T00:02:18.9562548Z   ssh-user: git
+2025-02-28T00:02:18.9562998Z   persist-credentials: true
+2025-02-28T00:02:18.9563447Z   clean: true
+2025-02-28T00:02:18.9563852Z   sparse-checkout-cone-mode: true
+2025-02-28T00:02:18.9564348Z   fetch-depth: 1
+2025-02-28T00:02:18.9564737Z   fetch-tags: false
+2025-02-28T00:02:18.9565161Z   show-progress: true
+2025-02-28T00:02:18.9565557Z   lfs: false
+2025-02-28T00:02:18.9565923Z   submodules: false
+2025-02-28T00:02:18.9566328Z   set-safe-directory: true
+2025-02-28T00:02:18.9566968Z ##[endgroup]
+2025-02-28T00:02:19.1415809Z Syncing repository: aaron-hogan/idle-game
+2025-02-28T00:02:19.1418585Z ##[group]Getting Git version info
+2025-02-28T00:02:19.1420032Z Working directory is '/home/runner/work/idle-game/idle-game'
+2025-02-28T00:02:19.1421624Z [command]/usr/bin/git version
+2025-02-28T00:02:19.1474487Z git version 2.48.1
+2025-02-28T00:02:19.1501868Z ##[endgroup]
+2025-02-28T00:02:19.1515108Z Temporarily overriding HOME='/home/runner/work/_temp/6b6054c4-9c7a-4429-9676-17270f48ad4b' before making global git config changes
+2025-02-28T00:02:19.1519968Z Adding repository directory to the temporary git global config as a safe directory
+2025-02-28T00:02:19.1521187Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/idle-game/idle-game
+2025-02-28T00:02:19.1554599Z Deleting the contents of '/home/runner/work/idle-game/idle-game'
+2025-02-28T00:02:19.1558390Z ##[group]Initializing the repository
+2025-02-28T00:02:19.1562489Z [command]/usr/bin/git init /home/runner/work/idle-game/idle-game
+2025-02-28T00:02:19.1786370Z hint: Using 'master' as the name for the initial branch. This default branch name
+2025-02-28T00:02:19.1787589Z hint: is subject to change. To configure the initial branch name to use in all
+2025-02-28T00:02:19.1789098Z hint: of your new repositories, which will suppress this warning, call:
+2025-02-28T00:02:19.1789947Z hint:
+2025-02-28T00:02:19.1790473Z hint: 	git config --global init.defaultBranch <name>
+2025-02-28T00:02:19.1791076Z hint:
+2025-02-28T00:02:19.1792013Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2025-02-28T00:02:19.1793395Z hint: 'development'. The just-created branch can be renamed via this command:
+2025-02-28T00:02:19.1794133Z hint:
+2025-02-28T00:02:19.1794535Z hint: 	git branch -m <name>
+2025-02-28T00:02:19.1795562Z Initialized empty Git repository in /home/runner/work/idle-game/idle-game/.git/
+2025-02-28T00:02:19.1803244Z [command]/usr/bin/git remote add origin https://github.com/aaron-hogan/idle-game
+2025-02-28T00:02:19.1835908Z ##[endgroup]
+2025-02-28T00:02:19.1836708Z ##[group]Disabling automatic garbage collection
+2025-02-28T00:02:19.1839743Z [command]/usr/bin/git config --local gc.auto 0
+2025-02-28T00:02:19.1870541Z ##[endgroup]
+2025-02-28T00:02:19.1872037Z ##[group]Setting up auth
+2025-02-28T00:02:19.1878030Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2025-02-28T00:02:19.1909881Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2025-02-28T00:02:19.2195558Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2025-02-28T00:02:19.2226666Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2025-02-28T00:02:19.2474530Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2025-02-28T00:02:19.2512041Z ##[endgroup]
+2025-02-28T00:02:19.2513524Z ##[group]Fetching the repository
+2025-02-28T00:02:19.2522670Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +243f0c15e0251810fd0708353357fe3c0df60ef4:refs/remotes/pull/100/merge
+2025-02-28T00:02:19.7380423Z From https://github.com/aaron-hogan/idle-game
+2025-02-28T00:02:19.7382529Z  * [new ref]         243f0c15e0251810fd0708353357fe3c0df60ef4 -> pull/100/merge
+2025-02-28T00:02:19.7403263Z ##[endgroup]
+2025-02-28T00:02:19.7404489Z ##[group]Determining the checkout info
+2025-02-28T00:02:19.7405800Z ##[endgroup]
+2025-02-28T00:02:19.7410419Z [command]/usr/bin/git sparse-checkout disable
+2025-02-28T00:02:19.7447768Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2025-02-28T00:02:19.7475819Z ##[group]Checking out the ref
+2025-02-28T00:02:19.7479454Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/100/merge
+2025-02-28T00:02:19.7796316Z Note: switching to 'refs/remotes/pull/100/merge'.
+2025-02-28T00:02:19.7797368Z 
+2025-02-28T00:02:19.7798232Z You are in 'detached HEAD' state. You can look around, make experimental
+2025-02-28T00:02:19.7801224Z changes and commit them, and you can discard any commits you make in this
+2025-02-28T00:02:19.7804642Z state without impacting any branches by switching back to a branch.
+2025-02-28T00:02:19.7806330Z 
+2025-02-28T00:02:19.7807341Z If you want to create a new branch to retain commits you create, you may
+2025-02-28T00:02:19.7809938Z do so (now or later) by using -c with the switch command. Example:
+2025-02-28T00:02:19.7811438Z 
+2025-02-28T00:02:19.7812044Z   git switch -c <new-branch-name>
+2025-02-28T00:02:19.7813062Z 
+2025-02-28T00:02:19.7813601Z Or undo this operation with:
+2025-02-28T00:02:19.7814486Z 
+2025-02-28T00:02:19.7814955Z   git switch -
+2025-02-28T00:02:19.7815619Z 
+2025-02-28T00:02:19.7816771Z Turn off this advice by setting config variable advice.detachedHead to false
+2025-02-28T00:02:19.7818167Z 
+2025-02-28T00:02:19.7819750Z HEAD is now at 243f0c1 Merge babcdc45e51b1616c802a98994c5de1320bd599d into 24079cb2e681ad94c54e715b7b4bdc4f37cb93ba
+2025-02-28T00:02:19.7824712Z ##[endgroup]
+2025-02-28T00:02:19.7844849Z [command]/usr/bin/git log -1 --format=%H
+2025-02-28T00:02:19.7867267Z 243f0c15e0251810fd0708353357fe3c0df60ef4
+2025-02-28T00:02:19.8117175Z ##[group]Run # Get branch name
+2025-02-28T00:02:19.8118449Z [36;1m# Get branch name[0m
+2025-02-28T00:02:19.8119824Z [36;1mBRANCH_NAME="fix/failing-tests"[0m
+2025-02-28T00:02:19.8121165Z [36;1mecho "Branch: $BRANCH_NAME"[0m
+2025-02-28T00:02:19.8122372Z [36;1m[0m
+2025-02-28T00:02:19.8123275Z [36;1m# Check branch name format[0m
+2025-02-28T00:02:19.8125670Z [36;1mif ! echo "$BRANCH_NAME" | grep -E "^(feature|fix|docs|refactor|ci|chore|test)/[a-z0-9-]+" > /dev/null; then[0m
+2025-02-28T00:02:19.8128847Z [36;1m  echo "Error: Branch name doesn't follow the pattern: (feature|fix|docs|refactor|ci|chore|test)/name"[0m
+2025-02-28T00:02:19.8131467Z [36;1m  echo "Examples: feature/login-page, fix/auth-bug"[0m
+2025-02-28T00:02:19.8132968Z [36;1m  exit 1[0m
+2025-02-28T00:02:19.8133869Z [36;1mfi[0m
+2025-02-28T00:02:19.8134722Z [36;1m[0m
+2025-02-28T00:02:19.8135582Z [36;1m# Get PR title[0m
+2025-02-28T00:02:19.8137095Z [36;1mPR_TITLE="Fix failing tests with proper dependency injection"[0m
+2025-02-28T00:02:19.8138821Z [36;1mecho "PR title: $PR_TITLE"[0m
+2025-02-28T00:02:19.8140106Z [36;1m[0m
+2025-02-28T00:02:19.8141159Z [36;1m# Check PR title format (conventional commits)[0m
+2025-02-28T00:02:19.8143999Z [36;1mif ! echo "$PR_TITLE" | grep -Ei "^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\\([a-z0-9-]+\\))?: [A-Za-z]" > /dev/null; then[0m
+2025-02-28T00:02:19.8147018Z [36;1m  echo "Error: PR title must follow the conventional commit format"[0m
+2025-02-28T00:02:19.8149269Z [36;1m  echo "Examples: 'feat: Add user login' or 'fix(auth): Fix password reset'"[0m
+2025-02-28T00:02:19.8151103Z [36;1m  exit 1[0m
+2025-02-28T00:02:19.8152001Z [36;1mfi[0m
+2025-02-28T00:02:19.8152849Z [36;1m[0m
+2025-02-28T00:02:19.8154343Z [36;1mecho "Validation passed: Branch name and PR title are correctly formatted"[0m
+2025-02-28T00:02:19.8207977Z shell: /usr/bin/bash -e {0}
+2025-02-28T00:02:19.8209294Z ##[endgroup]
+2025-02-28T00:02:19.8304659Z Branch: fix/failing-tests
+2025-02-28T00:02:19.8323895Z PR title: Fix failing tests with proper dependency injection
+2025-02-28T00:02:19.8343327Z Error: PR title must follow the conventional commit format
+2025-02-28T00:02:19.8346251Z Examples: 'feat: Add user login' or 'fix(auth): Fix password reset'
+2025-02-28T00:02:19.8361200Z ##[error]Process completed with exit code 1.
+2025-02-28T00:02:19.8549799Z Post job cleanup.
+2025-02-28T00:02:19.9494457Z [command]/usr/bin/git version
+2025-02-28T00:02:19.9530972Z git version 2.48.1
+2025-02-28T00:02:19.9580185Z Temporarily overriding HOME='/home/runner/work/_temp/e072a93f-2b00-418b-b68d-195fd34f16f3' before making global git config changes
+2025-02-28T00:02:19.9583525Z Adding repository directory to the temporary git global config as a safe directory
+2025-02-28T00:02:19.9586268Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/idle-game/idle-game
+2025-02-28T00:02:19.9621340Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2025-02-28T00:02:19.9656629Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2025-02-28T00:02:19.9888259Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2025-02-28T00:02:19.9911775Z http.https://github.com/.extraheader
+2025-02-28T00:02:19.9926079Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2025-02-28T00:02:19.9961741Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2025-02-28T00:02:20.0309211Z Cleaning up orphan processes
