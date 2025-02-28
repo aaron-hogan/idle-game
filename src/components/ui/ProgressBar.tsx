@@ -26,28 +26,30 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
 }) => {
   // Ensure value is between 0 and 1
   const clampedValue = Math.max(0, Math.min(1, value));
-  
+
   // Convert to percentage
   const percentage = (clampedValue * 100).toFixed(precision);
-  
+
   const progressBarClasses = [
     'progress-bar',
     `progress-bar-${size}`,
     labelPosition === 'inside' ? 'progress-bar-label-inside' : '',
-    className
-  ].filter(Boolean).join(' ');
-  
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ');
+
   const progressStyle = {
     width: `${percentage}%`,
     backgroundColor: color,
   };
-  
+
   const containerStyle = {
     backgroundColor,
   };
-  
+
   const displayLabel = label || `${percentage}%`;
-  
+
   return (
     <div className="progress-bar-container">
       <div className={progressBarClasses} style={containerStyle}>
@@ -57,11 +59,9 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
           )}
         </div>
       </div>
-      
+
       {showLabel && labelPosition === 'outside' && (
-        <span className="progress-bar-label progress-bar-label-outside">
-          {displayLabel}
-        </span>
+        <span className="progress-bar-label progress-bar-label-outside">{displayLabel}</span>
       )}
     </div>
   );

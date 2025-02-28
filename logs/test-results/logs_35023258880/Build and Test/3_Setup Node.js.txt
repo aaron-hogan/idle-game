@@ -1,0 +1,23 @@
+﻿2025-02-28T11:13:15.7110913Z ##[group]Run actions/setup-node@v3
+2025-02-28T11:13:15.7112183Z with:
+2025-02-28T11:13:15.7112903Z   node-version: 20
+2025-02-28T11:13:15.7113696Z   cache: npm
+2025-02-28T11:13:15.7114459Z   always-auth: false
+2025-02-28T11:13:15.7115296Z   check-latest: false
+2025-02-28T11:13:15.7116391Z   token: ***
+2025-02-28T11:13:15.7117146Z ##[endgroup]
+2025-02-28T11:13:15.8933597Z Found in cache @ /opt/hostedtoolcache/node/20.18.3/x64
+2025-02-28T11:13:15.8939549Z ##[group]Environment details
+2025-02-28T11:13:16.2573129Z node: v20.18.3
+2025-02-28T11:13:16.2573718Z npm: 10.8.2
+2025-02-28T11:13:16.2574088Z yarn: 1.22.22
+2025-02-28T11:13:16.2575342Z ##[endgroup]
+2025-02-28T11:13:16.2586604Z [command]/opt/hostedtoolcache/node/20.18.3/x64/bin/npm config get cache
+2025-02-28T11:13:16.3747757Z /home/runner/.npm
+2025-02-28T11:13:17.9225474Z Received 11913627 of 28690843 (41.5%), 11.4 MBs/sec
+2025-02-28T11:13:18.9226179Z Received 24496539 of 28690843 (85.4%), 11.7 MBs/sec
+2025-02-28T11:13:19.3215937Z Cache Size: ~27 MB (28690843 B)
+2025-02-28T11:13:19.3250111Z [command]/usr/bin/tar -xf /home/runner/work/_temp/ab264e9c-765e-4540-95b7-b03b0a85467c/cache.tzst -P -C /home/runner/work/idle-game/idle-game --use-compress-program unzstd
+2025-02-28T11:13:19.4883914Z Cache restored successfully
+2025-02-28T11:13:19.4951843Z Cache restored from key: node-cache-Linux-npm-f908b0f5abec6c89abe60dd1e59b3fc8354ae46f3bf0453684a9687b3b68d0a6
+2025-02-28T11:13:19.9236745Z Received 28690843 of 28690843 (100.0%), 9.1 MBs/sec

@@ -16,7 +16,7 @@ export enum EventCategory {
   OPPORTUNITY = 'opportunity',
   CRISIS = 'crisis',
   RANDOM = 'random',
-  STORY = 'story'
+  STORY = 'story',
 }
 
 /**
@@ -26,7 +26,7 @@ export enum EventStatus {
   PENDING = 'pending',
   ACTIVE = 'active',
   RESOLVED = 'resolved',
-  EXPIRED = 'expired'
+  EXPIRED = 'expired',
 }
 
 /**
@@ -35,13 +35,13 @@ export enum EventStatus {
 export interface EventCondition {
   /** Type of condition (e.g., 'resourceAmount', 'structureCount', 'gameTime') */
   type: string;
-  
+
   /** Target of the condition (e.g., resource ID, structure ID) */
   target?: string;
-  
+
   /** Value to compare against */
   value: number;
-  
+
   /** Optional comparison operator (default: '>=' ) */
   operator?: '>=' | '>' | '=' | '<' | '<=';
 }
@@ -52,10 +52,10 @@ export interface EventCondition {
 export interface EventConsequence {
   /** Type of consequence (e.g., 'addResource', 'unlockStructure') */
   type: string;
-  
+
   /** Target of the consequence (e.g., resource ID, structure ID) */
   target: string;
-  
+
   /** Value to apply */
   value: number | boolean | string;
 }
@@ -66,13 +66,13 @@ export interface EventConsequence {
 export interface EventChoice {
   /** Unique identifier for the choice */
   id: string;
-  
+
   /** Text to display for the choice */
   text: string;
-  
+
   /** Optional consequences for selecting this choice */
   consequences?: EventConsequence[];
-  
+
   /** Optional next event to trigger after this choice */
   nextEventId?: string;
 }
@@ -83,49 +83,49 @@ export interface EventChoice {
 export interface IEvent {
   /** Unique identifier for the event */
   id: string;
-  
+
   /** Event title */
   title: string;
-  
+
   /** Event description - can contain markdown formatting */
   description: string;
-  
+
   /** Type of event */
   type: EventType;
-  
+
   /** Category of event (opportunity, crisis, etc.) */
   category: EventCategory;
-  
+
   /** Current status of the event */
   status?: EventStatus;
-  
+
   /** Conditions that must be met for this event to trigger */
   conditions: EventCondition[];
-  
+
   /** Effects to apply when the event is triggered */
   consequences?: EventConsequence[];
-  
+
   /** Player choices for this event */
   choices?: EventChoice[];
-  
+
   /** Optional image URL to display with the event */
   imageUrl?: string;
-  
+
   /** Priority for display order (higher numbers = higher priority) */
   priority: number;
-  
+
   /** Whether this event has been seen by the player */
   seen: boolean;
-  
+
   /** Whether this event should repeat after being seen */
   repeatable: boolean;
-  
+
   /** Delay in seconds before this event can trigger again (only used if repeatable) */
   cooldown?: number;
-  
+
   /** When this event was last triggered (timestamp) */
   lastTriggered?: number;
-  
+
   /** Tags for filtering and organizing events */
   tags?: string[];
 }

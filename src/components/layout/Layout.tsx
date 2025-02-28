@@ -16,37 +16,23 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children, sidebarContent }) => {
   return (
     <div className="game-layout">
-      <ErrorBoundary
-        fallback={<ErrorFallback componentName="Header" />}
-      >
+      <ErrorBoundary fallback={<ErrorFallback componentName="Header" />}>
         <Header />
       </ErrorBoundary>
       <div className="layout-body">
-        <ErrorBoundary
-          fallback={<ErrorFallback componentName="Sidebar" />}
-        >
-          <Sidebar>
-            {sidebarContent}
-          </Sidebar>
+        <ErrorBoundary fallback={<ErrorFallback componentName="Sidebar" />}>
+          <Sidebar>{sidebarContent}</Sidebar>
         </ErrorBoundary>
-        <ErrorBoundary
-          fallback={<ErrorFallback componentName="MainContent" />}
-        >
-          <MainContent>
-            {children}
-          </MainContent>
+        <ErrorBoundary fallback={<ErrorFallback componentName="MainContent" />}>
+          <MainContent>{children}</MainContent>
         </ErrorBoundary>
       </div>
-      <ErrorBoundary
-        fallback={<ErrorFallback componentName="Footer" />}
-      >
+      <ErrorBoundary fallback={<ErrorFallback componentName="Footer" />}>
         <Footer />
       </ErrorBoundary>
-      
+
       {/* Event Panel - floated over the content */}
-      <ErrorBoundary
-        fallback={<ErrorFallback componentName="EventPanel" />}
-      >
+      <ErrorBoundary fallback={<ErrorFallback componentName="EventPanel" />}>
         <EventPanel />
       </ErrorBoundary>
     </div>

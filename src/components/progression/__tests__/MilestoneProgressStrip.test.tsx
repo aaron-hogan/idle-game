@@ -14,7 +14,7 @@ jest.mock('react-router-dom', () => ({
     <a href={to} className={className}>
       {children}
     </a>
-  )
+  ),
 }));
 
 // Create mock store
@@ -29,33 +29,33 @@ describe('MilestoneProgressStrip Component', () => {
         name: 'Collective Power',
         amount: 5,
         perSecond: 0.5,
-        baseClickValue: 1
+        baseClickValue: 1,
       },
-      'connections': {
+      connections: {
         id: 'connections',
         name: 'Connections',
         amount: 15,
         perSecond: 0.2,
-        baseClickValue: 1
-      }
+        baseClickValue: 1,
+      },
     },
     progression: {
       milestones: {
         'first-collective-power': {
           completed: false,
-          timestamp: null
+          timestamp: null,
         },
         'growing-power': {
           completed: false,
-          timestamp: null
+          timestamp: null,
         },
         'resource-sharing': {
           completed: false,
-          timestamp: null
-        }
+          timestamp: null,
+        },
       },
-      currentStage: GameStage.EARLY
-    }
+      currentStage: GameStage.EARLY,
+    },
   };
 
   // Set up store with mock data
@@ -63,16 +63,12 @@ describe('MilestoneProgressStrip Component', () => {
 
   // Helper function to render with providers
   const renderWithProviders = (ui: React.ReactElement) => {
-    return render(
-      <Provider store={store}>
-        {ui}
-      </Provider>
-    );
+    return render(<Provider store={store}>{ui}</Provider>);
   };
 
   it('renders the milestone progress strip', () => {
     renderWithProviders(<MilestoneProgressStrip />);
-    
+
     // Check for first milestone text
     expect(screen.getByText('First Community Power')).toBeInTheDocument();
   });
@@ -87,20 +83,20 @@ describe('MilestoneProgressStrip Component', () => {
           ...initialState.progression.milestones,
           'first-collective-power': {
             completed: true,
-            timestamp: Date.now()
-          }
-        }
-      }
+            timestamp: Date.now(),
+          },
+        },
+      },
     };
-    
+
     const completedStore = mockStore(completedState);
-    
+
     render(
       <Provider store={completedStore}>
         <MilestoneProgressStrip />
       </Provider>
     );
-    
+
     // Check for completed badge
     expect(screen.getByText('✓ Completed')).toBeInTheDocument();
   });
@@ -111,12 +107,12 @@ describe('MilestoneProgressStrip Component', () => {
       ...initialState,
       progression: {
         ...initialState.progression,
-        milestones: {}
-      }
+        milestones: {},
+      },
     };
-    
+
     const emptyStore = mockStore(emptyState);
-    
+
     // Test if component renders without errors
     // We don't test for specific empty state text since the implementation
     // still shows content from allMilestones even when progression has empty milestones
@@ -125,14 +121,14 @@ describe('MilestoneProgressStrip Component', () => {
         <MilestoneProgressStrip />
       </Provider>
     );
-    
+
     // Should render without errors
     expect(screen.getByText('First Community Power')).toBeInTheDocument();
   });
 
   it('respects the sideCount prop', () => {
     renderWithProviders(<MilestoneProgressStrip sideCount={1} />);
-    
+
     // Component should render with reduced side count
     // This is more of a visual test, but we can check that the component
     // renders without errors when changing this prop

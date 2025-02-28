@@ -1,9 +1,9 @@
 /**
  * GameLoop.ts
- * 
+ *
  * Industry-standard fixed timestep game loop implementation based on
  * the pattern described in https://gafferongames.com/post/fix_your_timestep/
- * 
+ *
  * Uses GameTimer as the authoritative source of time.
  */
 import { Store } from '@reduxjs/toolkit';
@@ -15,8 +15,8 @@ import { RootState } from '../state/store';
  * Type for tick handlers that receive both real and scaled time
  */
 export type TickHandler = (
-  deltaTime: number,       // Unscaled real time delta in seconds
-  scaledDeltaTime: number  // Scaled game time delta in seconds
+  deltaTime: number, // Unscaled real time delta in seconds
+  scaledDeltaTime: number // Scaled game time delta in seconds
 ) => void;
 
 /**
@@ -65,13 +65,13 @@ export class GameLoop {
    */
   private constructor(config: Partial<GameLoopConfig> = {}) {
     this.config = { ...DEFAULT_CONFIG, ...config };
-    
+
     // Get GameTimer instance with matching configuration
     this.gameTimer = GameTimer.getInstance({
       maxFrameTime: this.config.maxFrameTime,
-      debugMode: this.config.debugMode
+      debugMode: this.config.debugMode,
     });
-    
+
     this.lastFpsUpdateTime = this.gameTimer.getTotalGameTime();
   }
 
@@ -84,16 +84,16 @@ export class GameLoop {
     } else if (config) {
       // Update config if provided
       GameLoop.instance.config = { ...GameLoop.instance.config, ...config };
-      
+
       // Update debug mode on timer to match
       if (config.debugMode !== undefined) {
         GameLoop.instance.gameTimer.setDebugMode(config.debugMode);
       }
-      
+
       // Update max frame time on timer to match
       if (config.maxFrameTime !== undefined) {
-        GameLoop.instance.gameTimer = GameTimer.getInstance({ 
-          maxFrameTime: config.maxFrameTime 
+        GameLoop.instance.gameTimer = GameTimer.getInstance({
+          maxFrameTime: config.maxFrameTime,
         });
       }
     }
@@ -105,18 +105,18 @@ export class GameLoop {
    */
   public start(): void {
     if (this.animationFrameId !== null) return; // Already running
-    
+
     // Reset timing variables
     this.accumulatedTime = 0;
     this.tickCount = 0;
     this.frameCount = 0;
-    
+
     // Start the game timer
     this.gameTimer.start();
-    
+
     // Start the animation frame loop
     this.animationFrameId = requestAnimationFrame(this.gameLoop.bind(this));
-    
+
     if (this.config.debugMode) {
       console.log(`GameLoop: Started with tick rate ${this.config.tickRate}Hz`);
     }
@@ -127,14 +127,14 @@ export class GameLoop {
    */
   public stop(): void {
     if (this.animationFrameId === null) return; // Not running
-    
+
     // Cancel animation frame
     cancelAnimationFrame(this.animationFrameId);
     this.animationFrameId = null;
-    
+
     // Pause the game timer
     this.gameTimer.pause();
-    
+
     if (this.config.debugMode) {
       console.log(`GameLoop: Stopped after ${this.tickCount} ticks and ${this.frameCount} frames`);
     }
@@ -162,13 +162,13 @@ export class GameLoop {
     try {
       // Update the game timer
       this.gameTimer.update();
-      
+
       // Get elapsed time values from the timer
       const deltaTime = this.gameTimer.getElapsedRealTime();
-      
+
       // Increment frame counter
       this.frameCount++;
-      
+
       // Update FPS counter every second of game time
       const totalGameTime = this.gameTimer.getTotalGameTime();
       if (totalGameTime - this.lastFpsUpdateTime >= 1.0) {
@@ -176,63 +176,68 @@ export class GameLoop {
         this.currentFps = this.frameCount / timeSinceLastFpsUpdate;
         this.frameCount = 0;
         this.lastFpsUpdateTime = totalGameTime;
-        
+
         // We've disabled the console.log here to reduce console spam
       }
-      
+
       // Accumulate time since last update
       this.accumulatedTime += deltaTime;
-      
+
       // Calculate fixed time step interval
       const fixedTimeStep = 1.0 / this.config.tickRate;
-      
+
       // Process as many fixed updates as needed to catch up
       let updateCount = 0;
-      
-      while (this.accumulatedTime >= fixedTimeStep && updateCount < this.config.maxUpdatesPerFrame) {
+
+      while (
+        this.accumulatedTime >= fixedTimeStep &&
+        updateCount < this.config.maxUpdatesPerFrame
+      ) {
         // Process fixed update with the consistent time step
         // CRITICAL FIX: Ensure time scale is applied correctly for day counting
         const currentTimeScale = this.gameTimer.getTimeScale();
         const scaledTime = fixedTimeStep * currentTimeScale;
-        
+
         // Ensure minimum progress even with extremely small time scale
         const minScaledTime = 0.001; // Minimum 1ms game time per tick
         const effectiveScaledTime = Math.max(scaledTime, minScaledTime);
-        
+
         this.processFixedUpdate(fixedTimeStep, effectiveScaledTime);
-        
+
         // Reduce accumulated time
         this.accumulatedTime -= fixedTimeStep;
         updateCount++;
         this.tickCount++;
       }
-      
+
       // If we've hit the max updates, discard remaining time to avoid spiral
       if (updateCount >= this.config.maxUpdatesPerFrame && this.accumulatedTime > fixedTimeStep) {
         if (this.config.debugMode) {
-          console.warn(`GameLoop: Too many updates needed, discarding ${this.accumulatedTime.toFixed(3)}s`);
+          console.warn(
+            `GameLoop: Too many updates needed, discarding ${this.accumulatedTime.toFixed(3)}s`
+          );
         }
         this.accumulatedTime = 0;
       }
-      
+
       // Schedule next frame if still running
       if (this.animationFrameId !== null) {
         this.animationFrameId = requestAnimationFrame(this.gameLoop.bind(this));
       }
     } catch (error) {
       console.error('GameLoop: Error in game loop:', error);
-      
+
       // Try to recover
       this.accumulatedTime = 0;
       this.gameTimer.resetFrameTiming();
-      
+
       // Schedule next frame anyway to keep the game running
       if (this.animationFrameId !== null) {
         this.animationFrameId = requestAnimationFrame(this.gameLoop.bind(this));
       }
     }
   }
-  
+
   /**
    * Process a single fixed update
    * @param deltaTime Unscaled time step in seconds (real time)
@@ -243,7 +248,7 @@ export class GameLoop {
     for (const handler of this.tickHandlers) {
       try {
         // Logging disabled to reduce console spam
-        
+
         // Pass both real and scaled time to handlers
         handler(deltaTime, scaledDeltaTime);
       } catch (error) {
@@ -251,14 +256,14 @@ export class GameLoop {
         // Continue with other handlers despite errors
       }
     }
-    
+
     // Check for game end conditions if store is available
     if (this.store) {
       // Check every 10 ticks to avoid overhead
       if (this.tickCount % 10 === 0) {
         try {
           const gameEnded = checkGameEndConditions(this.store);
-          
+
           // If game ended, stop the game loop
           if (gameEnded) {
             this.stop();
@@ -269,7 +274,7 @@ export class GameLoop {
       }
     }
   }
-  
+
   /**
    * Set the Redux store to enable game end condition checks
    * @param store The Redux store
@@ -277,7 +282,7 @@ export class GameLoop {
   public setStore(store: Store<RootState>): void {
     this.store = store;
   }
-  
+
   /**
    * Register a handler to be called on each fixed update
    * The handler receives both unscaled real time and scaled game time
@@ -287,16 +292,16 @@ export class GameLoop {
     // Avoid duplicate registrations
     if (!this.tickHandlers.includes(handler)) {
       this.tickHandlers.push(handler);
-      
+
       if (this.config.debugMode) {
         console.log(`GameLoop: Registered handler, total: ${this.tickHandlers.length}`);
       }
     }
-    
+
     // Return a function to unregister
     return () => this.unregisterHandler(handler);
   }
-  
+
   /**
    * Unregister a previously registered handler
    */
@@ -304,13 +309,13 @@ export class GameLoop {
     const index = this.tickHandlers.indexOf(handler);
     if (index !== -1) {
       this.tickHandlers.splice(index, 1);
-      
+
       if (this.config.debugMode) {
         console.log(`GameLoop: Unregistered handler, remaining: ${this.tickHandlers.length}`);
       }
     }
   }
-  
+
   /**
    * Get stats about the current game loop
    */
@@ -332,7 +337,7 @@ export class GameLoop {
     const secondsPerDay = 60; // Same as SECONDS_PER_DAY from timeUtils
     const currentDay = Math.floor(totalGameTime / secondsPerDay) + 1;
     const dayProgress = (totalGameTime % secondsPerDay) / secondsPerDay;
-    
+
     return {
       tickRate: this.config.tickRate,
       tickCount: this.tickCount,
@@ -344,49 +349,49 @@ export class GameLoop {
       accumulator: this.accumulatedTime,
       totalGameTime: totalGameTime,
       currentDay: currentDay,
-      dayProgress: dayProgress
+      dayProgress: dayProgress,
     };
   }
-  
+
   /**
    * Update the tick rate
    */
   public setTickRate(tickRate: number): void {
     // Validate input
     if (tickRate <= 0) {
-      console.error("GameLoop: Invalid tick rate, must be greater than 0");
+      console.error('GameLoop: Invalid tick rate, must be greater than 0');
       return;
     }
-    
+
     // Update config
     this.config.tickRate = tickRate;
-    
+
     if (this.config.debugMode) {
       console.log(`GameLoop: Tick rate updated to ${tickRate}Hz`);
     }
   }
-  
+
   /**
    * Get the GameTimer instance used by this loop
    */
   public getGameTimer(): GameTimer {
     return this.gameTimer;
   }
-  
+
   /**
    * Set the time scale for the game
    */
   public setTimeScale(timeScale: number): void {
     this.gameTimer.setTimeScale(timeScale);
   }
-  
+
   /**
    * Get the current time scale
    */
   public getTimeScale(): number {
     return this.gameTimer.getTimeScale();
   }
-  
+
   /**
    * Register a named callback to be called on each fixed update
    * @param name Unique name for the callback

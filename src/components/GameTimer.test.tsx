@@ -11,7 +11,7 @@ jest.mock('../utils/timeUtils', () => ({
 
 // Mock the Counter component
 jest.mock('./common/Counter', () => {
-  return function MockCounter(props: { 
+  return function MockCounter(props: {
     value: string;
     rate: string;
     hasDropdown?: boolean;
@@ -36,8 +36,8 @@ describe('GameTimer', () => {
       game: {
         totalPlayTime: 120, // Day 3
         isRunning: true,
-        gameTimeScale: 1
-      }
+        gameTimeScale: 1,
+      },
     });
 
     render(
@@ -57,8 +57,8 @@ describe('GameTimer', () => {
       game: {
         totalPlayTime: 60,
         isRunning: false, // Paused
-        gameTimeScale: 1
-      }
+        gameTimeScale: 1,
+      },
     });
 
     render(
@@ -76,8 +76,8 @@ describe('GameTimer', () => {
       game: {
         totalPlayTime: 60,
         isRunning: true,
-        gameTimeScale: 5 // 5x speed
-      }
+        gameTimeScale: 5, // 5x speed
+      },
     });
 
     render(
@@ -95,8 +95,8 @@ describe('GameTimer', () => {
       game: {
         totalPlayTime: 60,
         isRunning: true,
-        gameTimeScale: 1
-      }
+        gameTimeScale: 1,
+      },
     });
 
     render(

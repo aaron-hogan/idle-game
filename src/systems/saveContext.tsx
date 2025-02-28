@@ -67,24 +67,19 @@ interface SaveProviderProps {
 /**
  * SaveProvider component
  */
-export const SaveProvider: React.FC<SaveProviderProps> = ({ 
-  children, 
-  config 
-}) => {
+export const SaveProvider: React.FC<SaveProviderProps> = ({ children, config }) => {
   const [saveManager, setSaveManager] = useState<SaveManager | null>(null);
   const [timeSinceLastSave, setTimeSinceLastSave] = useState<string>('0s');
-  const [autosaveEnabled, setAutosaveEnabled] = useState<boolean>(
-    config?.autosaveEnabled ?? true
-  );
+  const [autosaveEnabled, setAutosaveEnabled] = useState<boolean>(config?.autosaveEnabled ?? true);
   const [hasSave, setHasSave] = useState<boolean>(saveExists());
   const [hasBackup, setHasBackup] = useState<boolean>(backupExists());
   const [message, setMessage] = useState<string>('');
   const [messageType, setMessageType] = useState<'success' | 'error'>('success');
   const [messageVisible, setMessageVisible] = useState<boolean>(false);
-  
+
   const dispatch = useDispatch();
-  const lastSaveTime = useAppSelector(state => state.game.lastSaveTime);
-  
+  const lastSaveTime = useAppSelector((state) => state.game.lastSaveTime);
+
   // Initialize save manager
   useEffect(() => {
     // Create a minimal store with dispatch for SaveManager
@@ -96,13 +91,13 @@ export const SaveProvider: React.FC<SaveProviderProps> = ({
       replaceReducer: () => {},
       [Symbol.observable]: () => ({
         subscribe: () => ({
-          unsubscribe: () => {}
-        })
-      })
+          unsubscribe: () => {},
+        }),
+      }),
     };
-    
+
     // Use imported action creators
-    
+
     // Initialize save manager with dependencies
     const manager = SaveManager.getInstance({
       dispatch: dispatch,
@@ -110,62 +105,62 @@ export const SaveProvider: React.FC<SaveProviderProps> = ({
       actions: {
         resetGame: gameActions.resetGame,
         resetResources: resourcesActions.resetResources,
-        resetStructures: structuresActions.resetStructures
+        resetStructures: structuresActions.resetStructures,
       },
-      config: config
+      config: config,
     });
-    
+
     setSaveManager(manager);
-    
+
     // Attempt to load saved game on startup
     if (saveExists()) {
       manager.loadGame();
     }
-    
+
     // Clean up on unmount
     return () => {
       manager.cleanup();
     };
   }, [dispatch, config]);
-  
+
   // Update time since last save
   useEffect(() => {
     if (!lastSaveTime) return;
-    
+
     const intervalId = setInterval(() => {
       setTimeSinceLastSave(formatTimeSince(lastSaveTime));
     }, 1000);
-    
+
     return () => {
       clearInterval(intervalId);
     };
   }, [lastSaveTime]);
-  
+
   // Show message for 3 seconds
   const showMessage = (msg: string, type: 'success' | 'error') => {
     setMessage(msg);
     setMessageType(type);
     setMessageVisible(true);
-    
+
     setTimeout(() => {
       setMessageVisible(false);
     }, 3000);
   };
-  
+
   // Function to show success message
   const showSuccess = (msg: string) => {
     showMessage(msg, 'success');
   };
-  
+
   // Function to show error message
   const showError = (msg: string) => {
     showMessage(msg, 'error');
   };
-  
+
   // Save game function
   const saveGame = (): boolean => {
     if (!saveManager) return false;
-    
+
     const success = saveManager.saveGame();
     if (success) {
       showSuccess('Game saved successfully');
@@ -174,36 +169,36 @@ export const SaveProvider: React.FC<SaveProviderProps> = ({
     } else {
       showError('Failed to save game');
     }
-    
+
     return success;
   };
-  
+
   // Load game function
   const loadGame = (): boolean => {
     if (!saveManager) return false;
-    
+
     const success = saveManager.loadGame();
     if (success) {
       showSuccess('Game loaded successfully');
     } else {
       showError('Failed to load game');
     }
-    
+
     return success;
   };
-  
+
   // Reset game function
   const resetGame = (): void => {
     if (!saveManager) return;
-    
+
     saveManager.resetGame();
     showSuccess('Game has been reset');
   };
-  
+
   // Delete save and reset function
   const deleteSaveAndReset = (): boolean => {
     if (!saveManager) return false;
-    
+
     const success = saveManager.deleteSaveAndReset();
     if (success) {
       showSuccess('Save deleted and game reset');
@@ -211,38 +206,38 @@ export const SaveProvider: React.FC<SaveProviderProps> = ({
     } else {
       showError('Failed to delete save');
     }
-    
+
     return success;
   };
-  
+
   // Restore from backup function
   const restoreFromBackup = (index: number = 0): boolean => {
     if (!saveManager) return false;
-    
+
     const success = saveManager.restoreFromBackup(index);
     if (success) {
       showSuccess('Restored from backup');
     } else {
       showError('Failed to restore from backup');
     }
-    
+
     return success;
   };
-  
+
   // Update autosave enabled
   const updateAutosaveEnabled = (enabled: boolean): void => {
     if (!saveManager) return;
-    
+
     setAutosaveEnabled(enabled);
     saveManager.setConfig({ autosaveEnabled: enabled });
-    
+
     if (enabled) {
       showSuccess('Autosave enabled');
     } else {
       showSuccess('Autosave disabled');
     }
   };
-  
+
   const value: SaveContextValue = {
     saveManager,
     saveGame,
@@ -261,12 +256,8 @@ export const SaveProvider: React.FC<SaveProviderProps> = ({
     message,
     messageType,
   };
-  
-  return (
-    <SaveContext.Provider value={value}>
-      {children}
-    </SaveContext.Provider>
-  );
+
+  return <SaveContext.Provider value={value}>{children}</SaveContext.Provider>;
 };
 
 /**

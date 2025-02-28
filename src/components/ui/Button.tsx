@@ -23,15 +23,13 @@ const Button: React.FC<ButtonProps> = ({
     `game-button-${size}`,
     fullWidth ? 'game-button-full-width' : '',
     disabled ? 'game-button-disabled' : '',
-    className
-  ].filter(Boolean).join(' ');
-  
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ');
+
   return (
-    <button 
-      className={buttonClasses}
-      disabled={disabled}
-      {...props}
-    >
+    <button className={buttonClasses} disabled={disabled} {...props}>
       {children}
     </button>
   );

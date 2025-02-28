@@ -4,9 +4,9 @@ import { Store } from 'redux';
  * Error severity levels
  */
 export enum ErrorSeverity {
-  INFO = 'info',     // Informational issues that don't affect gameplay
-  WARNING = 'warn',  // Issues that might affect gameplay but don't break it
-  ERROR = 'error',   // Serious issues that could break parts of the game
+  INFO = 'info', // Informational issues that don't affect gameplay
+  WARNING = 'warn', // Issues that might affect gameplay but don't break it
+  ERROR = 'error', // Serious issues that could break parts of the game
   CRITICAL = 'critical', // Critical issues that could crash the game
 }
 
@@ -30,29 +30,36 @@ export interface ErrorRecord {
 export class ErrorLogger {
   private static instance: ErrorLogger;
   private errors: ErrorRecord[] = [];
-  private errorListeners: Array<(error: Error, context?: string, severity?: ErrorSeverity) => void> = [];
+  private errorListeners: Array<
+    (error: Error, context?: string, severity?: ErrorSeverity) => void
+  > = [];
   private maxErrorLog: number = 100; // Maximum number of errors to store
 
   private constructor() {
     // Private constructor for singleton pattern
-    
+
     // Add global error handler for uncaught exceptions
     if (typeof window !== 'undefined') {
       window.addEventListener('error', (event) => {
-        this.logError(event.error || new Error(event.message), {
-          component: 'WindowGlobal',
-          source: event.filename,
-          line: event.lineno,
-          column: event.colno
-        }, ErrorSeverity.CRITICAL);
-        
+        this.logError(
+          event.error || new Error(event.message),
+          {
+            component: 'WindowGlobal',
+            source: event.filename,
+            line: event.lineno,
+            column: event.colno,
+          },
+          ErrorSeverity.CRITICAL
+        );
+
         // Don't prevent default error handling
         return false;
       });
-      
+
       // Add unhandled promise rejection handler
       window.addEventListener('unhandledrejection', (event) => {
-        const error = event.reason instanceof Error ? event.reason : new Error(String(event.reason));
+        const error =
+          event.reason instanceof Error ? event.reason : new Error(String(event.reason));
         this.logError(error, 'UnhandledPromiseRejection', ErrorSeverity.ERROR);
       });
     }
@@ -67,7 +74,7 @@ export class ErrorLogger {
     }
     return ErrorLogger.instance;
   }
-  
+
   /**
    * Reset the error logger instance (primarily for testing)
    * In production, this should only be used when recovering from critical errors
@@ -88,8 +95,8 @@ export class ErrorLogger {
    * @param extraData Optional additional data if severity is provided
    */
   public logError(
-    error: Error | string, 
-    contextOrMetadata?: string | Record<string, unknown>, 
+    error: Error | string,
+    contextOrMetadata?: string | Record<string, unknown>,
     severityOrData?: ErrorSeverity | unknown,
     extraData?: unknown
   ): void {
@@ -97,11 +104,14 @@ export class ErrorLogger {
     let metadata: Record<string, unknown> | undefined;
     let severity: ErrorSeverity = ErrorSeverity.ERROR;
     let data: unknown = undefined;
-    
+
     // Parse the parameters
     if (typeof contextOrMetadata === 'string') {
       context = contextOrMetadata;
-      if (severityOrData && Object.values(ErrorSeverity).includes(severityOrData as ErrorSeverity)) {
+      if (
+        severityOrData &&
+        Object.values(ErrorSeverity).includes(severityOrData as ErrorSeverity)
+      ) {
         severity = severityOrData as ErrorSeverity;
         data = extraData;
       } else {
@@ -110,14 +120,17 @@ export class ErrorLogger {
     } else if (typeof contextOrMetadata === 'object' && contextOrMetadata !== null) {
       metadata = contextOrMetadata;
       context = (metadata.component as string) || (metadata.context as string);
-      if (severityOrData && Object.values(ErrorSeverity).includes(severityOrData as ErrorSeverity)) {
+      if (
+        severityOrData &&
+        Object.values(ErrorSeverity).includes(severityOrData as ErrorSeverity)
+      ) {
         severity = severityOrData as ErrorSeverity;
         data = extraData;
       } else {
         data = severityOrData;
       }
     }
-    
+
     const errorMsg = typeof error === 'string' ? error : error.message;
     const errorObj: ErrorRecord = {
       message: errorMsg,
@@ -126,7 +139,7 @@ export class ErrorLogger {
       data: data || extraData || metadata,
       stack: error instanceof Error ? error.stack : undefined,
       severity,
-      handled: false
+      handled: false,
     };
 
     // Only log errors and critical errors to the console
@@ -136,22 +149,18 @@ export class ErrorLogger {
     } else if (severity === ErrorSeverity.ERROR) {
       console.error(`[ERROR${context ? ' in ' + context : ''}]: ${errorMsg}`, metadata || data);
     }
-    
+
     // Skip logging INFO and WARNING to console
-    
+
     // Add to error log, maintaining max log size
     this.errors.push(errorObj);
     if (this.errors.length > this.maxErrorLog) {
       this.errors = this.errors.slice(-this.maxErrorLog);
     }
-    
+
     // Notify any registered error listeners
-    this.errorListeners.forEach(listener => {
-      listener(
-        typeof error === 'string' ? new Error(error) : error, 
-        context,
-        severity
-      );
+    this.errorListeners.forEach((listener) => {
+      listener(typeof error === 'string' ? new Error(error) : error, context, severity);
     });
   }
 
@@ -159,7 +168,9 @@ export class ErrorLogger {
    * Register a listener for error events
    * @param listener Function to call when an error occurs
    */
-  public addErrorListener(listener: (error: Error, context?: string, severity?: ErrorSeverity) => void): void {
+  public addErrorListener(
+    listener: (error: Error, context?: string, severity?: ErrorSeverity) => void
+  ): void {
     this.errorListeners.push(listener);
   }
 
@@ -167,7 +178,9 @@ export class ErrorLogger {
    * Remove a previously registered error listener
    * @param listener The listener to remove
    */
-  public removeErrorListener(listener: (error: Error, context?: string, severity?: ErrorSeverity) => void): void {
+  public removeErrorListener(
+    listener: (error: Error, context?: string, severity?: ErrorSeverity) => void
+  ): void {
     const index = this.errorListeners.indexOf(listener);
     if (index !== -1) {
       this.errorListeners.splice(index, 1);
@@ -180,7 +193,7 @@ export class ErrorLogger {
    */
   public getErrors(severity?: ErrorSeverity): ErrorRecord[] {
     if (severity) {
-      return this.errors.filter(error => error.severity === severity);
+      return this.errors.filter((error) => error.severity === severity);
     }
     return [...this.errors];
   }
@@ -195,11 +208,11 @@ export class ErrorLogger {
       [ErrorSeverity.ERROR]: 0,
       [ErrorSeverity.CRITICAL]: 0,
     };
-    
-    this.errors.forEach(error => {
+
+    this.errors.forEach((error) => {
       counts[error.severity]++;
     });
-    
+
     return counts;
   }
 
@@ -219,7 +232,7 @@ export class ErrorLogger {
    */
   public clearErrors(severity?: ErrorSeverity): void {
     if (severity) {
-      this.errors = this.errors.filter(error => error.severity !== severity);
+      this.errors = this.errors.filter((error) => error.severity !== severity);
     } else {
       this.errors = [];
     }
@@ -232,7 +245,7 @@ export class ErrorLogger {
   public setMaxErrorLog(maxErrors: number): void {
     if (maxErrors > 0) {
       this.maxErrorLog = maxErrors;
-      
+
       // Trim log if needed
       if (this.errors.length > this.maxErrorLog) {
         this.errors = this.errors.slice(-this.maxErrorLog);
@@ -249,9 +262,9 @@ export class ErrorLogger {
  * @param severity Optional severity level
  */
 export function invariant(
-  condition: unknown, 
-  message: string, 
-  context?: string, 
+  condition: unknown,
+  message: string,
+  context?: string,
   severity: ErrorSeverity = ErrorSeverity.ERROR
 ): asserts condition {
   if (!condition) {
@@ -278,10 +291,10 @@ export function trySafe<T>(
   } catch (err) {
     const error = err instanceof Error ? err : new Error(String(err));
     ErrorLogger.getInstance().logError(error, context);
-    return { 
-      success: false, 
-      result: fallbackValue, 
-      error 
+    return {
+      success: false,
+      result: fallbackValue,
+      error,
     };
   }
 }
@@ -302,7 +315,7 @@ export function safeFn<T, Args extends unknown[]>(
       return fn(...args);
     } catch (error) {
       ErrorLogger.getInstance().logError(
-        error instanceof Error ? error : new Error(String(error)), 
+        error instanceof Error ? error : new Error(String(error)),
         context
       );
       return fallbackValue as T;
@@ -316,7 +329,7 @@ export function safeFn<T, Args extends unknown[]>(
  */
 export function attachErrorMonitoring(store: Store): () => void {
   const logger = ErrorLogger.getInstance();
-  
+
   // Subscribe to store changes to detect state errors
   const unsubscribe = store.subscribe(() => {
     try {
@@ -327,13 +340,13 @@ export function attachErrorMonitoring(store: Store): () => void {
       }
     } catch (error) {
       logger.logError(
-        error instanceof Error ? error : new Error(String(error)), 
+        error instanceof Error ? error : new Error(String(error)),
         'Redux Store',
         ErrorSeverity.ERROR
       );
     }
   });
-  
+
   // Return unsubscribe function to allow cleanup
   return unsubscribe;
 }

@@ -1,12 +1,12 @@
 import { Store } from '@reduxjs/toolkit';
 import { tutorialContent, contextualHelpContent } from '../data/tutorialContent';
 import { RootState } from '../state/store';
-import { 
-  completeTutorial, 
-  setActiveTutorial, 
-  setCurrentStep, 
+import {
+  completeTutorial,
+  setActiveTutorial,
+  setCurrentStep,
   setFirstTimeUser,
-  setTutorialsEnabled 
+  setTutorialsEnabled,
 } from '../state/tutorialSlice';
 import { TutorialContextHelp, TutorialStep } from '../types/tutorial';
 
@@ -59,7 +59,7 @@ export class TutorialManager {
    */
   public startTutorial(step: TutorialStep): void {
     if (!this.store) return;
-    
+
     this.store.dispatch(setActiveTutorial(true));
     this.store.dispatch(setCurrentStep(step));
   }
@@ -69,13 +69,13 @@ export class TutorialManager {
    */
   public completeCurrentStep(): void {
     if (!this.store) return;
-    
+
     const state = this.store.getState();
     const { currentStep } = state.tutorial;
-    
+
     if (currentStep) {
       this.store.dispatch(completeTutorial(currentStep));
-      
+
       const tutorial = tutorialContent[currentStep as TutorialStep];
       if (tutorial.nextStep) {
         this.store.dispatch(setCurrentStep(tutorial.nextStep));
@@ -91,10 +91,10 @@ export class TutorialManager {
    */
   public goToPreviousStep(): void {
     if (!this.store) return;
-    
+
     const state = this.store.getState();
     const { currentStep } = state.tutorial;
-    
+
     if (currentStep) {
       const tutorial = tutorialContent[currentStep as TutorialStep];
       if (tutorial.previousStep) {
@@ -108,7 +108,7 @@ export class TutorialManager {
    */
   public skipTutorial(): void {
     if (!this.store) return;
-    
+
     this.store.dispatch(setActiveTutorial(false));
     this.store.dispatch(setCurrentStep(null));
   }
@@ -118,9 +118,9 @@ export class TutorialManager {
    */
   public setTutorialsEnabled(enabled: boolean): void {
     if (!this.store) return;
-    
+
     this.store.dispatch(setTutorialsEnabled(enabled));
-    
+
     if (!enabled) {
       this.skipTutorial();
     }
@@ -131,7 +131,7 @@ export class TutorialManager {
    */
   public setFirstTimeUser(isFirstTime: boolean): void {
     if (!this.store) return;
-    
+
     this.store.dispatch(setFirstTimeUser(isFirstTime));
   }
 
@@ -139,7 +139,7 @@ export class TutorialManager {
    * Get contextual help for a specific element
    */
   public getContextualHelp(id: string): TutorialContextHelp | undefined {
-    return contextualHelpContent.find(help => help.id === id);
+    return contextualHelpContent.find((help) => help.id === id);
   }
 
   /**
@@ -147,14 +147,14 @@ export class TutorialManager {
    */
   public getCurrentTutorialContent() {
     if (!this.store) return null;
-    
+
     const state = this.store.getState();
     const { currentStep } = state.tutorial;
-    
+
     if (currentStep) {
       return tutorialContent[currentStep as TutorialStep];
     }
-    
+
     return null;
   }
 
@@ -163,7 +163,7 @@ export class TutorialManager {
    */
   public isTutorialCompleted(tutorialId: string): boolean {
     if (!this.store) return false;
-    
+
     const state = this.store.getState();
     return state.tutorial.completedTutorials.includes(tutorialId);
   }

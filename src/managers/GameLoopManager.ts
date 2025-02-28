@@ -36,7 +36,10 @@ export class GameLoopManager {
     if (!this.tickHandlers.includes(handler)) {
       this.tickHandlers.push(handler);
       if (this.debuggingEnabled) {
-        console.log('GameLoopManager: Registered tick handler, total handlers:', this.tickHandlers.length);
+        console.log(
+          'GameLoopManager: Registered tick handler, total handlers:',
+          this.tickHandlers.length
+        );
       }
     }
   }
@@ -50,7 +53,10 @@ export class GameLoopManager {
     if (index !== -1) {
       this.tickHandlers.splice(index, 1);
       if (this.debuggingEnabled) {
-        console.log('GameLoopManager: Unregistered tick handler, remaining handlers:', this.tickHandlers.length);
+        console.log(
+          'GameLoopManager: Unregistered tick handler, remaining handlers:',
+          this.tickHandlers.length
+        );
       }
     }
   }
@@ -65,11 +71,11 @@ export class GameLoopManager {
 
     // DISABLED: Now using only the core/GameLoop implementation
     console.log('GameLoopManager: DISABLED - Using new GameLoop implementation instead');
-    
+
     // Still mark as running but don't actually start the loop
     this.isRunning = true;
     this.lastTickTime = getCurrentTime();
-    
+
     // Don't call this.tick()
   }
 
@@ -85,7 +91,7 @@ export class GameLoopManager {
     if (this.animationFrameId !== null) {
       cancelAnimationFrame(this.animationFrameId);
       this.animationFrameId = null;
-      
+
       if (this.debuggingEnabled) {
         console.log('GameLoopManager: Stopped game loop');
       }
@@ -105,7 +111,7 @@ export class GameLoopManager {
       if (this.debuggingEnabled && Math.random() < 0.01) {
         console.log(`GameLoopManager (LEGACY): Not updating game time, using new GameLoop instead`);
       }
-      
+
       // Call all registered tick handlers
       for (const handler of this.tickHandlers) {
         try {
@@ -115,10 +121,12 @@ export class GameLoopManager {
           // Continue with other handlers despite the error
         }
       }
-      
+
       // Debug log every 60 ticks (approximately once per second)
       if (this.debuggingEnabled && Math.random() < 0.01) {
-        console.log(`GameLoopManager: Tick processed, deltaTime=${deltaTime}ms, handlers=${this.tickHandlers.length}`);
+        console.log(
+          `GameLoopManager: Tick processed, deltaTime=${deltaTime}ms, handlers=${this.tickHandlers.length}`
+        );
       }
     } catch (error) {
       console.error('Error in game loop tick:', error);

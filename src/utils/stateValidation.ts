@@ -18,7 +18,7 @@ export function validateResource(resource: Resource): boolean {
     );
     return false;
   }
-  
+
   // Check numeric values
   if (typeof resource.amount !== 'number' || isNaN(resource.amount) || resource.amount < 0) {
     ErrorLogger.getInstance().logError(
@@ -27,7 +27,7 @@ export function validateResource(resource: Resource): boolean {
     );
     return false;
   }
-  
+
   if (typeof resource.perSecond !== 'number' || isNaN(resource.perSecond)) {
     ErrorLogger.getInstance().logError(
       `Resource has invalid perSecond: ${resource.perSecond}`,
@@ -35,7 +35,7 @@ export function validateResource(resource: Resource): boolean {
     );
     return false;
   }
-  
+
   return true;
 }
 
@@ -53,7 +53,7 @@ export function validateStructure(structure: Structure): boolean {
     );
     return false;
   }
-  
+
   // Check numeric values
   if (typeof structure.level !== 'number' || isNaN(structure.level) || structure.level < 0) {
     ErrorLogger.getInstance().logError(
@@ -62,15 +62,19 @@ export function validateStructure(structure: Structure): boolean {
     );
     return false;
   }
-  
-  if (typeof structure.maxLevel !== 'number' || isNaN(structure.maxLevel) || structure.maxLevel < 1) {
+
+  if (
+    typeof structure.maxLevel !== 'number' ||
+    isNaN(structure.maxLevel) ||
+    structure.maxLevel < 1
+  ) {
     ErrorLogger.getInstance().logError(
       `Structure has invalid maxLevel: ${structure.maxLevel}`,
       'validateStructure'
     );
     return false;
   }
-  
+
   if (typeof structure.workers !== 'number' || isNaN(structure.workers) || structure.workers < 0) {
     ErrorLogger.getInstance().logError(
       `Structure has invalid workers: ${structure.workers}`,
@@ -78,15 +82,19 @@ export function validateStructure(structure: Structure): boolean {
     );
     return false;
   }
-  
-  if (typeof structure.maxWorkers !== 'number' || isNaN(structure.maxWorkers) || structure.maxWorkers < 0) {
+
+  if (
+    typeof structure.maxWorkers !== 'number' ||
+    isNaN(structure.maxWorkers) ||
+    structure.maxWorkers < 0
+  ) {
     ErrorLogger.getInstance().logError(
       `Structure has invalid maxWorkers: ${structure.maxWorkers}`,
       'validateStructure'
     );
     return false;
   }
-  
+
   // Check that level doesn't exceed maxLevel
   if (structure.level > structure.maxLevel) {
     ErrorLogger.getInstance().logError(
@@ -95,7 +103,7 @@ export function validateStructure(structure: Structure): boolean {
     );
     return false;
   }
-  
+
   // Check that workers doesn't exceed maxWorkers
   if (structure.workers > structure.maxWorkers) {
     ErrorLogger.getInstance().logError(
@@ -104,7 +112,7 @@ export function validateStructure(structure: Structure): boolean {
     );
     return false;
   }
-  
+
   // Check that cost and production are valid objects
   if (!structure.cost || typeof structure.cost !== 'object') {
     ErrorLogger.getInstance().logError(
@@ -113,7 +121,7 @@ export function validateStructure(structure: Structure): boolean {
     );
     return false;
   }
-  
+
   if (!structure.production || typeof structure.production !== 'object') {
     ErrorLogger.getInstance().logError(
       `Structure has invalid production: ${structure.production}`,
@@ -121,7 +129,7 @@ export function validateStructure(structure: Structure): boolean {
     );
     return false;
   }
-  
+
   return true;
 }
 
@@ -133,13 +141,10 @@ export function validateStructure(structure: Structure): boolean {
 export function validateGameState(gameState: unknown): boolean {
   // Check required fields
   if (gameState === undefined || gameState === null) {
-    ErrorLogger.getInstance().logError(
-      'Game state is undefined or null',
-      'validateGameState'
-    );
+    ErrorLogger.getInstance().logError('Game state is undefined or null', 'validateGameState');
     return false;
   }
-  
+
   // Type guard to ensure gameState is an object
   if (typeof gameState !== 'object') {
     ErrorLogger.getInstance().logError(
@@ -148,10 +153,10 @@ export function validateGameState(gameState: unknown): boolean {
     );
     return false;
   }
-  
+
   // Cast to a record type for property access with type safety
   const state = gameState as Record<string, unknown>;
-  
+
   // Check gameStage
   if (typeof state.gameStage !== 'number' || isNaN(state.gameStage) || state.gameStage < 0) {
     ErrorLogger.getInstance().logError(
@@ -160,25 +165,32 @@ export function validateGameState(gameState: unknown): boolean {
     );
     return false;
   }
-  
+
   // Check totalPlayTime
-  if (typeof state.totalPlayTime !== 'number' || isNaN(state.totalPlayTime) || state.totalPlayTime < 0) {
+  if (
+    typeof state.totalPlayTime !== 'number' ||
+    isNaN(state.totalPlayTime) ||
+    state.totalPlayTime < 0
+  ) {
     ErrorLogger.getInstance().logError(
       `Game state has invalid totalPlayTime: ${state.totalPlayTime}`,
       'validateGameState'
     );
     return false;
   }
-  
+
   // Check lastSaveTime
-  if (state.lastSaveTime && (typeof state.lastSaveTime !== 'number' || isNaN(state.lastSaveTime) || state.lastSaveTime < 0)) {
+  if (
+    state.lastSaveTime &&
+    (typeof state.lastSaveTime !== 'number' || isNaN(state.lastSaveTime) || state.lastSaveTime < 0)
+  ) {
     ErrorLogger.getInstance().logError(
       `Game state has invalid lastSaveTime: ${state.lastSaveTime}`,
       'validateGameState'
     );
     return false;
   }
-  
+
   return true;
 }
 
@@ -190,31 +202,31 @@ export function validateGameState(gameState: unknown): boolean {
 export function validateState(state: RootState): boolean {
   const logger = ErrorLogger.getInstance();
   let isValid = true;
-  
+
   // Validate resources
   if (!state.resources) {
     logger.logError('Resources state is missing', 'validateState');
     isValid = false;
   } else {
-    Object.values(state.resources).forEach(resource => {
+    Object.values(state.resources).forEach((resource) => {
       if (!validateResource(resource)) {
         isValid = false;
       }
     });
   }
-  
+
   // Validate structures
   if (!state.structures) {
     logger.logError('Structures state is missing', 'validateState');
     isValid = false;
   } else {
-    Object.values(state.structures).forEach(structure => {
+    Object.values(state.structures).forEach((structure) => {
       if (!validateStructure(structure)) {
         isValid = false;
       }
     });
   }
-  
+
   // Validate game state
   if (!state.game) {
     logger.logError('Game state is missing', 'validateState');
@@ -222,33 +234,34 @@ export function validateState(state: RootState): boolean {
   } else if (!validateGameState(state.game)) {
     isValid = false;
   }
-  
+
   return isValid;
 }
 
 /**
  * Redux middleware for validating state after each action
  */
-export const stateValidationMiddleware: Middleware = store => next => action => {
+export const stateValidationMiddleware: Middleware = (store) => (next) => (action) => {
   // First, let the action pass through and update state
   const result = next(action);
-  
+
   // Only validate state for specific critical actions, not on every state change
   // This prevents console spam and improves performance
-  const actionType = typeof action === 'object' && action !== null && 'type' in action 
-    ? action.type as string 
-    : '';
-    
+  const actionType =
+    typeof action === 'object' && action !== null && 'type' in action
+      ? (action.type as string)
+      : '';
+
   if (
-    actionType.includes('init') || 
-    actionType.includes('reset') || 
+    actionType.includes('init') ||
+    actionType.includes('reset') ||
     actionType.includes('load') ||
     (actionType.includes('add') && !actionType.includes('addResourceAmount'))
   ) {
     const state = store.getState() as RootState;
     validateState(state);
   }
-  
+
   // Always return the result of the next middleware
   return result;
 };

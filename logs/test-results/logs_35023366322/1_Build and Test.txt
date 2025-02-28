@@ -1,0 +1,1502 @@
+﻿2025-02-28T11:15:48.3446581Z Current runner version: '2.322.0'
+2025-02-28T11:15:48.3472480Z ##[group]Operating System
+2025-02-28T11:15:48.3473222Z Ubuntu
+2025-02-28T11:15:48.3473735Z 24.04.2
+2025-02-28T11:15:48.3474255Z LTS
+2025-02-28T11:15:48.3474684Z ##[endgroup]
+2025-02-28T11:15:48.3475508Z ##[group]Runner Image
+2025-02-28T11:15:48.3476109Z Image: ubuntu-24.04
+2025-02-28T11:15:48.3476653Z Version: 20250223.1.0
+2025-02-28T11:15:48.3477699Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20250223.1/images/ubuntu/Ubuntu2404-Readme.md
+2025-02-28T11:15:48.3479131Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20250223.1
+2025-02-28T11:15:48.3480043Z ##[endgroup]
+2025-02-28T11:15:48.3480568Z ##[group]Runner Image Provisioner
+2025-02-28T11:15:48.3481179Z 2.0.422.1
+2025-02-28T11:15:48.3481598Z ##[endgroup]
+2025-02-28T11:15:48.3482675Z ##[group]GITHUB_TOKEN Permissions
+2025-02-28T11:15:48.3484456Z Contents: read
+2025-02-28T11:15:48.3484974Z Metadata: read
+2025-02-28T11:15:48.3486326Z Packages: read
+2025-02-28T11:15:48.3486884Z ##[endgroup]
+2025-02-28T11:15:48.3489108Z Secret source: Actions
+2025-02-28T11:15:48.3490026Z Prepare workflow directory
+2025-02-28T11:15:48.3825785Z Prepare all required actions
+2025-02-28T11:15:48.3863125Z Getting action download info
+2025-02-28T11:15:48.7766043Z Download action repository 'actions/checkout@v4' (SHA:11bd71901bbe5b1630ceea73d27597364c9af683)
+2025-02-28T11:15:48.8898614Z Download action repository 'actions/setup-node@v3' (SHA:1a4442cacd436585916779262731d5b162bc6ec7)
+2025-02-28T11:15:49.0496419Z Complete job name: Build and Test
+2025-02-28T11:15:49.1170168Z ##[group]Run actions/checkout@v4
+2025-02-28T11:15:49.1170966Z with:
+2025-02-28T11:15:49.1171318Z   fetch-depth: 0
+2025-02-28T11:15:49.1171735Z   repository: aaron-hogan/idle-game
+2025-02-28T11:15:49.1172363Z   token: ***
+2025-02-28T11:15:49.1172731Z   ssh-strict: true
+2025-02-28T11:15:49.1173097Z   ssh-user: git
+2025-02-28T11:15:49.1173484Z   persist-credentials: true
+2025-02-28T11:15:49.1173918Z   clean: true
+2025-02-28T11:15:49.1174323Z   sparse-checkout-cone-mode: true
+2025-02-28T11:15:49.1174784Z   fetch-tags: false
+2025-02-28T11:15:49.1175359Z   show-progress: true
+2025-02-28T11:15:49.1175754Z   lfs: false
+2025-02-28T11:15:49.1176107Z   submodules: false
+2025-02-28T11:15:49.1176494Z   set-safe-directory: true
+2025-02-28T11:15:49.1177162Z ##[endgroup]
+2025-02-28T11:15:49.3228998Z Syncing repository: aaron-hogan/idle-game
+2025-02-28T11:15:49.3231151Z ##[group]Getting Git version info
+2025-02-28T11:15:49.3231853Z Working directory is '/home/runner/work/idle-game/idle-game'
+2025-02-28T11:15:49.3232828Z [command]/usr/bin/git version
+2025-02-28T11:15:49.3325922Z git version 2.48.1
+2025-02-28T11:15:49.3363179Z ##[endgroup]
+2025-02-28T11:15:49.3380467Z Temporarily overriding HOME='/home/runner/work/_temp/8bc39a69-15bc-4b48-9374-83914e712e7e' before making global git config changes
+2025-02-28T11:15:49.3381825Z Adding repository directory to the temporary git global config as a safe directory
+2025-02-28T11:15:49.3387601Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/idle-game/idle-game
+2025-02-28T11:15:49.3427752Z Deleting the contents of '/home/runner/work/idle-game/idle-game'
+2025-02-28T11:15:49.3431974Z ##[group]Initializing the repository
+2025-02-28T11:15:49.3438292Z [command]/usr/bin/git init /home/runner/work/idle-game/idle-game
+2025-02-28T11:15:49.3548985Z hint: Using 'master' as the name for the initial branch. This default branch name
+2025-02-28T11:15:49.3550444Z hint: is subject to change. To configure the initial branch name to use in all
+2025-02-28T11:15:49.3551520Z hint: of your new repositories, which will suppress this warning, call:
+2025-02-28T11:15:49.3552264Z hint:
+2025-02-28T11:15:49.3552791Z hint: 	git config --global init.defaultBranch <name>
+2025-02-28T11:15:49.3553466Z hint:
+2025-02-28T11:15:49.3554118Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2025-02-28T11:15:49.3556089Z hint: 'development'. The just-created branch can be renamed via this command:
+2025-02-28T11:15:49.3557893Z hint:
+2025-02-28T11:15:49.3558698Z hint: 	git branch -m <name>
+2025-02-28T11:15:49.3560146Z Initialized empty Git repository in /home/runner/work/idle-game/idle-game/.git/
+2025-02-28T11:15:49.3574795Z [command]/usr/bin/git remote add origin https://github.com/aaron-hogan/idle-game
+2025-02-28T11:15:49.3617095Z ##[endgroup]
+2025-02-28T11:15:49.3617836Z ##[group]Disabling automatic garbage collection
+2025-02-28T11:15:49.3623563Z [command]/usr/bin/git config --local gc.auto 0
+2025-02-28T11:15:49.3658854Z ##[endgroup]
+2025-02-28T11:15:49.3659605Z ##[group]Setting up auth
+2025-02-28T11:15:49.3669656Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2025-02-28T11:15:49.3706875Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2025-02-28T11:15:49.4061335Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2025-02-28T11:15:49.4094073Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2025-02-28T11:15:49.4335617Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2025-02-28T11:15:49.4369573Z ##[endgroup]
+2025-02-28T11:15:49.4370291Z ##[group]Fetching the repository
+2025-02-28T11:15:49.4379126Z [command]/usr/bin/git -c protocol.version=2 fetch --prune --no-recurse-submodules origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/* +6809f1dee1e84e565a340ac2c0b4e0a531abaa6b:refs/remotes/pull/114/merge
+2025-02-28T11:15:49.8026557Z From https://github.com/aaron-hogan/idle-game
+2025-02-28T11:15:49.8028843Z  * [new branch]      archive/day-timer-fix-feb2025            -> origin/archive/day-timer-fix-feb2025
+2025-02-28T11:15:49.8031556Z  * [new branch]      chore/batch5-explicit-any-core           -> origin/chore/batch5-explicit-any-core
+2025-02-28T11:15:49.8033930Z  * [new branch]      chore/batch6-explicit-any-utils          -> origin/chore/batch6-explicit-any-utils
+2025-02-28T11:15:49.8036256Z  * [new branch]      chore/batch7-explicit-any-systems        -> origin/chore/batch7-explicit-any-systems
+2025-02-28T11:15:49.8038512Z  * [new branch]      chore/batch8-explicit-any-more-systems   -> origin/chore/batch8-explicit-any-more-systems
+2025-02-28T11:15:49.8040843Z  * [new branch]      chore/comprehensive-cleanup              -> origin/chore/comprehensive-cleanup
+2025-02-28T11:15:49.8042972Z  * [new branch]      chore/gitignore-improvements             -> origin/chore/gitignore-improvements
+2025-02-28T11:15:49.8045100Z  * [new branch]      chore/linting-documentation              -> origin/chore/linting-documentation
+2025-02-28T11:15:49.8047619Z  * [new branch]      cleanup/project-structure-organization   -> origin/cleanup/project-structure-organization
+2025-02-28T11:15:49.8050099Z  * [new branch]      cleanup/root-folder-consolidation        -> origin/cleanup/root-folder-consolidation
+2025-02-28T11:15:49.8052465Z  * [new branch]      cleanup/workflow-tests                   -> origin/cleanup/workflow-tests
+2025-02-28T11:15:49.8054438Z  * [new branch]      develop                                  -> origin/develop
+2025-02-28T11:15:49.8056560Z  * [new branch]      docs/add-test-guidelines                 -> origin/docs/add-test-guidelines
+2025-02-28T11:15:49.8059073Z  * [new branch]      docs/enhance-git-documentation           -> origin/docs/enhance-git-documentation
+2025-02-28T11:15:49.8061623Z  * [new branch]      docs/github-workflows-cleanup            -> origin/docs/github-workflows-cleanup
+2025-02-28T11:15:49.8064322Z  * [new branch]      docs/improve-branch-protection           -> origin/docs/improve-branch-protection
+2025-02-28T11:15:49.8067641Z  * [new branch]      docs/improve-documentation-organization  -> origin/docs/improve-documentation-organization
+2025-02-28T11:15:49.8070697Z  * [new branch]      docs/pr-validation-documentation         -> origin/docs/pr-validation-documentation
+2025-02-28T11:15:49.8073327Z  * [new branch]      docs/process-failure-learnings           -> origin/docs/process-failure-learnings
+2025-02-28T11:15:49.8076300Z  * [new branch]      docs/retrospective-changelog-improvements -> origin/docs/retrospective-changelog-improvements
+2025-02-28T11:15:49.8079199Z  * [new branch]      docs/update-changelog-for-test-cleanup   -> origin/docs/update-changelog-for-test-cleanup
+2025-02-28T11:15:49.8082115Z  * [new branch]      docs/update-milestone-strip-documentation -> origin/docs/update-milestone-strip-documentation
+2025-02-28T11:15:49.8084822Z  * [new branch]      feature/branch-management-tools          -> origin/feature/branch-management-tools
+2025-02-28T11:15:49.8087409Z  * [new branch]      feature/dependency-injection             -> origin/feature/dependency-injection
+2025-02-28T11:15:49.8089776Z  * [new branch]      feature/game-balance-config              -> origin/feature/game-balance-config
+2025-02-28T11:15:49.8091964Z  * [new branch]      feature/git-automation                   -> origin/feature/git-automation
+2025-02-28T11:15:49.8094322Z  * [new branch]      feature/milestone-visual-enhancements    -> origin/feature/milestone-visual-enhancements
+2025-02-28T11:15:49.8096896Z  * [new branch]      feature/patch-versioning                 -> origin/feature/patch-versioning
+2025-02-28T11:15:49.8099489Z  * [new branch]      feature/todo-synchronization             -> origin/feature/todo-synchronization
+2025-02-28T11:15:49.8101950Z  * [new branch]      feature/tutorial-help-system             -> origin/feature/tutorial-help-system
+2025-02-28T11:15:49.8104227Z  * [new branch]      feature/versioning-process               -> origin/feature/versioning-process
+2025-02-28T11:15:49.8106788Z  * [new branch]      fix/bump-version-script-enhancement      -> origin/fix/bump-version-script-enhancement
+2025-02-28T11:15:49.8109148Z  * [new branch]      fix/changelog-organization               -> origin/fix/changelog-organization
+2025-02-28T11:15:49.8111309Z  * [new branch]      fix/changelog-versioning                 -> origin/fix/changelog-versioning
+2025-02-28T11:15:49.8113500Z  * [new branch]      fix/ci-workflow-optimization             -> origin/fix/ci-workflow-optimization
+2025-02-28T11:15:49.8115885Z  * [new branch]      fix/clean-up-skipped-tests               -> origin/fix/clean-up-skipped-tests
+2025-02-28T11:15:49.8118061Z  * [new branch]      fix/complete-root-cleanup                -> origin/fix/complete-root-cleanup
+2025-02-28T11:15:49.8120334Z  * [new branch]      fix/dependency-injection-tests           -> origin/fix/dependency-injection-tests
+2025-02-28T11:15:49.8122678Z  * [new branch]      fix/empty-versions-in-changelog          -> origin/fix/empty-versions-in-changelog
+2025-02-28T11:15:49.8125027Z  * [new branch]      fix/events-selector-memoization          -> origin/fix/events-selector-memoization
+2025-02-28T11:15:49.8127324Z  * [new branch]      fix/failing-tests                        -> origin/fix/failing-tests
+2025-02-28T11:15:49.8129202Z  * [new branch]      fix/game-loop-errors                     -> origin/fix/game-loop-errors
+2025-02-28T11:15:49.8131299Z  * [new branch]      fix/github-action-permissions            -> origin/fix/github-action-permissions
+2025-02-28T11:15:49.8133733Z  * [new branch]      fix/lint-require-imports-system-files    -> origin/fix/lint-require-imports-system-files
+2025-02-28T11:15:49.8136380Z  * [new branch]      fix/lint-ts-comments-test-files          -> origin/fix/lint-ts-comments-test-files
+2025-02-28T11:15:49.8138819Z  * [new branch]      fix/lint-unused-vars-core-components     -> origin/fix/lint-unused-vars-core-components
+2025-02-28T11:15:49.8141261Z  * [new branch]      fix/lint-unused-vars-system-files        -> origin/fix/lint-unused-vars-system-files
+2025-02-28T11:15:49.8143368Z  * [new branch]      fix/linting-errors                       -> origin/fix/linting-errors
+2025-02-28T11:15:49.8145737Z  * [new branch]      fix/milestone-centering                  -> origin/fix/milestone-centering
+2025-02-28T11:15:49.8148102Z  * [new branch]      fix/milestone-progress-infinite-update   -> origin/fix/milestone-progress-infinite-update
+2025-02-28T11:15:49.8150503Z  * [new branch]      fix/oppression-rate-display              -> origin/fix/oppression-rate-display
+2025-02-28T11:15:49.8152804Z  * [new branch]      fix/pr-validation-case-sensitivity       -> origin/fix/pr-validation-case-sensitivity
+2025-02-28T11:15:49.8155322Z  * [new branch]      fix/process-env-variables                -> origin/fix/process-env-variables
+2025-02-28T11:15:49.8157641Z  * [new branch]      fix/progression-manager-imports          -> origin/fix/progression-manager-imports
+2025-02-28T11:15:49.8159878Z  * [new branch]      fix/progression-selectors                -> origin/fix/progression-selectors
+2025-02-28T11:15:49.8161956Z  * [new branch]      fix/reduce-console-noise                 -> origin/fix/reduce-console-noise
+2025-02-28T11:15:49.8164176Z  * [new branch]      fix/remaining-selector-issues            -> origin/fix/remaining-selector-issues
+2025-02-28T11:15:49.8166592Z  * [new branch]      fix/remove-gitignored-files              -> origin/fix/remove-gitignored-files
+2025-02-28T11:15:49.8168951Z  * [new branch]      fix/skip-tests-auto-versioning           -> origin/fix/skip-tests-auto-versioning
+2025-02-28T11:15:49.8178006Z  * [new branch]      fix/task-manager-double-initialization   -> origin/fix/task-manager-double-initialization
+2025-02-28T11:15:49.8180559Z  * [new branch]      fix/test-suite-fixes                     -> origin/fix/test-suite-fixes
+2025-02-28T11:15:49.8182577Z  * [new branch]      fix/update-tests-tutorial                -> origin/fix/update-tests-tutorial
+2025-02-28T11:15:49.8184373Z  * [new branch]      main                                     -> origin/main
+2025-02-28T11:15:49.8186554Z  * [new branch]      refactor/manager-dependency-injection    -> origin/refactor/manager-dependency-injection
+2025-02-28T11:15:49.8188939Z  * [new branch]      sync/sync-main-develop                   -> origin/sync/sync-main-develop
+2025-02-28T11:15:49.8190998Z  * [new branch]      test/hello-world-versioning              -> origin/test/hello-world-versioning
+2025-02-28T11:15:49.8192747Z  * [new tag]         v0.5.1                                   -> v0.5.1
+2025-02-28T11:15:49.8193978Z  * [new tag]         v0.5.2                                   -> v0.5.2
+2025-02-28T11:15:49.8195377Z  * [new tag]         v0.5.3                                   -> v0.5.3
+2025-02-28T11:15:49.8196223Z  * [new tag]         v0.5.5                                   -> v0.5.5
+2025-02-28T11:15:49.8197270Z  * [new tag]         v0.5.6                                   -> v0.5.6
+2025-02-28T11:15:49.8198159Z  * [new tag]         v0.6.0                                   -> v0.6.0
+2025-02-28T11:15:49.8199028Z  * [new tag]         v0.6.1                                   -> v0.6.1
+2025-02-28T11:15:49.8199942Z  * [new ref]         6809f1dee1e84e565a340ac2c0b4e0a531abaa6b -> pull/114/merge
+2025-02-28T11:15:49.8234528Z ##[endgroup]
+2025-02-28T11:15:49.8236262Z ##[group]Determining the checkout info
+2025-02-28T11:15:49.8238077Z ##[endgroup]
+2025-02-28T11:15:49.8241669Z [command]/usr/bin/git sparse-checkout disable
+2025-02-28T11:15:49.8292155Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2025-02-28T11:15:49.8323710Z ##[group]Checking out the ref
+2025-02-28T11:15:49.8328629Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/114/merge
+2025-02-28T11:15:49.8783755Z Note: switching to 'refs/remotes/pull/114/merge'.
+2025-02-28T11:15:49.8784719Z 
+2025-02-28T11:15:49.8785498Z You are in 'detached HEAD' state. You can look around, make experimental
+2025-02-28T11:15:49.8786981Z changes and commit them, and you can discard any commits you make in this
+2025-02-28T11:15:49.8788787Z state without impacting any branches by switching back to a branch.
+2025-02-28T11:15:49.8790202Z 
+2025-02-28T11:15:49.8791398Z If you want to create a new branch to retain commits you create, you may
+2025-02-28T11:15:49.8793235Z do so (now or later) by using -c with the switch command. Example:
+2025-02-28T11:15:49.8794334Z 
+2025-02-28T11:15:49.8794694Z   git switch -c <new-branch-name>
+2025-02-28T11:15:49.8795656Z 
+2025-02-28T11:15:49.8795972Z Or undo this operation with:
+2025-02-28T11:15:49.8796624Z 
+2025-02-28T11:15:49.8796897Z   git switch -
+2025-02-28T11:15:49.8797336Z 
+2025-02-28T11:15:49.8798189Z Turn off this advice by setting config variable advice.detachedHead to false
+2025-02-28T11:15:49.8799642Z 
+2025-02-28T11:15:49.8801366Z HEAD is now at 6809f1d Merge f4b78af9b73f696a26916be864f4f74fbf571ee3 into a27a8a5cfb693d9e12b4f5a5c135c1a4216de0d5
+2025-02-28T11:15:49.8806178Z ##[endgroup]
+2025-02-28T11:15:49.8841569Z [command]/usr/bin/git log -1 --format=%H
+2025-02-28T11:15:49.8868383Z 6809f1dee1e84e565a340ac2c0b4e0a531abaa6b
+2025-02-28T11:15:49.9161727Z ##[group]Run actions/setup-node@v3
+2025-02-28T11:15:49.9162444Z with:
+2025-02-28T11:15:49.9162860Z   node-version: 20
+2025-02-28T11:15:49.9163320Z   cache: npm
+2025-02-28T11:15:49.9163768Z   always-auth: false
+2025-02-28T11:15:49.9164283Z   check-latest: false
+2025-02-28T11:15:49.9165038Z   token: ***
+2025-02-28T11:15:49.9165649Z ##[endgroup]
+2025-02-28T11:15:50.0963408Z Found in cache @ /opt/hostedtoolcache/node/20.18.3/x64
+2025-02-28T11:15:50.0965236Z ##[group]Environment details
+2025-02-28T11:15:50.4516930Z node: v20.18.3
+2025-02-28T11:15:50.4517976Z npm: 10.8.2
+2025-02-28T11:15:50.4518637Z yarn: 1.22.22
+2025-02-28T11:15:50.4520066Z ##[endgroup]
+2025-02-28T11:15:50.4529859Z [command]/opt/hostedtoolcache/node/20.18.3/x64/bin/npm config get cache
+2025-02-28T11:15:50.5632313Z /home/runner/.npm
+2025-02-28T11:15:50.8520033Z Cache Size: ~27 MB (28690843 B)
+2025-02-28T11:15:50.8553636Z [command]/usr/bin/tar -xf /home/runner/work/_temp/6badeb3f-f7ea-46ca-bae6-84836a41a9bf/cache.tzst -P -C /home/runner/work/idle-game/idle-game --use-compress-program unzstd
+2025-02-28T11:15:51.0607294Z Cache restored successfully
+2025-02-28T11:15:51.0672137Z Cache restored from key: node-cache-Linux-npm-f908b0f5abec6c89abe60dd1e59b3fc8354ae46f3bf0453684a9687b3b68d0a6
+2025-02-28T11:15:51.6912420Z Received 28690843 of 28690843 (100.0%), 27.3 MBs/sec
+2025-02-28T11:15:51.7070313Z ##[group]Run npm ci --prefer-offline
+2025-02-28T11:15:51.7070678Z [36;1mnpm ci --prefer-offline[0m
+2025-02-28T11:15:51.7123031Z shell: /usr/bin/bash -e {0}
+2025-02-28T11:15:51.7123298Z ##[endgroup]
+2025-02-28T11:15:54.3844015Z npm warn deprecated react-testing-library@8.0.1: 🚨  react-testing-library has moved to @testing-library/react. Please uninstall react-testing-library and install @testing-library/react instead, or use an older version of react-testing-library. Learn more about this change here: https://github.com/testing-library/dom-testing-library/issues/260 Thanks! :)
+2025-02-28T11:15:54.4477824Z npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+2025-02-28T11:15:54.6238687Z npm warn deprecated abab@2.0.6: Use your platform's native atob() and btoa() methods instead
+2025-02-28T11:15:54.7082031Z npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+2025-02-28T11:15:54.7827618Z npm warn deprecated domexception@4.0.0: Use your platform's native DOMException instead
+2025-02-28T11:15:56.7923172Z 
+2025-02-28T11:15:56.7924014Z added 900 packages, and audited 901 packages in 5s
+2025-02-28T11:15:56.7924480Z 
+2025-02-28T11:15:56.7924773Z 193 packages are looking for funding
+2025-02-28T11:15:56.7925388Z   run `npm fund` for details
+2025-02-28T11:15:56.7939955Z 
+2025-02-28T11:15:56.7940500Z found 0 vulnerabilities
+2025-02-28T11:15:56.8293710Z ##[group]Run npm run lint
+2025-02-28T11:15:56.8293991Z [36;1mnpm run lint[0m
+2025-02-28T11:15:56.8349685Z shell: /usr/bin/bash -e {0}
+2025-02-28T11:15:56.8349938Z ##[endgroup]
+2025-02-28T11:15:56.9503970Z 
+2025-02-28T11:15:56.9504340Z > idle-game@0.6.1 lint
+2025-02-28T11:15:56.9504844Z > eslint src --ext .ts,.tsx
+2025-02-28T11:15:56.9505356Z 
+2025-02-28T11:15:57.1451833Z (node:1933) Warning: To load an ES module, set "type": "module" in the package.json or use the .mjs extension.
+2025-02-28T11:15:57.1453322Z (Use `node --trace-warnings ...` to show where the warning was created)
+2025-02-28T11:15:57.1460936Z 
+2025-02-28T11:15:57.1461215Z Oops! Something went wrong! :(
+2025-02-28T11:15:57.1461494Z 
+2025-02-28T11:15:57.1461629Z ESLint: 9.21.0
+2025-02-28T11:15:57.1461812Z 
+2025-02-28T11:15:57.1462171Z /home/runner/work/idle-game/idle-game/eslint.config.js:1
+2025-02-28T11:15:57.1462762Z import eslint from '@eslint/js';
+2025-02-28T11:15:57.1463130Z ^^^^^^
+2025-02-28T11:15:57.1463344Z 
+2025-02-28T11:15:57.1463699Z SyntaxError: Cannot use import statement outside a module
+2025-02-28T11:15:57.1464343Z     at wrapSafe (node:internal/modules/cjs/loader:1378:20)
+2025-02-28T11:15:57.1464990Z     at Module._compile (node:internal/modules/cjs/loader:1428:41)
+2025-02-28T11:15:57.1465894Z     at Module._extensions..js (node:internal/modules/cjs/loader:1548:10)
+2025-02-28T11:15:57.1466600Z     at Module.load (node:internal/modules/cjs/loader:1288:32)
+2025-02-28T11:15:57.1467261Z     at Module._load (node:internal/modules/cjs/loader:1104:12)
+2025-02-28T11:15:57.1467900Z     at cjsLoader (node:internal/modules/esm/translators:346:17)
+2025-02-28T11:15:57.1468664Z     at ModuleWrap.<anonymous> (node:internal/modules/esm/translators:286:7)
+2025-02-28T11:15:57.1469421Z     at ModuleJob.run (node:internal/modules/esm/module_job:234:25)
+2025-02-28T11:15:57.1470172Z     at async ModuleLoader.import (node:internal/modules/esm/loader:473:24)
+2025-02-28T11:15:57.1471300Z     at async loadConfigFile (/home/runner/work/idle-game/idle-game/node_modules/eslint/lib/config/config-loader.js:197:21)
+2025-02-28T11:15:57.1632578Z ##[error]Process completed with exit code 2.
+2025-02-28T11:15:57.1674728Z ##[group]Run npm run typecheck
+2025-02-28T11:15:57.1675033Z [36;1mnpm run typecheck[0m
+2025-02-28T11:15:57.1721780Z shell: /usr/bin/bash -e {0}
+2025-02-28T11:15:57.1722017Z ##[endgroup]
+2025-02-28T11:15:57.2821464Z 
+2025-02-28T11:15:57.2822012Z > idle-game@0.6.1 typecheck
+2025-02-28T11:15:57.2825274Z > tsc --noEmit
+2025-02-28T11:15:57.2828876Z 
+2025-02-28T11:15:58.8253450Z ##[error]src/components/GameTimer.tsx(4,1): error TS1185: Merge conflict marker encountered.
+2025-02-28T11:15:58.8723211Z ##[error]Process completed with exit code 2.
+2025-02-28T11:15:58.8756393Z ##[group]Run npm test
+2025-02-28T11:15:58.8756834Z [36;1mnpm test[0m
+2025-02-28T11:15:58.8817783Z shell: /usr/bin/bash -e {0}
+2025-02-28T11:15:58.8818142Z ##[endgroup]
+2025-02-28T11:15:58.9957361Z 
+2025-02-28T11:15:58.9957701Z > idle-game@0.6.1 test
+2025-02-28T11:15:58.9958088Z > jest
+2025-02-28T11:15:58.9958254Z 
+2025-02-28T11:16:08.0797249Z PASS src/integration/tasks.integration.test.ts (7.897 s)
+2025-02-28T11:16:08.8315682Z FAIL src/systems/resourceManager.test.ts
+2025-02-28T11:16:08.8326397Z   ● Test suite failed to run
+2025-02-28T11:16:08.8328021Z 
+2025-02-28T11:16:08.8330253Z     [96msrc/utils/testUtils.ts[0m:[93m78[0m:[93m5[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:08.8332259Z 
+2025-02-28T11:16:08.8334132Z     [7m78[0m     // @ts-expect-error - Accessing private field for testing
+2025-02-28T11:16:08.8336618Z     [7m  [0m [91m    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:08.8338707Z     [96msrc/utils/testUtils.ts[0m:[93m108[0m:[93m7[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:08.8341058Z 
+2025-02-28T11:16:08.8343178Z     [7m108[0m       // @ts-expect-error - Accessing private constructor for testing
+2025-02-28T11:16:08.8346103Z     [7m   [0m [91m      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:08.8366528Z     [96msrc/utils/testUtils.ts[0m:[93m114[0m:[93m7[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:08.8368090Z 
+2025-02-28T11:16:08.8372769Z     [7m114[0m       // @ts-expect-error - Setting private static field for testing
+2025-02-28T11:16:08.8374034Z     [7m   [0m [91m      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:08.8445612Z 
+2025-02-28T11:16:08.8725480Z FAIL src/systems/__tests__/buildingManager.test.ts
+2025-02-28T11:16:08.8746421Z   ● Test suite failed to run
+2025-02-28T11:16:08.8746744Z 
+2025-02-28T11:16:08.8747606Z     [96msrc/utils/testUtils.ts[0m:[93m78[0m:[93m5[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:08.8748250Z 
+2025-02-28T11:16:08.8748722Z     [7m78[0m     // @ts-expect-error - Accessing private field for testing
+2025-02-28T11:16:08.8749536Z     [7m  [0m [91m    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:08.8750699Z     [96msrc/utils/testUtils.ts[0m:[93m108[0m:[93m7[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:08.8751351Z 
+2025-02-28T11:16:08.8751846Z     [7m108[0m       // @ts-expect-error - Accessing private constructor for testing
+2025-02-28T11:16:08.8752732Z     [7m   [0m [91m      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:08.8753903Z     [96msrc/utils/testUtils.ts[0m:[93m114[0m:[93m7[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:08.8754556Z 
+2025-02-28T11:16:08.8755107Z     [7m114[0m       // @ts-expect-error - Setting private static field for testing
+2025-02-28T11:16:08.8756302Z     [7m   [0m [91m      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:08.8756699Z 
+2025-02-28T11:16:09.2967047Z FAIL src/systems/__tests__/workerManager.test.ts
+2025-02-28T11:16:09.2968358Z   ● Test suite failed to run
+2025-02-28T11:16:09.2968913Z 
+2025-02-28T11:16:09.2970154Z     [96msrc/utils/testUtils.ts[0m:[93m78[0m:[93m5[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:09.2971151Z 
+2025-02-28T11:16:09.2971914Z     [7m78[0m     // @ts-expect-error - Accessing private field for testing
+2025-02-28T11:16:09.2973056Z     [7m  [0m [91m    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:09.2974575Z     [96msrc/utils/testUtils.ts[0m:[93m108[0m:[93m7[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:09.2976225Z 
+2025-02-28T11:16:09.2977100Z     [7m108[0m       // @ts-expect-error - Accessing private constructor for testing
+2025-02-28T11:16:09.2978362Z     [7m   [0m [91m      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:09.2979872Z     [96msrc/utils/testUtils.ts[0m:[93m114[0m:[93m7[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:09.2980821Z 
+2025-02-28T11:16:09.2981605Z     [7m114[0m       // @ts-expect-error - Setting private static field for testing
+2025-02-28T11:16:09.2982831Z     [7m   [0m [91m      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:09.2983474Z 
+2025-02-28T11:16:10.3636996Z PASS src/managers/progression/ProgressionManager.test.ts
+2025-02-28T11:16:10.3911066Z PASS src/core/GameLoop.test.ts
+2025-02-28T11:16:10.4300885Z   ● Console
+2025-02-28T11:16:10.4301116Z 
+2025-02-28T11:16:10.4301241Z     console.log
+2025-02-28T11:16:10.4301716Z       GameLoop: Registered handler, total: 1
+2025-02-28T11:16:10.4302040Z 
+2025-02-28T11:16:10.4302371Z       at GameLoop.registerHandler (src/core/GameLoop.ts:292:17)
+2025-02-28T11:16:10.4302781Z 
+2025-02-28T11:16:10.4302916Z     console.log
+2025-02-28T11:16:10.4303298Z       GameLoop: Started with tick rate 1Hz
+2025-02-28T11:16:10.4303600Z 
+2025-02-28T11:16:10.4303927Z       at GameLoop.start (src/core/GameLoop.ts:121:15)
+2025-02-28T11:16:10.4304295Z 
+2025-02-28T11:16:10.4304424Z     console.log
+2025-02-28T11:16:10.4305631Z       Warning not called, but this is acceptable in the mock environment
+2025-02-28T11:16:10.4306086Z 
+2025-02-28T11:16:10.4306386Z       at Object.<anonymous> (src/core/GameLoop.test.ts:328:15)
+2025-02-28T11:16:10.4306758Z 
+2025-02-28T11:16:10.4306879Z     console.log
+2025-02-28T11:16:10.4307284Z       GameLoop: Stopped after 2 ticks and 1 frames
+2025-02-28T11:16:10.4307604Z 
+2025-02-28T11:16:10.4307840Z       at GameLoop.stop (src/core/GameLoop.ts:139:15)
+2025-02-28T11:16:10.4308169Z 
+2025-02-28T11:16:10.4308304Z     console.log
+2025-02-28T11:16:10.4308725Z       GameLoop: Unregistered handler, remaining: 0
+2025-02-28T11:16:10.4309050Z 
+2025-02-28T11:16:10.4309395Z       at GameLoop.unregisterHandler (src/core/GameLoop.ts:309:17)
+2025-02-28T11:16:10.4309804Z 
+2025-02-28T11:16:10.8098831Z FAIL src/systems/__tests__/saveManager.test.ts
+2025-02-28T11:16:10.8099667Z   ● Test suite failed to run
+2025-02-28T11:16:10.8099905Z 
+2025-02-28T11:16:10.8100685Z     [96msrc/utils/testUtils.ts[0m:[93m78[0m:[93m5[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:10.8101374Z 
+2025-02-28T11:16:10.8101844Z     [7m78[0m     // @ts-expect-error - Accessing private field for testing
+2025-02-28T11:16:10.8102686Z     [7m  [0m [91m    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:10.8103865Z     [96msrc/utils/testUtils.ts[0m:[93m108[0m:[93m7[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:10.8104530Z 
+2025-02-28T11:16:10.8105054Z     [7m108[0m       // @ts-expect-error - Accessing private constructor for testing
+2025-02-28T11:16:10.8106213Z     [7m   [0m [91m      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:10.8107417Z     [96msrc/utils/testUtils.ts[0m:[93m114[0m:[93m7[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:10.8108063Z 
+2025-02-28T11:16:10.8108575Z     [7m114[0m       // @ts-expect-error - Setting private static field for testing
+2025-02-28T11:16:10.8109447Z     [7m   [0m [91m      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:10.8109824Z 
+2025-02-28T11:16:11.5065784Z PASS src/utils/resourceUtils.test.ts
+2025-02-28T11:16:11.7075549Z PASS src/state/tasksSlice.test.ts
+2025-02-28T11:16:11.8332241Z PASS src/systems/__tests__/eventManager.test.ts
+2025-02-28T11:16:11.8639552Z   ● Console
+2025-02-28T11:16:11.8640344Z 
+2025-02-28T11:16:11.8640698Z     console.warn
+2025-02-28T11:16:11.8641947Z       Found inconsistency: Event inconsistent-event has ACTIVE status but is not in active list, fixing...
+2025-02-28T11:16:11.8642577Z 
+2025-02-28T11:16:11.8643541Z     [0m [90m 202 |[39m       [33mObject[39m[33m.[39mvalues(state[33m.[39mevents[33m.[39mavailableEvents)[33m.[39mforEach(event [33m=>[39m {
+2025-02-28T11:16:11.8645866Z      [90m 203 |[39m         [36mif[39m (event[33m.[39mstatus [33m===[39m [33mEventStatus[39m[33m.[39m[33mACTIVE[39m [33m&&[39m [33m![39mstate[33m.[39mevents[33m.[39mactiveEvents[33m.[39mincludes(event[33m.[39mid)) {
+2025-02-28T11:16:11.8648309Z     [31m[1m>[22m[39m[90m 204 |[39m           console[33m.[39mwarn([32m`Found inconsistency: Event ${event.id} has ACTIVE status but is not in active list, fixing...`[39m)[33m;[39m
+2025-02-28T11:16:11.8649531Z      [90m     |[39m                   [31m[1m^[22m[39m
+2025-02-28T11:16:11.8650310Z      [90m 205 |[39m           [90m// Either add to active list or fix status[39m
+2025-02-28T11:16:11.8651392Z      [90m 206 |[39m           [36mthis[39m[33m.[39mdispatch([36mthis[39m[33m.[39mactions[33m.[39mupdateEvent({
+2025-02-28T11:16:11.8652337Z      [90m 207 |[39m             id[33m:[39m event[33m.[39mid[33m,[39m[0m
+2025-02-28T11:16:11.8652712Z 
+2025-02-28T11:16:11.8652920Z       at src/systems/eventManager.ts:204:19
+2025-02-28T11:16:11.8653398Z           at Array.forEach (<anonymous>)
+2025-02-28T11:16:11.8654122Z       at EventManager.healEventInconsistencies (src/systems/eventManager.ts:202:51)
+2025-02-28T11:16:11.8655619Z       at Object.<anonymous> (src/systems/__tests__/eventManager.test.ts:336:18)
+2025-02-28T11:16:11.8656116Z 
+2025-02-28T11:16:12.3393572Z PASS src/utils/__tests__/saveUtils.test.ts
+2025-02-28T11:16:12.3836917Z   ● Console
+2025-02-28T11:16:12.3837353Z 
+2025-02-28T11:16:12.3837749Z     console.error
+2025-02-28T11:16:12.3838233Z       Failed to save game: Error: Storage quota exceeded
+2025-02-28T11:16:12.3839472Z           at Object.<anonymous> (/home/runner/work/idle-game/idle-game/src/utils/__tests__/saveUtils.test.ts:123:15)
+2025-02-28T11:16:12.3840778Z           at /home/runner/work/idle-game/idle-game/node_modules/jest-mock/build/index.js:397:39
+2025-02-28T11:16:12.3842080Z           at Object.<anonymous> (/home/runner/work/idle-game/idle-game/node_modules/jest-mock/build/index.js:404:13)
+2025-02-28T11:16:12.3843614Z           at Object.mockConstructor [as setItem] (/home/runner/work/idle-game/idle-game/node_modules/jest-mock/build/index.js:108:19)
+2025-02-28T11:16:12.3844972Z           at saveGame (/home/runner/work/idle-game/idle-game/src/utils/saveUtils.ts:56:18)
+2025-02-28T11:16:12.3846313Z           at Object.<anonymous> (/home/runner/work/idle-game/idle-game/src/utils/__tests__/saveUtils.test.ts:127:30)
+2025-02-28T11:16:12.3847654Z           at Promise.then.completed (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/utils.js:298:28)
+2025-02-28T11:16:12.3848669Z           at new Promise (<anonymous>)
+2025-02-28T11:16:12.3849720Z           at callAsyncCircusFn (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/utils.js:231:10)
+2025-02-28T11:16:12.3851140Z           at _callCircusTest (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:316:40)
+2025-02-28T11:16:12.3852353Z           at processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-02-28T11:16:12.3853533Z           at _runTest (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:252:3)
+2025-02-28T11:16:12.3854970Z           at _runTestsForDescribeBlock (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:126:9)
+2025-02-28T11:16:12.3856818Z           at _runTestsForDescribeBlock (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:121:9)
+2025-02-28T11:16:12.3858347Z           at _runTestsForDescribeBlock (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:121:9)
+2025-02-28T11:16:12.3860147Z           at run (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:71:3)
+2025-02-28T11:16:12.3861904Z           at runAndTransformResultsToJestFormat (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+2025-02-28T11:16:12.3863846Z           at jestAdapter (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+2025-02-28T11:16:12.3976607Z           at runTestInternal (/home/runner/work/idle-game/idle-game/node_modules/jest-runner/build/runTest.js:367:16)
+2025-02-28T11:16:12.3978035Z           at runTest (/home/runner/work/idle-game/idle-game/node_modules/jest-runner/build/runTest.js:444:34)
+2025-02-28T11:16:12.3979276Z           at Object.worker (/home/runner/work/idle-game/idle-game/node_modules/jest-runner/build/testWorker.js:106:12)
+2025-02-28T11:16:12.3979939Z 
+2025-02-28T11:16:12.3980552Z     [0m [90m 58 |[39m     [36mreturn[39m [36mtrue[39m[33m;[39m
+2025-02-28T11:16:12.3981202Z      [90m 59 |[39m   } [36mcatch[39m (error) {
+2025-02-28T11:16:12.3982187Z     [31m[1m>[22m[39m[90m 60 |[39m     console[33m.[39merror([32m'Failed to save game:'[39m[33m,[39m error)[33m;[39m
+2025-02-28T11:16:12.3983006Z      [90m    |[39m             [31m[1m^[22m[39m
+2025-02-28T11:16:12.3983609Z      [90m 61 |[39m     [36mreturn[39m [36mfalse[39m[33m;[39m
+2025-02-28T11:16:12.3984079Z      [90m 62 |[39m   }
+2025-02-28T11:16:12.3984733Z      [90m 63 |[39m }[0m
+2025-02-28T11:16:12.3984939Z 
+2025-02-28T11:16:12.3985372Z       at saveGame (src/utils/saveUtils.ts:60:13)
+2025-02-28T11:16:12.3986010Z       at Object.<anonymous> (src/utils/__tests__/saveUtils.test.ts:127:30)
+2025-02-28T11:16:12.3986418Z 
+2025-02-28T11:16:12.3986542Z     console.error
+2025-02-28T11:16:12.3987187Z       Failed to load game: SyntaxError: Unexpected token 'i', "invalid json data" is not valid JSON
+2025-02-28T11:16:12.3987859Z           at JSON.parse (<anonymous>)
+2025-02-28T11:16:12.3988547Z           at loadGame (/home/runner/work/idle-game/idle-game/src/utils/saveUtils.ts:79:37)
+2025-02-28T11:16:12.3989607Z           at Object.<anonymous> (/home/runner/work/idle-game/idle-game/src/utils/__tests__/saveUtils.test.ts:164:30)
+2025-02-28T11:16:12.3990817Z           at Promise.then.completed (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/utils.js:298:28)
+2025-02-28T11:16:12.3991624Z           at new Promise (<anonymous>)
+2025-02-28T11:16:12.3992471Z           at callAsyncCircusFn (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/utils.js:231:10)
+2025-02-28T11:16:12.3993639Z           at _callCircusTest (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:316:40)
+2025-02-28T11:16:12.3994587Z           at processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-02-28T11:16:12.3995734Z           at _runTest (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:252:3)
+2025-02-28T11:16:12.3997017Z           at _runTestsForDescribeBlock (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:126:9)
+2025-02-28T11:16:12.3998397Z           at _runTestsForDescribeBlock (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:121:9)
+2025-02-28T11:16:12.3999742Z           at _runTestsForDescribeBlock (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:121:9)
+2025-02-28T11:16:12.4000916Z           at run (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:71:3)
+2025-02-28T11:16:12.4106491Z           at runAndTransformResultsToJestFormat (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+2025-02-28T11:16:12.4108454Z           at jestAdapter (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+2025-02-28T11:16:12.4110237Z           at runTestInternal (/home/runner/work/idle-game/idle-game/node_modules/jest-runner/build/runTest.js:367:16)
+2025-02-28T11:16:12.4111468Z           at runTest (/home/runner/work/idle-game/idle-game/node_modules/jest-runner/build/runTest.js:444:34)
+2025-02-28T11:16:12.4112702Z           at Object.worker (/home/runner/work/idle-game/idle-game/node_modules/jest-runner/build/testWorker.js:106:12)
+2025-02-28T11:16:12.4113364Z 
+2025-02-28T11:16:12.4113912Z     [0m [90m 93 |[39m     [36mreturn[39m saveData[33m;[39m
+2025-02-28T11:16:12.4114532Z      [90m 94 |[39m   } [36mcatch[39m (error) {
+2025-02-28T11:16:12.4115740Z     [31m[1m>[22m[39m[90m 95 |[39m     console[33m.[39merror([32m'Failed to load game:'[39m[33m,[39m error)[33m;[39m
+2025-02-28T11:16:12.4116592Z      [90m    |[39m             [31m[1m^[22m[39m
+2025-02-28T11:16:12.4117228Z      [90m 96 |[39m     [36mreturn[39m [36mnull[39m[33m;[39m
+2025-02-28T11:16:12.4117750Z      [90m 97 |[39m   }
+2025-02-28T11:16:12.4118138Z      [90m 98 |[39m }[0m
+2025-02-28T11:16:12.4118369Z 
+2025-02-28T11:16:12.4118606Z       at loadGame (src/utils/saveUtils.ts:95:13)
+2025-02-28T11:16:12.4119273Z       at Object.<anonymous> (src/utils/__tests__/saveUtils.test.ts:164:30)
+2025-02-28T11:16:12.4119709Z 
+2025-02-28T11:16:12.4119836Z     console.error
+2025-02-28T11:16:12.4120240Z       Failed to delete save: Error: Storage error
+2025-02-28T11:16:12.4121160Z           at Object.<anonymous> (/home/runner/work/idle-game/idle-game/src/utils/__tests__/saveUtils.test.ts:214:15)
+2025-02-28T11:16:12.4122515Z           at /home/runner/work/idle-game/idle-game/node_modules/jest-mock/build/index.js:397:39
+2025-02-28T11:16:12.4123643Z           at Object.<anonymous> (/home/runner/work/idle-game/idle-game/node_modules/jest-mock/build/index.js:404:13)
+2025-02-28T11:16:12.4124997Z           at Object.mockConstructor [as removeItem] (/home/runner/work/idle-game/idle-game/node_modules/jest-mock/build/index.js:103:19)
+2025-02-28T11:16:12.4126386Z           at deleteSave (/home/runner/work/idle-game/idle-game/src/utils/saveUtils.ts:105:18)
+2025-02-28T11:16:12.4127477Z           at Object.<anonymous> (/home/runner/work/idle-game/idle-game/src/utils/__tests__/saveUtils.test.ts:218:32)
+2025-02-28T11:16:12.4128749Z           at Promise.then.completed (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/utils.js:298:28)
+2025-02-28T11:16:12.4129601Z           at new Promise (<anonymous>)
+2025-02-28T11:16:12.4130494Z           at callAsyncCircusFn (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/utils.js:231:10)
+2025-02-28T11:16:12.4131737Z           at _callCircusTest (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:316:40)
+2025-02-28T11:16:12.4132759Z           at processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-02-28T11:16:12.4133752Z           at _runTest (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:252:3)
+2025-02-28T11:16:12.4134979Z           at _runTestsForDescribeBlock (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:126:9)
+2025-02-28T11:16:12.4193533Z           at _runTestsForDescribeBlock (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:121:9)
+2025-02-28T11:16:12.4194978Z           at _runTestsForDescribeBlock (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:121:9)
+2025-02-28T11:16:12.4196372Z           at run (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:71:3)
+2025-02-28T11:16:12.4197892Z           at runAndTransformResultsToJestFormat (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+2025-02-28T11:16:12.4199670Z           at jestAdapter (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+2025-02-28T11:16:12.4201098Z           at runTestInternal (/home/runner/work/idle-game/idle-game/node_modules/jest-runner/build/runTest.js:367:16)
+2025-02-28T11:16:12.4202631Z           at runTest (/home/runner/work/idle-game/idle-game/node_modules/jest-runner/build/runTest.js:444:34)
+2025-02-28T11:16:12.4203914Z           at Object.worker (/home/runner/work/idle-game/idle-game/node_modules/jest-runner/build/testWorker.js:106:12)
+2025-02-28T11:16:12.4204599Z 
+2025-02-28T11:16:12.4205360Z     [0m [90m 108 |[39m     [36mreturn[39m [36mtrue[39m[33m;[39m
+2025-02-28T11:16:12.4206102Z      [90m 109 |[39m   } [36mcatch[39m (error) {
+2025-02-28T11:16:12.4207223Z     [31m[1m>[22m[39m[90m 110 |[39m     console[33m.[39merror([32m'Failed to delete save:'[39m[33m,[39m error)[33m;[39m
+2025-02-28T11:16:12.4208170Z      [90m     |[39m             [31m[1m^[22m[39m
+2025-02-28T11:16:12.4208875Z      [90m 111 |[39m     [36mreturn[39m [36mfalse[39m[33m;[39m
+2025-02-28T11:16:12.4209449Z      [90m 112 |[39m   }
+2025-02-28T11:16:12.4209851Z      [90m 113 |[39m }[0m
+2025-02-28T11:16:12.4210077Z 
+2025-02-28T11:16:12.4210357Z       at deleteSave (src/utils/saveUtils.ts:110:13)
+2025-02-28T11:16:12.4211021Z       at Object.<anonymous> (src/utils/__tests__/saveUtils.test.ts:218:32)
+2025-02-28T11:16:12.4211439Z 
+2025-02-28T11:16:12.4211581Z     console.error
+2025-02-28T11:16:12.4211948Z       No backup found at index 0
+2025-02-28T11:16:12.4212208Z 
+2025-02-28T11:16:12.4212459Z     [0m [90m 165 |[39m     
+2025-02-28T11:16:12.4213070Z      [90m 166 |[39m     [36mif[39m ([33m![39mserializedState) {
+2025-02-28T11:16:12.4214225Z     [31m[1m>[22m[39m[90m 167 |[39m       console[33m.[39merror([32m'No backup found at index'[39m[33m,[39m backupIndex)[33m;[39m
+2025-02-28T11:16:12.4266053Z      [90m     |[39m               [31m[1m^[22m[39m
+2025-02-28T11:16:12.4266862Z      [90m 168 |[39m       [36mreturn[39m [36mnull[39m[33m;[39m
+2025-02-28T11:16:12.4267385Z      [90m 169 |[39m     }
+2025-02-28T11:16:12.4267788Z      [90m 170 |[39m     [0m
+2025-02-28T11:16:12.4268023Z 
+2025-02-28T11:16:12.4268319Z       at restoreFromBackup (src/utils/saveUtils.ts:167:15)
+2025-02-28T11:16:12.4269013Z       at Object.<anonymous> (src/utils/__tests__/saveUtils.test.ts:272:39)
+2025-02-28T11:16:12.4269438Z 
+2025-02-28T11:16:12.4269572Z     console.error
+2025-02-28T11:16:12.4269906Z       Invalid backup index
+2025-02-28T11:16:12.4270147Z 
+2025-02-28T11:16:12.4270468Z     [0m [90m 157 |[39m   [36mtry[39m {
+2025-02-28T11:16:12.4271390Z      [90m 158 |[39m     [36mif[39m (backupIndex [33m>=[39m [33mBACKUP_SAVE_KEYS[39m[33m.[39mlength) {
+2025-02-28T11:16:12.4272559Z     [31m[1m>[22m[39m[90m 159 |[39m       console[33m.[39merror([32m'Invalid backup index'[39m)[33m;[39m
+2025-02-28T11:16:12.4273495Z      [90m     |[39m               [31m[1m^[22m[39m
+2025-02-28T11:16:12.4274213Z      [90m 160 |[39m       [36mreturn[39m [36mnull[39m[33m;[39m
+2025-02-28T11:16:12.4274748Z      [90m 161 |[39m     }
+2025-02-28T11:16:12.4275443Z      [90m 162 |[39m     [0m
+2025-02-28T11:16:12.4275692Z 
+2025-02-28T11:16:12.4275991Z       at restoreFromBackup (src/utils/saveUtils.ts:159:15)
+2025-02-28T11:16:12.4276718Z       at Object.<anonymous> (src/utils/__tests__/saveUtils.test.ts:280:39)
+2025-02-28T11:16:12.4277156Z 
+2025-02-28T11:16:12.4277286Z     console.error
+2025-02-28T11:16:12.4277994Z       Failed to import save: SyntaxError: Unexpected token 'o', "not valid json" is not valid JSON
+2025-02-28T11:16:12.4278739Z           at JSON.parse (<anonymous>)
+2025-02-28T11:16:12.4279504Z           at importSave (/home/runner/work/idle-game/idle-game/src/utils/saveUtils.ts:197:37)
+2025-02-28T11:16:12.4280686Z           at Object.<anonymous> (/home/runner/work/idle-game/idle-game/src/utils/__tests__/saveUtils.test.ts:324:32)
+2025-02-28T11:16:12.4281990Z           at Promise.then.completed (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/utils.js:298:28)
+2025-02-28T11:16:12.4282869Z           at new Promise (<anonymous>)
+2025-02-28T11:16:12.4284095Z           at callAsyncCircusFn (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/utils.js:231:10)
+2025-02-28T11:16:12.4285663Z           at _callCircusTest (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:316:40)
+2025-02-28T11:16:12.4286760Z           at processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-02-28T11:16:12.4287811Z           at _runTest (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:252:3)
+2025-02-28T11:16:12.4289073Z           at _runTestsForDescribeBlock (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:126:9)
+2025-02-28T11:16:12.4290452Z           at _runTestsForDescribeBlock (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:121:9)
+2025-02-28T11:16:12.4291876Z           at _runTestsForDescribeBlock (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:121:9)
+2025-02-28T11:16:12.4293102Z           at run (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:71:3)
+2025-02-28T11:16:12.4294731Z           at runAndTransformResultsToJestFormat (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+2025-02-28T11:16:12.4347016Z           at jestAdapter (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+2025-02-28T11:16:12.4348560Z           at runTestInternal (/home/runner/work/idle-game/idle-game/node_modules/jest-runner/build/runTest.js:367:16)
+2025-02-28T11:16:12.4350150Z           at runTest (/home/runner/work/idle-game/idle-game/node_modules/jest-runner/build/runTest.js:444:34)
+2025-02-28T11:16:12.4351413Z           at Object.worker (/home/runner/work/idle-game/idle-game/node_modules/jest-runner/build/testWorker.js:106:12)
+2025-02-28T11:16:12.4352103Z 
+2025-02-28T11:16:12.4352622Z     [0m [90m 208 |[39m     [36mreturn[39m saveData[33m;[39m
+2025-02-28T11:16:12.4353325Z      [90m 209 |[39m   } [36mcatch[39m (error) {
+2025-02-28T11:16:12.4354451Z     [31m[1m>[22m[39m[90m 210 |[39m     console[33m.[39merror([32m'Failed to import save:'[39m[33m,[39m error)[33m;[39m
+2025-02-28T11:16:12.4355616Z      [90m     |[39m             [31m[1m^[22m[39m
+2025-02-28T11:16:12.4356341Z      [90m 211 |[39m     [36mreturn[39m [36mnull[39m[33m;[39m
+2025-02-28T11:16:12.4356882Z      [90m 212 |[39m   }
+2025-02-28T11:16:12.4357293Z      [90m 213 |[39m }[0m
+2025-02-28T11:16:12.4357523Z 
+2025-02-28T11:16:12.4357779Z       at importSave (src/utils/saveUtils.ts:210:13)
+2025-02-28T11:16:12.4358504Z       at Object.<anonymous> (src/utils/__tests__/saveUtils.test.ts:324:32)
+2025-02-28T11:16:12.4358949Z 
+2025-02-28T11:16:12.4359089Z     console.error
+2025-02-28T11:16:12.4359459Z       Invalid save data format
+2025-02-28T11:16:12.4359711Z 
+2025-02-28T11:16:12.4360111Z     [0m [90m 199 |[39m     [90m// Validate the data[39m
+2025-02-28T11:16:12.4361394Z      [90m 200 |[39m     [36mif[39m ([33m![39msaveData [33m||[39m [33m![39msaveData[33m.[39mversion [33m||[39m [33m![39msaveData[33m.[39mstate) {
+2025-02-28T11:16:12.4362831Z     [31m[1m>[22m[39m[90m 201 |[39m       console[33m.[39merror([32m'Invalid save data format'[39m)[33m;[39m
+2025-02-28T11:16:12.4363674Z      [90m     |[39m               [31m[1m^[22m[39m
+2025-02-28T11:16:12.4364376Z      [90m 202 |[39m       [36mreturn[39m [36mnull[39m[33m;[39m
+2025-02-28T11:16:12.4364948Z      [90m 203 |[39m     }
+2025-02-28T11:16:12.4365623Z      [90m 204 |[39m     [0m
+2025-02-28T11:16:12.4365883Z 
+2025-02-28T11:16:12.4366129Z       at importSave (src/utils/saveUtils.ts:201:15)
+2025-02-28T11:16:12.4366841Z       at Object.<anonymous> (src/utils/__tests__/saveUtils.test.ts:335:32)
+2025-02-28T11:16:12.4367296Z 
+2025-02-28T11:16:12.6831969Z FAIL src/managers/TaskManager.test.ts
+2025-02-28T11:16:12.7059599Z   ● Console
+2025-02-28T11:16:12.7059826Z 
+2025-02-28T11:16:12.7059952Z     console.log
+2025-02-28T11:16:12.7060834Z       TaskManager: Registered with GameLoop
+2025-02-28T11:16:12.7061181Z 
+2025-02-28T11:16:12.7061624Z       at TaskManager.registerWithGameLoop (src/managers/TaskManager.ts:109:15)
+2025-02-28T11:16:12.7062137Z 
+2025-02-28T11:16:12.7062262Z     console.log
+2025-02-28T11:16:12.7062660Z       TaskManager: Registered with GameLoop
+2025-02-28T11:16:12.7062961Z 
+2025-02-28T11:16:12.7063389Z       at TaskManager.registerWithGameLoop (src/managers/TaskManager.ts:109:15)
+2025-02-28T11:16:12.7063882Z 
+2025-02-28T11:16:12.7064006Z     console.log
+2025-02-28T11:16:12.7064408Z       TaskManager: Registered with GameLoop
+2025-02-28T11:16:12.7064697Z 
+2025-02-28T11:16:12.7065309Z       at TaskManager.registerWithGameLoop (src/managers/TaskManager.ts:109:15)
+2025-02-28T11:16:12.7065818Z 
+2025-02-28T11:16:12.7065955Z     console.warn
+2025-02-28T11:16:12.7066316Z       Cannot afford task test-task
+2025-02-28T11:16:12.7066587Z 
+2025-02-28T11:16:12.7066983Z     [0m [90m 291 |[39m       [90m// Check resources[39m
+2025-02-28T11:16:12.7067886Z      [90m 292 |[39m       [36mif[39m ([33m![39m[36mthis[39m[33m.[39mcanAffordTask(taskId)) {
+2025-02-28T11:16:12.7069039Z     [31m[1m>[22m[39m[90m 293 |[39m         console[33m.[39mwarn([32m`Cannot afford task ${taskId}`[39m)[33m;[39m
+2025-02-28T11:16:12.7069932Z      [90m     |[39m                 [31m[1m^[22m[39m
+2025-02-28T11:16:12.7070674Z      [90m 294 |[39m         [36mreturn[39m [36mfalse[39m[33m;[39m
+2025-02-28T11:16:12.7071209Z      [90m 295 |[39m       }
+2025-02-28T11:16:12.7072056Z      [90m 296 |[39m       [0m
+2025-02-28T11:16:12.7072298Z 
+2025-02-28T11:16:12.7072633Z       at TaskManager.startTask (src/managers/TaskManager.ts:293:17)
+2025-02-28T11:16:12.7073360Z       at Object.<anonymous> (src/managers/TaskManager.test.ts:136:32)
+2025-02-28T11:16:12.7073755Z 
+2025-02-28T11:16:12.7073873Z     console.log
+2025-02-28T11:16:12.7074244Z       TaskManager: Registered with GameLoop
+2025-02-28T11:16:12.7074531Z 
+2025-02-28T11:16:12.7074959Z       at TaskManager.registerWithGameLoop (src/managers/TaskManager.ts:109:15)
+2025-02-28T11:16:12.7075621Z 
+2025-02-28T11:16:12.7075750Z     console.log
+2025-02-28T11:16:12.7076125Z       TaskManager: Registered with GameLoop
+2025-02-28T11:16:12.7106262Z 
+2025-02-28T11:16:12.7106759Z       at TaskManager.registerWithGameLoop (src/managers/TaskManager.ts:109:15)
+2025-02-28T11:16:12.7107284Z 
+2025-02-28T11:16:12.7107405Z     console.log
+2025-02-28T11:16:12.7107787Z       TaskManager: Registered with GameLoop
+2025-02-28T11:16:12.7108097Z 
+2025-02-28T11:16:12.7108516Z       at TaskManager.registerWithGameLoop (src/managers/TaskManager.ts:109:15)
+2025-02-28T11:16:12.7109011Z 
+2025-02-28T11:16:12.7109132Z     console.log
+2025-02-28T11:16:12.7109512Z       TaskManager: Registered with GameLoop
+2025-02-28T11:16:12.7109799Z 
+2025-02-28T11:16:12.7110232Z       at TaskManager.registerWithGameLoop (src/managers/TaskManager.ts:109:15)
+2025-02-28T11:16:12.7110724Z 
+2025-02-28T11:16:12.7110845Z     console.log
+2025-02-28T11:16:12.7111248Z       TaskManager: Registered with GameLoop
+2025-02-28T11:16:12.7111546Z 
+2025-02-28T11:16:12.7111977Z       at TaskManager.registerWithGameLoop (src/managers/TaskManager.ts:109:15)
+2025-02-28T11:16:12.7112472Z 
+2025-02-28T11:16:12.7112594Z     console.log
+2025-02-28T11:16:12.7112962Z       TaskManager: Registered with GameLoop
+2025-02-28T11:16:12.7113259Z 
+2025-02-28T11:16:12.7113986Z       at TaskManager.registerWithGameLoop (src/managers/TaskManager.ts:109:15)
+2025-02-28T11:16:12.7140093Z 
+2025-02-28T11:16:12.7140260Z     console.log
+2025-02-28T11:16:12.7140676Z       TaskManager: Registered with GameLoop
+2025-02-28T11:16:12.7140981Z 
+2025-02-28T11:16:12.7141405Z       at TaskManager.registerWithGameLoop (src/managers/TaskManager.ts:109:15)
+2025-02-28T11:16:12.7141944Z 
+2025-02-28T11:16:12.7142488Z   ● TaskManager › startTask checks if task exists and is available
+2025-02-28T11:16:12.7142904Z 
+2025-02-28T11:16:12.7143176Z     expect(received).toBe(expected) // Object.is equality
+2025-02-28T11:16:12.7143522Z 
+2025-02-28T11:16:12.7143992Z     Expected: true
+2025-02-28T11:16:12.7144309Z     Received: false
+2025-02-28T11:16:12.7144498Z 
+2025-02-28T11:16:12.7144918Z     [0m [90m 135 |[39m     [90m// Should succeed for available task[39m
+2025-02-28T11:16:12.7147412Z      [90m 136 |[39m     [36mconst[39m result [33m=[39m taskManager[33m.[39mstartTask([32m'test-task'[39m)[33m;[39m
+2025-02-28T11:16:12.7148518Z     [31m[1m>[22m[39m[90m 137 |[39m     expect(result)[33m.[39mtoBe([36mtrue[39m)[33m;[39m
+2025-02-28T11:16:12.7149283Z      [90m     |[39m                    [31m[1m^[22m[39m
+2025-02-28T11:16:12.7150076Z      [90m 138 |[39m     expect(store[33m.[39mdispatch)[33m.[39mtoHaveBeenCalledWith(
+2025-02-28T11:16:12.7150858Z      [90m 139 |[39m       expect[33m.[39mobjectContaining({
+2025-02-28T11:16:12.7151621Z      [90m 140 |[39m         type[33m:[39m startTask[33m.[39mtype[33m,[39m[0m
+2025-02-28T11:16:12.7152007Z 
+2025-02-28T11:16:12.7152341Z       at Object.<anonymous> (src/managers/TaskManager.test.ts:137:20)
+2025-02-28T11:16:12.7152739Z 
+2025-02-28T11:16:12.7153192Z   ● TaskManager › canAffordTask checks if player has enough resources
+2025-02-28T11:16:12.7153614Z 
+2025-02-28T11:16:12.7153888Z     expect(received).toBe(expected) // Object.is equality
+2025-02-28T11:16:12.7154232Z 
+2025-02-28T11:16:12.7154354Z     Expected: true
+2025-02-28T11:16:12.7154652Z     Received: false
+2025-02-28T11:16:12.7154831Z 
+2025-02-28T11:16:12.7155366Z     [0m [90m 161 |[39m     [90m// Can afford this task[39m
+2025-02-28T11:16:12.7156694Z      [90m 162 |[39m     [36mconst[39m canAfford [33m=[39m taskManager[33m.[39mcanAffordTask([32m'test-task'[39m)[33m;[39m
+2025-02-28T11:16:12.7157834Z     [31m[1m>[22m[39m[90m 163 |[39m     expect(canAfford)[33m.[39mtoBe([36mtrue[39m)[33m;[39m
+2025-02-28T11:16:12.7158611Z      [90m     |[39m                       [31m[1m^[22m[39m
+2025-02-28T11:16:12.7159084Z      [90m 164 |[39m     
+2025-02-28T11:16:12.7159677Z      [90m 165 |[39m     [90m// Mock resources to be insufficient[39m
+2025-02-28T11:16:12.7160879Z      [90m 166 |[39m     (store[33m.[39mgetState [36mas[39m jest[33m.[39m[33mMock[39m)[33m.[39mmockReturnValueOnce({[0m
+2025-02-28T11:16:12.7161468Z 
+2025-02-28T11:16:12.7161790Z       at Object.<anonymous> (src/managers/TaskManager.test.ts:163:23)
+2025-02-28T11:16:12.7162181Z 
+2025-02-28T11:16:12.9664862Z FAIL src/gameCore.integration.test.tsx
+2025-02-28T11:16:12.9670152Z   ● Test suite failed to run
+2025-02-28T11:16:12.9670792Z 
+2025-02-28T11:16:12.9671846Z     [96msrc/utils/testUtils.ts[0m:[93m78[0m:[93m5[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:12.9676379Z 
+2025-02-28T11:16:12.9677413Z     [7m78[0m     // @ts-expect-error - Accessing private field for testing
+2025-02-28T11:16:12.9678575Z     [7m  [0m [91m    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:12.9680098Z     [96msrc/utils/testUtils.ts[0m:[93m108[0m:[93m7[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:12.9680884Z 
+2025-02-28T11:16:12.9681507Z     [7m108[0m       // @ts-expect-error - Accessing private constructor for testing
+2025-02-28T11:16:12.9682537Z     [7m   [0m [91m      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:12.9683852Z     [96msrc/utils/testUtils.ts[0m:[93m114[0m:[93m7[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:12.9684711Z 
+2025-02-28T11:16:12.9688319Z     [7m114[0m       // @ts-expect-error - Setting private static field for testing
+2025-02-28T11:16:12.9689504Z     [7m   [0m [91m      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:12.9689903Z 
+2025-02-28T11:16:13.0174084Z PASS src/state/middleware/taskMiddleware.test.ts
+2025-02-28T11:16:13.4156930Z PASS src/tests/gameSystemCoherenceTest.test.ts
+2025-02-28T11:16:13.4257761Z PASS src/core/GameManager.test.ts
+2025-02-28T11:16:13.4598575Z   ● Console
+2025-02-28T11:16:13.4602147Z 
+2025-02-28T11:16:13.4606104Z     console.log
+2025-02-28T11:16:13.4610377Z       GameManager: Started time scale sync interval
+2025-02-28T11:16:13.4612095Z 
+2025-02-28T11:16:13.4613975Z       at GameManager.startTimeScaleSync (src/core/GameManager.ts:269:15)
+2025-02-28T11:16:13.4614668Z 
+2025-02-28T11:16:13.4615090Z     console.log
+2025-02-28T11:16:13.4615829Z       GameManager: Started Redux time sync interval
+2025-02-28T11:16:13.4616172Z 
+2025-02-28T11:16:13.4616578Z       at GameManager.startReduxTimeSync (src/core/GameManager.ts:309:15)
+2025-02-28T11:16:13.4617012Z 
+2025-02-28T11:16:13.4617133Z     console.error
+2025-02-28T11:16:13.4617929Z       Error checking all progression items: TypeError: Cannot read properties of undefined (reading 'milestoneIds')
+2025-02-28T11:16:13.4619132Z           at selectMilestoneIds (/home/runner/work/idle-game/idle-game/src/redux/progressionSlice.ts:199:92)
+2025-02-28T11:16:13.4620405Z           at collectInputSelectorResults (/home/runner/work/idle-game/idle-game/node_modules/reselect/src/utils.ts:122:47)
+2025-02-28T11:16:13.4621817Z           at dependenciesChecker (/home/runner/work/idle-game/idle-game/node_modules/reselect/src/createSelectorCreator.ts:405:36)
+2025-02-28T11:16:13.4623130Z           at memoized (/home/runner/work/idle-game/idle-game/node_modules/reselect/src/weakMapMemoize.ts:228:21)
+2025-02-28T11:16:13.4624268Z           at collectInputSelectorResults (/home/runner/work/idle-game/idle-game/node_modules/reselect/src/utils.ts:122:47)
+2025-02-28T11:16:13.4625879Z           at dependenciesChecker (/home/runner/work/idle-game/idle-game/node_modules/reselect/src/createSelectorCreator.ts:405:36)
+2025-02-28T11:16:13.4626892Z           at memoized (/home/runner/work/idle-game/idle-game/node_modules/reselect/src/weakMapMemoize.ts:228:21)
+2025-02-28T11:16:13.4628091Z           at ProgressionManager.checkAllProgressionItems (/home/runner/work/idle-game/idle-game/src/managers/progression/ProgressionManager.ts:712:56)
+2025-02-28T11:16:13.4629295Z           at GameManager.updateResourceSystem (/home/runner/work/idle-game/idle-game/src/core/GameManager.ts:471:30)
+2025-02-28T11:16:13.4630216Z           at GameManager.update (/home/runner/work/idle-game/idle-game/src/core/GameManager.ts:420:12)
+2025-02-28T11:16:13.4631072Z           at Object.<anonymous> (/home/runner/work/idle-game/idle-game/src/core/GameManager.test.ts:110:5)
+2025-02-28T11:16:13.4632047Z           at Promise.then.completed (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/utils.js:298:28)
+2025-02-28T11:16:13.4632852Z           at new Promise (<anonymous>)
+2025-02-28T11:16:13.4633691Z           at callAsyncCircusFn (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/utils.js:231:10)
+2025-02-28T11:16:13.4634867Z           at _callCircusTest (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:316:40)
+2025-02-28T11:16:13.4636091Z           at processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-02-28T11:16:13.4637093Z           at _runTest (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:252:3)
+2025-02-28T11:16:13.4638384Z           at _runTestsForDescribeBlock (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:126:9)
+2025-02-28T11:16:13.4639709Z           at _runTestsForDescribeBlock (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:121:9)
+2025-02-28T11:16:13.4640892Z           at run (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:71:3)
+2025-02-28T11:16:13.4642428Z           at runAndTransformResultsToJestFormat (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+2025-02-28T11:16:13.4644272Z           at jestAdapter (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+2025-02-28T11:16:13.4646212Z           at runTestInternal (/home/runner/work/idle-game/idle-game/node_modules/jest-runner/build/runTest.js:367:16)
+2025-02-28T11:16:13.4647460Z           at runTest (/home/runner/work/idle-game/idle-game/node_modules/jest-runner/build/runTest.js:444:34)
+2025-02-28T11:16:13.4648681Z           at Object.worker (/home/runner/work/idle-game/idle-game/node_modules/jest-runner/build/testWorker.js:106:12)
+2025-02-28T11:16:13.4649374Z 
+2025-02-28T11:16:13.4649748Z     [0m [90m 727 |[39m       }
+2025-02-28T11:16:13.4650277Z      [90m 728 |[39m     } [36mcatch[39m (error) {
+2025-02-28T11:16:13.4651427Z     [31m[1m>[22m[39m[90m 729 |[39m       console[33m.[39merror([32m'Error checking all progression items:'[39m[33m,[39m error)[33m;[39m
+2025-02-28T11:16:13.4652395Z      [90m     |[39m               [31m[1m^[22m[39m
+2025-02-28T11:16:13.4652865Z      [90m 730 |[39m     }
+2025-02-28T11:16:13.4653247Z      [90m 731 |[39m     
+2025-02-28T11:16:13.4653918Z      [90m 732 |[39m     [36mif[39m (itemsUpdated [33m>[39m [35m0[39m) {[0m
+2025-02-28T11:16:13.4654320Z 
+2025-02-28T11:16:13.4654981Z       at ProgressionManager.checkAllProgressionItems (src/managers/progression/ProgressionManager.ts:729:15)
+2025-02-28T11:16:13.4656311Z       at GameManager.updateResourceSystem (src/core/GameManager.ts:471:30)
+2025-02-28T11:16:13.4657050Z       at GameManager.update (src/core/GameManager.ts:420:12)
+2025-02-28T11:16:13.4657757Z       at Object.<anonymous> (src/core/GameManager.test.ts:110:5)
+2025-02-28T11:16:13.4658161Z 
+2025-02-28T11:16:13.4658569Z     console.error
+2025-02-28T11:16:13.4659416Z       Error checking all progression items: TypeError: Cannot read properties of undefined (reading 'milestoneIds')
+2025-02-28T11:16:13.4660686Z           at selectMilestoneIds (/home/runner/work/idle-game/idle-game/src/redux/progressionSlice.ts:199:92)
+2025-02-28T11:16:13.4662011Z           at collectInputSelectorResults (/home/runner/work/idle-game/idle-game/node_modules/reselect/src/utils.ts:122:47)
+2025-02-28T11:16:13.4663467Z           at dependenciesChecker (/home/runner/work/idle-game/idle-game/node_modules/reselect/src/createSelectorCreator.ts:405:36)
+2025-02-28T11:16:13.4664808Z           at memoized (/home/runner/work/idle-game/idle-game/node_modules/reselect/src/weakMapMemoize.ts:228:21)
+2025-02-28T11:16:13.4666340Z           at collectInputSelectorResults (/home/runner/work/idle-game/idle-game/node_modules/reselect/src/utils.ts:122:47)
+2025-02-28T11:16:13.4667779Z           at dependenciesChecker (/home/runner/work/idle-game/idle-game/node_modules/reselect/src/createSelectorCreator.ts:405:36)
+2025-02-28T11:16:13.4669101Z           at memoized (/home/runner/work/idle-game/idle-game/node_modules/reselect/src/weakMapMemoize.ts:228:21)
+2025-02-28T11:16:13.4670631Z           at ProgressionManager.checkAllProgressionItems (/home/runner/work/idle-game/idle-game/src/managers/progression/ProgressionManager.ts:712:56)
+2025-02-28T11:16:13.4672190Z           at GameManager.updateResourceSystem (/home/runner/work/idle-game/idle-game/src/core/GameManager.ts:471:30)
+2025-02-28T11:16:13.4673410Z           at Object.<anonymous> (/home/runner/work/idle-game/idle-game/src/core/GameManager.test.ts:133:26)
+2025-02-28T11:16:13.4674652Z           at Promise.then.completed (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/utils.js:298:28)
+2025-02-28T11:16:13.4675708Z           at new Promise (<anonymous>)
+2025-02-28T11:16:13.4676636Z           at callAsyncCircusFn (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/utils.js:231:10)
+2025-02-28T11:16:13.4677934Z           at _callCircusTest (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:316:40)
+2025-02-28T11:16:13.4678948Z           at processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-02-28T11:16:13.4679920Z           at _runTest (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:252:3)
+2025-02-28T11:16:13.4681370Z           at _runTestsForDescribeBlock (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:126:9)
+2025-02-28T11:16:13.4682754Z           at _runTestsForDescribeBlock (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:121:9)
+2025-02-28T11:16:13.4683914Z           at run (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:71:3)
+2025-02-28T11:16:13.4685717Z           at runAndTransformResultsToJestFormat (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+2025-02-28T11:16:13.4687568Z           at jestAdapter (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+2025-02-28T11:16:13.4688982Z           at runTestInternal (/home/runner/work/idle-game/idle-game/node_modules/jest-runner/build/runTest.js:367:16)
+2025-02-28T11:16:13.4690159Z           at runTest (/home/runner/work/idle-game/idle-game/node_modules/jest-runner/build/runTest.js:444:34)
+2025-02-28T11:16:13.4691353Z           at Object.worker (/home/runner/work/idle-game/idle-game/node_modules/jest-runner/build/testWorker.js:106:12)
+2025-02-28T11:16:13.4692014Z 
+2025-02-28T11:16:13.4692323Z     [0m [90m 727 |[39m       }
+2025-02-28T11:16:13.4692879Z      [90m 728 |[39m     } [36mcatch[39m (error) {
+2025-02-28T11:16:13.4694034Z     [31m[1m>[22m[39m[90m 729 |[39m       console[33m.[39merror([32m'Error checking all progression items:'[39m[33m,[39m error)[33m;[39m
+2025-02-28T11:16:13.4695009Z      [90m     |[39m               [31m[1m^[22m[39m
+2025-02-28T11:16:13.4695945Z      [90m 730 |[39m     }
+2025-02-28T11:16:13.4696353Z      [90m 731 |[39m     
+2025-02-28T11:16:13.4697030Z      [90m 732 |[39m     [36mif[39m (itemsUpdated [33m>[39m [35m0[39m) {[0m
+2025-02-28T11:16:13.4697431Z 
+2025-02-28T11:16:13.4698095Z       at ProgressionManager.checkAllProgressionItems (src/managers/progression/ProgressionManager.ts:729:15)
+2025-02-28T11:16:13.4699192Z       at GameManager.updateResourceSystem (src/core/GameManager.ts:471:30)
+2025-02-28T11:16:13.4699953Z       at Object.<anonymous> (src/core/GameManager.test.ts:133:26)
+2025-02-28T11:16:13.4700353Z 
+2025-02-28T11:16:13.4700475Z     console.error
+2025-02-28T11:16:13.4701303Z       Error checking all progression items: TypeError: Cannot read properties of undefined (reading 'milestoneIds')
+2025-02-28T11:16:13.4702537Z           at selectMilestoneIds (/home/runner/work/idle-game/idle-game/src/redux/progressionSlice.ts:199:92)
+2025-02-28T11:16:13.4703824Z           at collectInputSelectorResults (/home/runner/work/idle-game/idle-game/node_modules/reselect/src/utils.ts:122:47)
+2025-02-28T11:16:13.4705460Z           at dependenciesChecker (/home/runner/work/idle-game/idle-game/node_modules/reselect/src/createSelectorCreator.ts:405:36)
+2025-02-28T11:16:13.4706818Z           at memoized (/home/runner/work/idle-game/idle-game/node_modules/reselect/src/weakMapMemoize.ts:228:21)
+2025-02-28T11:16:13.4708112Z           at collectInputSelectorResults (/home/runner/work/idle-game/idle-game/node_modules/reselect/src/utils.ts:122:47)
+2025-02-28T11:16:13.4709542Z           at dependenciesChecker (/home/runner/work/idle-game/idle-game/node_modules/reselect/src/createSelectorCreator.ts:405:36)
+2025-02-28T11:16:13.4710863Z           at memoized (/home/runner/work/idle-game/idle-game/node_modules/reselect/src/weakMapMemoize.ts:228:21)
+2025-02-28T11:16:13.4712367Z           at ProgressionManager.checkAllProgressionItems (/home/runner/work/idle-game/idle-game/src/managers/progression/ProgressionManager.ts:712:56)
+2025-02-28T11:16:13.4713929Z           at GameManager.updateResourceSystem (/home/runner/work/idle-game/idle-game/src/core/GameManager.ts:471:30)
+2025-02-28T11:16:13.4715371Z           at Object.<anonymous> (/home/runner/work/idle-game/idle-game/src/core/GameManager.test.ts:153:26)
+2025-02-28T11:16:13.4716637Z           at Promise.then.completed (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/utils.js:298:28)
+2025-02-28T11:16:13.4717748Z           at new Promise (<anonymous>)
+2025-02-28T11:16:13.4718684Z           at callAsyncCircusFn (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/utils.js:231:10)
+2025-02-28T11:16:13.4719931Z           at _callCircusTest (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:316:40)
+2025-02-28T11:16:13.4720933Z           at processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-02-28T11:16:13.4721901Z           at _runTest (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:252:3)
+2025-02-28T11:16:13.4723106Z           at _runTestsForDescribeBlock (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:126:9)
+2025-02-28T11:16:13.4724447Z           at _runTestsForDescribeBlock (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:121:9)
+2025-02-28T11:16:13.4725880Z           at run (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:71:3)
+2025-02-28T11:16:13.4727498Z           at runAndTransformResultsToJestFormat (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+2025-02-28T11:16:13.4729345Z           at jestAdapter (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+2025-02-28T11:16:13.4730834Z           at runTestInternal (/home/runner/work/idle-game/idle-game/node_modules/jest-runner/build/runTest.js:367:16)
+2025-02-28T11:16:13.4732045Z           at runTest (/home/runner/work/idle-game/idle-game/node_modules/jest-runner/build/runTest.js:444:34)
+2025-02-28T11:16:13.4733453Z           at Object.worker (/home/runner/work/idle-game/idle-game/node_modules/jest-runner/build/testWorker.js:106:12)
+2025-02-28T11:16:13.4734103Z 
+2025-02-28T11:16:13.4734402Z     [0m [90m 727 |[39m       }
+2025-02-28T11:16:13.4734947Z      [90m 728 |[39m     } [36mcatch[39m (error) {
+2025-02-28T11:16:13.4736313Z     [31m[1m>[22m[39m[90m 729 |[39m       console[33m.[39merror([32m'Error checking all progression items:'[39m[33m,[39m error)[33m;[39m
+2025-02-28T11:16:13.4737279Z      [90m     |[39m               [31m[1m^[22m[39m
+2025-02-28T11:16:13.4737748Z      [90m 730 |[39m     }
+2025-02-28T11:16:13.4738150Z      [90m 731 |[39m     
+2025-02-28T11:16:13.4738823Z      [90m 732 |[39m     [36mif[39m (itemsUpdated [33m>[39m [35m0[39m) {[0m
+2025-02-28T11:16:13.4739229Z 
+2025-02-28T11:16:13.4739864Z       at ProgressionManager.checkAllProgressionItems (src/managers/progression/ProgressionManager.ts:729:15)
+2025-02-28T11:16:13.4740957Z       at GameManager.updateResourceSystem (src/core/GameManager.ts:471:30)
+2025-02-28T11:16:13.4741718Z       at Object.<anonymous> (src/core/GameManager.test.ts:153:26)
+2025-02-28T11:16:13.4742092Z 
+2025-02-28T11:16:13.6266630Z PASS src/state/selectors.test.ts
+2025-02-28T11:16:13.8243387Z PASS src/core/GameTimer.test.ts
+2025-02-28T11:16:14.3190715Z FAIL src/systems/__tests__/oppressionSystem.test.ts
+2025-02-28T11:16:14.3196089Z   ● Test suite failed to run
+2025-02-28T11:16:14.3199996Z 
+2025-02-28T11:16:14.3204458Z     [96msrc/utils/testUtils.ts[0m:[93m78[0m:[93m5[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:14.3209067Z 
+2025-02-28T11:16:14.3213351Z     [7m78[0m     // @ts-expect-error - Accessing private field for testing
+2025-02-28T11:16:14.3218155Z     [7m  [0m [91m    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:14.3223048Z     [96msrc/utils/testUtils.ts[0m:[93m108[0m:[93m7[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:14.3227532Z 
+2025-02-28T11:16:14.3231698Z     [7m108[0m       // @ts-expect-error - Accessing private constructor for testing
+2025-02-28T11:16:14.3236527Z     [7m   [0m [91m      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:14.3245628Z     [96msrc/utils/testUtils.ts[0m:[93m114[0m:[93m7[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:14.3278964Z 
+2025-02-28T11:16:14.3283181Z     [7m114[0m       // @ts-expect-error - Setting private static field for testing
+2025-02-28T11:16:14.3287813Z     [7m   [0m [91m      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:14.3291845Z 
+2025-02-28T11:16:14.3756674Z FAIL src/workers.integration.test.tsx
+2025-02-28T11:16:14.3757599Z   ● Test suite failed to run
+2025-02-28T11:16:14.9796553Z 
+2025-02-28T11:16:14.9797967Z     [96msrc/utils/testUtils.ts[0m:[93m78[0m:[93m5[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:14.9798678Z 
+2025-02-28T11:16:14.9799159Z     [7m78[0m     // @ts-expect-error - Accessing private field for testing
+2025-02-28T11:16:14.9800006Z     [7m  [0m [91m    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:14.9801233Z     [96msrc/utils/testUtils.ts[0m:[93m108[0m:[93m7[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:14.9801909Z 
+2025-02-28T11:16:14.9802455Z     [7m108[0m       // @ts-expect-error - Accessing private constructor for testing
+2025-02-28T11:16:14.9803362Z     [7m   [0m [91m      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:14.9804540Z     [96msrc/utils/testUtils.ts[0m:[93m114[0m:[93m7[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:14.9805508Z 
+2025-02-28T11:16:14.9806456Z     [7m114[0m       // @ts-expect-error - Setting private static field for testing
+2025-02-28T11:16:14.9807347Z     [7m   [0m [91m      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:14.9807719Z 
+2025-02-28T11:16:14.9808270Z PASS src/components/progression/__tests__/ProgressionTracker.test.tsx
+2025-02-28T11:16:15.2032162Z FAIL src/systems/__tests__/gameLoop.test.ts
+2025-02-28T11:16:15.2033001Z   ● Test suite failed to run
+2025-02-28T11:16:15.2033273Z 
+2025-02-28T11:16:15.2034429Z     [96msrc/utils/testUtils.ts[0m:[93m78[0m:[93m5[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:15.2035109Z 
+2025-02-28T11:16:15.2035815Z     [7m78[0m     // @ts-expect-error - Accessing private field for testing
+2025-02-28T11:16:15.2036917Z     [7m  [0m [91m    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:15.2038307Z     [96msrc/utils/testUtils.ts[0m:[93m108[0m:[93m7[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:15.2039187Z 
+2025-02-28T11:16:15.2039994Z     [7m108[0m       // @ts-expect-error - Accessing private constructor for testing
+2025-02-28T11:16:15.2040861Z     [7m   [0m [91m      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:15.2041977Z     [96msrc/utils/testUtils.ts[0m:[93m114[0m:[93m7[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:15.2042589Z 
+2025-02-28T11:16:15.2043075Z     [7m114[0m       // @ts-expect-error - Setting private static field for testing
+2025-02-28T11:16:15.2043960Z     [7m   [0m [91m      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:15.2044359Z 
+2025-02-28T11:16:15.6309800Z PASS src/utils/__tests__/timeUtils.test.ts
+2025-02-28T11:16:15.6786430Z PASS src/systems/__tests__/gameEndConditions.test.ts
+2025-02-28T11:16:15.6817200Z PASS src/components/buildings/__tests__/BuildingItem.test.tsx
+2025-02-28T11:16:15.9646490Z PASS src/state/structuresSlice.test.ts
+2025-02-28T11:16:16.5940628Z PASS src/components/ResourceList.test.tsx
+2025-02-28T11:16:16.9823770Z PASS src/components/buildings/__tests__/BuildingList.test.tsx
+2025-02-28T11:16:17.4941758Z FAIL src/components/__tests__/GameTimer.test.tsx
+2025-02-28T11:16:17.4942548Z   ● Test suite failed to run
+2025-02-28T11:16:17.4942817Z 
+2025-02-28T11:16:17.4944108Z     [96msrc/components/GameTimer.tsx[0m:[93m4[0m:[93m1[0m - [91merror[0m[90m TS1185: [0mMerge conflict marker encountered.
+2025-02-28T11:16:17.4944816Z 
+2025-02-28T11:16:17.4945401Z     [7m4[0m >>>>>>> 913f8f829de658714bbc42cde32fd3bbb51a7e28
+2025-02-28T11:16:17.4945985Z     [7m [0m [91m~~~~~~~[0m
+2025-02-28T11:16:17.4946223Z 
+2025-02-28T11:16:17.6810038Z PASS src/components/ResourceDisplay.test.tsx
+2025-02-28T11:16:18.2264078Z PASS src/components/progression/__tests__/MilestoneProgressStrip.test.tsx
+2025-02-28T11:16:18.3801205Z PASS src/components/__tests__/OfflineProgressModal.test.tsx
+2025-02-28T11:16:18.3858370Z   ● Console
+2025-02-28T11:16:18.3858960Z 
+2025-02-28T11:16:18.3859415Z     console.error
+2025-02-28T11:16:18.3863018Z       An update to OfflineProgressModal inside a test was not wrapped in act(...).
+2025-02-28T11:16:18.3863860Z       
+2025-02-28T11:16:18.3864714Z       When testing, code that causes React state updates should be wrapped into act(...):
+2025-02-28T11:16:18.3870517Z       
+2025-02-28T11:16:18.3875822Z       act(() => {
+2025-02-28T11:16:18.3876462Z         /* fire events that update state */
+2025-02-28T11:16:18.3877986Z       });
+2025-02-28T11:16:18.3879678Z       /* assert on the output */
+2025-02-28T11:16:18.3880190Z       
+2025-02-28T11:16:18.3882273Z       This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+2025-02-28T11:16:18.3884218Z 
+2025-02-28T11:16:18.3889077Z     [0m [90m 37 |[39m       [90m// Reset closing state after the animation completes[39m
+2025-02-28T11:16:18.3894012Z      [90m 38 |[39m       setTimeout(() [33m=>[39m {
+2025-02-28T11:16:18.3895043Z     [31m[1m>[22m[39m[90m 39 |[39m         setIsClosing([36mfalse[39m)[33m;[39m
+2025-02-28T11:16:18.3896469Z      [90m    |[39m         [31m[1m^[22m[39m
+2025-02-28T11:16:18.3897331Z      [90m 40 |[39m       }[33m,[39m [35m100[39m)[33m;[39m
+2025-02-28T11:16:18.3898396Z      [90m 41 |[39m     }[33m,[39m [35m300[39m)[33m;[39m [90m// Animation duration[39m
+2025-02-28T11:16:18.3899359Z      [90m 42 |[39m   }[33m;[39m[0m
+2025-02-28T11:16:18.3899848Z 
+2025-02-28T11:16:18.3900408Z       at node_modules/react-dom/cjs/react-dom-client.development.js:15751:19
+2025-02-28T11:16:18.3901691Z       at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:543:16)
+2025-02-28T11:16:18.3903334Z       at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:15750:9)
+2025-02-28T11:16:18.3905001Z       at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:14311:11)
+2025-02-28T11:16:18.3906737Z       at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:7208:13)
+2025-02-28T11:16:18.3908072Z       at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:7161:7)
+2025-02-28T11:16:18.3909215Z       at src/components/OfflineProgressModal.tsx:39:9
+2025-02-28T11:16:18.3910284Z       at callTimer (node_modules/@sinonjs/fake-timers/src/fake-timers-src.js:744:24)
+2025-02-28T11:16:18.3911533Z       at doTickInner (node_modules/@sinonjs/fake-timers/src/fake-timers-src.js:1312:29)
+2025-02-28T11:16:18.3912781Z       at doTick (node_modules/@sinonjs/fake-timers/src/fake-timers-src.js:1393:20)
+2025-02-28T11:16:18.3914006Z       at Object.tick (node_modules/@sinonjs/fake-timers/src/fake-timers-src.js:1401:20)
+2025-02-28T11:16:18.3915590Z       at FakeTimers.advanceTimersByTime (node_modules/@jest/fake-timers/build/modernFakeTimers.js:94:19)
+2025-02-28T11:16:18.3917076Z       at Object.<anonymous> (src/components/__tests__/OfflineProgressModal.test.tsx:83:10)
+2025-02-28T11:16:18.3931590Z 
+2025-02-28T11:16:18.5777062Z PASS src/components/ui/__tests__/Dropdown.test.tsx
+2025-02-28T11:16:18.5777923Z   ● Console
+2025-02-28T11:16:18.5778101Z 
+2025-02-28T11:16:18.5778234Z     console.log
+2025-02-28T11:16:18.5778551Z       Dropdown styles: {
+2025-02-28T11:16:18.5779001Z         backgroundColor: 'rgb(25, 25, 25)',
+2025-02-28T11:16:18.5779487Z         border: '1px solid #333',
+2025-02-28T11:16:18.5780403Z         padding: '8px'
+2025-02-28T11:16:18.5780781Z       }
+2025-02-28T11:16:18.5780961Z 
+2025-02-28T11:16:18.5781399Z       at Object.<anonymous> (src/components/ui/__tests__/Dropdown.test.tsx:70:15)
+2025-02-28T11:16:18.5781883Z 
+2025-02-28T11:16:19.0869113Z PASS src/components/tutorial/__tests__/TutorialModal.test.tsx
+2025-02-28T11:16:19.3380109Z PASS src/components/ui/__tests__/Modal.test.tsx
+2025-02-28T11:16:19.3640817Z PASS src/components/resources/__tests__/PassiveUpgradePanel.test.tsx
+2025-02-28T11:16:19.4924109Z PASS src/state/resourcesSlice.test.ts
+2025-02-28T11:16:20.0185912Z PASS src/components/resources/__tests__/ResourceDisplay.test.tsx
+2025-02-28T11:16:20.2436723Z FAIL src/components/GameTimer.test.tsx
+2025-02-28T11:16:20.2441928Z   ● Test suite failed to run
+2025-02-28T11:16:20.2446333Z 
+2025-02-28T11:16:20.2451022Z     [96msrc/components/GameTimer.tsx[0m:[93m4[0m:[93m1[0m - [91merror[0m[90m TS1185: [0mMerge conflict marker encountered.
+2025-02-28T11:16:20.2456042Z 
+2025-02-28T11:16:20.2460748Z     [7m4[0m >>>>>>> 913f8f829de658714bbc42cde32fd3bbb51a7e28
+2025-02-28T11:16:20.2465496Z     [7m [0m [91m~~~~~~~[0m
+2025-02-28T11:16:20.2469619Z 
+2025-02-28T11:16:20.4948539Z FAIL src/components/App.test.tsx
+2025-02-28T11:16:20.4949324Z   ● Test suite failed to run
+2025-02-28T11:16:20.4949577Z 
+2025-02-28T11:16:20.4950451Z     [96msrc/components/GameTimer.tsx[0m:[93m4[0m:[93m1[0m - [91merror[0m[90m TS1185: [0mMerge conflict marker encountered.
+2025-02-28T11:16:20.4951581Z 
+2025-02-28T11:16:20.4951970Z     [7m4[0m >>>>>>> 913f8f829de658714bbc42cde32fd3bbb51a7e28
+2025-02-28T11:16:20.4952547Z     [7m [0m [91m~~~~~~~[0m
+2025-02-28T11:16:20.4952781Z 
+2025-02-28T11:16:20.5940105Z PASS src/state/gameSlice.test.ts
+2025-02-28T11:16:20.5963733Z   ● Console
+2025-02-28T11:16:20.5967710Z 
+2025-02-28T11:16:20.5971394Z     console.log
+2025-02-28T11:16:20.5975791Z       gameSlice.addPlayTime: Adding 50.00s, old=100.00, new=150.00
+2025-02-28T11:16:20.5979751Z 
+2025-02-28T11:16:20.5983535Z       at addPlayTime (src/state/gameSlice.ts:62:17)
+2025-02-28T11:16:20.5989080Z           at Array.reduce (<anonymous>)
+2025-02-28T11:16:20.5989961Z 
+2025-02-28T11:16:20.5990331Z     console.log
+2025-02-28T11:16:20.5991152Z       gameSlice.setTotalPlayTime: Setting time from 0.00s to 500.00s
+2025-02-28T11:16:20.5992011Z 
+2025-02-28T11:16:20.5992444Z       at setTotalPlayTime (src/state/gameSlice.ts:70:15)
+2025-02-28T11:16:20.5993212Z           at Array.reduce (<anonymous>)
+2025-02-28T11:16:20.5993677Z 
+2025-02-28T11:16:20.7016557Z PASS src/components/ui/__tests__/Icon.test.tsx
+2025-02-28T11:16:20.9603876Z PASS src/systems/gameLoop.test.ts
+2025-02-28T11:16:20.9632876Z   ● Console
+2025-02-28T11:16:20.9634862Z 
+2025-02-28T11:16:20.9636612Z     console.log
+2025-02-28T11:16:20.9637275Z       GameLoop: Window event listeners attached
+2025-02-28T11:16:20.9643481Z 
+2025-02-28T11:16:20.9645970Z       at GameLoop.setupWindowEventListeners (src/systems/gameLoop.ts:516:13)
+2025-02-28T11:16:20.9646522Z 
+2025-02-28T11:16:20.9646670Z     console.log
+2025-02-28T11:16:20.9647166Z       gameSlice.addPlayTime: Adding 10.00s, old=0.00, new=10.00
+2025-02-28T11:16:20.9648543Z 
+2025-02-28T11:16:20.9651127Z       at addPlayTime (src/state/gameSlice.ts:62:17)
+2025-02-28T11:16:20.9652618Z           at Array.reduce (<anonymous>)
+2025-02-28T11:16:20.9652954Z 
+2025-02-28T11:16:21.0342707Z PASS src/components/ui/__tests__/Button.test.tsx
+2025-02-28T11:16:21.3689224Z PASS src/components/workers/__tests__/WorkerOverview.test.tsx
+2025-02-28T11:16:21.7441002Z PASS src/components/ui/__tests__/Card.test.tsx
+2025-02-28T11:16:21.8277949Z PASS src/index.integration.test.tsx
+2025-02-28T11:16:22.0354091Z PASS src/utils/testHelpers.test.ts
+2025-02-28T11:16:22.1604295Z PASS src/state/actions/__tests__/workerActions.test.ts
+2025-02-28T11:16:22.2832003Z PASS src/components/layout/__tests__/Layout.test.tsx
+2025-02-28T11:16:22.3062993Z   ● Console
+2025-02-28T11:16:22.3067617Z 
+2025-02-28T11:16:22.3071789Z     console.error
+2025-02-28T11:16:22.3077580Z       TypeError: Cannot read properties of undefined (reading 'activeEvents')
+2025-02-28T11:16:22.3080052Z           at /home/runner/work/idle-game/idle-game/src/components/events/EventPanel.tsx:17:40
+2025-02-28T11:16:22.3094425Z           at collectInputSelectorResults (/home/runner/work/idle-game/idle-game/node_modules/reselect/src/utils.ts:122:47)
+2025-02-28T11:16:22.3096145Z           at dependenciesChecker (/home/runner/work/idle-game/idle-game/node_modules/reselect/src/createSelectorCreator.ts:405:36)
+2025-02-28T11:16:22.3097522Z           at memoized (/home/runner/work/idle-game/idle-game/node_modules/reselect/src/weakMapMemoize.ts:228:21)
+2025-02-28T11:16:22.3098507Z           at /home/runner/work/idle-game/idle-game/src/state/hooks.ts:21:18
+2025-02-28T11:16:22.3099702Z           at recomputationWrapper (/home/runner/work/idle-game/idle-game/node_modules/reselect/src/createSelectorCreator.ts:392:63)
+2025-02-28T11:16:22.3101086Z           at memoized (/home/runner/work/idle-game/idle-game/node_modules/reselect/src/weakMapMemoize.ts:228:21)
+2025-02-28T11:16:22.3102445Z           at dependenciesChecker (/home/runner/work/idle-game/idle-game/node_modules/reselect/src/createSelectorCreator.ts:412:39)
+2025-02-28T11:16:22.3103854Z           at memoized (/home/runner/work/idle-game/idle-game/node_modules/reselect/src/weakMapMemoize.ts:228:21)
+2025-02-28T11:16:22.3105291Z           at memoized (/home/runner/work/idle-game/idle-game/node_modules/react-redux/src/hooks/useSelector.ts:171:28)
+2025-02-28T11:16:22.3107344Z           at memoizedSelector (/home/runner/work/idle-game/idle-game/node_modules/use-sync-external-store/cjs/use-sync-external-store-with-selector.development.js:46:30)
+2025-02-28T11:16:22.3109278Z           at /home/runner/work/idle-game/idle-game/node_modules/use-sync-external-store/cjs/use-sync-external-store-with-selector.development.js:70:22
+2025-02-28T11:16:22.3111022Z           at mountSyncExternalStore (/home/runner/work/idle-game/idle-game/node_modules/react-dom/cjs/react-dom-client.development.js:6214:24)
+2025-02-28T11:16:22.3112717Z           at Object.useSyncExternalStore (/home/runner/work/idle-game/idle-game/node_modules/react-dom/cjs/react-dom-client.development.js:22810:16)
+2025-02-28T11:16:22.3114599Z           at Object.<anonymous>.process.env.NODE_ENV.exports.useSyncExternalStore (/home/runner/work/idle-game/idle-game/node_modules/react/cjs/react.development.js:1507:34)
+2025-02-28T11:16:22.3117271Z           at Object.<anonymous>.process.env.NODE_ENV.exports.useSyncExternalStoreWithSelector (/home/runner/work/idle-game/idle-game/node_modules/use-sync-external-store/cjs/use-sync-external-store-with-selector.development.js:81:19)
+2025-02-28T11:16:22.3119395Z           at useSelector2 (/home/runner/work/idle-game/idle-game/node_modules/react-redux/src/hooks/useSelector.ts:243:27)
+2025-02-28T11:16:22.3120558Z           at useMemoSelector (/home/runner/work/idle-game/idle-game/src/state/hooks.ts:27:21)
+2025-02-28T11:16:22.3121641Z           at EventPanel (/home/runner/work/idle-game/idle-game/src/components/events/EventPanel.tsx:28:39)
+2025-02-28T11:16:22.3123120Z           at Object.react-stack-bottom-frame (/home/runner/work/idle-game/idle-game/node_modules/react-dom/cjs/react-dom-client.development.js:22428:20)
+2025-02-28T11:16:22.3124772Z           at renderWithHooks (/home/runner/work/idle-game/idle-game/node_modules/react-dom/cjs/react-dom-client.development.js:5757:22)
+2025-02-28T11:16:22.3126559Z           at updateFunctionComponent (/home/runner/work/idle-game/idle-game/node_modules/react-dom/cjs/react-dom-client.development.js:8018:19)
+2025-02-28T11:16:22.3128266Z           at updateSimpleMemoComponent (/home/runner/work/idle-game/idle-game/node_modules/react-dom/cjs/react-dom-client.development.js:7869:14)
+2025-02-28T11:16:22.3129969Z           at updateMemoComponent (/home/runner/work/idle-game/idle-game/node_modules/react-dom/cjs/react-dom-client.development.js:7802:13)
+2025-02-28T11:16:22.3131733Z           at beginWork (/home/runner/work/idle-game/idle-game/node_modules/react-dom/cjs/react-dom-client.development.js:10103:18)
+2025-02-28T11:16:22.3133268Z           at runWithFiberInDEV (/home/runner/work/idle-game/idle-game/node_modules/react-dom/cjs/react-dom-client.development.js:543:16)
+2025-02-28T11:16:22.3134854Z           at performUnitOfWork (/home/runner/work/idle-game/idle-game/node_modules/react-dom/cjs/react-dom-client.development.js:15052:22)
+2025-02-28T11:16:22.3136612Z           at workLoopSync (/home/runner/work/idle-game/idle-game/node_modules/react-dom/cjs/react-dom-client.development.js:14870:41)
+2025-02-28T11:16:22.3138149Z           at renderRootSync (/home/runner/work/idle-game/idle-game/node_modules/react-dom/cjs/react-dom-client.development.js:14850:11)
+2025-02-28T11:16:22.3139708Z           at performWorkOnRoot (/home/runner/work/idle-game/idle-game/node_modules/react-dom/cjs/react-dom-client.development.js:14384:44)
+2025-02-28T11:16:22.3141426Z           at performWorkOnRootViaSchedulerTask (/home/runner/work/idle-game/idle-game/node_modules/react-dom/cjs/react-dom-client.development.js:15931:7)
+2025-02-28T11:16:22.3142984Z           at flushActQueue (/home/runner/work/idle-game/idle-game/node_modules/react/cjs/react.development.js:862:34)
+2025-02-28T11:16:22.3144504Z           at Object.<anonymous>.process.env.NODE_ENV.exports.act (/home/runner/work/idle-game/idle-game/node_modules/react/cjs/react.development.js:1151:10)
+2025-02-28T11:16:22.3146134Z           at /home/runner/work/idle-game/idle-game/node_modules/@testing-library/react/dist/act-compat.js:47:25
+2025-02-28T11:16:22.3147626Z           at renderRoot (/home/runner/work/idle-game/idle-game/node_modules/@testing-library/react/dist/pure.js:188:26)
+2025-02-28T11:16:22.3148908Z           at render (/home/runner/work/idle-game/idle-game/node_modules/@testing-library/react/dist/pure.js:287:10)
+2025-02-28T11:16:22.3150207Z           at Object.<anonymous> (/home/runner/work/idle-game/idle-game/src/components/layout/__tests__/Layout.test.tsx:44:11)
+2025-02-28T11:16:22.3151551Z           at Promise.then.completed (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/utils.js:298:28)
+2025-02-28T11:16:22.3152429Z           at new Promise (<anonymous>)
+2025-02-28T11:16:22.3153366Z           at callAsyncCircusFn (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/utils.js:231:10)
+2025-02-28T11:16:22.3154627Z           at _callCircusTest (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:316:40)
+2025-02-28T11:16:22.3155852Z           at processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-02-28T11:16:22.3156865Z           at _runTest (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:252:3)
+2025-02-28T11:16:22.3158114Z           at _runTestsForDescribeBlock (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:126:9)
+2025-02-28T11:16:22.3159483Z           at _runTestsForDescribeBlock (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:121:9)
+2025-02-28T11:16:22.3160676Z           at run (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:71:3)
+2025-02-28T11:16:22.3162241Z           at runAndTransformResultsToJestFormat (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+2025-02-28T11:16:22.3164056Z           at jestAdapter (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+2025-02-28T11:16:22.3173852Z           at runTestInternal (/home/runner/work/idle-game/idle-game/node_modules/jest-runner/build/runTest.js:367:16)
+2025-02-28T11:16:22.3175450Z           at runTest (/home/runner/work/idle-game/idle-game/node_modules/jest-runner/build/runTest.js:444:34)
+2025-02-28T11:16:22.3176692Z           at Object.worker (/home/runner/work/idle-game/idle-game/node_modules/jest-runner/build/testWorker.js:106:12) {
+2025-02-28T11:16:22.3178033Z         [stack]: "TypeError: Cannot read properties of undefined (reading 'activeEvents')\n" +
+2025-02-28T11:16:22.3179102Z           '    at /home/runner/work/idle-game/idle-game/src/components/events/EventPanel.tsx:17:40\n' +
+2025-02-28T11:16:22.3180298Z           '    at collectInputSelectorResults (/home/runner/work/idle-game/idle-game/node_modules/reselect/src/utils.ts:122:47)\n' +
+2025-02-28T11:16:22.3181766Z           '    at dependenciesChecker (/home/runner/work/idle-game/idle-game/node_modules/reselect/src/createSelectorCreator.ts:405:36)\n' +
+2025-02-28T11:16:22.3183162Z           '    at memoized (/home/runner/work/idle-game/idle-game/node_modules/reselect/src/weakMapMemoize.ts:228:21)\n' +
+2025-02-28T11:16:22.3184219Z           '    at /home/runner/work/idle-game/idle-game/src/state/hooks.ts:21:18\n' +
+2025-02-28T11:16:22.3185697Z           '    at recomputationWrapper (/home/runner/work/idle-game/idle-game/node_modules/reselect/src/createSelectorCreator.ts:392:63)\n' +
+2025-02-28T11:16:22.3187138Z           '    at memoized (/home/runner/work/idle-game/idle-game/node_modules/reselect/src/weakMapMemoize.ts:228:21)\n' +
+2025-02-28T11:16:22.3188555Z           '    at dependenciesChecker (/home/runner/work/idle-game/idle-game/node_modules/reselect/src/createSelectorCreator.ts:412:39)\n' +
+2025-02-28T11:16:22.3189946Z           '    at memoized (/home/runner/work/idle-game/idle-game/node_modules/reselect/src/weakMapMemoize.ts:228:21)\n' +
+2025-02-28T11:16:22.3191251Z           '    at memoized (/home/runner/work/idle-game/idle-game/node_modules/react-redux/src/hooks/useSelector.ts:171:28)\n' +
+2025-02-28T11:16:22.3193263Z           '    at memoizedSelector (/home/runner/work/idle-game/idle-game/node_modules/use-sync-external-store/cjs/use-sync-external-store-with-selector.development.js:46:30)\n' +
+2025-02-28T11:16:22.3195416Z           '    at /home/runner/work/idle-game/idle-game/node_modules/use-sync-external-store/cjs/use-sync-external-store-with-selector.development.js:70:22\n' +
+2025-02-28T11:16:22.3197200Z           '    at mountSyncExternalStore (/home/runner/work/idle-game/idle-game/node_modules/react-dom/cjs/react-dom-client.development.js:6214:24)\n' +
+2025-02-28T11:16:22.3198954Z           '    at Object.useSyncExternalStore (/home/runner/work/idle-game/idle-game/node_modules/react-dom/cjs/react-dom-client.development.js:22810:16)\n' +
+2025-02-28T11:16:22.3200902Z           '    at Object.<anonymous>.process.env.NODE_ENV.exports.useSyncExternalStore (/home/runner/work/idle-game/idle-game/node_modules/react/cjs/react.development.js:1507:34)\n' +
+2025-02-28T11:16:22.3203522Z           '    at Object.<anonymous>.process.env.NODE_ENV.exports.useSyncExternalStoreWithSelector (/home/runner/work/idle-game/idle-game/node_modules/use-sync-external-store/cjs/use-sync-external-store-with-selector.development.js:81:19)\n' +
+2025-02-28T11:16:22.3205945Z           '    at useSelector2 (/home/runner/work/idle-game/idle-game/node_modules/react-redux/src/hooks/useSelector.ts:243:27)\n' +
+2025-02-28T11:16:22.3207183Z           '    at useMemoSelector (/home/runner/work/idle-game/idle-game/src/state/hooks.ts:27:21)\n' +
+2025-02-28T11:16:22.3208321Z           '    at EventPanel (/home/runner/work/idle-game/idle-game/src/components/events/EventPanel.tsx:28:39)\n' +
+2025-02-28T11:16:22.3209853Z           '    at Object.react-stack-bottom-frame (/home/runner/work/idle-game/idle-game/node_modules/react-dom/cjs/react-dom-client.development.js:22428:20)\n' +
+2025-02-28T11:16:22.3211622Z           '    at renderWithHooks (/home/runner/work/idle-game/idle-game/node_modules/react-dom/cjs/react-dom-client.development.js:5757:22)\n' +
+2025-02-28T11:16:22.3213301Z           '    at updateFunctionComponent (/home/runner/work/idle-game/idle-game/node_modules/react-dom/cjs/react-dom-client.development.js:8018:19)\n' +
+2025-02-28T11:16:22.3215051Z           '    at updateSimpleMemoComponent (/home/runner/work/idle-game/idle-game/node_modules/react-dom/cjs/react-dom-client.development.js:7869:14)\n' +
+2025-02-28T11:16:22.3217174Z           '    at updateMemoComponent (/home/runner/work/idle-game/idle-game/node_modules/react-dom/cjs/react-dom-client.development.js:7802:13)\n' +
+2025-02-28T11:16:22.3218765Z           '    at beginWork (/home/runner/work/idle-game/idle-game/node_modules/react-dom/cjs/react-dom-client.development.js:10103:18)\n' +
+2025-02-28T11:16:22.3220341Z           '    at runWithFiberInDEV (/home/runner/work/idle-game/idle-game/node_modules/react-dom/cjs/react-dom-client.development.js:543:16)\n' +
+2025-02-28T11:16:22.3221984Z           '    at performUnitOfWork (/home/runner/work/idle-game/idle-game/node_modules/react-dom/cjs/react-dom-client.development.js:15052:22)\n' +
+2025-02-28T11:16:22.3223586Z           '    at workLoopSync (/home/runner/work/idle-game/idle-game/node_modules/react-dom/cjs/react-dom-client.development.js:14870:41)\n' +
+2025-02-28T11:16:22.3225300Z           '    at renderRootSync (/home/runner/work/idle-game/idle-game/node_modules/react-dom/cjs/react-dom-client.development.js:14850:11)\n' +
+2025-02-28T11:16:22.3226851Z           '    at performWorkOnRoot (/home/runner/work/idle-game/idle-game/node_modules/react-dom/cjs/react-dom-client.development.js:14384:44)\n' +
+2025-02-28T11:16:22.3228643Z           '    at performWorkOnRootViaSchedulerTask (/home/runner/work/idle-game/idle-game/node_modules/react-dom/cjs/react-dom-client.development.js:15931:7)\n' +
+2025-02-28T11:16:22.3230262Z           '    at flushActQueue (/home/runner/work/idle-game/idle-game/node_modules/react/cjs/react.development.js:862:34)\n' +
+2025-02-28T11:16:22.3231840Z           '    at Object.<anonymous>.process.env.NODE_ENV.exports.act (/home/runner/work/idle-game/idle-game/node_modules/react/cjs/react.development.js:1151:10)\n' +
+2025-02-28T11:16:22.3233581Z           '    at /home/runner/work/idle-game/idle-game/node_modules/@testing-library/react/dist/act-compat.js:47:25\n' +
+2025-02-28T11:16:22.3234894Z           '    at renderRoot (/home/runner/work/idle-game/idle-game/node_modules/@testing-library/react/dist/pure.js:188:26)\n' +
+2025-02-28T11:16:22.3236417Z           '    at render (/home/runner/work/idle-game/idle-game/node_modules/@testing-library/react/dist/pure.js:287:10)\n' +
+2025-02-28T11:16:22.3237836Z           '    at Object.<anonymous> (/home/runner/work/idle-game/idle-game/src/components/layout/__tests__/Layout.test.tsx:44:11)\n' +
+2025-02-28T11:16:22.3239235Z           '    at Promise.then.completed (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/utils.js:298:28)\n' +
+2025-02-28T11:16:22.3240152Z           '    at new Promise (<anonymous>)\n' +
+2025-02-28T11:16:22.3241120Z           '    at callAsyncCircusFn (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/utils.js:231:10)\n' +
+2025-02-28T11:16:22.3242376Z           '    at _callCircusTest (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:316:40)\n' +
+2025-02-28T11:16:22.3243419Z           '    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n' +
+2025-02-28T11:16:22.3244485Z           '    at _runTest (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:252:3)\n' +
+2025-02-28T11:16:22.3245946Z           '    at _runTestsForDescribeBlock (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:126:9)\n' +
+2025-02-28T11:16:22.3247369Z           '    at _runTestsForDescribeBlock (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:121:9)\n' +
+2025-02-28T11:16:22.3248598Z           '    at run (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/run.js:71:3)\n' +
+2025-02-28T11:16:22.3250249Z           '    at runAndTransformResultsToJestFormat (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)\n' +
+2025-02-28T11:16:22.3252141Z           '    at jestAdapter (/home/runner/work/idle-game/idle-game/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)\n' +
+2025-02-28T11:16:22.3253861Z           '    at runTestInternal (/home/runner/work/idle-game/idle-game/node_modules/jest-runner/build/runTest.js:367:16)\n' +
+2025-02-28T11:16:22.3255364Z           '    at runTest (/home/runner/work/idle-game/idle-game/node_modules/jest-runner/build/runTest.js:444:34)\n' +
+2025-02-28T11:16:22.3256635Z           '    at Object.worker (/home/runner/work/idle-game/idle-game/node_modules/jest-runner/build/testWorker.js:106:12)',
+2025-02-28T11:16:22.3257716Z         [message]: "Cannot read properties of undefined (reading 'activeEvents')"
+2025-02-28T11:16:22.3258288Z       }
+2025-02-28T11:16:22.3258548Z       
+2025-02-28T11:16:22.3259011Z       The above error occurred in the <EventPanel> component.
+2025-02-28T11:16:22.3259500Z       
+2025-02-28T11:16:22.3260261Z       React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary.
+2025-02-28T11:16:22.3260928Z 
+2025-02-28T11:16:22.3261682Z     [0m [90m 42 |[39m describe([32m'Layout Component'[39m[33m,[39m () [33m=>[39m {
+2025-02-28T11:16:22.3262793Z      [90m 43 |[39m   test([32m'renders all layout components correctly'[39m[33m,[39m () [33m=>[39m {
+2025-02-28T11:16:22.3263659Z     [31m[1m>[22m[39m[90m 44 |[39m     render(
+2025-02-28T11:16:22.3264245Z      [90m    |[39m           [31m[1m^[22m[39m
+2025-02-28T11:16:22.3265041Z      [90m 45 |[39m       [33m<[39m[33mProvider[39m store[33m=[39m{store}[33m>[39m
+2025-02-28T11:16:22.3266861Z      [90m 46 |[39m         [33m<[39m[33mLayout[39m sidebarContent[33m=[39m{[33m<[39m[33mdiv[39m[33m>[39m[33mSidebar[39m [33mContent[39m[33m<[39m[33m/[39m[33mdiv[39m[33m>[39m}[33m>[39m
+2025-02-28T11:16:22.3268776Z      [90m 47 |[39m           [33m<[39m[33mdiv[39m[33m>[39m[33mMain[39m [33mContent[39m[33m<[39m[33m/[39m[33mdiv[39m[33m>[39m[0m
+2025-02-28T11:16:22.3269382Z 
+2025-02-28T11:16:22.3269947Z       at defaultOnCaughtError (node_modules/react-dom/cjs/react-dom-client.development.js:7445:21)
+2025-02-28T11:16:22.3271043Z       at logCaughtError (node_modules/react-dom/cjs/react-dom-client.development.js:7484:9)
+2025-02-28T11:16:22.3272093Z       at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:543:16)
+2025-02-28T11:16:22.3273434Z       at ErrorBoundary.inst.componentDidCatch.update.callback (node_modules/react-dom/cjs/react-dom-client.development.js:7531:11)
+2025-02-28T11:16:22.3274716Z       at callCallback (node_modules/react-dom/cjs/react-dom-client.development.js:10680:16)
+2025-02-28T11:16:22.3275926Z       at commitCallbacks (node_modules/react-dom/cjs/react-dom-client.development.js:10700:11)
+2025-02-28T11:16:22.3276983Z       at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:543:16)
+2025-02-28T11:16:22.3278070Z       at commitClassCallbacks (node_modules/react-dom/cjs/react-dom-client.development.js:10919:11)
+2025-02-28T11:16:22.3279246Z       at commitLayoutEffectOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:11490:25)
+2025-02-28T11:16:22.3280770Z       at recursivelyTraverseLayoutEffects (node_modules/react-dom/cjs/react-dom-client.development.js:12412:11)
+2025-02-28T11:16:22.3282057Z       at commitLayoutEffectOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:11529:11)
+2025-02-28T11:16:22.3283298Z       at recursivelyTraverseLayoutEffects (node_modules/react-dom/cjs/react-dom-client.development.js:12412:11)
+2025-02-28T11:16:22.3284585Z       at commitLayoutEffectOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:11413:11)
+2025-02-28T11:16:22.3286028Z       at recursivelyTraverseLayoutEffects (node_modules/react-dom/cjs/react-dom-client.development.js:12412:11)
+2025-02-28T11:16:22.3287304Z       at commitLayoutEffectOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:11585:11)
+2025-02-28T11:16:22.3288556Z       at recursivelyTraverseLayoutEffects (node_modules/react-dom/cjs/react-dom-client.development.js:12412:11)
+2025-02-28T11:16:22.3289813Z       at commitLayoutEffectOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:11413:11)
+2025-02-28T11:16:22.3291333Z       at recursivelyTraverseLayoutEffects (node_modules/react-dom/cjs/react-dom-client.development.js:12412:11)
+2025-02-28T11:16:22.3292619Z       at commitLayoutEffectOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:11495:11)
+2025-02-28T11:16:22.3293780Z       at commitLayoutEffects (node_modules/react-dom/cjs/react-dom-client.development.js:12406:7)
+2025-02-28T11:16:22.3294864Z       at commitRootImpl (node_modules/react-dom/cjs/react-dom-client.development.js:15352:11)
+2025-02-28T11:16:22.3296049Z       at commitRoot (node_modules/react-dom/cjs/react-dom-client.development.js:15251:11)
+2025-02-28T11:16:22.3296985Z       at performWorkOnRoot (node_modules/react-dom/cjs/react-dom-client.development.js:14445:15)
+2025-02-28T11:16:22.3298144Z       at performWorkOnRootViaSchedulerTask (node_modules/react-dom/cjs/react-dom-client.development.js:15931:7)
+2025-02-28T11:16:22.3303252Z       at flushActQueue (node_modules/react/cjs/react.development.js:862:34)
+2025-02-28T11:16:22.3304377Z       at Object.<anonymous>.process.env.NODE_ENV.exports.act (node_modules/react/cjs/react.development.js:1151:10)
+2025-02-28T11:16:22.3305527Z       at node_modules/@testing-library/react/dist/act-compat.js:47:25
+2025-02-28T11:16:22.3306272Z       at renderRoot (node_modules/@testing-library/react/dist/pure.js:188:26)
+2025-02-28T11:16:22.3307039Z       at render (node_modules/@testing-library/react/dist/pure.js:287:10)
+2025-02-28T11:16:22.3307839Z       at Object.<anonymous> (src/components/layout/__tests__/Layout.test.tsx:44:11)
+2025-02-28T11:16:22.3308562Z 
+2025-02-28T11:16:22.3308691Z     console.error
+2025-02-28T11:16:22.3309379Z       [ERROR in UnknownComponent]: Cannot read properties of undefined (reading 'activeEvents') {
+2025-02-28T11:16:22.3310123Z         component: 'UnknownComponent',
+2025-02-28T11:16:22.3310579Z         componentStack: '\n' +
+2025-02-28T11:16:22.3311393Z           '    at EventPanel (/home/runner/work/idle-game/idle-game/src/components/events/EventPanel.tsx:16:37)\n' +
+2025-02-28T11:16:22.3312676Z           '    at ErrorBoundary (/home/runner/work/idle-game/idle-game/src/components/error/ErrorBoundary.tsx:36:5)\n' +
+2025-02-28T11:16:22.3313517Z           '    at div (<anonymous>)\n' +
+2025-02-28T11:16:22.3314310Z           '    at Layout (/home/runner/work/idle-game/idle-game/src/components/layout/Layout.tsx:16:42)\n' +
+2025-02-28T11:16:22.3315726Z           '    at Provider (/home/runner/work/idle-game/idle-game/node_modules/react-redux/src/components/Provider.tsx:60:11)'
+2025-02-28T11:16:22.3316532Z       }
+2025-02-28T11:16:22.3316684Z 
+2025-02-28T11:16:22.3317730Z     [0m [90m 135 |[39m       console[33m.[39merror([32m`[CRITICAL${context ? ' in ' + context : ''}]: ${errorMsg}`[39m[33m,[39m metadata [33m||[39m data)[33m;[39m
+2025-02-28T11:16:22.3319187Z      [90m 136 |[39m     } [36melse[39m [36mif[39m (severity [33m===[39m [33mErrorSeverity[39m[33m.[39m[33mERROR[39m) {
+2025-02-28T11:16:22.3320778Z     [31m[1m>[22m[39m[90m 137 |[39m       console[33m.[39merror([32m`[ERROR${context ? ' in ' + context : ''}]: ${errorMsg}`[39m[33m,[39m metadata [33m||[39m data)[33m;[39m
+2025-02-28T11:16:22.3321823Z      [90m     |[39m               [31m[1m^[22m[39m
+2025-02-28T11:16:22.3322290Z      [90m 138 |[39m     }
+2025-02-28T11:16:22.3322678Z      [90m 139 |[39m     
+2025-02-28T11:16:22.3323321Z      [90m 140 |[39m     [90m// Skip logging INFO and WARNING to console[39m[0m
+2025-02-28T11:16:22.3323736Z 
+2025-02-28T11:16:22.3324043Z       at ErrorLogger.logError (src/utils/errorUtils.ts:137:15)
+2025-02-28T11:16:22.3324908Z       at ErrorBoundary.componentDidCatch (src/components/error/ErrorBoundary.tsx:58:31)
+2025-02-28T11:16:22.3326376Z       at Object.react-stack-bottom-frame (node_modules/react-dom/cjs/react-dom-client.development.js:22481:20)
+2025-02-28T11:16:22.3327836Z       at ErrorBoundary.inst.componentDidCatch.update.callback (node_modules/react-dom/cjs/react-dom-client.development.js:7542:11)
+2025-02-28T11:16:22.3329354Z       at callCallback (node_modules/react-dom/cjs/react-dom-client.development.js:10680:16)
+2025-02-28T11:16:22.3330405Z       at commitCallbacks (node_modules/react-dom/cjs/react-dom-client.development.js:10700:11)
+2025-02-28T11:16:22.3331458Z       at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:543:16)
+2025-02-28T11:16:22.3332516Z       at commitClassCallbacks (node_modules/react-dom/cjs/react-dom-client.development.js:10919:11)
+2025-02-28T11:16:22.3333675Z       at commitLayoutEffectOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:11490:25)
+2025-02-28T11:16:22.3334976Z       at recursivelyTraverseLayoutEffects (node_modules/react-dom/cjs/react-dom-client.development.js:12412:11)
+2025-02-28T11:16:22.3336473Z       at commitLayoutEffectOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:11529:11)
+2025-02-28T11:16:22.3337782Z       at recursivelyTraverseLayoutEffects (node_modules/react-dom/cjs/react-dom-client.development.js:12412:11)
+2025-02-28T11:16:22.3339067Z       at commitLayoutEffectOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:11413:11)
+2025-02-28T11:16:22.3340337Z       at recursivelyTraverseLayoutEffects (node_modules/react-dom/cjs/react-dom-client.development.js:12412:11)
+2025-02-28T11:16:22.3341599Z       at commitLayoutEffectOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:11585:11)
+2025-02-28T11:16:22.3342848Z       at recursivelyTraverseLayoutEffects (node_modules/react-dom/cjs/react-dom-client.development.js:12412:11)
+2025-02-28T11:16:22.3344325Z       at commitLayoutEffectOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:11413:11)
+2025-02-28T11:16:22.3346610Z       at recursivelyTraverseLayoutEffects (node_modules/react-dom/cjs/react-dom-client.development.js:12412:11)
+2025-02-28T11:16:22.3347887Z       at commitLayoutEffectOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:11495:11)
+2025-02-28T11:16:22.3349045Z       at commitLayoutEffects (node_modules/react-dom/cjs/react-dom-client.development.js:12406:7)
+2025-02-28T11:16:22.3350112Z       at commitRootImpl (node_modules/react-dom/cjs/react-dom-client.development.js:15352:11)
+2025-02-28T11:16:22.3351118Z       at commitRoot (node_modules/react-dom/cjs/react-dom-client.development.js:15251:11)
+2025-02-28T11:16:22.3352174Z       at performWorkOnRoot (node_modules/react-dom/cjs/react-dom-client.development.js:14445:15)
+2025-02-28T11:16:22.3353397Z       at performWorkOnRootViaSchedulerTask (node_modules/react-dom/cjs/react-dom-client.development.js:15931:7)
+2025-02-28T11:16:22.3354478Z       at flushActQueue (node_modules/react/cjs/react.development.js:862:34)
+2025-02-28T11:16:22.3355677Z       at Object.<anonymous>.process.env.NODE_ENV.exports.act (node_modules/react/cjs/react.development.js:1151:10)
+2025-02-28T11:16:22.3356644Z       at node_modules/@testing-library/react/dist/act-compat.js:47:25
+2025-02-28T11:16:22.3357428Z       at renderRoot (node_modules/@testing-library/react/dist/pure.js:188:26)
+2025-02-28T11:16:22.3358228Z       at render (node_modules/@testing-library/react/dist/pure.js:287:10)
+2025-02-28T11:16:22.3359066Z       at Object.<anonymous> (src/components/layout/__tests__/Layout.test.tsx:44:11)
+2025-02-28T11:16:22.3359550Z 
+2025-02-28T11:16:22.3608123Z PASS src/structure.test.ts
+2025-02-28T11:16:22.4727134Z PASS src/config.test.ts
+2025-02-28T11:16:22.5859052Z PASS src/managers/GameLoopManager.test.ts
+2025-02-28T11:16:22.5867361Z   ● Console
+2025-02-28T11:16:22.5871152Z 
+2025-02-28T11:16:22.5875307Z     console.log
+2025-02-28T11:16:22.5876172Z       GameLoopManager: Registered tick handler, total handlers: 1
+2025-02-28T11:16:22.5876704Z 
+2025-02-28T11:16:22.5877196Z       at GameLoopManager.registerTickHandler (src/managers/GameLoopManager.ts:39:17)
+2025-02-28T11:16:22.5877749Z 
+2025-02-28T11:16:22.6683168Z PASS src/index.test.ts
+2025-02-28T11:16:22.7889426Z PASS src/styles/index.test.ts
+2025-02-28T11:16:22.8201367Z PASS src/test-semantic-release.test.ts
+2025-02-28T11:16:22.8686353Z PASS src/utils/EventEmitter.test.ts
+2025-02-28T11:16:23.0060396Z 
+2025-02-28T11:16:23.0061092Z Summary of all failing tests
+2025-02-28T11:16:23.0065565Z FAIL src/systems/resourceManager.test.ts
+2025-02-28T11:16:23.0067790Z   ● Test suite failed to run
+2025-02-28T11:16:23.0068045Z 
+2025-02-28T11:16:23.0075557Z     [96msrc/utils/testUtils.ts[0m:[93m78[0m:[93m5[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:23.0076111Z 
+2025-02-28T11:16:23.0079897Z     [7m78[0m     // @ts-expect-error - Accessing private field for testing
+2025-02-28T11:16:23.0084636Z     [7m  [0m [91m    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:23.0092967Z     [96msrc/utils/testUtils.ts[0m:[93m108[0m:[93m7[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:23.0093484Z 
+2025-02-28T11:16:23.0097546Z     [7m108[0m       // @ts-expect-error - Accessing private constructor for testing
+2025-02-28T11:16:23.0102917Z     [7m   [0m [91m      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:23.0111369Z     [96msrc/utils/testUtils.ts[0m:[93m114[0m:[93m7[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:23.0111891Z 
+2025-02-28T11:16:23.0115483Z     [7m114[0m       // @ts-expect-error - Setting private static field for testing
+2025-02-28T11:16:23.0121158Z     [7m   [0m [91m      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:23.0121919Z 
+2025-02-28T11:16:23.0124020Z FAIL src/systems/__tests__/buildingManager.test.ts
+2025-02-28T11:16:23.0125476Z   ● Test suite failed to run
+2025-02-28T11:16:23.0125731Z 
+2025-02-28T11:16:23.0134374Z     [96msrc/utils/testUtils.ts[0m:[93m78[0m:[93m5[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:23.0135070Z 
+2025-02-28T11:16:23.0138417Z     [7m78[0m     // @ts-expect-error - Accessing private field for testing
+2025-02-28T11:16:23.0142679Z     [7m  [0m [91m    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:23.0205397Z     [96msrc/utils/testUtils.ts[0m:[93m108[0m:[93m7[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:23.0206127Z 
+2025-02-28T11:16:23.0206724Z     [7m108[0m       // @ts-expect-error - Accessing private constructor for testing
+2025-02-28T11:16:23.0207634Z     [7m   [0m [91m      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:23.0208860Z     [96msrc/utils/testUtils.ts[0m:[93m114[0m:[93m7[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:23.0209505Z 
+2025-02-28T11:16:23.0210008Z     [7m114[0m       // @ts-expect-error - Setting private static field for testing
+2025-02-28T11:16:23.0210903Z     [7m   [0m [91m      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:23.0211283Z 
+2025-02-28T11:16:23.0211604Z FAIL src/systems/__tests__/workerManager.test.ts
+2025-02-28T11:16:23.0212270Z   ● Test suite failed to run
+2025-02-28T11:16:23.0212523Z 
+2025-02-28T11:16:23.0213338Z     [96msrc/utils/testUtils.ts[0m:[93m78[0m:[93m5[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:23.0213979Z 
+2025-02-28T11:16:23.0214433Z     [7m78[0m     // @ts-expect-error - Accessing private field for testing
+2025-02-28T11:16:23.0215399Z     [7m  [0m [91m    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:23.0216578Z     [96msrc/utils/testUtils.ts[0m:[93m108[0m:[93m7[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:23.0217206Z 
+2025-02-28T11:16:23.0217712Z     [7m108[0m       // @ts-expect-error - Accessing private constructor for testing
+2025-02-28T11:16:23.0218619Z     [7m   [0m [91m      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:23.0220084Z     [96msrc/utils/testUtils.ts[0m:[93m114[0m:[93m7[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:23.0220773Z 
+2025-02-28T11:16:23.0221304Z     [7m114[0m       // @ts-expect-error - Setting private static field for testing
+2025-02-28T11:16:23.0230158Z     [7m   [0m [91m      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:23.0232816Z 
+2025-02-28T11:16:23.0234426Z FAIL src/systems/__tests__/saveManager.test.ts
+2025-02-28T11:16:23.0235906Z   ● Test suite failed to run
+2025-02-28T11:16:23.0236192Z 
+2025-02-28T11:16:23.0237004Z     [96msrc/utils/testUtils.ts[0m:[93m78[0m:[93m5[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:23.0237634Z 
+2025-02-28T11:16:23.0238121Z     [7m78[0m     // @ts-expect-error - Accessing private field for testing
+2025-02-28T11:16:23.0238970Z     [7m  [0m [91m    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:23.0243806Z     [96msrc/utils/testUtils.ts[0m:[93m108[0m:[93m7[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:23.0245838Z 
+2025-02-28T11:16:23.0246430Z     [7m108[0m       // @ts-expect-error - Accessing private constructor for testing
+2025-02-28T11:16:23.0247432Z     [7m   [0m [91m      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:23.0248599Z     [96msrc/utils/testUtils.ts[0m:[93m114[0m:[93m7[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:23.0249538Z 
+2025-02-28T11:16:23.0250066Z     [7m114[0m       // @ts-expect-error - Setting private static field for testing
+2025-02-28T11:16:23.0250937Z     [7m   [0m [91m      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:23.0251309Z 
+2025-02-28T11:16:23.0251565Z FAIL src/managers/TaskManager.test.ts
+2025-02-28T11:16:23.0252291Z   ● TaskManager › startTask checks if task exists and is available
+2025-02-28T11:16:23.0252730Z 
+2025-02-28T11:16:23.0253047Z     expect(received).toBe(expected) // Object.is equality
+2025-02-28T11:16:23.0253430Z 
+2025-02-28T11:16:23.0253566Z     Expected: true
+2025-02-28T11:16:23.0253885Z     Received: false
+2025-02-28T11:16:23.0254070Z 
+2025-02-28T11:16:23.0254494Z     [0m [90m 135 |[39m     [90m// Should succeed for available task[39m
+2025-02-28T11:16:23.0255768Z      [90m 136 |[39m     [36mconst[39m result [33m=[39m taskManager[33m.[39mstartTask([32m'test-task'[39m)[33m;[39m
+2025-02-28T11:16:23.0256914Z     [31m[1m>[22m[39m[90m 137 |[39m     expect(result)[33m.[39mtoBe([36mtrue[39m)[33m;[39m
+2025-02-28T11:16:23.0257672Z      [90m     |[39m                    [31m[1m^[22m[39m
+2025-02-28T11:16:23.0258856Z      [90m 138 |[39m     expect(store[33m.[39mdispatch)[33m.[39mtoHaveBeenCalledWith(
+2025-02-28T11:16:23.0265741Z      [90m 139 |[39m       expect[33m.[39mobjectContaining({
+2025-02-28T11:16:23.0266482Z      [90m 140 |[39m         type[33m:[39m startTask[33m.[39mtype[33m,[39m[0m
+2025-02-28T11:16:23.0266795Z 
+2025-02-28T11:16:23.0267130Z       at Object.<anonymous> (src/managers/TaskManager.test.ts:137:20)
+2025-02-28T11:16:23.0267521Z 
+2025-02-28T11:16:23.0267872Z   ● TaskManager › canAffordTask checks if player has enough resources
+2025-02-28T11:16:23.0268129Z 
+2025-02-28T11:16:23.0268301Z     expect(received).toBe(expected) // Object.is equality
+2025-02-28T11:16:23.0268514Z 
+2025-02-28T11:16:23.0268590Z     Expected: true
+2025-02-28T11:16:23.0268792Z     Received: false
+2025-02-28T11:16:23.0268904Z 
+2025-02-28T11:16:23.0269112Z     [0m [90m 161 |[39m     [90m// Can afford this task[39m
+2025-02-28T11:16:23.0270635Z      [90m 162 |[39m     [36mconst[39m canAfford [33m=[39m taskManager[33m.[39mcanAffordTask([32m'test-task'[39m)[33m;[39m
+2025-02-28T11:16:23.0272639Z     [31m[1m>[22m[39m[90m 163 |[39m     expect(canAfford)[33m.[39mtoBe([36mtrue[39m)[33m;[39m
+2025-02-28T11:16:23.0274058Z      [90m     |[39m                       [31m[1m^[22m[39m
+2025-02-28T11:16:23.0274796Z      [90m 164 |[39m     
+2025-02-28T11:16:23.0275681Z      [90m 165 |[39m     [90m// Mock resources to be insufficient[39m
+2025-02-28T11:16:23.0279124Z      [90m 166 |[39m     (store[33m.[39mgetState [36mas[39m jest[33m.[39m[33mMock[39m)[33m.[39mmockReturnValueOnce({[0m
+2025-02-28T11:16:23.0279722Z 
+2025-02-28T11:16:23.0280073Z       at Object.<anonymous> (src/managers/TaskManager.test.ts:163:23)
+2025-02-28T11:16:23.0280483Z 
+2025-02-28T11:16:23.0280963Z FAIL src/gameCore.integration.test.tsx
+2025-02-28T11:16:23.0281486Z   ● Test suite failed to run
+2025-02-28T11:16:23.0281727Z 
+2025-02-28T11:16:23.0285303Z     [96msrc/utils/testUtils.ts[0m:[93m78[0m:[93m5[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:23.0285759Z 
+2025-02-28T11:16:23.0286389Z     [7m78[0m     // @ts-expect-error - Accessing private field for testing
+2025-02-28T11:16:23.0288468Z     [7m  [0m [91m    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:23.0291723Z     [96msrc/utils/testUtils.ts[0m:[93m108[0m:[93m7[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:23.0292185Z 
+2025-02-28T11:16:23.0293209Z     [7m108[0m       // @ts-expect-error - Accessing private constructor for testing
+2025-02-28T11:16:23.0295453Z     [7m   [0m [91m      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:23.0298685Z     [96msrc/utils/testUtils.ts[0m:[93m114[0m:[93m7[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:23.0299364Z 
+2025-02-28T11:16:23.0300107Z     [7m114[0m       // @ts-expect-error - Setting private static field for testing
+2025-02-28T11:16:23.0302219Z     [7m   [0m [91m      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:23.0302590Z 
+2025-02-28T11:16:23.0303349Z FAIL src/systems/__tests__/oppressionSystem.test.ts
+2025-02-28T11:16:23.0303903Z   ● Test suite failed to run
+2025-02-28T11:16:23.0304133Z 
+2025-02-28T11:16:23.0307529Z     [96msrc/utils/testUtils.ts[0m:[93m78[0m:[93m5[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:23.0307982Z 
+2025-02-28T11:16:23.0308736Z     [7m78[0m     // @ts-expect-error - Accessing private field for testing
+2025-02-28T11:16:23.0310623Z     [7m  [0m [91m    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:23.0313838Z     [96msrc/utils/testUtils.ts[0m:[93m108[0m:[93m7[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:23.0314296Z 
+2025-02-28T11:16:23.0315399Z     [7m108[0m       // @ts-expect-error - Accessing private constructor for testing
+2025-02-28T11:16:23.0317589Z     [7m   [0m [91m      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:23.0320820Z     [96msrc/utils/testUtils.ts[0m:[93m114[0m:[93m7[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:23.0321266Z 
+2025-02-28T11:16:23.0322223Z     [7m114[0m       // @ts-expect-error - Setting private static field for testing
+2025-02-28T11:16:23.0324329Z     [7m   [0m [91m      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:23.0324689Z 
+2025-02-28T11:16:23.0328786Z FAIL src/workers.integration.test.tsx
+2025-02-28T11:16:23.0329324Z   ● Test suite failed to run
+2025-02-28T11:16:23.0329557Z 
+2025-02-28T11:16:23.0332513Z     [96msrc/utils/testUtils.ts[0m:[93m78[0m:[93m5[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:23.0332987Z 
+2025-02-28T11:16:23.0333547Z     [7m78[0m     // @ts-expect-error - Accessing private field for testing
+2025-02-28T11:16:23.0335567Z     [7m  [0m [91m    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:23.0338873Z     [96msrc/utils/testUtils.ts[0m:[93m108[0m:[93m7[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:23.0339280Z 
+2025-02-28T11:16:23.0339926Z     [7m108[0m       // @ts-expect-error - Accessing private constructor for testing
+2025-02-28T11:16:23.0341891Z     [7m   [0m [91m      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:23.0344936Z     [96msrc/utils/testUtils.ts[0m:[93m114[0m:[93m7[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:23.0345585Z 
+2025-02-28T11:16:23.0346466Z     [7m114[0m       // @ts-expect-error - Setting private static field for testing
+2025-02-28T11:16:23.0348378Z     [7m   [0m [91m      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:23.0348736Z 
+2025-02-28T11:16:23.0349271Z FAIL src/systems/__tests__/gameLoop.test.ts
+2025-02-28T11:16:23.0349771Z   ● Test suite failed to run
+2025-02-28T11:16:23.0350000Z 
+2025-02-28T11:16:23.0353209Z     [96msrc/utils/testUtils.ts[0m:[93m78[0m:[93m5[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:23.0353664Z 
+2025-02-28T11:16:23.0354249Z     [7m78[0m     // @ts-expect-error - Accessing private field for testing
+2025-02-28T11:16:23.0356242Z     [7m  [0m [91m    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:23.0359242Z     [96msrc/utils/testUtils.ts[0m:[93m108[0m:[93m7[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:23.0359693Z 
+2025-02-28T11:16:23.0360561Z     [7m108[0m       // @ts-expect-error - Accessing private constructor for testing
+2025-02-28T11:16:23.0362550Z     [7m   [0m [91m      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:23.0365681Z     [96msrc/utils/testUtils.ts[0m:[93m114[0m:[93m7[0m - [91merror[0m[90m TS2578: [0mUnused '@ts-expect-error' directive.
+2025-02-28T11:16:23.0366180Z 
+2025-02-28T11:16:23.0367776Z     [7m114[0m       // @ts-expect-error - Setting private static field for testing
+2025-02-28T11:16:23.0368772Z     [7m   [0m [91m      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2025-02-28T11:16:23.0369140Z 
+2025-02-28T11:16:23.0369450Z FAIL src/components/__tests__/GameTimer.test.tsx
+2025-02-28T11:16:23.0369993Z   ● Test suite failed to run
+2025-02-28T11:16:23.0370244Z 
+2025-02-28T11:16:23.0371756Z     [96msrc/components/GameTimer.tsx[0m:[93m4[0m:[93m1[0m - [91merror[0m[90m TS1185: [0mMerge conflict marker encountered.
+2025-02-28T11:16:23.0372429Z 
+2025-02-28T11:16:23.0372846Z     [7m4[0m >>>>>>> 913f8f829de658714bbc42cde32fd3bbb51a7e28
+2025-02-28T11:16:23.0373411Z     [7m [0m [91m~~~~~~~[0m
+2025-02-28T11:16:23.0373640Z 
+2025-02-28T11:16:23.0373921Z FAIL src/components/GameTimer.test.tsx
+2025-02-28T11:16:23.0374412Z   ● Test suite failed to run
+2025-02-28T11:16:23.0374656Z 
+2025-02-28T11:16:23.0377452Z     [96msrc/components/GameTimer.tsx[0m:[93m4[0m:[93m1[0m - [91merror[0m[90m TS1185: [0mMerge conflict marker encountered.
+2025-02-28T11:16:23.0378171Z 
+2025-02-28T11:16:23.0378561Z     [7m4[0m >>>>>>> 913f8f829de658714bbc42cde32fd3bbb51a7e28
+2025-02-28T11:16:23.0379140Z     [7m [0m [91m~~~~~~~[0m
+2025-02-28T11:16:23.0379384Z 
+2025-02-28T11:16:23.0379624Z FAIL src/components/App.test.tsx
+2025-02-28T11:16:23.0380108Z   ● Test suite failed to run
+2025-02-28T11:16:23.0380350Z 
+2025-02-28T11:16:23.0382071Z     [96msrc/components/GameTimer.tsx[0m:[93m4[0m:[93m1[0m - [91merror[0m[90m TS1185: [0mMerge conflict marker encountered.
+2025-02-28T11:16:23.0382777Z 
+2025-02-28T11:16:23.0383088Z     [7m4[0m >>>>>>> 913f8f829de658714bbc42cde32fd3bbb51a7e28
+2025-02-28T11:16:23.0383411Z     [7m [0m [91m~~~~~~~[0m
+2025-02-28T11:16:23.0383548Z 
+2025-02-28T11:16:23.0383553Z 
+2025-02-28T11:16:23.0386255Z Test Suites: 12 failed, 45 passed, 57 total
+2025-02-28T11:16:23.0386719Z Tests:       2 failed, 305 passed, 307 total
+2025-02-28T11:16:23.0387001Z Snapshots:   0 total
+2025-02-28T11:16:23.0387399Z Time:        23.578 s
+2025-02-28T11:16:23.0387618Z Ran all test suites.
+2025-02-28T11:16:23.0523982Z ##[error]Process completed with exit code 1.
+2025-02-28T11:16:23.0550863Z ##[group]Run echo "Converting webpack.config.js from ES module to CommonJS format"
+2025-02-28T11:16:23.0551649Z [36;1mecho "Converting webpack.config.js from ES module to CommonJS format"[0m
+2025-02-28T11:16:23.0552102Z [36;1mcat > webpack.config.js << 'EOF'[0m
+2025-02-28T11:16:23.0552439Z [36;1mconst path = require('path');[0m
+2025-02-28T11:16:23.0552948Z [36;1mconst HtmlWebpackPlugin = require('html-webpack-plugin');[0m
+2025-02-28T11:16:23.0553352Z [36;1m[0m
+2025-02-28T11:16:23.0553619Z [36;1mmodule.exports = (env, argv) => ({[0m
+2025-02-28T11:16:23.0554041Z [36;1m  entry: './src/index.tsx',[0m
+2025-02-28T11:16:23.0554326Z [36;1m  output: {[0m
+2025-02-28T11:16:23.0554626Z [36;1m    path: path.resolve(__dirname, 'dist'),[0m
+2025-02-28T11:16:23.0555065Z [36;1m    filename: 'bundle.js',[0m
+2025-02-28T11:16:23.0555695Z [36;1m    publicPath: '/',[0m
+2025-02-28T11:16:23.0555956Z [36;1m  },[0m
+2025-02-28T11:16:23.0556317Z [36;1m  resolve: {[0m
+2025-02-28T11:16:23.0566970Z [36;1m    extensions: ['.tsx', '.ts', '.js'],[0m
+2025-02-28T11:16:23.0567384Z [36;1m    alias: {[0m
+2025-02-28T11:16:23.0567621Z [36;1m      '@': path.resolve(__dirname, 'src'),[0m
+2025-02-28T11:16:23.0567878Z [36;1m    },[0m
+2025-02-28T11:16:23.0568049Z [36;1m  },[0m
+2025-02-28T11:16:23.0568216Z [36;1m  devServer: {[0m
+2025-02-28T11:16:23.0568430Z [36;1m    historyApiFallback: true,[0m
+2025-02-28T11:16:23.0568877Z [36;1m    port: 3000,[0m
+2025-02-28T11:16:23.0569067Z [36;1m    hot: true,[0m
+2025-02-28T11:16:23.0569249Z [36;1m  },[0m
+2025-02-28T11:16:23.0569412Z [36;1m  module: {[0m
+2025-02-28T11:16:23.0569585Z [36;1m    rules: [[0m
+2025-02-28T11:16:23.0569763Z [36;1m      {[0m
+2025-02-28T11:16:23.0569942Z [36;1m        test: /\.(ts|tsx)$/,[0m
+2025-02-28T11:16:23.0570179Z [36;1m        exclude: /node_modules/,[0m
+2025-02-28T11:16:23.0570409Z [36;1m        use: {[0m
+2025-02-28T11:16:23.0570605Z [36;1m          loader: 'ts-loader',[0m
+2025-02-28T11:16:23.0570834Z [36;1m          options: {[0m
+2025-02-28T11:16:23.0571183Z [36;1m            // Ignore TypeScript errors in development mode or when explicitly specified[0m
+2025-02-28T11:16:23.0571708Z [36;1m            transpileOnly: argv.mode === 'development' || (env && env.ignoreTypeErrors === 'true'),[0m
+2025-02-28T11:16:23.0572086Z [36;1m          },[0m
+2025-02-28T11:16:23.0572267Z [36;1m        },[0m
+2025-02-28T11:16:23.0572438Z [36;1m      },[0m
+2025-02-28T11:16:23.0572605Z [36;1m      {[0m
+2025-02-28T11:16:23.0572775Z [36;1m        test: /\.css$/,[0m
+2025-02-28T11:16:23.0573018Z [36;1m        use: ['style-loader', 'css-loader'],[0m
+2025-02-28T11:16:23.0573265Z [36;1m      },[0m
+2025-02-28T11:16:23.0573421Z [36;1m      {[0m
+2025-02-28T11:16:23.0573615Z [36;1m        test: /\.(png|svg|jpg|jpeg|gif)$/i,[0m
+2025-02-28T11:16:23.0573875Z [36;1m        type: 'asset/resource',[0m
+2025-02-28T11:16:23.0574089Z [36;1m      },[0m
+2025-02-28T11:16:23.0574255Z [36;1m    ],[0m
+2025-02-28T11:16:23.0574425Z [36;1m  },[0m
+2025-02-28T11:16:23.0574589Z [36;1m  plugins: [[0m
+2025-02-28T11:16:23.0574796Z [36;1m    new HtmlWebpackPlugin({[0m
+2025-02-28T11:16:23.0575049Z [36;1m      template: './src/index.html',[0m
+2025-02-28T11:16:23.0575507Z [36;1m    }),[0m
+2025-02-28T11:16:23.0575682Z [36;1m  ],[0m
+2025-02-28T11:16:23.0575840Z [36;1m});[0m
+2025-02-28T11:16:23.0575999Z [36;1mEOF[0m
+2025-02-28T11:16:23.0622824Z shell: /usr/bin/bash -e {0}
+2025-02-28T11:16:23.0623043Z ##[endgroup]
+2025-02-28T11:16:23.0689426Z Converting webpack.config.js from ES module to CommonJS format
+2025-02-28T11:16:23.0724652Z ##[group]Run npm run build:dev
+2025-02-28T11:16:23.0724924Z [36;1mnpm run build:dev[0m
+2025-02-28T11:16:23.0767312Z shell: /usr/bin/bash -e {0}
+2025-02-28T11:16:23.0767541Z ##[endgroup]
+2025-02-28T11:16:23.1848599Z 
+2025-02-28T11:16:23.1849063Z > idle-game@0.6.1 build:dev
+2025-02-28T11:16:23.1849645Z > webpack --mode production --env ignoreTypeErrors=true
+2025-02-28T11:16:23.1849999Z 
+2025-02-28T11:16:32.1438945Z assets by status 537 KiB [1m[32m[cached][39m[22m 2 assets
+2025-02-28T11:16:32.1440000Z orphan modules 1.01 MiB [1m[33m[orphan][39m[22m 155 modules
+2025-02-28T11:16:32.1440674Z runtime modules 972 bytes 5 modules
+2025-02-28T11:16:32.1441155Z cacheable modules 1.74 MiB
+2025-02-28T11:16:32.1441759Z   modules by path [1m./src/[39m[22m 1.08 MiB
+2025-02-28T11:16:32.1442568Z     modules by path [1m./src/components/[39m[22m 84.3 KiB 32 modules
+2025-02-28T11:16:32.1443333Z     modules by path [1m./src/styles/[39m[22m 26.5 KiB 8 modules
+2025-02-28T11:16:32.1444071Z     modules by path [1m./src/state/*.ts[39m[22m 16.2 KiB
+2025-02-28T11:16:32.1444942Z       [1m./src/state/resourcesSlice.ts[39m[22m 5.48 KiB [1m[33m[built][39m[22m [1m[33m[code generated][39m[22m
+2025-02-28T11:16:32.1445759Z       + 3 modules
+2025-02-28T11:16:32.1445999Z     + 8 modules
+2025-02-28T11:16:32.1446475Z   modules by path [1m./node_modules/[39m[22m 681 KiB 22 modules
+2025-02-28T11:16:32.1446781Z 
+2025-02-28T11:16:32.1447418Z [1m[31mERROR[39m[22m in [1m/home/runner/work/idle-game/idle-game/src/components/GameTimer.tsx[39m[22m
+2025-02-28T11:16:32.1448482Z [1m./src/components/GameTimer.tsx[39m[22m [1m[32m4:0-7[39m[22m
+2025-02-28T11:16:32.1449659Z [1m[tsl] [1m[31mERROR[39m[22m[1m in /home/runner/work/idle-game/idle-game/src/components/GameTimer.tsx(4,1)
+2025-02-28T11:16:32.1451110Z       TS1185: Merge [1m[31mconflict[39m[22m[1m marker encountered.[39m[22m
+2025-02-28T11:16:32.1451731Z ts-loader-default_8c1ff2f85f3e5f59
+2025-02-28T11:16:32.1452174Z  @ ./src/components/App.tsx 9:0-36 177:254-263
+2025-02-28T11:16:32.1452582Z  @ ./src/index.tsx 6:0-35 17:93-96
+2025-02-28T11:16:32.1452794Z 
+2025-02-28T11:16:32.1453217Z webpack 5.98.0 compiled with [1m[31m1 error[39m[22m in 8488 ms
+2025-02-28T11:16:32.1954111Z ##[error]Process completed with exit code 1.
+2025-02-28T11:16:32.2035989Z Post job cleanup.
+2025-02-28T11:16:32.2970779Z [command]/usr/bin/git version
+2025-02-28T11:16:32.3014770Z git version 2.48.1
+2025-02-28T11:16:32.3061236Z Temporarily overriding HOME='/home/runner/work/_temp/f69e31f0-32ec-401f-8ce0-d56df78b28bd' before making global git config changes
+2025-02-28T11:16:32.3062664Z Adding repository directory to the temporary git global config as a safe directory
+2025-02-28T11:16:32.3067694Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/idle-game/idle-game
+2025-02-28T11:16:32.3102463Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2025-02-28T11:16:32.3135275Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2025-02-28T11:16:32.3373038Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2025-02-28T11:16:32.3393923Z http.https://github.com/.extraheader
+2025-02-28T11:16:32.3407051Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2025-02-28T11:16:32.3437937Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2025-02-28T11:16:32.3776154Z Cleaning up orphan processes

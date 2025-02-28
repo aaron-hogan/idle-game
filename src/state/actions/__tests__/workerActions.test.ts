@@ -1,11 +1,11 @@
 import configureStore from 'redux-mock-store';
-import { 
-  assignWorkersToBuilding, 
-  changeWorkers, 
+import {
+  assignWorkersToBuilding,
+  changeWorkers,
   autoAssignWorkers,
   ASSIGN_WORKERS,
   CHANGE_WORKER_COUNT,
-  AUTO_ASSIGN_WORKERS
+  AUTO_ASSIGN_WORKERS,
 } from '../workerActions';
 
 // Mock the WorkerManager class
@@ -15,9 +15,9 @@ jest.mock('../../../systems/workerManager', () => {
       return {
         assignWorkersToBuilding: jest.fn().mockReturnValue(true),
         changeWorkerCount: jest.fn().mockReturnValue(true),
-        autoAssignWorkers: jest.fn().mockReturnValue(true)
+        autoAssignWorkers: jest.fn().mockReturnValue(true),
       };
-    })
+    }),
   };
 });
 
@@ -30,7 +30,7 @@ describe('Worker Actions', () => {
     expect(typeof changeWorkers).toBe('function');
     expect(typeof autoAssignWorkers).toBe('function');
   });
-  
+
   test('plain actions have the right types', () => {
     expect(ASSIGN_WORKERS).toBe('workers/assign');
     expect(CHANGE_WORKER_COUNT).toBe('workers/changeCount');

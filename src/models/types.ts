@@ -27,7 +27,7 @@ export const NULL_RESOURCE: Resource = {
   perSecond: 0,
   description: 'This resource does not exist.',
   unlocked: false,
-  category: 'unknown'
+  category: 'unknown',
 };
 
 // Structure (building) definition
@@ -61,7 +61,7 @@ export const NULL_STRUCTURE: Structure = {
   unlocked: false,
   workers: 0,
   maxWorkers: 0,
-  category: 'unknown'
+  category: 'unknown',
 };
 
 // Main game state

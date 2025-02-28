@@ -18,28 +18,28 @@ const Tooltip: React.FC<TooltipProps> = ({
   const [isVisible, setIsVisible] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const tooltipRef = useRef<HTMLDivElement | null>(null);
-  
+
   // Show the tooltip after the specified delay
   const showTooltip = () => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
-    
+
     timeoutRef.current = setTimeout(() => {
       setIsVisible(true);
     }, delay);
   };
-  
+
   // Hide the tooltip immediately
   const hideTooltip = () => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
       timeoutRef.current = null;
     }
-    
+
     setIsVisible(false);
   };
-  
+
   // Clean up the timeout on unmount
   useEffect(() => {
     return () => {
@@ -48,12 +48,12 @@ const Tooltip: React.FC<TooltipProps> = ({
       }
     };
   }, []);
-  
+
   // Calculate the position classes
   const positionClass = `tooltip-${position}`;
-  
+
   return (
-    <div 
+    <div
       className={`tooltip-container ${className}`}
       onMouseEnter={showTooltip}
       onMouseLeave={hideTooltip}
@@ -62,9 +62,9 @@ const Tooltip: React.FC<TooltipProps> = ({
       style={{ position: 'relative', display: 'inline-block' }}
     >
       {children}
-      
+
       {isVisible && (
-        <div 
+        <div
           ref={tooltipRef}
           className={`tooltip ${positionClass}`}
           style={{
@@ -76,7 +76,7 @@ const Tooltip: React.FC<TooltipProps> = ({
             borderRadius: '4px',
             fontSize: '0.875rem',
             maxWidth: '250px',
-            wordBreak: 'break-word'
+            wordBreak: 'break-word',
           }}
         >
           {content}

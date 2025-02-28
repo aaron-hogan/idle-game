@@ -23,9 +23,11 @@ const MetricsPanel: React.FC<MetricsPanelProps> = ({ title, metrics }) => {
           <React.Fragment key={index}>
             <div className="metric-name">{metric.name}:</div>
             <div className={`metric-value ${metric.status || 'neutral'}`}>
-              {typeof metric.value === 'number' ? 
-                Number.isInteger(metric.value) ? metric.value : metric.value.toFixed(2) : 
-                metric.value}
+              {typeof metric.value === 'number'
+                ? Number.isInteger(metric.value)
+                  ? metric.value
+                  : metric.value.toFixed(2)
+                : metric.value}
             </div>
           </React.Fragment>
         ))}

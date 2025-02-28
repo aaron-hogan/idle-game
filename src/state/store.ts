@@ -13,13 +13,13 @@ import { attachErrorMonitoring } from '../utils/errorUtils';
 
 // Type for our reducers
 type AppReducer = {
-  resources: typeof resourcesReducer,
-  structures: typeof structuresReducer,
-  game: typeof gameReducer,
-  tasks: typeof tasksReducer,
-  events: typeof eventsReducer,
-  progression: typeof progressionReducer,
-  tutorial: typeof tutorialReducer,
+  resources: typeof resourcesReducer;
+  structures: typeof structuresReducer;
+  game: typeof gameReducer;
+  tasks: typeof tasksReducer;
+  events: typeof eventsReducer;
+  progression: typeof progressionReducer;
+  tutorial: typeof tutorialReducer;
 };
 
 // Configure store with all reducers and middleware
@@ -34,7 +34,7 @@ export const store = configureStore({
     tutorial: tutorialReducer,
   } as AppReducer,
   // Add custom middleware for validation and tracking
-  middleware: (getDefaultMiddleware) => 
+  middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
       .concat(stateValidationMiddleware)
       .concat(trackingMiddleware)
@@ -49,13 +49,13 @@ attachErrorMonitoring(store);
 // Define RootState first, without referencing store directly
 // This avoids the circular reference error
 export type RootState = {
-  resources: ReturnType<typeof resourcesReducer>,
-  structures: ReturnType<typeof structuresReducer>,
-  game: ReturnType<typeof gameReducer>,
-  tasks: ReturnType<typeof tasksReducer>,
-  events: ReturnType<typeof eventsReducer>,
-  progression: ReturnType<typeof progressionReducer>,
-  tutorial: ReturnType<typeof tutorialReducer>,
+  resources: ReturnType<typeof resourcesReducer>;
+  structures: ReturnType<typeof structuresReducer>;
+  game: ReturnType<typeof gameReducer>;
+  tasks: ReturnType<typeof tasksReducer>;
+  events: ReturnType<typeof eventsReducer>;
+  progression: ReturnType<typeof progressionReducer>;
+  tutorial: ReturnType<typeof tutorialReducer>;
 };
 export type AppDispatch = typeof store.dispatch;
 

@@ -25,11 +25,11 @@ const TestComponent = () => (
 describe('Worker System Integration Test', () => {
   let store: any;
   let workerManager: WorkerManager;
-  
+
   beforeEach(() => {
     // Reset singletons before each test
     resetSingleton(WorkerManager);
-    
+
     // Create a store with all necessary reducers
     store = configureStore({
       reducer: {
@@ -52,13 +52,13 @@ describe('Worker System Integration Test', () => {
           startDate: Date.now(),
           gameEnded: false, // Required fields from updated GameState
           gameWon: false,
-          endReason: null
+          endReason: null,
         },
         resources: {},
-        structures: {}
-      }
+        structures: {},
+      },
     });
-    
+
     // Add test buildings
     const building1: Structure = {
       id: 'building1',
@@ -71,9 +71,9 @@ describe('Worker System Integration Test', () => {
       unlocked: true,
       workers: 0,
       maxWorkers: 5,
-      category: 'PRODUCTION'
+      category: 'PRODUCTION',
     };
-    
+
     const building2: Structure = {
       id: 'building2',
       name: 'Building 2',
@@ -85,15 +85,15 @@ describe('Worker System Integration Test', () => {
       unlocked: true,
       workers: 0,
       maxWorkers: 3,
-      category: 'INFRASTRUCTURE'
+      category: 'INFRASTRUCTURE',
     };
-    
+
     store.dispatch(addStructure(building1));
     store.dispatch(addStructure(building2));
-    
+
     // Initialize manager with proper dependency injection
     const structureActions = require('../src/state/structuresSlice');
-    
+
     // Create dependencies for WorkerManager
     const workerManagerDependencies: WorkerManagerDependencies = {
       dispatch: store.dispatch,
@@ -101,13 +101,13 @@ describe('Worker System Integration Test', () => {
       actions: {
         assignWorkers: structureActions.assignWorkers,
         changeWorkerCount: structureActions.changeWorkerCount,
-      }
+      },
     };
-    
+
     // Get the singleton instance with dependencies
     workerManager = WorkerManager.getInstance(workerManagerDependencies);
   });
-  
+
   test('WorkerManager can assign and manage workers', () => {
     // Set up test component with store
     render(
@@ -115,55 +115,55 @@ describe('Worker System Integration Test', () => {
         <TestComponent />
       </Provider>
     );
-    
+
     // Verify initial state
     expect(store.getState().structures['building1'].workers).toBe(0);
     expect(store.getState().structures['building2'].workers).toBe(0);
-    
+
     // Test worker assignment
     workerManager.assignWorkersToBuilding('building1', 2);
     expect(store.getState().structures['building1'].workers).toBe(2);
-    
+
     // Test worker adjustment
     workerManager.changeWorkerCount('building1', -1);
     expect(store.getState().structures['building1'].workers).toBe(1);
-    
+
     // Test worker efficiency calculation
     const efficiency = workerManager.calculateWorkerEfficiency('building1');
     // Efficiency with 1 out of 5 workers (20% staffing) should be around 0.5
     // Based on formula in WorkerManager.calculateWorkerEfficiency
     expect(efficiency).toBeCloseTo(0.5, 1);
-    
+
     // Test auto-assign balanced
     workerManager.autoAssignWorkers('balanced');
     const stateAfterBalanced = store.getState().structures;
     // Both buildings should have workers
     expect(stateAfterBalanced['building1'].workers).toBeGreaterThan(0);
     expect(stateAfterBalanced['building2'].workers).toBeGreaterThan(0);
-    
+
     // Reset workers
     workerManager.assignWorkersToBuilding('building1', 0);
     workerManager.assignWorkersToBuilding('building2', 0);
-    
+
     // Test auto-assign focused
     workerManager.autoAssignWorkers('focused');
     const stateAfterFocused = store.getState().structures;
     // Total workers should be allocated (or limited by max capacity)
-    const totalAssigned = stateAfterFocused['building1'].workers + 
-                         stateAfterFocused['building2'].workers;
+    const totalAssigned =
+      stateAfterFocused['building1'].workers + stateAfterFocused['building2'].workers;
     // Just make sure workers are assigned (the total could be limited by maxWorkers)
     expect(totalAssigned).toBeGreaterThan(0);
-    
+
     // Test auto-assign efficiency
     workerManager.autoAssignWorkers('efficiency');
     const stateAfterEfficiency = store.getState().structures;
-    
+
     // Efficiency strategy should aim for ~80% capacity in buildings
-    const building1Capacity = stateAfterEfficiency['building1'].workers / 
-                             stateAfterEfficiency['building1'].maxWorkers;
-    const building2Capacity = stateAfterEfficiency['building2'].workers / 
-                             stateAfterEfficiency['building2'].maxWorkers;
-                             
+    const building1Capacity =
+      stateAfterEfficiency['building1'].workers / stateAfterEfficiency['building1'].maxWorkers;
+    const building2Capacity =
+      stateAfterEfficiency['building2'].workers / stateAfterEfficiency['building2'].maxWorkers;
+
     // In an optimal scenario, we'd have exactly 80% staffing,
     // but with limited workers, some buildings might get fully staffed
     // and others might get less, so we just check reasonable values

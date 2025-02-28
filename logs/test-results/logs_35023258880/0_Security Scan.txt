@@ -1,0 +1,183 @@
+﻿2025-02-28T11:13:14.1689914Z Current runner version: '2.322.0'
+2025-02-28T11:13:14.1715415Z ##[group]Operating System
+2025-02-28T11:13:14.1716190Z Ubuntu
+2025-02-28T11:13:14.1716715Z 24.04.2
+2025-02-28T11:13:14.1717229Z LTS
+2025-02-28T11:13:14.1717911Z ##[endgroup]
+2025-02-28T11:13:14.1718449Z ##[group]Runner Image
+2025-02-28T11:13:14.1719062Z Image: ubuntu-24.04
+2025-02-28T11:13:14.1719545Z Version: 20250223.1.0
+2025-02-28T11:13:14.1720604Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20250223.1/images/ubuntu/Ubuntu2404-Readme.md
+2025-02-28T11:13:14.1721973Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20250223.1
+2025-02-28T11:13:14.1722880Z ##[endgroup]
+2025-02-28T11:13:14.1723439Z ##[group]Runner Image Provisioner
+2025-02-28T11:13:14.1724025Z 2.0.422.1
+2025-02-28T11:13:14.1724485Z ##[endgroup]
+2025-02-28T11:13:14.1725526Z ##[group]GITHUB_TOKEN Permissions
+2025-02-28T11:13:14.1727363Z Contents: read
+2025-02-28T11:13:14.1728223Z Metadata: read
+2025-02-28T11:13:14.1729009Z Packages: read
+2025-02-28T11:13:14.1729576Z ##[endgroup]
+2025-02-28T11:13:14.1731720Z Secret source: Actions
+2025-02-28T11:13:14.1732404Z Prepare workflow directory
+2025-02-28T11:13:14.2057787Z Prepare all required actions
+2025-02-28T11:13:14.2094823Z Getting action download info
+2025-02-28T11:13:14.7656219Z Download action repository 'actions/checkout@v4' (SHA:11bd71901bbe5b1630ceea73d27597364c9af683)
+2025-02-28T11:13:14.8506370Z Download action repository 'actions/setup-node@v3' (SHA:1a4442cacd436585916779262731d5b162bc6ec7)
+2025-02-28T11:13:14.9482484Z Download action repository 'gitleaks/gitleaks-action@v2' (SHA:83373cf2f8c4db6e24b41c1a9b086bb9619e9cd3)
+2025-02-28T11:13:15.5507319Z Complete job name: Security Scan
+2025-02-28T11:13:15.6170715Z ##[group]Run actions/checkout@v4
+2025-02-28T11:13:15.6171528Z with:
+2025-02-28T11:13:15.6171917Z   repository: aaron-hogan/idle-game
+2025-02-28T11:13:15.6172567Z   token: ***
+2025-02-28T11:13:15.6172938Z   ssh-strict: true
+2025-02-28T11:13:15.6173319Z   ssh-user: git
+2025-02-28T11:13:15.6173892Z   persist-credentials: true
+2025-02-28T11:13:15.6174560Z   clean: true
+2025-02-28T11:13:15.6174965Z   sparse-checkout-cone-mode: true
+2025-02-28T11:13:15.6175428Z   fetch-depth: 1
+2025-02-28T11:13:15.6175811Z   fetch-tags: false
+2025-02-28T11:13:15.6176192Z   show-progress: true
+2025-02-28T11:13:15.6176587Z   lfs: false
+2025-02-28T11:13:15.6176946Z   submodules: false
+2025-02-28T11:13:15.6177336Z   set-safe-directory: true
+2025-02-28T11:13:15.6178481Z ##[endgroup]
+2025-02-28T11:13:15.8010285Z Syncing repository: aaron-hogan/idle-game
+2025-02-28T11:13:15.8012572Z ##[group]Getting Git version info
+2025-02-28T11:13:15.8013433Z Working directory is '/home/runner/work/idle-game/idle-game'
+2025-02-28T11:13:15.8014735Z [command]/usr/bin/git version
+2025-02-28T11:13:15.8066399Z git version 2.48.1
+2025-02-28T11:13:15.8094573Z ##[endgroup]
+2025-02-28T11:13:15.8109218Z Temporarily overriding HOME='/home/runner/work/_temp/f3623794-1715-46e7-8b72-d5242aee4486' before making global git config changes
+2025-02-28T11:13:15.8111522Z Adding repository directory to the temporary git global config as a safe directory
+2025-02-28T11:13:15.8122380Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/idle-game/idle-game
+2025-02-28T11:13:15.8158705Z Deleting the contents of '/home/runner/work/idle-game/idle-game'
+2025-02-28T11:13:15.8163051Z ##[group]Initializing the repository
+2025-02-28T11:13:15.8166914Z [command]/usr/bin/git init /home/runner/work/idle-game/idle-game
+2025-02-28T11:13:15.8238404Z hint: Using 'master' as the name for the initial branch. This default branch name
+2025-02-28T11:13:15.8240391Z hint: is subject to change. To configure the initial branch name to use in all
+2025-02-28T11:13:15.8242042Z hint: of your new repositories, which will suppress this warning, call:
+2025-02-28T11:13:15.8243296Z hint:
+2025-02-28T11:13:15.8244204Z hint: 	git config --global init.defaultBranch <name>
+2025-02-28T11:13:15.8245373Z hint:
+2025-02-28T11:13:15.8246377Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2025-02-28T11:13:15.8248776Z hint: 'development'. The just-created branch can be renamed via this command:
+2025-02-28T11:13:15.8249656Z hint:
+2025-02-28T11:13:15.8250052Z hint: 	git branch -m <name>
+2025-02-28T11:13:15.8250879Z Initialized empty Git repository in /home/runner/work/idle-game/idle-game/.git/
+2025-02-28T11:13:15.8259351Z [command]/usr/bin/git remote add origin https://github.com/aaron-hogan/idle-game
+2025-02-28T11:13:15.8294279Z ##[endgroup]
+2025-02-28T11:13:15.8295580Z ##[group]Disabling automatic garbage collection
+2025-02-28T11:13:15.8298372Z [command]/usr/bin/git config --local gc.auto 0
+2025-02-28T11:13:15.8327648Z ##[endgroup]
+2025-02-28T11:13:15.8328813Z ##[group]Setting up auth
+2025-02-28T11:13:15.8334501Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2025-02-28T11:13:15.8367892Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2025-02-28T11:13:15.8686957Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2025-02-28T11:13:15.8717397Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2025-02-28T11:13:15.8955295Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2025-02-28T11:13:15.8992822Z ##[endgroup]
+2025-02-28T11:13:15.8993629Z ##[group]Fetching the repository
+2025-02-28T11:13:15.9001976Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +ea2ee997988051048fdddbf68bf4194be3048ab5:refs/remotes/origin/main
+2025-02-28T11:13:16.6342123Z From https://github.com/aaron-hogan/idle-game
+2025-02-28T11:13:16.6343898Z  * [new ref]         ea2ee997988051048fdddbf68bf4194be3048ab5 -> origin/main
+2025-02-28T11:13:16.6367884Z ##[endgroup]
+2025-02-28T11:13:16.6368652Z ##[group]Determining the checkout info
+2025-02-28T11:13:16.6369914Z ##[endgroup]
+2025-02-28T11:13:16.6375033Z [command]/usr/bin/git sparse-checkout disable
+2025-02-28T11:13:16.6413950Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2025-02-28T11:13:16.6441819Z ##[group]Checking out the ref
+2025-02-28T11:13:16.6445400Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2025-02-28T11:13:16.6791817Z Switched to a new branch 'main'
+2025-02-28T11:13:16.6793019Z branch 'main' set up to track 'origin/main'.
+2025-02-28T11:13:16.6800594Z ##[endgroup]
+2025-02-28T11:13:16.6840627Z [command]/usr/bin/git log -1 --format=%H
+2025-02-28T11:13:16.6864566Z ea2ee997988051048fdddbf68bf4194be3048ab5
+2025-02-28T11:13:16.7122954Z ##[group]Run actions/setup-node@v3
+2025-02-28T11:13:16.7123563Z with:
+2025-02-28T11:13:16.7123926Z   node-version: 20
+2025-02-28T11:13:16.7124360Z   always-auth: false
+2025-02-28T11:13:16.7124785Z   check-latest: false
+2025-02-28T11:13:16.7125392Z   token: ***
+2025-02-28T11:13:16.7125762Z ##[endgroup]
+2025-02-28T11:13:16.8920390Z Found in cache @ /opt/hostedtoolcache/node/20.18.3/x64
+2025-02-28T11:13:16.8924171Z ##[group]Environment details
+2025-02-28T11:13:17.2659685Z node: v20.18.3
+2025-02-28T11:13:17.2660879Z npm: 10.8.2
+2025-02-28T11:13:17.2661839Z yarn: 1.22.22
+2025-02-28T11:13:17.2663887Z ##[endgroup]
+2025-02-28T11:13:17.2804154Z ##[group]Run npm ci --prefer-offline
+2025-02-28T11:13:17.2805615Z [36;1mnpm ci --prefer-offline[0m
+2025-02-28T11:13:17.2865080Z shell: /usr/bin/bash -e {0}
+2025-02-28T11:13:17.2866250Z ##[endgroup]
+2025-02-28T11:13:20.6129816Z npm warn deprecated react-testing-library@8.0.1: 🚨  react-testing-library has moved to @testing-library/react. Please uninstall react-testing-library and install @testing-library/react instead, or use an older version of react-testing-library. Learn more about this change here: https://github.com/testing-library/dom-testing-library/issues/260 Thanks! :)
+2025-02-28T11:13:21.3158434Z npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+2025-02-28T11:13:21.4880355Z npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+2025-02-28T11:13:21.9206857Z npm warn deprecated domexception@4.0.0: Use your platform's native DOMException instead
+2025-02-28T11:13:22.2170672Z npm warn deprecated abab@2.0.6: Use your platform's native atob() and btoa() methods instead
+2025-02-28T11:13:25.5661333Z 
+2025-02-28T11:13:25.5662255Z added 900 packages, and audited 901 packages in 8s
+2025-02-28T11:13:25.5662982Z 
+2025-02-28T11:13:25.5663395Z 193 packages are looking for funding
+2025-02-28T11:13:25.5664024Z   run `npm fund` for details
+2025-02-28T11:13:25.5680946Z 
+2025-02-28T11:13:25.5681311Z found 0 vulnerabilities
+2025-02-28T11:13:25.6015644Z ##[group]Run npm audit
+2025-02-28T11:13:25.6015920Z [36;1mnpm audit[0m
+2025-02-28T11:13:25.6070848Z shell: /usr/bin/bash -e {0}
+2025-02-28T11:13:25.6071083Z ##[endgroup]
+2025-02-28T11:13:26.2472745Z found 0 vulnerabilities
+2025-02-28T11:13:26.2605416Z ##[warning]Unexpected input(s) 'scan-type', valid inputs are ['']
+2025-02-28T11:13:26.2616346Z ##[group]Run gitleaks/gitleaks-action@v2
+2025-02-28T11:13:26.2616595Z with:
+2025-02-28T11:13:26.2616754Z   scan-type: repo
+2025-02-28T11:13:26.2616925Z env:
+2025-02-28T11:13:26.2617360Z   GITHUB_TOKEN: ***
+2025-02-28T11:13:26.2617732Z ##[endgroup]
+2025-02-28T11:13:26.7140450Z [aaron-hogan] is an individual user. No license key is required.
+2025-02-28T11:13:26.7141406Z gitleaks version: 8.16.1
+2025-02-28T11:13:26.7143521Z Version to install: 8.16.1 (target directory: /tmp/gitleaks-8.16.1)
+2025-02-28T11:13:28.2799010Z Received 2682748 of 2682748 (100.0%), 2.8 MBs/sec
+2025-02-28T11:13:28.2799718Z Cache Size: ~3 MB (2682748 B)
+2025-02-28T11:13:28.2822887Z [command]/usr/bin/tar -z -xf /home/runner/work/_temp/ffa8d950-0499-430f-9203-f36ce55b79f2/cache.tgz -P -C /home/runner/work/idle-game/idle-game
+2025-02-28T11:13:28.3362837Z Cache restored successfully
+2025-02-28T11:13:28.3374993Z Gitleaks restored from cache
+2025-02-28T11:13:28.3378195Z event type: push
+2025-02-28T11:13:28.3380298Z gitleaks cmd: gitleaks detect --redact -v --exit-code=2 --report-format=sarif --report-path=results.sarif --log-level=debug --log-opts=-1
+2025-02-28T11:13:28.3400799Z [command]/tmp/gitleaks-8.16.1/gitleaks detect --redact -v --exit-code=2 --report-format=sarif --report-path=results.sarif --log-level=debug --log-opts=-1
+2025-02-28T11:13:28.3439525Z 
+2025-02-28T11:13:28.3440872Z     ○
+2025-02-28T11:13:28.3441229Z     │╲
+2025-02-28T11:13:28.3441508Z     │ ○
+2025-02-28T11:13:28.3441852Z     ○ ░
+2025-02-28T11:13:28.3442086Z     ░    gitleaks
+2025-02-28T11:13:28.3442258Z 
+2025-02-28T11:13:28.3442933Z [90m11:13AM[0m [33mDBG[0m no gitleaks config found in path .gitleaks.toml, using default gitleaks config
+2025-02-28T11:13:28.3739053Z [90m11:13AM[0m [33mDBG[0m executing: /usr/bin/git -C . log -p -U0 -1
+2025-02-28T11:13:28.5630847Z [90m11:13AM[0m [32mINF[0m 1 commits scanned.
+2025-02-28T11:13:28.5632133Z [90m11:13AM[0m [33mDBG[0m Note: this number might be smaller than expected due to commits with no additions
+2025-02-28T11:13:28.5633239Z [90m11:13AM[0m [32mINF[0m scan completed in 197ms
+2025-02-28T11:13:28.5633900Z [90m11:13AM[0m [32mINF[0m no leaks found
+2025-02-28T11:13:28.5666493Z Artifact name is valid!
+2025-02-28T11:13:28.5667152Z Root directory input is valid!
+2025-02-28T11:13:28.8374028Z Beginning upload of artifact content to blob storage
+2025-02-28T11:13:29.1198237Z Uploaded bytes 4644
+2025-02-28T11:13:29.1936591Z Finished uploading artifact content to blob storage!
+2025-02-28T11:13:29.1939709Z SHA256 hash of uploaded artifact zip is db09a7ac842306913e1468971f8aa07901c9b686635b6e6a5d9f2088c1bfe053
+2025-02-28T11:13:29.1941635Z Finalizing artifact upload
+2025-02-28T11:13:29.4861069Z Artifact gitleaks-results.sarif.zip successfully finalized. Artifact ID 2669927939
+2025-02-28T11:13:29.4876515Z ✅ No leaks detected
+2025-02-28T11:13:29.5072756Z Post job cleanup.
+2025-02-28T11:13:29.6643378Z Post job cleanup.
+2025-02-28T11:13:29.7598788Z [command]/usr/bin/git version
+2025-02-28T11:13:29.7638056Z git version 2.48.1
+2025-02-28T11:13:29.7687375Z Temporarily overriding HOME='/home/runner/work/_temp/e0e3fdff-187d-422b-b5fa-16c6e1d3f6a4' before making global git config changes
+2025-02-28T11:13:29.7689110Z Adding repository directory to the temporary git global config as a safe directory
+2025-02-28T11:13:29.7702147Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/idle-game/idle-game
+2025-02-28T11:13:29.7742866Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2025-02-28T11:13:29.7776978Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2025-02-28T11:13:29.8026125Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2025-02-28T11:13:29.8053488Z http.https://github.com/.extraheader
+2025-02-28T11:13:29.8070028Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2025-02-28T11:13:29.8108251Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2025-02-28T11:13:29.8485030Z Cleaning up orphan processes

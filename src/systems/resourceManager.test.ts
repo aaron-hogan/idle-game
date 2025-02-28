@@ -10,18 +10,18 @@ describe('ResourceManager', () => {
   let mockStore: Store;
   let mockDispatch: jest.Mock;
   let mockGetState: jest.Mock;
-  
+
   // Helper function to create a properly initialized ResourceManager
   const createResourceManager = (mockState: any) => {
     // Reset singleton instance
     resetSingleton(ResourceManager);
-    
+
     // Import action creators
     const resourceActionsModule = require('../state/resourcesSlice');
-    
+
     // Set up mockGetState to return the provided state
     mockGetState.mockReturnValue(mockState);
-    
+
     // Create ResourceManager with explicit dependencies
     return ResourceManager.getInstance({
       dispatch: mockDispatch,
@@ -35,20 +35,20 @@ describe('ResourceManager', () => {
         updateClickPower: resourceActionsModule.updateClickPower,
         updateUpgradeLevel: resourceActionsModule.updateUpgradeLevel,
         updateBaseResourcePerSecond: resourceActionsModule.updateBaseResourcePerSecond,
-      }
+      },
     });
   };
 
   beforeEach(() => {
     // Reset singleton instance for each test
     resetSingleton(ResourceManager);
-    
+
     // Set up mock store using the standard utility
     const mocks = createMockStore();
     mockStore = mocks.mockStore;
     mockDispatch = mocks.mockDispatch;
     mockGetState = mocks.mockGetState;
-    
+
     // Create a default state with some resources
     const defaultState = {
       resources: {
@@ -60,7 +60,7 @@ describe('ResourceManager', () => {
           perSecond: 1,
           description: 'Test resource',
           unlocked: true,
-          category: 'test'
+          category: 'test',
         },
         'test-resource-1': {
           id: 'test-resource-1',
@@ -70,7 +70,7 @@ describe('ResourceManager', () => {
           perSecond: 1,
           description: 'Test resource',
           unlocked: true,
-          category: 'test'
+          category: 'test',
         },
         'test-resource-2': {
           id: 'test-resource-2',
@@ -80,8 +80,8 @@ describe('ResourceManager', () => {
           perSecond: 1,
           description: 'Test resource',
           unlocked: true,
-          category: 'test'
-        }
+          category: 'test',
+        },
       },
       structures: {},
       game: {
@@ -94,26 +94,26 @@ describe('ResourceManager', () => {
         startDate: Date.now(),
         gameEnded: false,
         gameWon: false,
-        endReason: null
+        endReason: null,
       },
-      tasks: { 
+      tasks: {
         tasks: {},
         activeTasks: [],
         completedTasks: [],
-        failedTasks: []
+        failedTasks: [],
       },
-      events: { 
+      events: {
         availableEvents: {},
         activeEvents: [],
         completedEvents: [],
-        eventHistory: []
+        eventHistory: [],
       },
       progression: {
         level: 1,
         experience: 0,
         experienceNeeded: 100,
         skillPoints: 0,
-        skills: {}
+        skills: {},
       },
       tutorial: {
         active: false,
@@ -121,13 +121,13 @@ describe('ResourceManager', () => {
         completedTutorials: [],
         tutorialsEnabled: true,
         firstTimeUser: true,
-        showContextualHelp: true
-      }
+        showContextualHelp: true,
+      },
     };
-    
+
     // Create ResourceManager with proper dependencies
     resourceManager = createResourceManager(defaultState);
-    
+
     // Reset mocks before each test
     mockDispatch.mockReset();
   });
@@ -136,26 +136,26 @@ describe('ResourceManager', () => {
     test('dispatches addResource action for each initial resource', () => {
       // Import the actual module to spy on
       const resourceActionsModule = require('../state/resourcesSlice');
-      
+
       // Spy on addResource action creator
       const addResourceSpy = jest.spyOn(resourceActionsModule, 'addResource');
-      
+
       // Call the function
       resourceManager.initializeResources();
-      
+
       // Check that dispatch was called for each resource
       expect(mockDispatch).toHaveBeenCalledTimes(Object.keys(INITIAL_RESOURCES).length);
-      
+
       // Verify each resource was added (using mock dispatch calls instead of action spy)
-      Object.values(INITIAL_RESOURCES).forEach(resource => {
+      Object.values(INITIAL_RESOURCES).forEach((resource) => {
         expect(mockDispatch).toHaveBeenCalledWith(
           expect.objectContaining({
             type: expect.stringContaining('resources/addResource'),
-            payload: expect.objectContaining({ id: resource.id })
+            payload: expect.objectContaining({ id: resource.id }),
           })
         );
       });
-      
+
       // Clean up spy
       addResourceSpy.mockRestore();
     });
@@ -174,7 +174,7 @@ describe('ResourceManager', () => {
             perSecond: 2,
             description: 'Test resource with generation',
             unlocked: true,
-            category: 'test'
+            category: 'test',
           },
           'test-resource-2': {
             id: 'test-resource-2',
@@ -184,8 +184,8 @@ describe('ResourceManager', () => {
             perSecond: 0, // No generation
             description: 'Test resource without generation',
             unlocked: true,
-            category: 'test'
-          }
+            category: 'test',
+          },
         },
         structures: {},
         game: {
@@ -199,24 +199,24 @@ describe('ResourceManager', () => {
         tasks: { tasks: {} },
         events: { availableEvents: {} },
         progression: { level: 1 },
-        tutorial: { active: false }
+        tutorial: { active: false },
       };
-      
+
       // Create a resource manager with our test state
       const testResourceManager = createResourceManager(testState);
-      
+
       // Set elapsed time (5 seconds)
       const elapsedTime = 5;
-      
+
       // Import action creator module
       const resourceActionsModule = require('../state/resourcesSlice');
-      
+
       // Reset dispatch mock to clear previous calls
       mockDispatch.mockReset();
-      
+
       // Call the function
       testResourceManager.updateResources(elapsedTime);
-      
+
       // Check dispatch was called with correct parameters for test-resource-1
       // (2 per second * 5 seconds = 10)
       expect(mockDispatch).toHaveBeenCalledWith(
@@ -225,7 +225,7 @@ describe('ResourceManager', () => {
           payload: expect.objectContaining({
             id: 'test-resource-1',
             amount: 10,
-          })
+          }),
         })
       );
     });
@@ -244,7 +244,7 @@ describe('ResourceManager', () => {
             perSecond: 1, // Base generation
             description: 'Test resource',
             unlocked: true,
-            category: 'test'
+            category: 'test',
           },
           'test-resource-2': {
             id: 'test-resource-2',
@@ -254,8 +254,8 @@ describe('ResourceManager', () => {
             perSecond: 0, // No base generation
             description: 'Test resource',
             unlocked: true,
-            category: 'test'
-          }
+            category: 'test',
+          },
         },
         structures: {
           'test-structure-1': {
@@ -269,7 +269,7 @@ describe('ResourceManager', () => {
             unlocked: true,
             workers: 2,
             maxWorkers: 4, // 50% efficiency
-            category: 'test'
+            category: 'test',
           },
           'test-structure-2': {
             id: 'test-structure-2',
@@ -282,7 +282,7 @@ describe('ResourceManager', () => {
             unlocked: true,
             workers: 0, // No workers, shouldn't produce
             maxWorkers: 2,
-            category: 'test'
+            category: 'test',
           },
           'test-structure-3': {
             id: 'test-structure-3',
@@ -295,8 +295,8 @@ describe('ResourceManager', () => {
             unlocked: false, // Not unlocked, shouldn't produce
             workers: 1,
             maxWorkers: 1,
-            category: 'test'
-          }
+            category: 'test',
+          },
         },
         game: {
           gameStage: 1,
@@ -309,21 +309,21 @@ describe('ResourceManager', () => {
         tasks: { tasks: {} },
         events: { availableEvents: {} },
         progression: { level: 1 },
-        tutorial: { active: false }
+        tutorial: { active: false },
       };
-      
+
       // Create a resource manager with our test state
       const testResourceManager = createResourceManager(testState);
-      
+
       // Import action creator module
       const resourceActionsModule = require('../state/resourcesSlice');
-      
+
       // Reset dispatch mock to clear previous calls
       mockDispatch.mockReset();
-      
+
       // Call the function
       testResourceManager.calculateResourceGeneration();
-      
+
       // Check that base resource rates were updated
       expect(mockDispatch).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -331,7 +331,7 @@ describe('ResourceManager', () => {
           payload: expect.objectContaining({
             id: expect.any(String),
             basePerSecond: expect.any(Number),
-          })
+          }),
         })
       );
     });
@@ -340,20 +340,20 @@ describe('ResourceManager', () => {
   describe('canAfford', () => {
     test('returns true when all resources are available and sufficient', () => {
       // With default state already set up in beforeEach
-      
+
       // Define costs that are affordable
       const costs = {
         'test-resource-1': 30,
         'test-resource-2': 20,
       };
-      
+
       // Check if affordable
       const result = resourceManager.canAfford(costs);
-      
+
       // Should be affordable
       expect(result).toBe(true);
     });
-    
+
     test('returns false when any resource is insufficient', () => {
       // Create test state with insufficient resources
       const testState = {
@@ -366,7 +366,7 @@ describe('ResourceManager', () => {
             perSecond: 1,
             description: 'Test resource',
             unlocked: true,
-            category: 'test'
+            category: 'test',
           },
           'test-resource-2': {
             id: 'test-resource-2',
@@ -376,8 +376,8 @@ describe('ResourceManager', () => {
             perSecond: 1,
             description: 'Test resource',
             unlocked: true,
-            category: 'test'
-          }
+            category: 'test',
+          },
         },
         structures: {},
         game: {
@@ -391,25 +391,25 @@ describe('ResourceManager', () => {
         tasks: { tasks: {} },
         events: { availableEvents: {} },
         progression: { level: 1 },
-        tutorial: { active: false }
+        tutorial: { active: false },
       };
-      
+
       // Create manager with test state
       const testResourceManager = createResourceManager(testState);
-      
+
       // Define costs that exceed available amount
       const costs = {
         'test-resource-1': 30,
         'test-resource-2': 20, // Higher than available
       };
-      
+
       // Check if affordable
       const result = testResourceManager.canAfford(costs);
-      
+
       // Should not be affordable
       expect(result).toBe(false);
     });
-    
+
     test('returns false when any resource is not unlocked', () => {
       // Create test state with locked resource
       const testState = {
@@ -422,7 +422,7 @@ describe('ResourceManager', () => {
             perSecond: 1,
             description: 'Test resource',
             unlocked: true,
-            category: 'test'
+            category: 'test',
           },
           'test-resource-2': {
             id: 'test-resource-2',
@@ -432,8 +432,8 @@ describe('ResourceManager', () => {
             perSecond: 1,
             description: 'Test resource',
             unlocked: false, // Not unlocked
-            category: 'test'
-          }
+            category: 'test',
+          },
         },
         structures: {},
         game: {
@@ -447,37 +447,37 @@ describe('ResourceManager', () => {
         tasks: { tasks: {} },
         events: { availableEvents: {} },
         progression: { level: 1 },
-        tutorial: { active: false }
+        tutorial: { active: false },
       };
-      
+
       // Create manager with test state
       const testResourceManager = createResourceManager(testState);
-      
+
       // Define costs with the locked resource
       const costs = {
         'test-resource-1': 30,
         'test-resource-2': 20,
       };
-      
+
       // Check if affordable
       const result = testResourceManager.canAfford(costs);
-      
+
       // Should not be affordable
       expect(result).toBe(false);
     });
-    
+
     test('returns false when any resource is missing', () => {
       // Using the default state which doesn't have 'missing-resource'
-      
+
       // Define costs including a missing resource
       const costs = {
         'test-resource-1': 30,
         'missing-resource': 10,
       };
-      
+
       // Check if affordable
       const result = resourceManager.canAfford(costs);
-      
+
       // Should not be affordable
       expect(result).toBe(false);
     });
@@ -490,19 +490,19 @@ describe('ResourceManager', () => {
         'test-resource-1': 30,
         'test-resource-2': 20,
       };
-      
+
       // Import action creator module
       const resourceActionsModule = require('../state/resourcesSlice');
-      
+
       // Reset dispatch mock to clear previous calls
       mockDispatch.mockReset();
-      
+
       // Call the function
       const result = resourceManager.applyResourceCost(costs);
-      
+
       // Should be successful
       expect(result).toBe(true);
-      
+
       // Check that the correct actions were dispatched with negative amounts
       expect(mockDispatch).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -510,17 +510,17 @@ describe('ResourceManager', () => {
           payload: expect.objectContaining({
             id: 'test-resource-1',
             amount: -30,
-          })
+          }),
         })
       );
-      
+
       expect(mockDispatch).toHaveBeenCalledWith(
         expect.objectContaining({
           type: expect.stringContaining('resources/addResourceAmount'),
           payload: expect.objectContaining({
             id: 'test-resource-2',
             amount: -20,
-          })
+          }),
         })
       );
     });
@@ -539,8 +539,8 @@ describe('ResourceManager', () => {
             perSecond: 0,
             description: 'Test resource',
             unlocked: false, // Initially locked
-            category: 'test'
-          }
+            category: 'test',
+          },
         },
         structures: {},
         game: {
@@ -554,21 +554,21 @@ describe('ResourceManager', () => {
         tasks: { tasks: {} },
         events: { availableEvents: {} },
         progression: { level: 1 },
-        tutorial: { active: false }
+        tutorial: { active: false },
       };
-      
+
       // Create resource manager with test state
       const testResourceManager = createResourceManager(testState);
-      
+
       // Import action creator module
       const resourceActionsModule = require('../state/resourcesSlice');
-      
+
       // Reset dispatch mock to clear previous calls
       mockDispatch.mockReset();
-      
+
       // Call the function
       const result = testResourceManager.unlockResource('test-resource');
-      
+
       // Check that the correct action was dispatched
       expect(mockDispatch).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -576,40 +576,40 @@ describe('ResourceManager', () => {
           payload: expect.objectContaining({
             id: 'test-resource',
             unlocked: true,
-          })
+          }),
         })
       );
-      
+
       // Check that the function returned true (resource was newly unlocked)
       expect(result).toBe(true);
     });
-    
+
     test('returns false for already unlocked resources', () => {
       // Default state has unlocked resources
-      
+
       // Reset dispatch mock to clear previous calls
       mockDispatch.mockReset();
-      
+
       // Call the function
       const result = resourceManager.unlockResource('test-resource');
-      
+
       // Check that dispatch was not called
       expect(mockDispatch).not.toHaveBeenCalled();
-      
+
       // Check that the function returned false (resource was already unlocked)
       expect(result).toBe(false);
     });
-    
+
     test('returns false for non-existent resources', () => {
       // Reset dispatch mock to clear previous calls
       mockDispatch.mockReset();
-      
+
       // Call the function with a non-existent resource ID
       const result = resourceManager.unlockResource('non-existent');
-      
+
       // Check that dispatch was not called
       expect(mockDispatch).not.toHaveBeenCalled();
-      
+
       // Check that the function returned false (resource doesn't exist)
       expect(result).toBe(false);
     });
@@ -619,16 +619,16 @@ describe('ResourceManager', () => {
     test('addResourceAmount adds to existing resource', () => {
       // Import action creator module
       const resourceActionsModule = require('../state/resourcesSlice');
-      
+
       // Reset dispatch mock to clear previous calls
       mockDispatch.mockReset();
-      
+
       // Call the function
       const result = resourceManager.addResourceAmount('test-resource', 25);
-      
+
       // Check success
       expect(result).toBe(true);
-      
+
       // Check that dispatch was called correctly
       expect(mockDispatch).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -636,24 +636,24 @@ describe('ResourceManager', () => {
           payload: expect.objectContaining({
             id: 'test-resource',
             amount: 25,
-          })
+          }),
         })
       );
     });
-    
+
     test('setResourceAmount sets absolute value for resource', () => {
       // Import action creator module
       const resourceActionsModule = require('../state/resourcesSlice');
-      
+
       // Reset dispatch mock to clear previous calls
       mockDispatch.mockReset();
-      
+
       // Call the function
       const result = resourceManager.setResourceAmount('test-resource', 75);
-      
+
       // Check success
       expect(result).toBe(true);
-      
+
       // Check that dispatch was called correctly
       expect(mockDispatch).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -661,7 +661,7 @@ describe('ResourceManager', () => {
           payload: expect.objectContaining({
             id: 'test-resource',
             amount: 75,
-          })
+          }),
         })
       );
     });

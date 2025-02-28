@@ -15,28 +15,28 @@ import { getCurrentTime } from '../../utils/timeUtils';
 export const initializeProgression = (): void => {
   try {
     console.log('Initializing progression system...');
-    
+
     // Set initial game stage
     store.dispatch({
       type: 'progression/advanceGameStage',
       payload: {
         stage: GameStage.EARLY,
-        reachedAt: getCurrentTime()
-      }
+        reachedAt: getCurrentTime(),
+      },
     });
-    
+
     // Load all milestones
     console.log(`Loading ${allMilestones.length} milestones...`);
     for (const milestone of allMilestones) {
       store.dispatch(addMilestone(milestone));
     }
-    
+
     // Load all achievements
     console.log(`Loading ${allAchievements.length} achievements...`);
     for (const achievement of allAchievements) {
       store.dispatch(addAchievement(achievement));
     }
-    
+
     console.log('Progression system initialized successfully.');
   } catch (error) {
     console.error('Error initializing progression system:', error);
@@ -49,15 +49,15 @@ export const initializeProgression = (): void => {
 export const resetProgression = (): void => {
   try {
     console.log('Resetting progression system...');
-    
+
     // Reset progression state
     store.dispatch({
-      type: 'progression/resetProgression'
+      type: 'progression/resetProgression',
     });
-    
+
     // Reinitialize with default values
     initializeProgression();
-    
+
     console.log('Progression system reset successfully.');
   } catch (error) {
     console.error('Error resetting progression system:', error);

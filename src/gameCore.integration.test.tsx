@@ -8,7 +8,12 @@ import { configureStore } from '@reduxjs/toolkit';
 import gameReducer from './state/gameSlice';
 import resourcesReducer from './state/resourcesSlice';
 import structuresReducer from './state/structuresSlice';
-import { addResource, addResourceAmount, deductResources, updateResourcePerSecond } from './state/resourcesSlice';
+import {
+  addResource,
+  addResourceAmount,
+  deductResources,
+  updateResourcePerSecond,
+} from './state/resourcesSlice';
 import { addStructure, upgradeStructure } from './state/structuresSlice';
 import { Structure } from './models/structure';
 import { Resource } from './models/resource';
@@ -23,11 +28,11 @@ const TestComponent = () => <div>Test Component</div>;
 describe('Game Core Systems Integration', () => {
   let store: any;
   let buildingManager: BuildingManager;
-  
+
   beforeEach(() => {
     // Reset singletons before each test
     resetSingleton(BuildingManager);
-    
+
     // Create a store with all necessary reducers
     store = configureStore({
       reducer: {
@@ -50,25 +55,25 @@ describe('Game Core Systems Integration', () => {
           startDate: Date.now(),
           gameEnded: false, // Required fields from updated GameState
           gameWon: false,
-          endReason: null
+          endReason: null,
         },
         resources: {},
-        structures: {}
-      }
+        structures: {},
+      },
     });
-    
+
     // Initialize resources
     const awarenessResource: Resource = {
       id: 'awareness',
       name: 'Awareness',
-      description: 'People\'s understanding of social issues',
+      description: "People's understanding of social issues",
       amount: 100,
       maxAmount: 1000,
       perSecond: 0,
       unlocked: true,
-      category: 'SOCIAL'
+      category: 'SOCIAL',
     };
-    
+
     const peopleResource: Resource = {
       id: 'people',
       name: 'People',
@@ -77,9 +82,9 @@ describe('Game Core Systems Integration', () => {
       maxAmount: 500,
       perSecond: 0,
       unlocked: true,
-      category: 'POPULATION'
+      category: 'POPULATION',
     };
-    
+
     const foodResource: Resource = {
       id: 'food',
       name: 'Food',
@@ -88,13 +93,13 @@ describe('Game Core Systems Integration', () => {
       maxAmount: 200,
       perSecond: 0,
       unlocked: true,
-      category: 'RESOURCE'
+      category: 'RESOURCE',
     };
-    
+
     store.dispatch(addResource(awarenessResource));
     store.dispatch(addResource(peopleResource));
     store.dispatch(addResource(foodResource));
-    
+
     // Add test buildings
     const communityGarden: Structure = {
       id: 'communityGarden',
@@ -107,9 +112,9 @@ describe('Game Core Systems Integration', () => {
       unlocked: true,
       workers: 0,
       maxWorkers: 3,
-      category: 'PRODUCTION'
+      category: 'PRODUCTION',
     };
-    
+
     const housingCoop: Structure = {
       id: 'housingCoop',
       name: 'Housing Cooperative',
@@ -121,16 +126,16 @@ describe('Game Core Systems Integration', () => {
       unlocked: true,
       workers: 0,
       maxWorkers: 2,
-      category: 'INFRASTRUCTURE'
+      category: 'INFRASTRUCTURE',
     };
-    
+
     store.dispatch(addStructure(communityGarden));
     store.dispatch(addStructure(housingCoop));
-    
+
     // Initialize manager with proper dependency injection
     const structureActions = require('../src/state/structuresSlice');
     const resourceActions = require('../src/state/resourcesSlice');
-    
+
     const buildingManagerDependencies: BuildingManagerDependencies = {
       dispatch: store.dispatch,
       getState: store.getState,
@@ -139,12 +144,12 @@ describe('Game Core Systems Integration', () => {
         upgradeStructure: structureActions.upgradeStructure,
         updateProduction: structureActions.updateProduction,
         deductResources: resourceActions.deductResources,
-      }
+      },
     };
-    
+
     buildingManager = BuildingManager.getInstance(buildingManagerDependencies);
   });
-  
+
   test('Resources can be generated over time', () => {
     // Render with Redux
     render(
@@ -152,27 +157,31 @@ describe('Game Core Systems Integration', () => {
         <TestComponent />
       </Provider>
     );
-    
+
     // Set the food production rate manually
-    store.dispatch(updateResourcePerSecond({
-      id: 'food',
-      perSecond: 1.0 // Set a simple rate for testing
-    }));
-    
+    store.dispatch(
+      updateResourcePerSecond({
+        id: 'food',
+        perSecond: 1.0, // Set a simple rate for testing
+      })
+    );
+
     // Get initial food amount
     const initialFood = store.getState().resources.food?.amount || 0;
-    
+
     // Add resources manually to verify the action works
-    store.dispatch(addResourceAmount({
-      id: 'food',
-      amount: 1.0
-    }));
-    
+    store.dispatch(
+      addResourceAmount({
+        id: 'food',
+        amount: 1.0,
+      })
+    );
+
     // Check if the amount increased
     const foodAfterAdd = store.getState().resources.food?.amount || 0;
     expect(foodAfterAdd).toBe(initialFood + 1.0);
   });
-  
+
   test('Building purchase consumes resources correctly', () => {
     // Render with Redux
     render(
@@ -180,28 +189,28 @@ describe('Game Core Systems Integration', () => {
         <TestComponent />
       </Provider>
     );
-    
+
     // Get initial resource amounts
     const initialAwareness = store.getState().resources.awareness?.amount || 0;
     const initialPeople = store.getState().resources.people?.amount || 0;
-    
+
     // Purchase a new community garden
     const result = buildingManager.purchaseBuilding('communityGarden');
     expect(result).toBe(true);
-    
+
     // Check if resources were consumed correctly
     const awarenessAfterPurchase = store.getState().resources.awareness?.amount || 0;
     const peopleAfterPurchase = store.getState().resources.people?.amount || 0;
-    
+
     // Building cost is { awareness: 10, people: 5 }
     expect(awarenessAfterPurchase).toBe(initialAwareness - 10);
     expect(peopleAfterPurchase).toBe(initialPeople - 5);
-    
+
     // Check if building was upgraded
     const building = store.getState().structures['communityGarden'];
     expect(building.level).toBe(2); // Started at level 1, now should be 2
   });
-  
+
   test('Building level affects production calculation', () => {
     // Render with Redux
     render(
@@ -209,27 +218,27 @@ describe('Game Core Systems Integration', () => {
         <TestComponent />
       </Provider>
     );
-    
+
     // Note initial level before proceeding
     const initialLevel = store.getState().structures['communityGarden'].level;
-    
+
     // Upgrade the building directly
     store.dispatch(upgradeStructure({ id: 'communityGarden' }));
-    
+
     // Verify the level increased
     const newLevel = store.getState().structures['communityGarden'].level;
     expect(newLevel).toBe(initialLevel + 1);
-    
+
     // The upgrade action changes the level but doesn't recalculate production automatically
     // That would happen via the BuildingManager or in response to game ticks
-    
+
     // Check the building cost scaling, which should be affected by level
     const upgradeCost = buildingManager.calculateUpgradeCost('communityGarden');
-    
+
     // With a level increase, costs should also increase
     expect(upgradeCost.awareness).toBeGreaterThan(10); // Base cost was 10
   });
-  
+
   test('Resources can be added and deducted correctly', () => {
     // Render with Redux
     render(
@@ -237,20 +246,20 @@ describe('Game Core Systems Integration', () => {
         <TestComponent />
       </Provider>
     );
-    
+
     // Initial amount
     const initialFood = store.getState().resources.food?.amount || 0;
-    
+
     // Add resources
     store.dispatch(addResourceAmount({ id: 'food', amount: 50 }));
-    
+
     // Check if added correctly
     const foodAfterAdd = store.getState().resources.food?.amount || 0;
     expect(foodAfterAdd).toBe(initialFood + 50);
-    
+
     // Deduct resources
     store.dispatch(deductResources({ food: 20 }));
-    
+
     // Check if deducted correctly
     const foodAfterDeduct = store.getState().resources.food?.amount || 0;
     expect(foodAfterDeduct).toBe(foodAfterAdd - 20);

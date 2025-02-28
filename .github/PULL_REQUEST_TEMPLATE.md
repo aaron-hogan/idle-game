@@ -1,84 +1,36 @@
-# Pull Request
+# PR Title: [type]: [brief description]
 
-## Description
-<!-- Provide a clear description of the changes in this PR -->
-
-## Type of Change
-- [ ] Bug fix (fix: ...)
-- [ ] New feature (feat: ...)
-- [ ] Breaking change (feat!: ...)
-- [ ] Documentation update (docs: ...)
-- [ ] Refactoring (refactor: ...)
-- [ ] Test improvement (test: ...)
-- [ ] Build/CI process update (ci: ...)
-- [ ] Chore (chore: ...)
-
-## Related Issues
-<!-- Reference any related issues (e.g., "Fixes #123") -->
+## Summary
+[Brief description of the changes in this PR]
 
 ## Implementation Details
-<!-- Briefly explain your implementation approach -->
+[More detailed explanation of how you implemented the changes]
+
+## Test Results
+- [Test results, including any metrics, screenshots, etc.]
+- [Any known issues or limitations]
+
+## Related PRs/Issues
+- [Links to related PRs or issues]
+
+## Next Steps
+- [Any follow-up work needed]
 
 ## Changelog Entry
-<!-- ⚠️ CRITICAL: This section will be automatically included in the CHANGELOG.md file ⚠️ -->
-<!-- Choose the most appropriate section(s) for your changes and delete the rest -->
+<!-- 
+IMPORTANT: This section is REQUIRED for any PR that modifies code 
+(except docs, chore, ci, test, and style changes).
+Include at least one subsection.
+-->
 
 ### Added
-<!-- List new features or functionality added -->
-<!-- Example: - New login feature with support for OAuth -->
+<!-- List any new features -->
 
 ### Changed
-<!-- List changes to existing functionality -->
-<!-- Example: - Improved performance of dashboard rendering -->
+<!-- List changes in existing functionality -->
 
 ### Fixed
-<!-- List bug fixes -->
-<!-- Example: - Fixed authentication token expiration issue -->
+<!-- List any bug fixes -->
 
 ### Removed
-<!-- List features or functionality that was removed -->
-<!-- Example: - Removed deprecated API endpoint -->
-
-## Testing
-<!-- Describe the testing performed to validate changes -->
-
-## ⚠️ Required Validation Checklist ⚠️
-
-### Build-Time Validation
-- [ ] All tests pass (`npm test`)
-- [ ] Type checking passes (`npm run typecheck`)
-- [ ] Linting passes (`npm run lint`)
-- [ ] Application builds successfully (`npm run build`)
-
-### Runtime Validation (CRITICAL)
-- [ ] Application launches without console errors
-- [ ] Console remains clear during:
-  - [ ] Initial application load
-  - [ ] User interactions
-  - [ ] Component mount/unmount cycles
-  - [ ] State transitions
-- [ ] All user flows function correctly
-- [ ] No regressions in existing functionality
-
-### Documentation and Quality
-- [ ] Documentation is updated as needed
-- [ ] PR title follows conventional commit format (e.g., "feat: add login feature")
-- [ ] Changelog Entry section above is filled out appropriately:
-  - [ ] It includes at least one subsection (### Added, ### Changed, ### Fixed, or ### Removed)
-  - [ ] Each subsection has at least one bulleted item
-  - [ ] Items are descriptive and meaningful
-- [ ] No debug/console logs in production code
-- [ ] Branch is updated with main
-
-### Versioning Checks
-- [ ] PR title correctly reflects the type of change (feat:, fix:, docs:, etc.)
-- [ ] PR title will trigger appropriate version bump (feat→minor, fix→patch, feat!→major)
-- [ ] PR description contains complete changelog entries matching the changes made
-
-## Screenshots/Recordings
-<!-- If applicable, add screenshots or recordings to help explain the changes -->
-
-## Additional Notes
-<!-- Any additional information reviewers should know -->
-
-> ⚠️ **CRITICAL**: PR title MUST follow conventional commit format (feat:, fix:, etc.) for automatic versioning to work correctly.
+<!-- List any removed features -->

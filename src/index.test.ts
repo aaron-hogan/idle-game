@@ -23,6 +23,8 @@ describe('HTML Template', () => {
   });
 
   test('includes viewport meta tag for responsiveness', () => {
-    expect(htmlContent).toContain('<meta name="viewport" content="width=device-width, initial-scale=1.0">');
+    expect(htmlContent).toContain(
+      '<meta name="viewport" content="width=device-width, initial-scale=1.0">'
+    );
   });
 });

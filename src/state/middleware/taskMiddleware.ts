@@ -8,7 +8,7 @@ import { addResourceAmount, deductResources } from '../resourcesSlice';
  * - Applies resource costs when tasks are started
  * - Applies resource rewards when tasks are completed
  */
-export const taskMiddleware: Middleware<{}, RootState> = store => next => action => {
+export const taskMiddleware: Middleware<{}, RootState> = (store) => (next) => (action) => {
   // For task start, apply costs before the action
   if (startTask.match(action)) {
     try {

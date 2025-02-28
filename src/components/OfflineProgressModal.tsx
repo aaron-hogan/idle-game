@@ -19,7 +19,7 @@ const OfflineProgressModal: React.FC<OfflineProgressModalProps> = ({
   isOpen,
   onClose,
   offlineTime,
-  resourceGains
+  resourceGains,
 }) => {
   const [isClosing, setIsClosing] = useState(false);
 
@@ -30,7 +30,7 @@ const OfflineProgressModal: React.FC<OfflineProgressModalProps> = ({
   const handleClose = () => {
     // Set isClosing to true to start the animation
     setIsClosing(true);
-    
+
     // Call onClose after a short delay to ensure the animation plays
     setTimeout(() => {
       onClose();
@@ -54,7 +54,7 @@ const OfflineProgressModal: React.FC<OfflineProgressModalProps> = ({
           <h3>Resources Generated:</h3>
           {resourceGains.length > 0 ? (
             <ul>
-              {resourceGains.map(gain => (
+              {resourceGains.map((gain) => (
                 <li key={gain.id}>
                   <span className="resource-name">{gain.name}</span>
                   <span className="resource-amount">+{gain.amount.toFixed(2)}</span>

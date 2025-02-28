@@ -5,7 +5,7 @@ import { formatTime } from '../../utils/timeUtils';
 
 // Mock formatTime to avoid having to mock Date.now
 jest.mock('../../utils/timeUtils', () => ({
-  formatTime: jest.fn(seconds => `${seconds} seconds`),
+  formatTime: jest.fn((seconds) => `${seconds} seconds`),
 }));
 
 describe('OfflineProgressModal', () => {
@@ -15,9 +15,9 @@ describe('OfflineProgressModal', () => {
       { id: 'cbp', name: 'Collective Bargaining Power', amount: 1200 },
       { id: 'solidarity', name: 'Solidarity', amount: 600 },
     ];
-    
+
     const handleClose = jest.fn();
-    
+
     render(
       <OfflineProgressModal
         isOpen={true}
@@ -26,28 +26,28 @@ describe('OfflineProgressModal', () => {
         resourceGains={resourceGains}
       />
     );
-    
+
     // Check if main title is displayed
     expect(screen.getByText('While You Were Away')).toBeInTheDocument();
-    
+
     // Check if time away is displayed with formatted time
     expect(formatTime).toHaveBeenCalledWith(offlineTime);
     expect(screen.getByText(/you were gone for/i)).toBeInTheDocument();
     expect(screen.getByText('3600 seconds')).toBeInTheDocument();
-    
+
     // Check if resource gains are displayed
     expect(screen.getByText('Resources Generated:')).toBeInTheDocument();
-    
+
     // Check each resource gain
-    resourceGains.forEach(gain => {
+    resourceGains.forEach((gain) => {
       expect(screen.getByText(gain.name)).toBeInTheDocument();
       expect(screen.getByText(`+${gain.amount.toFixed(2)}`)).toBeInTheDocument();
     });
-    
+
     // Check if close button is displayed
     expect(screen.getByText('Continue Revolution')).toBeInTheDocument();
   });
-  
+
   it('should show message when no resources were generated', () => {
     render(
       <OfflineProgressModal
@@ -57,16 +57,18 @@ describe('OfflineProgressModal', () => {
         resourceGains={[]} // Empty array, no resources generated
       />
     );
-    
-    expect(screen.getByText('No resources were generated during your absence.')).toBeInTheDocument();
+
+    expect(
+      screen.getByText('No resources were generated during your absence.')
+    ).toBeInTheDocument();
   });
-  
+
   it('should call onClose when close button is clicked', async () => {
     // Mock timers to control setTimeout
     jest.useFakeTimers();
-    
+
     const handleClose = jest.fn();
-    
+
     render(
       <OfflineProgressModal
         isOpen={true}
@@ -75,20 +77,20 @@ describe('OfflineProgressModal', () => {
         resourceGains={[]}
       />
     );
-    
+
     // Click the close button
     fireEvent.click(screen.getByText('Continue Revolution'));
-    
+
     // Fast-forward timers
     jest.advanceTimersByTime(400); // Animation is 300ms, add buffer
-    
+
     // Check if handleClose was called
     expect(handleClose).toHaveBeenCalled();
-    
+
     // Restore real timers
     jest.useRealTimers();
   });
-  
+
   it('should not render when isOpen is false', () => {
     render(
       <OfflineProgressModal
@@ -98,7 +100,7 @@ describe('OfflineProgressModal', () => {
         resourceGains={[]}
       />
     );
-    
+
     // Modal content should not be in the document
     expect(screen.queryByText('While You Were Away')).not.toBeInTheDocument();
   });

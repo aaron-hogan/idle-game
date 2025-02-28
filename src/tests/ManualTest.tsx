@@ -17,7 +17,7 @@ export const ManualTest: React.FC = () => {
       structures: structuresReducer,
       game: gameReducer,
       tasks: tasksReducer,
-    }
+    },
   });
 
   // State to track time
@@ -27,7 +27,7 @@ export const ManualTest: React.FC = () => {
 
   // Add to log
   const addLog = (message: string) => {
-    setLog(prev => [...prev, message]);
+    setLog((prev) => [...prev, message]);
   };
 
   // Effect to update time every second
@@ -37,7 +37,7 @@ export const ManualTest: React.FC = () => {
     const interval = setInterval(() => {
       const state = store.getState();
       setCurrentTime(state.game.totalPlayTime);
-      
+
       // Add 1 second
       store.dispatch(addPlayTime(1));
       addLog(`Added 1 second, total: ${state.game.totalPlayTime + 1}s`);
@@ -49,13 +49,13 @@ export const ManualTest: React.FC = () => {
   // Start test
   const startTest = () => {
     setIsRunning(true);
-    addLog("Test started");
+    addLog('Test started');
   };
 
   // Stop test
   const stopTest = () => {
     setIsRunning(false);
-    addLog("Test stopped");
+    addLog('Test stopped');
   };
 
   // Reset test
@@ -63,7 +63,7 @@ export const ManualTest: React.FC = () => {
     store.dispatch({ type: 'game/resetGame' });
     setCurrentTime(0);
     setIsRunning(false);
-    setLog(["Test reset"]);
+    setLog(['Test reset']);
   };
 
   // Add time manually
@@ -76,24 +76,26 @@ export const ManualTest: React.FC = () => {
 
   return (
     <Provider store={store}>
-      <div style={{ 
-        maxWidth: '800px', 
-        margin: '0 auto', 
-        padding: '20px',
-        fontFamily: 'monospace',
-        backgroundColor: '#27252D',
-        color: '#B09E9E',
-        borderRadius: '4px'
-      }}>
+      <div
+        style={{
+          maxWidth: '800px',
+          margin: '0 auto',
+          padding: '20px',
+          fontFamily: 'monospace',
+          backgroundColor: '#27252D',
+          color: '#B09E9E',
+          borderRadius: '4px',
+        }}
+      >
         <h1 style={{ color: '#B195D8' }}>Game Time Test</h1>
-        
+
         <div style={{ marginBottom: '20px' }}>
           <h2>Current Time: {formatTime(currentTime)}</h2>
-          <p>Is Running: {isRunning ? "Yes" : "No"}</p>
+          <p>Is Running: {isRunning ? 'Yes' : 'No'}</p>
         </div>
-        
+
         <div style={{ marginBottom: '20px' }}>
-          <button 
+          <button
             onClick={startTest}
             disabled={isRunning}
             style={{
@@ -104,13 +106,13 @@ export const ManualTest: React.FC = () => {
               marginRight: '10px',
               borderRadius: '4px',
               cursor: isRunning ? 'default' : 'pointer',
-              opacity: isRunning ? 0.5 : 1
+              opacity: isRunning ? 0.5 : 1,
             }}
           >
             Start Test
           </button>
-          
-          <button 
+
+          <button
             onClick={stopTest}
             disabled={!isRunning}
             style={{
@@ -121,29 +123,29 @@ export const ManualTest: React.FC = () => {
               marginRight: '10px',
               borderRadius: '4px',
               cursor: !isRunning ? 'default' : 'pointer',
-              opacity: !isRunning ? 0.5 : 1
+              opacity: !isRunning ? 0.5 : 1,
             }}
           >
             Stop Test
           </button>
-          
-          <button 
+
+          <button
             onClick={resetTest}
             style={{
               backgroundColor: '#B195D8',
               color: '#15131A',
               border: 'none',
               padding: '10px 15px',
-              borderRadius: '4px'
+              borderRadius: '4px',
             }}
           >
             Reset Test
           </button>
         </div>
-        
+
         <div style={{ marginBottom: '20px' }}>
           <h3>Add Time Manually</h3>
-          <button 
+          <button
             onClick={() => addTimeManually(1)}
             style={{
               backgroundColor: '#64A79F',
@@ -151,13 +153,13 @@ export const ManualTest: React.FC = () => {
               border: 'none',
               padding: '10px 15px',
               marginRight: '10px',
-              borderRadius: '4px'
+              borderRadius: '4px',
             }}
           >
             Add 1s
           </button>
-          
-          <button 
+
+          <button
             onClick={() => addTimeManually(5)}
             style={{
               backgroundColor: '#64A79F',
@@ -165,35 +167,37 @@ export const ManualTest: React.FC = () => {
               border: 'none',
               padding: '10px 15px',
               marginRight: '10px',
-              borderRadius: '4px'
+              borderRadius: '4px',
             }}
           >
             Add 5s
           </button>
-          
-          <button 
+
+          <button
             onClick={() => addTimeManually(30)}
             style={{
               backgroundColor: '#64A79F',
               color: '#15131A',
               border: 'none',
               padding: '10px 15px',
-              borderRadius: '4px'
+              borderRadius: '4px',
             }}
           >
             Add 30s
           </button>
         </div>
-        
+
         <div style={{ marginBottom: '20px' }}>
           <h3>Test Log</h3>
-          <div style={{ 
-            height: '300px', 
-            overflowY: 'auto',
-            backgroundColor: '#202020',
-            padding: '10px',
-            borderRadius: '4px'
-          }}>
+          <div
+            style={{
+              height: '300px',
+              overflowY: 'auto',
+              backgroundColor: '#202020',
+              padding: '10px',
+              borderRadius: '4px',
+            }}
+          >
             {log.map((entry, index) => (
               <div key={index}>{entry}</div>
             ))}

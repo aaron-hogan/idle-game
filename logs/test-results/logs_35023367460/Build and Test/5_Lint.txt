@@ -1,0 +1,31 @@
+﻿2025-02-28T11:15:58.0710542Z ##[group]Run npm run lint
+2025-02-28T11:15:58.0710829Z [36;1mnpm run lint[0m
+2025-02-28T11:15:58.0764198Z shell: /usr/bin/bash -e {0}
+2025-02-28T11:15:58.0764460Z ##[endgroup]
+2025-02-28T11:15:58.1915751Z 
+2025-02-28T11:15:58.1916389Z > idle-game@0.6.1 lint
+2025-02-28T11:15:58.1916986Z > eslint src --ext .ts,.tsx
+2025-02-28T11:15:58.1917400Z 
+2025-02-28T11:15:58.3846547Z (node:1939) Warning: To load an ES module, set "type": "module" in the package.json or use the .mjs extension.
+2025-02-28T11:15:58.3847806Z (Use `node --trace-warnings ...` to show where the warning was created)
+2025-02-28T11:15:58.3852260Z 
+2025-02-28T11:15:58.3852609Z Oops! Something went wrong! :(
+2025-02-28T11:15:58.3852942Z 
+2025-02-28T11:15:58.3853089Z ESLint: 9.21.0
+2025-02-28T11:15:58.3853289Z 
+2025-02-28T11:15:58.3853722Z /home/runner/work/idle-game/idle-game/eslint.config.js:1
+2025-02-28T11:15:58.3854401Z import eslint from '@eslint/js';
+2025-02-28T11:15:58.3854837Z ^^^^^^
+2025-02-28T11:15:58.3855001Z 
+2025-02-28T11:15:58.3855408Z SyntaxError: Cannot use import statement outside a module
+2025-02-28T11:15:58.3856067Z     at wrapSafe (node:internal/modules/cjs/loader:1378:20)
+2025-02-28T11:15:58.3856741Z     at Module._compile (node:internal/modules/cjs/loader:1428:41)
+2025-02-28T11:15:58.3857476Z     at Module._extensions..js (node:internal/modules/cjs/loader:1548:10)
+2025-02-28T11:15:58.3858198Z     at Module.load (node:internal/modules/cjs/loader:1288:32)
+2025-02-28T11:15:58.3859082Z     at Module._load (node:internal/modules/cjs/loader:1104:12)
+2025-02-28T11:15:58.3859765Z     at cjsLoader (node:internal/modules/esm/translators:346:17)
+2025-02-28T11:15:58.3860518Z     at ModuleWrap.<anonymous> (node:internal/modules/esm/translators:286:7)
+2025-02-28T11:15:58.3861275Z     at ModuleJob.run (node:internal/modules/esm/module_job:234:25)
+2025-02-28T11:15:58.3862033Z     at async ModuleLoader.import (node:internal/modules/esm/loader:473:24)
+2025-02-28T11:15:58.3863527Z     at async loadConfigFile (/home/runner/work/idle-game/idle-game/node_modules/eslint/lib/config/config-loader.js:197:21)
+2025-02-28T11:15:58.3980455Z ##[error]Process completed with exit code 2.
