@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import resourcesReducer from '../state/resourcesSlice';
@@ -25,11 +25,11 @@ jest.mock('../systems/resourceManager', () => {
     setResourceAmount: jest.fn(),
     initialize: jest.fn(),
   };
-  
+
   return {
     ResourceManager: {
       getInstance: jest.fn(() => mockResourceManager),
-    }
+    },
   };
 });
 
@@ -41,9 +41,9 @@ jest.mock('../systems/eventManager', () => {
         initialize: jest.fn(),
         registerDefaultEvents: jest.fn(),
         checkForNewEvents: jest.fn(),
-        resolveEvents: jest.fn()
-      })
-    }
+        resolveEvents: jest.fn(),
+      }),
+    },
   };
 });
 
@@ -63,11 +63,11 @@ describe('App component', () => {
       events: {
         activeEvents: [],
         eventHistory: [],
-        availableEvents: {}
-      }
-    }
+        availableEvents: {},
+      },
+    },
   });
-  
+
   // Reset mocks before each test
   beforeEach(() => {
     // Get the mock instance
@@ -83,13 +83,13 @@ describe('App component', () => {
         <App />
       </Provider>
     );
-    
+
     // Get the mock instance
     const mockInstance = ResourceManager.getInstance();
-    
+
     // Check that initialize was called with the store
     expect(mockInstance.initialize).toHaveBeenCalled();
-    
+
     // Check that initializeResources was called
     expect(mockInstance.initializeResources).toHaveBeenCalledTimes(1);
   });
