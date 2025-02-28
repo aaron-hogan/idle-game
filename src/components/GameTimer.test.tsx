@@ -3,18 +3,20 @@ import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import GameTimer from './GameTimer';
-import { formatTimeAsDays, getDayProgress } from '../utils/timeUtils';
 
 // Mock the timeUtils functions
 jest.mock('../utils/timeUtils', () => ({
-  formatTimeAsDays: jest.fn(seconds => `Day ${Math.floor(seconds / 60) + 1}`),
-  getDayProgress: jest.fn(seconds => (seconds % 60) / 60),
-  SECONDS_PER_DAY: 60
+  SECONDS_PER_DAY: 60,
 }));
 
 // Mock the Counter component
 jest.mock('./common/Counter', () => {
-  return function MockCounter(props: any) {
+  return function MockCounter(props: { 
+    value: string;
+    rate: string;
+    hasDropdown?: boolean;
+    [key: string]: unknown;
+  }) {
     return (
       <div data-testid="counter">
         <div data-testid="counter-value">{props.value}</div>
