@@ -1,6 +1,6 @@
 import { Resource, Structure, NULL_RESOURCE, NULL_STRUCTURE } from '../models/types';
 import { ErrorLogger, ErrorSeverity } from './errorUtils';
-import { store } from '../state/store';
+import { store, RootState } from '../state/store';
 
 /**
  * Safely get a resource, returning the NULL_RESOURCE if not found
@@ -149,13 +149,11 @@ export function checkResourceAvailability(required: Record<string, number>): boo
       return true; // No requirements means always available
     }
 
-    const state = store.getState();
-    // @ts-expect-error - Address type issues in tests later
-    const resources = state.resources.resources;
+    const state = store.getState() as RootState;
+    const resources = state.resources;
 
     return Object.entries(required).every(([resourceId, amount]) => {
       // Use safeGetResource instead of direct indexing
-      // @ts-expect-error - Address type issues in tests later
       const resource = safeGetResource(resources, resourceId, 'checkResourceAvailability');
       return resource.unlocked && resource.amount >= amount;
     });
@@ -177,15 +175,13 @@ export function calculateMaxActions(cost: Record<string, number>): number {
       return Infinity; // No cost means unlimited actions
     }
 
-    const state = store.getState();
-    // @ts-expect-error - Address type issues in tests later
-    const resources = state.resources.resources;
+    const state = store.getState() as RootState;
+    const resources = state.resources;
 
     let maxCount = Infinity;
 
     for (const [resourceId, amount] of Object.entries(cost)) {
       // Use safeGetResource instead of direct indexing
-      // @ts-expect-error - Address type issues in tests later
       const resource = safeGetResource(resources, resourceId, 'calculateMaxActions');
 
       if (!resource.unlocked) {

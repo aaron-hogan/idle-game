@@ -26,6 +26,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Updated @ts-ignore comments to @ts-expect-error with explanations in test files (gameSystemCoherenceTest.test.ts, testUtils.ts)
   - Resolved unused imports/variables in GameTimer.tsx, GameTimer.test.tsx, TabNavigation.tsx, and ClickableMilestone.tsx
   - Fixed unused parameters/variables in GameLoop.ts (_timestamp), GameTimer.ts (_event), and saveManager.ts (_e, lastSaveTime)
+  - Replaced explicit 'any' types with proper typed alternatives in multiple files:
+    - System files: eventManager.ts, saveManager.ts, workerManager.ts
+    - ResourceManager and resourceUtils.ts with proper RootState typing
+    - GameLoop.ts and gameLoopTest.ts with Resource typing
+    - ProgressionManager.ts and tasksSlice.ts
 
 ## [0.6.1] - 2025-02-28
 

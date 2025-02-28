@@ -8,13 +8,53 @@ This document tracks the progress of our systematic linting cleanup efforts.
 |---------|-------------|----------|------------|-------------------|
 | Unused Variables | Fix unused imports, variables, and parameters | 20% | 8 | ~40 |
 | Require Imports | Convert require-style imports to ES module imports | 100% | 5 | 5 |
-| TS Comments | Update @ts-ignore to @ts-expect-error with explanations | 60% | 3 | 5 |
-| Explicit Any | Replace 'any' types with explicit types | 35% | 7 | ~20 |
+| TS Comments | Update @ts-ignore to @ts-expect-error with explanations | 80% | 4 | 5 |
+| Explicit Any | Replace 'any' types with explicit types | 75% | 16 | ~20 |
 
 ## Batches Completed
 
+### Batch 11: Fix Explicit Any in ProgressionManager and TasksSlice (2/27/2025)
+- **PR**: #114
+- **Status**: Complete
+- **Fixed Files**:
+  - `src/managers/progression/ProgressionManager.ts`: Fixed multiple explicit `any` types
+    - Added proper Resource type import and typing
+    - Added MilestoneReward typing for function parameters
+    - Fixed Record<string, any> casts to use proper types
+  - `src/state/tasksSlice.ts`: Fixed AnyAction in extraReducers
+    - Removed unused AnyAction import
+    - Used PayloadAction with proper type casting
+
+### Batch 10: Fix Explicit Any in GameLoop Files (2/27/2025)
+- **PR**: #114
+- **Status**: Complete
+- **Fixed Files**:
+  - `src/systems/gameLoop.ts`: Replaced `any` type with proper types for resources
+  - `src/debug/gameLoopTest.ts`: Fixed multiple `any` types with proper Resource typing
+    - Added proper imports for Resource and RootState types
+    - Added explicit type casting for Redux state
+    - Properly typed Object.values() iterations
+
+### Batch 9: Fix TS-expect-error in resourceUtils.ts (2/27/2025)
+- **PR**: #114
+- **Status**: Complete
+- **Fixed Files**:
+  - `src/utils/resourceUtils.ts`: Fixed TypeScript errors by properly typing Redux state access
+    - Replaced `state.resources.resources` with `state.resources`
+    - Added proper type casting with `RootState` type
+    - Updated tests to match the new implementation
+
+### Batch 8: Explicit Any in More System Files (2/27/2025)
+- **PR**: #114
+- **Status**: Complete
+- **Fixed Files**:
+  - `src/systems/eventManager.ts`: Replaced any with explicit types in getInstance and initialize methods
+  - `src/systems/saveManager.ts`: Replaced any with explicit types in constructor dependencies
+  - `src/systems/workerManager.ts`: Replaced any with explicit types for placeholder functions
+  - `src/systems/resourceManager.ts`: Improved resource access type safety with proper casting
+
 ### Batch 7: Explicit Any in System Manager Files (2/27/2025)
-- **PR**: Not submitted yet
+- **PR**: #113
 - **Status**: Complete
 - **Fixed Files**:
   - `src/systems/resourceManager.ts`: Replaced any with explicit types in getInstance and initialize methods
@@ -70,6 +110,8 @@ This document tracks the progress of our systematic linting cleanup efforts.
 
 ## Next Steps
 
-- Continue addressing the "Explicit Any" category in remaining files
-- Address the unrelated @ts-expect-error issues in resourceUtils.ts
-- Update ESLint configuration to prevent new linting issues
+- Complete remaining Explicit Any fixes in model files (Batch 12)
+- Address state.models.resources access with proper typing in Redux files (Batch 13)
+- Finish remaining @ts-expect-error issues in component tests (Batch 14)
+- Update ESLint configuration to enforce stricter typing rules
+- Conduct final PR review and merge all batches

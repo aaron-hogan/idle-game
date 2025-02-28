@@ -88,14 +88,14 @@ export class SaveManager {
    * @param dependenciesOrStore The dependencies needed by SaveManager or store for backward compatibility
    * @returns The singleton SaveManager instance
    */
-  public static getInstance(dependenciesOrStore?: SaveManagerDependencies | any): SaveManager {
+  public static getInstance(dependenciesOrStore?: SaveManagerDependencies | { dispatch: unknown; getState: unknown }): SaveManager {
     if (!SaveManager.instance) {
       if (!dependenciesOrStore) {
         // Create instance without dependencies, initialize() will be called later
         SaveManager.instance = new SaveManager({
-          dispatch: (() => {}) as any, // Placeholder
-          getState: (() => ({})) as any, // Placeholder
-          actions: {} as any // Placeholder
+          dispatch: (() => {}) as AppDispatch, // Placeholder
+          getState: (() => ({} as RootState)), // Placeholder
+          actions: {} as SaveManagerDependencies['actions'] // Placeholder
         });
       } else if ('dispatch' in dependenciesOrStore && 'getState' in dependenciesOrStore && 'actions' in dependenciesOrStore) {
         // If full dependencies are provided
@@ -103,9 +103,9 @@ export class SaveManager {
       } else {
         // If a store is provided (backward compatibility)
         const instance = new SaveManager({
-          dispatch: (() => {}) as any, // Placeholder
-          getState: (() => ({})) as any, // Placeholder  
-          actions: {} as any // Placeholder
+          dispatch: (() => {}) as AppDispatch, // Placeholder
+          getState: (() => ({} as RootState)), // Placeholder  
+          actions: {} as SaveManagerDependencies['actions'] // Placeholder
         });
         instance.initialize(dependenciesOrStore);
         SaveManager.instance = instance;
@@ -124,7 +124,7 @@ export class SaveManager {
    * @param config Optional configuration parameters
    * @deprecated Use dependency injection through constructor instead
    */
-  public initialize(store: Store, config: Partial<SaveManagerConfig> = {}): void {
+  public initialize(store: { dispatch: unknown; getState: unknown } | Store, config: Partial<SaveManagerConfig> = {}): void {
     // Check if already initialized properly
     try {
       this.ensureInitialized();
@@ -139,8 +139,8 @@ export class SaveManager {
     // Use the imported action creators
     
     // Set up dependencies from store
-    this.dispatch = store.dispatch;
-    this.getState = store.getState;
+    this.dispatch = store.dispatch as AppDispatch;
+    this.getState = store.getState as () => RootState;
     this.actions = {
       resetGame: gameActions.resetGame,
       resetResources: resourcesActions.resetResources,

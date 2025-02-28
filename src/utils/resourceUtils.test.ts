@@ -16,68 +16,91 @@ jest.mock('../state/store', () => ({
   store: {
     getState: jest.fn().mockReturnValue({
       resources: {
-        resources: {
-          'solidarity': {
-            id: 'solidarity',
-            name: 'Solidarity',
-            amount: 100,
-            perSecond: 1,
-            category: 'social',
-            unlocked: true
-          },
-          'collective_bargaining_power': {
-            id: 'collective_bargaining_power',
-            name: 'Collective Bargaining Power',
-            amount: 50,
-            perSecond: 0.5,
-            category: 'organizing',
-            unlocked: true
-          },
-          'community_trust': {
-            id: 'community_trust',
-            name: 'Community Trust',
-            amount: 75,
-            perSecond: 0.2,
-            category: 'social',
-            unlocked: true
-          },
-          'locked_resource': {
-            id: 'locked_resource',
-            name: 'Locked Resource',
-            amount: 30,
-            perSecond: 0,
-            category: 'special',
-            unlocked: false
-          }
+        'solidarity': {
+          id: 'solidarity',
+          name: 'Solidarity',
+          amount: 100,
+          maxAmount: 1000,
+          perSecond: 1,
+          description: 'A measure of worker unity',
+          category: 'social',
+          unlocked: true
+        },
+        'collective_bargaining_power': {
+          id: 'collective_bargaining_power',
+          name: 'Collective Bargaining Power',
+          amount: 50,
+          maxAmount: 500,
+          perSecond: 0.5,
+          description: 'Power through unity',
+          category: 'organizing',
+          unlocked: true
+        },
+        'community_trust': {
+          id: 'community_trust',
+          name: 'Community Trust',
+          amount: 75,
+          maxAmount: 750,
+          perSecond: 0.2,
+          description: 'Trust from the community',
+          category: 'social',
+          unlocked: true
+        },
+        'locked_resource': {
+          id: 'locked_resource',
+          name: 'Locked Resource',
+          amount: 30,
+          maxAmount: 300,
+          perSecond: 0,
+          description: 'A locked resource',
+          category: 'special',
+          unlocked: false
         }
       },
       structures: {
-        structures: {
-          'community_center': {
-            id: 'community_center',
-            name: 'Community Center',
-            level: 2,
-            category: 'social',
-            unlocked: true
-          },
-          'union_office': {
-            id: 'union_office',
-            name: 'Union Office',
-            level: 1,
-            category: 'organizing',
-            unlocked: true
-          },
-          'locked_structure': {
-            id: 'locked_structure',
-            name: 'Locked Structure',
-            level: 0,
-            category: 'special',
-            unlocked: false
-          }
+        'community_center': {
+          id: 'community_center',
+          name: 'Community Center',
+          description: 'A place for community gathering',
+          level: 2,
+          maxLevel: 5,
+          cost: { 'solidarity': 100 },
+          production: { 'community_trust': 5 },
+          unlocked: true,
+          workers: 0,
+          maxWorkers: 10,
+          category: 'social'
+        },
+        'union_office': {
+          id: 'union_office',
+          name: 'Union Office',
+          description: 'Office for union activities',
+          level: 1,
+          maxLevel: 3,
+          cost: { 'solidarity': 50 },
+          production: { 'collective_bargaining_power': 2 },
+          unlocked: true,
+          workers: 0,
+          maxWorkers: 5,
+          category: 'organizing'
+        },
+        'locked_structure': {
+          id: 'locked_structure',
+          name: 'Locked Structure',
+          description: 'A locked structure',
+          level: 0,
+          maxLevel: 1,
+          cost: { 'locked_resource': 10 },
+          production: {},
+          unlocked: false,
+          workers: 0,
+          maxWorkers: 0,
+          category: 'special'
         }
       }
     })
-  }
+  },
+  RootState: {} // Mock type for RootState
 }));
 
 // Mock ErrorLogger
@@ -162,17 +185,17 @@ describe('resourceUtils', () => {
   describe('getResourcesByCategory', () => {
     // Using store mock for this test
     const state = store.getState();
-    const resources = state.resources.resources as Record<string, any>;
+    const resources = state.resources as Record<string, any>;
     
     test('should filter resources by category', () => {
-      const socialResources = getResourcesByCategory(resources as any, 'social');
+      const socialResources = getResourcesByCategory(resources, 'social');
       expect(socialResources).toHaveLength(2);
       expect(socialResources[0].id).toBe('solidarity');
       expect(socialResources[1].id).toBe('community_trust');
     });
     
     test('should only include unlocked resources', () => {
-      const specialResources = getResourcesByCategory(resources as any, 'special');
+      const specialResources = getResourcesByCategory(resources, 'special');
       expect(specialResources).toHaveLength(0); // The special resource is locked
     });
   });
@@ -180,16 +203,16 @@ describe('resourceUtils', () => {
   describe('getStructuresByCategory', () => {
     // Using store mock for this test
     const state = store.getState();
-    const structures = state.structures.structures as Record<string, any>;
+    const structures = state.structures as Record<string, any>;
     
     test('should filter structures by category', () => {
-      const organizingStructures = getStructuresByCategory(structures as any, 'organizing');
+      const organizingStructures = getStructuresByCategory(structures, 'organizing');
       expect(organizingStructures).toHaveLength(1);
       expect(organizingStructures[0].id).toBe('union_office');
     });
     
     test('should only include unlocked structures', () => {
-      const specialStructures = getStructuresByCategory(structures as any, 'special');
+      const specialStructures = getStructuresByCategory(structures, 'special');
       expect(specialStructures).toHaveLength(0); // The special structure is locked
     });
   });
@@ -197,16 +220,16 @@ describe('resourceUtils', () => {
   describe('getTotalProductionByCategory', () => {
     // Using store mock for this test
     const state = store.getState();
-    const resources = state.resources.resources as Record<string, any>;
+    const resources = state.resources as Record<string, any>;
     
     test('should calculate total production for a category', () => {
-      const socialProduction = getTotalProductionByCategory(resources as any, 'social');
+      const socialProduction = getTotalProductionByCategory(resources, 'social');
       // solidarity (1) + community_trust (0.2) = 1.2
       expect(socialProduction).toBeCloseTo(1.2);
     });
     
     test('should return 0 for a category with no resources', () => {
-      const nonexistentProduction = getTotalProductionByCategory(resources as any, 'nonexistent');
+      const nonexistentProduction = getTotalProductionByCategory(resources, 'nonexistent');
       expect(nonexistentProduction).toBe(0);
     });
   });
@@ -214,7 +237,7 @@ describe('resourceUtils', () => {
   describe('canAffordCost', () => {
     // Using store mock for this test
     const state = store.getState();
-    const resources = state.resources.resources as Record<string, any>;
+    const resources = state.resources as Record<string, any>;
     
     test('should return true if all resources are available', () => {
       const cost = {
@@ -222,7 +245,7 @@ describe('resourceUtils', () => {
         'collective_bargaining_power': 25
       };
       
-      expect(canAffordCost(resources as any, cost)).toBe(true);
+      expect(canAffordCost(resources, cost)).toBe(true);
     });
     
     test('should return false if any resource is insufficient', () => {
@@ -231,7 +254,7 @@ describe('resourceUtils', () => {
         'collective_bargaining_power': 25
       };
       
-      expect(canAffordCost(resources as any, cost)).toBe(false);
+      expect(canAffordCost(resources, cost)).toBe(false);
     });
     
     test('should return false if a resource is not unlocked', () => {
@@ -240,12 +263,12 @@ describe('resourceUtils', () => {
         'locked_resource': 10 // This resource exists but is locked
       };
       
-      expect(canAffordCost(resources as any, cost)).toBe(false);
+      expect(canAffordCost(resources, cost)).toBe(false);
     });
     
     test('should return true for empty or null costs', () => {
-      expect(canAffordCost(resources as any, {})).toBe(true);
-      expect(canAffordCost(resources as any, null as any)).toBe(true);
+      expect(canAffordCost(resources, {})).toBe(true);
+      expect(canAffordCost(resources, null as any)).toBe(true);
     });
   });
   

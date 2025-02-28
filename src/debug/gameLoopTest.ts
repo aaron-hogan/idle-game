@@ -3,12 +3,13 @@
  * This file contains diagnostic utilities to test game loop functionality
  */
 
-import { store } from '../state/store';
+import { store, RootState } from '../state/store';
 import { GameLoop } from '../systems/gameLoop';
 import { ResourceManager } from '../systems/resourceManager';
 import { GameLoopManager } from '../managers/GameLoopManager';
 import { TaskManager } from '../managers/TaskManager';
 import { addResourceAmount } from '../state/resourcesSlice';
+import { Resource } from '../models/resource';
 
 /**
  * Run a diagnostic test of the game loop system
@@ -35,7 +36,7 @@ export function runGameLoopDiagnostics() {
   });
 
   // 3. Get store state
-  const state = store.getState();
+  const state = store.getState() as RootState;
   console.log('Game status from store:', {
     isRunning: state.game.isRunning,
     tickRate: state.game.tickRate,
@@ -46,7 +47,7 @@ export function runGameLoopDiagnostics() {
   // 4. Check resources
   const resourceCount = Object.keys(state.resources).length;
   console.log(`Resources (${resourceCount} total):`);
-  Object.values(state.resources).forEach((resource: any) => {
+  Object.values(state.resources as Record<string, Resource>).forEach((resource) => {
     if (resource && resource.name) {
       console.log(`- ${resource.name}: amount=${resource.amount.toFixed(2)}, perSecond=${resource.perSecond.toFixed(2)}`);
     }
@@ -59,7 +60,7 @@ export function runGameLoopDiagnostics() {
     const testTickAmount = 1; // 1 second
     
     // Store starting values
-    const startingValues = Object.values(state.resources).map((resource: any) => ({
+    const startingValues = Object.values(state.resources as Record<string, Resource>).map((resource) => ({
       id: resource.id,
       name: resource.name, 
       startAmount: resource.amount
@@ -70,7 +71,7 @@ export function runGameLoopDiagnostics() {
     
     // Store ending values and compute differences
     setTimeout(() => {
-      const endState = store.getState();
+      const endState = store.getState() as RootState;
       
       startingValues.forEach(startResource => {
         const endResource = endState.resources[startResource.id];
@@ -97,7 +98,7 @@ export function runGameLoopDiagnostics() {
         console.warn('\n⚠️ No resources updated automatically. Forcing a manual update...');
         
         // Get the first resource with a positive perSecond value
-        const testResource = Object.values(endState.resources).find((r: any) => r.perSecond > 0);
+        const testResource = Object.values(endState.resources as Record<string, Resource>).find((r) => r.perSecond > 0);
         
         if (testResource) {
           // Add 1.0 unit to this resource manually
@@ -109,7 +110,7 @@ export function runGameLoopDiagnostics() {
           
           // Log result
           setTimeout(() => {
-            const finalState = store.getState();
+            const finalState = store.getState() as RootState;
             const finalResource = finalState.resources[testResource.id];
             console.log(`${testResource.name} after manual update: ${finalResource.amount.toFixed(2)}`);
           }, 500);
