@@ -75,7 +75,7 @@ export function resetSingleton(singletonClass: any): void {
   // Access private static instance field and reset it
   // Note: This is a hack for testing purposes only
   if ('instance' in singletonClass) {
-    // @ts-expect-error Private field access for testing
+    // @ts-ignore - Private field access for testing
     singletonClass.instance = null;
   }
 
@@ -105,13 +105,13 @@ export function createTestableManager<T>(BaseClass: any): new (...args: any[]) =
   // Create a test subclass that can be directly instantiated
   return class TestManager extends BaseClass {
     constructor(...args: any[]) {
-      // @ts-expect-error Private constructor access for testing
+      // @ts-ignore - Private constructor access for testing
       super(...args);
     }
 
     // Add static method to set the singleton instance for testing
     static setTestInstance(instance: any): void {
-      // @ts-expect-error Private static field access for testing
+      // @ts-ignore - Private static field access for testing
       BaseClass.instance = instance;
     }
   } as any;
