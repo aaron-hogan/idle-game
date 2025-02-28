@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+*No unreleased changes at this time.*
+
+## [0.7.1] - 2025-02-28
+
 ### Added
 - **Streamlined versioning system**:
   - New automatic versioning based on conventional PR titles (feat:, fix:, etc.)
