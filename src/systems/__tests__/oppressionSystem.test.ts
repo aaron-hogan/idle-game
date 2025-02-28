@@ -1,10 +1,10 @@
 import { ResourceManager } from '../resourceManager';
 import { configureStore } from '@reduxjs/toolkit';
-import resourcesReducer, { addResource } from '../../redux/resourcesSlice';
+import resourcesReducer, { addResource } from '../../state/resourcesSlice';
 import gameReducer from '../../state/gameSlice';
 import { ResourceId } from '../../constants/resources';
-import { Resource } from '../../interfaces/Resource';
-import { ResourceCategory } from '../../interfaces/Resource';
+import { Resource } from '../../models/resource';
+import { resetSingleton } from '../../utils/testUtils';
 
 describe('Oppression System', () => {
   let store: any;
@@ -20,8 +20,9 @@ describe('Oppression System', () => {
     basePerSecond: 0.1,
     description: 'Test power resource',
     unlocked: true,
-    category: ResourceCategory.PRIMARY,
-    clickPower: 1
+    category: 'PRIMARY',
+    clickPower: 1,
+    upgrades: {}
   };
   
   const oppressionResource: Resource = {
@@ -33,7 +34,8 @@ describe('Oppression System', () => {
     basePerSecond: 0.05,
     description: 'Test oppression resource',
     unlocked: true,
-    category: ResourceCategory.THREAT
+    category: 'THREAT',
+    upgrades: {}
   };
   
   beforeEach(() => {
@@ -41,17 +43,36 @@ describe('Oppression System', () => {
     store = configureStore({
       reducer: {
         resources: resourcesReducer,
-        game: gameReducer
+        game: gameReducer,
+        structures: (state = {}) => state,
+        tasks: (state = {}) => state,
+        events: (state = {}) => state,
+        progression: (state = {}) => state,
+        tutorial: (state = {}) => state,
       }
     });
     
     // Reset the ResourceManager singleton
-    // @ts-ignore - Accessing private property for testing
-    ResourceManager.instance = null;
+    resetSingleton(ResourceManager);
     
-    // Get a fresh instance
-    resourceManager = ResourceManager.getInstance();
-    resourceManager.initialize(store);
+    // Import the resource action creators
+    const resourceActions = require('../../state/resourcesSlice');
+    
+    // Get a fresh instance with proper dependencies
+    resourceManager = ResourceManager.getInstance({
+      dispatch: store.dispatch,
+      getState: store.getState,
+      actions: {
+        addResource: resourceActions.addResource,
+        updateResourceAmount: resourceActions.updateResourceAmount,
+        addResourceAmount: resourceActions.addResourceAmount,
+        updateResourcePerSecond: resourceActions.updateResourcePerSecond,
+        toggleResourceUnlocked: resourceActions.toggleResourceUnlocked,
+        updateClickPower: resourceActions.updateClickPower,
+        updateUpgradeLevel: resourceActions.updateUpgradeLevel,
+        updateBaseResourcePerSecond: resourceActions.updateBaseResourcePerSecond,
+      }
+    });
     
     // Add test resources
     store.dispatch(addResource(powerResource));
@@ -59,24 +80,18 @@ describe('Oppression System', () => {
   });
   
   test('oppression resource should generate at the specified rate', () => {
-    // Add console log to debug
-    console.log('Resources before:', JSON.stringify(store.getState().resources.byId, null, 2));
-    
     // Simulate a game tick with 10 seconds elapsed
     const elapsedTime = 10;
     resourceManager.updateResources(elapsedTime);
-    
-    // Add console log to debug
-    console.log('Resources after:', JSON.stringify(store.getState().resources.byId, null, 2));
     
     // Get the current state
     const state = store.getState();
     
     // Check that oppression increased by the correct amount (0.05 * 10 = 0.5)
-    expect(state.resources.byId[ResourceId.OPPRESSION].amount).toBeCloseTo(0.5, 6);
+    expect(state.resources[ResourceId.OPPRESSION].amount).toBeCloseTo(0.5, 6);
     
     // For comparison, check that power also increased correctly (0.1 * 10 = 1.0)
-    expect(state.resources.byId[ResourceId.COLLECTIVE_POWER].amount).toBeCloseTo(1.0, 6);
+    expect(state.resources[ResourceId.COLLECTIVE_POWER].amount).toBeCloseTo(1.0, 6);
   });
   
   test('oppression should continue to generate in multiple ticks', () => {
@@ -89,10 +104,10 @@ describe('Oppression System', () => {
     const state = store.getState();
     
     // Check that oppression increased by the correct total amount (0.05 * 10 = 0.5)
-    expect(state.resources.byId[ResourceId.OPPRESSION].amount).toBeCloseTo(0.5, 6);
+    expect(state.resources[ResourceId.OPPRESSION].amount).toBeCloseTo(0.5, 6);
     
     // Power should have increased by (0.1 * 10 = 1.0)
-    expect(state.resources.byId[ResourceId.COLLECTIVE_POWER].amount).toBeCloseTo(1.0, 6);
+    expect(state.resources[ResourceId.COLLECTIVE_POWER].amount).toBeCloseTo(1.0, 6);
   });
   
   test('oppression should generate even if its perSecond property is modified', () => {
@@ -111,7 +126,7 @@ describe('Oppression System', () => {
     
     // Even though perSecond is 0, our special handling should still generate at basePerSecond
     // This tests that our special case in resourceManager.updateResources works
-    expect(state.resources.byId[ResourceId.OPPRESSION].amount).toBeGreaterThan(0);
+    expect(state.resources[ResourceId.OPPRESSION].amount).toBeGreaterThan(0);
   });
   
   test('oppression generation should scale with time delta correctly', () => {
@@ -131,7 +146,7 @@ describe('Oppression System', () => {
       
       // Check that oppression matches expected amount
       const expectedOppression = 0.05 * interval;
-      expect(state.resources.byId[ResourceId.OPPRESSION].amount).toBeCloseTo(expectedOppression, 6);
+      expect(state.resources[ResourceId.OPPRESSION].amount).toBeCloseTo(expectedOppression, 6);
     }
   });
 });

@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Remove wiki directory completely from git tracking
+- Updated test suite to use proper dependency injection pattern
+  - ResourceManager tests now use resetSingleton utility and complete mock state
+  - OppressionSystem tests fixed to use the correct resource state structure
+  - SaveManager tests updated with proper action creator references
+  - BuildingManager, EventManager, and WorkerManager tests now follow consistent pattern
+- Added consistent testing pattern across all manager tests
+  - Reset singletons properly between tests
+  - Created helper functions to initialize managers with dependencies
+  - Improved action creator mocking to avoid circular references
+  - Added complete mock state for reliable test execution
 
 ### Added
 - New script to detect and fix empty versions in CHANGELOG

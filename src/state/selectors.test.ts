@@ -162,13 +162,12 @@ describe('Redux selectors', () => {
       }
     },
     tutorial: {
+      active: false,
       currentStep: null,
-      completed: [],
-      dismissed: [],
-      settings: {
-        enabled: true,
-        showContextualHelp: true
-      }
+      completedTutorials: [],
+      tutorialsEnabled: true,
+      firstTimeUser: true,
+      showContextualHelp: true
     }
   } as RootState;
 
