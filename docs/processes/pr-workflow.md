@@ -170,13 +170,22 @@ npm run lint
 
 ### 3. Merge PR
 
+⚠️ **CRITICAL: NEVER merge a PR until ALL CI checks have COMPLETED SUCCESSFULLY**
+
 ```bash
-# Merge the PR with appropriate options
+# FIRST verify ALL CI checks have completed successfully
+gh pr checks <pr-number>
+
+# Confirm that ALL checks show ✅ SUCCESS status - not pending, not running
+
+# Only after confirming successful checks, merge the PR
 gh pr merge <pr-number> --merge --delete-branch
 
 # Or with squash option if appropriate
 gh pr merge <pr-number> --squash --delete-branch
 ```
+
+**FAILURE TO WAIT FOR CI CHECKS CAN RESULT IN BROKEN BUILDS ON MAIN**
 
 ### 4. Explicitly Communicate Merge Status
 
@@ -322,19 +331,20 @@ npm start
 
 ## Best Practices
 
-1. **One Issue, One PR**: Each PR should address a single issue or feature
-2. **Small PRs**: Keep PRs small and focused for easier review and testing
-3. **Clear Commit Messages**: Use conventional commits (fix:, feat:, docs:, etc.)
-4. **Documentation First**: Document your changes as you make them
-5. **Test Early, Test Often**: Write tests before or alongside code changes
-6. **Self-Review**: Always review your own PR before requesting reviews
-7. **Keep CI Green**: Don't merge PRs that break the build or tests
-8. **Communicate**: Use PR comments to explain complex changes or decisions
-9. **Explicit Status Updates**: Always explicitly confirm successful merges to the user
-10. **Update Tests**: Always update tests when refactoring or changing behavior
-11. **Verify After Merge**: Always verify the main branch is stable after merging
-12. **Clear Communication**: Explicitly state when PRs are merged and branches are deleted
-13. **Appropriate Versioning**: Use the appropriate version level (major, minor, patch, or patch-level) to match the changes
-14. **Changelog Quality**: Keep changelog entries clear, concise, and properly categorized
+1. ⚠️ **WAIT FOR ALL CI CHECKS**: NEVER merge a PR until ALL CI checks have COMPLETED SUCCESSFULLY
+2. **One Issue, One PR**: Each PR should address a single issue or feature
+3. **Small PRs**: Keep PRs small and focused for easier review and testing
+4. **Clear Commit Messages**: Use conventional commits (fix:, feat:, docs:, etc.)
+5. **Documentation First**: Document your changes as you make them
+6. **Test Early, Test Often**: Write tests before or alongside code changes
+7. **Self-Review**: Always review your own PR before requesting reviews
+8. **Keep CI Green**: Don't merge PRs that break the build or tests
+9. **Communicate**: Use PR comments to explain complex changes or decisions
+10. **Explicit Status Updates**: Always explicitly confirm successful merges to the user
+11. **Update Tests**: Always update tests when refactoring or changing behavior
+12. **Verify After Merge**: Always verify the main branch is stable after merging
+13. **Clear Communication**: Explicitly state when PRs are merged and branches are deleted
+14. **Appropriate Versioning**: Use the appropriate version level (major, minor, patch, or patch-level) to match the changes
+15. **Changelog Quality**: Keep changelog entries clear, concise, and properly categorized
 
 By following this workflow, we maintain a high-quality codebase with clear history and thorough documentation.
