@@ -54,33 +54,32 @@ jobs:
           PR_BODY="${{ github.event.pull_request.body }}"
           echo "Extracting changelog entry from PR description..."
           
-          # Create a temporary file with the PR body to avoid shell interpretation issues
+          # Create a temporary file with the PR body
           echo "$PR_BODY" > pr_body.txt
           
-          # Safer extraction of changelog section without relying on shell interpretation
+          # More reliable extraction of changelog section
           CHANGELOG_SECTION=""
           CAPTURE=0
           
           while IFS= read -r line; do
             if [[ "$line" == "## Changelog Entry" ]]; then
               CAPTURE=1
-              continue
             elif [[ "$line" =~ ^## ]]; then
               if [[ $CAPTURE -eq 1 ]]; then
                 CAPTURE=0
               fi
-            fi
-            
-            if [[ $CAPTURE -eq 1 ]]; then
-              CHANGELOG_SECTION="${CHANGELOG_SECTION}${line}
-"
+            elif [[ $CAPTURE -eq 1 ]]; then
+              if [[ -n "$CHANGELOG_SECTION" ]]; then
+                CHANGELOG_SECTION="$CHANGELOG_SECTION
+$line"
+              else
+                CHANGELOG_SECTION="$line"
+              fi
             fi
           done < pr_body.txt
           
-          # Remove leading/trailing whitespace
-          CHANGELOG_ENTRY=$(echo "$CHANGELOG_SECTION" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
-          
-          if [ -z "$CHANGELOG_ENTRY" ]; then
+          # Check if we found a changelog entry
+          if [ -z "$CHANGELOG_SECTION" ]; then
             echo "No changelog entry found in PR description. Using PR title as fallback."
             PR_TITLE="${{ github.event.pull_request.title }}"
             TYPE=$(echo "$PR_TITLE" | sed -E 's/^(feat|fix|docs|chore|refactor|style|perf|test|build|ci|revert)(\!)?:.*/\1/')
@@ -108,9 +107,11 @@ jobs:
 - $DESCRIPTION"
                 ;;
             esac
+          else
+            CHANGELOG_ENTRY="$CHANGELOG_SECTION"
           fi
           
-          # Save to file for later use - avoid using echo -e which can cause issues
+          # Save to file for later use
           echo "$CHANGELOG_ENTRY" > changelog_entry.txt
           echo "Changelog entry:"
           cat changelog_entry.txt
@@ -171,30 +172,31 @@ jobs:
           # Load the changelog entry from the file
           CHANGELOG_ENTRY=$(cat changelog_entry.txt)
           
-          # Create a temporary file for building the new changelog
-          touch new_changelog.md
-          
-          # Process CHANGELOG.md line by line to insert new version safely
-          FOUND_UNRELEASED=0
-          while IFS= read -r line; do
-            # Add line to new changelog
-            echo "$line" >> new_changelog.md
+          # Create a new changelog with our updates
+          {
+            # Find the start of the file until the Unreleased section
+            sed -n '1,/## \[Unreleased\]/p' CHANGELOG.md
             
-            # If this is the Unreleased section heading, add unreleased placeholder and new version
-            if [[ "$line" == "## [Unreleased]" ]]; then
-              FOUND_UNRELEASED=1
-              echo "" >> new_changelog.md
-              echo "*No unreleased changes at this time.*" >> new_changelog.md
-              echo "" >> new_changelog.md
-              echo "## [$NEW_VERSION] - $DATE" >> new_changelog.md
-              echo "" >> new_changelog.md
-              # Add the changelog entry
-              echo "$CHANGELOG_ENTRY" >> new_changelog.md
-              echo "" >> new_changelog.md
-            fi
-          done < CHANGELOG.md
+            # Add empty line after Unreleased header
+            echo ""
+            
+            # Add placeholder for unreleased
+            echo "*No unreleased changes at this time.*"
+            echo ""
+            
+            # Add new version with date
+            echo "## [$NEW_VERSION] - $DATE"
+            echo ""
+            
+            # Add changelog entry
+            echo "$CHANGELOG_ENTRY"
+            echo ""
+            
+            # Add the rest of the file starting from the next version
+            sed -n '/## \[[0-9]/,$p' CHANGELOG.md
+          } > new_changelog.md
           
-          # Replace the original with our new version
+          # Replace old changelog with new one
           mv new_changelog.md CHANGELOG.md
           
           # Update package.json to ensure it has the right version
@@ -202,8 +204,6 @@ jobs:
           
           echo "CHANGELOG.md and package.json updated successfully"
           echo "Added version $NEW_VERSION with changelog entry"
-          echo "Changelog entry:"
-          echo "$CHANGELOG_ENTRY"
           
       - name: Commit and push changes
         if: steps.version-bump.outputs.bump_type != 'none'
