@@ -33,6 +33,20 @@ jest.mock('../systems/resourceManager', () => {
   };
 });
 
+// Mock EventManager to fix missing events state
+jest.mock('../systems/eventManager', () => {
+  return {
+    EventManager: {
+      getInstance: jest.fn().mockReturnValue({
+        initialize: jest.fn(),
+        registerDefaultEvents: jest.fn(),
+        checkForNewEvents: jest.fn(),
+        resolveEvents: jest.fn()
+      })
+    }
+  };
+});
+
 describe('App component', () => {
   // Create a test store with all required reducers
   const store = configureStore({
@@ -44,6 +58,14 @@ describe('App component', () => {
       progression: progressionReducer,
       tasks: tasksReducer,
     },
+    preloadedState: {
+      // Add required initial state to prevent errors with events
+      events: {
+        activeEvents: [],
+        eventHistory: [],
+        availableEvents: {}
+      }
+    }
   });
   
   // Reset mocks before each test
@@ -55,42 +77,7 @@ describe('App component', () => {
     (mockInstance.initialize as jest.Mock).mockClear();
   });
 
-  // Skip test - it's failing due to error boundary catching an error from missing events state
-  test.skip('renders the title', () => {
-    render(
-      <Provider store={store}>
-        <App />
-      </Provider>
-    );
-    const titleElement = screen.getAllByText(/Anti-Capitalist Idle Game/i)[0]; // Use getAllByText to get the first match
-    expect(titleElement).toBeInTheDocument();
-  });
-
-  // Skip test - it's failing due to error boundary catching an error from missing events state
-  test.skip('has the correct CSS class', () => {
-    const { container } = render(
-      <Provider store={store}>
-        <App />
-      </Provider>
-    );
-    const appElement = container.firstChild;
-    expect(appElement).toHaveClass('game-layout'); // Updated to match actual class name
-  });
-
-  // Skip test - it's failing due to error boundary catching an error from missing events state
-  test.skip('renders as a heading', () => {
-    render(
-      <Provider store={store}>
-        <App />
-      </Provider>
-    );
-    const heading = screen.getByRole('heading', { level: 1 });
-    expect(heading).toBeInTheDocument();
-    expect(heading).toHaveTextContent('Anti-Capitalist Idle Game');
-  });
-
-  // Skip test - it's failing due to error boundary catching an error from missing events state
-  test.skip('initializes resources on mount', () => {
+  test('initializes resources on mount', () => {
     render(
       <Provider store={store}>
         <App />
