@@ -21,6 +21,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - New case study about GameTimer.tsx conflict
   - Automated conflict detection in pre-commit hooks
   - Better verification steps during conflict resolution
+- **Comprehensive CI check verification system**:
+  - Detailed steps for validating ALL workflows and jobs, not just summaries
+  - Explicit instructions for verifying CHANGELOG updates for each PR type
+  - Requirements to check each workflow step's logs for failures
+  - Real-world case study of PR #115 that was improperly merged
+  - Guidelines for detecting "hidden" failures in CI workflows
 
 ### Fixed
 - Fixed linting errors in multiple files:

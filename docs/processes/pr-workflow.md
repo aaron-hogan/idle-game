@@ -168,24 +168,41 @@ npm run typecheck
 npm run lint
 ```
 
-### 3. Merge PR
+### 3. Comprehensive CI Check Verification
 
-⚠️ **CRITICAL: NEVER merge a PR until ALL CI checks have COMPLETED SUCCESSFULLY**
+⚠️ **CRITICAL: NEVER merge a PR until ALL CI workflows and job steps have EACH COMPLETED SUCCESSFULLY**
 
 ```bash
-# FIRST verify ALL CI checks have completed successfully
+# STEP 1: View ALL PR checks - not just the summary
 gh pr checks <pr-number>
 
-# Confirm that ALL checks show ✅ SUCCESS status - not pending, not running
+# STEP 2: Examine EACH workflow and job individually to verify ALL are successful
+# DO NOT RELY on just the summary or latest workflow!
+gh workflow view <workflow-id>
 
-# Only after confirming successful checks, merge the PR
+# STEP 3: For ANY workflow that shows failure or is not complete:
+# - Check the detailed logs to understand the failure
+gh run view <run-id> --log-failed
+
+# STEP 4: Verify specific critical checks that might not block merging:
+# - CHANGELOG updates for feature and fix PRs
+# - Documentation requirements
+# - Code coverage requirements
+
+# STEP 5: Check if any PRs that were merged just before yours have failing post-merge workflows
+# - This can indicate problems that might affect your PR
+gh run list --workflow=CI --limit 5
+
+# STEP 6: ONLY after verifying ALL workflows and steps have COMPLETED SUCCESSFULLY:
 gh pr merge <pr-number> --merge --delete-branch
 
 # Or with squash option if appropriate
 gh pr merge <pr-number> --squash --delete-branch
 ```
 
-**FAILURE TO WAIT FOR CI CHECKS CAN RESULT IN BROKEN BUILDS ON MAIN**
+**⚠️ MAJOR PROCESS FAILURE ALERT ⚠️**
+
+PR #115 was merged despite failing the CHANGELOG update check, leading to a broken process. This type of oversight compromises our quality control. You MUST verify EVERY check, not just the summary status.
 
 ### 4. Explicitly Communicate Merge Status
 
@@ -331,7 +348,12 @@ npm start
 
 ## Best Practices
 
-1. ⚠️ **WAIT FOR ALL CI CHECKS**: NEVER merge a PR until ALL CI checks have COMPLETED SUCCESSFULLY
+1. ⚠️ **VERIFY EVERY SINGLE CI CHECK AND STEP**: Never rely on summaries or just the latest workflow. YOU MUST:
+   - Examine EACH workflow and job individually
+   - Verify completion of CHANGELOG updates for feature/fix PRs
+   - Check logs for any failed steps
+   - Verify all post-merge checks from recent PRs
+   - Never assume success based on a green checkmark in GitHub UI
 2. **One Issue, One PR**: Each PR should address a single issue or feature
 3. **Small PRs**: Keep PRs small and focused for easier review and testing
 4. **Clear Commit Messages**: Use conventional commits (fix:, feat:, docs:, etc.)
