@@ -1,11 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../state/hooks';
-import { 
-  selectAllResources, 
-  selectLastSaveTime,
-  selectIsGameRunning
-} from '../state/selectors';
+import { selectAllResources, selectIsGameRunning } from '../state/selectors';
 import { ResourceManager } from '../systems/resourceManager';
 import { store } from '../state/store';
 import { SaveProvider } from '../systems/saveContext';
@@ -18,6 +14,10 @@ import GameDebugger from '../debug/GameDebugger';
 import TopResourceBar from './resources/TopResourceBar';
 import EndGameModal from './EndGameModal';
 import { TabNavigation, DEFAULT_TABS } from './navigation';
+import * as resourceActions from '../state/resourcesSlice';
+import * as structureActions from '../state/structuresSlice';
+import { BuildingManager } from '../systems/buildingManager';
+import { WorkerManager } from '../systems/workerManager';
 
 // Import pages
 import MainGame from '../pages/MainGame';
@@ -37,29 +37,29 @@ import './App.css';
 // Simple menu button component that shows save controls when clicked
 const MenuButton: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  
+
   // Close menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (isMenuOpen && !(e.target as Element).closest('.menu-button') && 
-          !(e.target as Element).closest('.game-menu')) {
+      if (
+        isMenuOpen &&
+        !(e.target as Element).closest('.menu-button') &&
+        !(e.target as Element).closest('.game-menu')
+      ) {
         setIsMenuOpen(false);
       }
     };
-    
+
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isMenuOpen]);
-  
+
   return (
     <div className="menu-container">
-      <button 
-        className="menu-button"
-        onClick={() => setIsMenuOpen(!isMenuOpen)}
-      >
+      <button className="menu-button" onClick={() => setIsMenuOpen(!isMenuOpen)}>
         MENU
       </button>
-      
+
       <div className={`game-menu ${isMenuOpen ? 'active' : ''}`}>
         <div className="game-menu-item save-controls">
           <SaveControls />
@@ -75,21 +75,18 @@ const MenuButton: React.FC = () => {
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
   const resources = useAppSelector(selectAllResources);
-  const lastSaveTime = useAppSelector(selectLastSaveTime);
   const isGameRunning = useAppSelector(selectIsGameRunning);
-  
+
   // Track game manager instance
   const gameManagerRef = useRef<GameManager | null>(null);
-  
+
   // Debug panel state
   const [isDebugExpanded, setIsDebugExpanded] = useState(false);
-  
+
   // Initialize resources and game loop when the app first loads - only once on mount
   useEffect(() => {
-    // Import required action creators for dependency injection
-    const resourceActions = require('../state/resourcesSlice');
-    const structureActions = require('../state/structuresSlice');
-    
+    // Use imported action creators for dependency injection
+
     // Initialize resource manager with dependencies
     const resourceManager = ResourceManager.getInstance({
       dispatch: store.dispatch,
@@ -103,11 +100,11 @@ const App: React.FC = () => {
         updateClickPower: resourceActions.updateClickPower,
         updateUpgradeLevel: resourceActions.updateUpgradeLevel,
         updateBaseResourcePerSecond: resourceActions.updateBaseResourcePerSecond,
-      }
+      },
     });
-    
+
     // Initialize building manager with dependencies
-    const buildingManager = require('../systems/buildingManager').BuildingManager.getInstance({
+    BuildingManager.getInstance({
       dispatch: store.dispatch,
       getState: store.getState,
       actions: {
@@ -115,91 +112,90 @@ const App: React.FC = () => {
         upgradeStructure: structureActions.upgradeStructure,
         updateProduction: structureActions.updateProduction,
         deductResources: resourceActions.deductResources,
-      }
+      },
     });
-    
+
     // Initialize task manager with store - using dependency injection
     // This will be updated in a future PR to use the new pattern
     const taskManager = TaskManager.getInstance();
     taskManager.initialize(store);
-    
+
     // Initialize progression manager with store - using dependency injection
     // This will be updated in a future PR to use the new pattern
     const progressionManager = ProgressionManager.getInstance();
     progressionManager.initialize(store);
-    
+
     // Initialize tutorial manager with store - using dependency injection
     const tutorialManager = TutorialManager.getInstance();
     tutorialManager.initialize(store);
-    
+
     // Initialize event system - this ensures all events are registered
     // and event manager is properly initialized
     initializeEventSystem();
 
     // SaveManager is initialized in SaveContext.tsx
-    
+
     // Initialize worker manager with dependencies
-    const workerManager = require('../systems/workerManager').WorkerManager.getInstance({
+    WorkerManager.getInstance({
       dispatch: store.dispatch,
       getState: store.getState,
       actions: {
         assignWorkers: structureActions.assignWorkers,
-        changeWorkerCount: structureActions.changeWorkerCount
-      }
+        changeWorkerCount: structureActions.changeWorkerCount,
+      },
     });
-    
+
     // Reset game time if it's suspiciously large (over 1 hour)
     const state = store.getState();
     if (state.game.totalPlayTime > 3600) {
       dispatch({ type: 'game/resetGame' });
     }
-    
+
     // Initialize resources (only if they don't exist yet)
     if (Object.keys(resources).length === 0) {
       resourceManager.initializeResources();
-      
+
       // Initialize buildings after resources
       const buildingAction = initializeBuildings();
       buildingAction(dispatch, () => store.getState());
     }
-    
+
     // Initialize and start the game manager (which controls the game loop)
     // Only initialize if not already initialized
     if (!gameManagerRef.current) {
       // Note: GameManager will be updated in a future PR to use the new DI pattern
       // For now, we continue using the existing initialization method
-      gameManagerRef.current = GameManager.getInstance(store, { 
-        debugMode: true, 
-        processOfflineProgress: true 
+      gameManagerRef.current = GameManager.getInstance(store, {
+        debugMode: true,
+        processOfflineProgress: true,
       });
-      
+
       // Set the Redux store for the GameLoop to enable win/lose checks
       const gameLoop = GameManager.getInstance().getGameLoop();
       gameLoop.setStore(store);
-      
+
       // Initialize and start the game
       gameManagerRef.current.initialize();
       gameManagerRef.current.start();
-      
+
       // Add initial time to ensure game state is properly started
       dispatch(addPlayTime(30)); // Add 30 seconds
-      
+
       // Set up a minimal debug timer (only for development)
       let debugTick = 0;
       const debugInterval = setInterval(() => {
         debugTick++;
-        const beforeTime = store.getState().game.totalPlayTime;
-        
+
         // Force a larger increment (5 seconds)
         dispatch(addPlayTime(5));
-        
+
         // Only log occasionally to reduce noise
         if (debugTick % 10 === 0) {
           const afterTime = store.getState().game.totalPlayTime;
           console.log(`DEBUG TICK ${debugTick}: time=${afterTime.toFixed(2)}`);
         }
       }, 1000); // Every 1 second
-      
+
       // Clean up the interval on component unmount
       return () => {
         clearInterval(debugInterval);
@@ -208,16 +204,16 @@ const App: React.FC = () => {
         }
       };
     }
-    
+
     // Return statement is now part of the previous code block
-  // Empty dependency array ensures this only runs once at mount
+    // Empty dependency array ensures this only runs once at mount
   }, []);
-  
+
   // Handle game running state changes
   useEffect(() => {
     if (gameManagerRef.current) {
       const gameLoop = gameManagerRef.current.getGameLoop();
-      
+
       if (isGameRunning && !gameLoop.isRunning()) {
         gameLoop.start();
       } else if (!isGameRunning && gameLoop.isRunning()) {
@@ -225,7 +221,7 @@ const App: React.FC = () => {
       }
     }
   }, [isGameRunning]);
-  
+
   return (
     <ErrorBoundary>
       <SaveProvider>
@@ -239,7 +235,7 @@ const App: React.FC = () => {
               <TopResourceBar />
               <MenuButton />
             </div>
-            
+
             {/* Main content area with routes */}
             <div className="main-content-container">
               <Routes>
@@ -249,30 +245,30 @@ const App: React.FC = () => {
                 <Route path="/settings" element={<Settings />} />
               </Routes>
             </div>
-            
+
             {/* Bottom navigation */}
             <TabNavigation tabs={DEFAULT_TABS} />
-            
+
             {/* Debug panel toggle */}
-            <button 
+            <button
               className="debug-toggle-btn"
               onClick={() => setIsDebugExpanded(!isDebugExpanded)}
             >
-              {isDebugExpanded ? "HIDE DEBUG DATA" : "SHOW DEBUG DATA"}
+              {isDebugExpanded ? 'HIDE DEBUG DATA' : 'SHOW DEBUG DATA'}
             </button>
-            
+
             {/* Collapsible debug panel with resize handle */}
             <div className={`debug-panel ${isDebugExpanded ? 'expanded' : 'collapsed'}`}>
               {isDebugExpanded && <div className="debug-resize-handle" />}
               <GameDebugger />
             </div>
-            
+
             {/* Event panel for displaying events */}
             <EventPanel />
-            
+
             {/* Tutorial modal */}
             <TutorialModal />
-            
+
             {/* Game end modal */}
             <EndGameModal />
           </div>

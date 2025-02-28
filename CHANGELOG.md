@@ -13,6 +13,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Examples for mocking Redux state in tests
   - Best practices for test cleanup and isolation
 
+### Fixed
+- Fixed linting errors in multiple files:
+  - Replaced @ts-ignore comments with proper @ts-expect-error in resourceUtils.ts
+  - Removed unused imports and variables in App.tsx and App.test.tsx
+  - Replaced require-style imports with ES module imports
+  - Removed unused screen imports in test files
+
 ## [0.6.1] - 2025-02-28
 
 ### Fixed

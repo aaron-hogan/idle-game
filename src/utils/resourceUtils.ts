@@ -10,7 +10,7 @@ import { store } from '../state/store';
  * @returns The found resource or NULL_RESOURCE
  */
 export function safeGetResource(
-  resources: Record<string, Resource>, 
+  resources: Record<string, Resource>,
   resourceId: string,
   context: string = 'safeGetResource'
 ): Resource {
@@ -22,9 +22,9 @@ export function safeGetResource(
     );
     return { ...NULL_RESOURCE };
   }
-  
+
   const resource = resources[resourceId];
-  
+
   if (!resource) {
     ErrorLogger.getInstance().logError(
       `Resource not found: ${resourceId}`,
@@ -33,7 +33,7 @@ export function safeGetResource(
     );
     return { ...NULL_RESOURCE, id: resourceId };
   }
-  
+
   return resource;
 }
 
@@ -45,7 +45,7 @@ export function safeGetResource(
  * @returns The found structure or NULL_STRUCTURE
  */
 export function safeGetStructure(
-  structures: Record<string, Structure>, 
+  structures: Record<string, Structure>,
   structureId: string,
   context: string = 'safeGetStructure'
 ): Structure {
@@ -57,9 +57,9 @@ export function safeGetStructure(
     );
     return { ...NULL_STRUCTURE };
   }
-  
+
   const structure = structures[structureId];
-  
+
   if (!structure) {
     ErrorLogger.getInstance().logError(
       `Structure not found: ${structureId}`,
@@ -68,7 +68,7 @@ export function safeGetStructure(
     );
     return { ...NULL_STRUCTURE, id: structureId };
   }
-  
+
   return structure;
 }
 
@@ -83,7 +83,7 @@ export function getResourcesByCategory(
   category: string
 ): Resource[] {
   return Object.values(resources).filter(
-    resource => resource.category === category && resource.unlocked
+    (resource) => resource.category === category && resource.unlocked
   );
 }
 
@@ -98,7 +98,7 @@ export function getStructuresByCategory(
   category: string
 ): Structure[] {
   return Object.values(structures).filter(
-    structure => structure.category === category && structure.unlocked
+    (structure) => structure.category === category && structure.unlocked
   );
 }
 
@@ -112,8 +112,10 @@ export function getTotalProductionByCategory(
   resources: Record<string, Resource>,
   category: string
 ): number {
-  return getResourcesByCategory(resources, category)
-    .reduce((total, resource) => total + resource.perSecond, 0);
+  return getResourcesByCategory(resources, category).reduce(
+    (total, resource) => total + resource.perSecond,
+    0
+  );
 }
 
 /**
@@ -129,7 +131,7 @@ export function canAffordCost(
   if (!costs || Object.keys(costs).length === 0) {
     return true; // No costs means it's free
   }
-  
+
   return Object.entries(costs).every(([resourceId, cost]) => {
     const resource = safeGetResource(resources, resourceId);
     return resource.unlocked && resource.amount >= cost;
@@ -148,12 +150,12 @@ export function checkResourceAvailability(required: Record<string, number>): boo
     }
 
     const state = store.getState();
-    // @ts-ignore - Address type issues in tests later
+    // @ts-expect-error - Address type issues in tests later
     const resources = state.resources.resources;
-    
+
     return Object.entries(required).every(([resourceId, amount]) => {
       // Use safeGetResource instead of direct indexing
-      // @ts-ignore - Address type issues in tests later
+      // @ts-expect-error - Address type issues in tests later
       const resource = safeGetResource(resources, resourceId, 'checkResourceAvailability');
       return resource.unlocked && resource.amount >= amount;
     });
@@ -174,30 +176,30 @@ export function calculateMaxActions(cost: Record<string, number>): number {
     if (!cost || Object.keys(cost).length === 0) {
       return Infinity; // No cost means unlimited actions
     }
-    
+
     const state = store.getState();
-    // @ts-ignore - Address type issues in tests later
+    // @ts-expect-error - Address type issues in tests later
     const resources = state.resources.resources;
-    
+
     let maxCount = Infinity;
-    
+
     for (const [resourceId, amount] of Object.entries(cost)) {
       // Use safeGetResource instead of direct indexing
-      // @ts-ignore - Address type issues in tests later
+      // @ts-expect-error - Address type issues in tests later
       const resource = safeGetResource(resources, resourceId, 'calculateMaxActions');
-      
+
       if (!resource.unlocked) {
         return 0; // Resource doesn't exist or isn't unlocked, can't perform action
       }
-      
+
       if (amount <= 0) {
         continue; // Skip non-positive costs
       }
-      
+
       const availableCount = Math.floor(resource.amount / amount);
       maxCount = Math.min(maxCount, availableCount);
     }
-    
+
     return maxCount;
   } catch (error) {
     console.error('Error calculating max actions:', error);
