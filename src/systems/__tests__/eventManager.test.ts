@@ -1,9 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
-import resourcesReducer, { addResource } from '../../state/resourcesSlice';
+import resourcesReducer, { addResource, addResourceAmount } from '../../state/resourcesSlice';
 import structuresReducer from '../../state/structuresSlice';
 import gameReducer from '../../state/gameSlice';
 import tasksReducer from '../../state/tasksSlice';
-import eventsReducer, { addEvent, triggerEvent, resolveEvent, clearEventHistory } from '../../state/eventsSlice';
+import eventsReducer, { 
+  addEvent, 
+  addEvents, 
+  triggerEvent, 
+  resolveEvent, 
+  clearEventHistory,
+  updateEvent 
+} from '../../state/eventsSlice';
 import progressionReducer from '../../redux/progressionSlice';
 import tutorialReducer from '../../state/tutorialSlice';
 import { EventManager } from '../eventManager';
@@ -22,6 +29,14 @@ describe('EventManager', () => {
       events: eventsReducer,
       progression: progressionReducer,
       tutorial: tutorialReducer
+    },
+    preloadedState: {
+      events: {
+        availableEvents: {},
+        activeEvents: [],
+        eventHistory: []
+      },
+      resources: {}
     }
   });
   
@@ -52,30 +67,63 @@ describe('EventManager', () => {
     category: 'test'
   };
   
+  // Helper function to create properly initialized EventManager
+  const createEventManager = (store: ReturnType<typeof createTestStore>) => {
+    const eventActions = require('../../state/eventsSlice');
+    
+    // Reset the singleton instance
+    // @ts-ignore - accessing private property for testing
+    EventManager.instance = null;
+    
+    // Create with proper dependencies
+    return EventManager.getInstance({
+      dispatch: store.dispatch,
+      getState: store.getState,
+      actions: {
+        addEvent: eventActions.addEvent,
+        addEvents: eventActions.addEvents,
+        triggerEvent: eventActions.triggerEvent,
+        resolveEvent: eventActions.resolveEvent,
+        updateEvent: eventActions.updateEvent
+      }
+    });
+  };
+
   // Reset singleton before each test
   beforeEach(() => {
     // Reset the EventManager instance to get a clean state
     // @ts-ignore - accessing private property for testing
     EventManager.instance = null;
+    
+    jest.clearAllMocks();
   });
   
-  // Test the EventManager initialization
-  test('should initialize with a store', () => {
+  // Test initialization with dependencies
+  test('should initialize with dependencies', () => {
     const store = createTestStore();
-    const eventManager = EventManager.getInstance();
+    const eventActions = require('../../state/eventsSlice');
+    const eventManager = createEventManager(store);
     
-    expect(() => eventManager.initialize(store)).not.toThrow();
+    // Check that it was properly initialized
+    expect((eventManager as any).actions).toBeDefined();
+    expect((eventManager as any).actions.addEvent).toBe(eventActions.addEvent);
+    expect((eventManager as any).actions.triggerEvent).toBe(eventActions.triggerEvent);
+    expect((eventManager as any).actions.resolveEvent).toBe(eventActions.resolveEvent);
+    expect((eventManager as any).initialized).toBe(true);
   });
   
   // Test registering an event
   test('should register an event', () => {
     const store = createTestStore();
-    const eventManager = EventManager.getInstance();
-    eventManager.initialize(store);
+    const eventManager = createEventManager(store);
     
+    // Create a test event
     const testEvent = createTestEvent();
+    
+    // Register the event
     eventManager.registerEvent(testEvent);
     
+    // Verify the event was added to the state
     const state = store.getState();
     expect(state.events.availableEvents[testEvent.id]).toEqual(testEvent);
   });
@@ -83,8 +131,7 @@ describe('EventManager', () => {
   // Test event factory method
   test('should create an event with factory method', () => {
     const store = createTestStore();
-    const eventManager = EventManager.getInstance();
-    eventManager.initialize(store);
+    const eventManager = createEventManager(store);
     
     // Create a partial event
     const partialEvent = {
@@ -111,8 +158,7 @@ describe('EventManager', () => {
   // Test triggering an event
   test('should trigger an event', () => {
     const store = createTestStore();
-    const eventManager = EventManager.getInstance();
-    eventManager.initialize(store);
+    const eventManager = createEventManager(store);
     
     const testEvent = createTestEvent();
     store.dispatch(addEvent(testEvent));
@@ -129,8 +175,7 @@ describe('EventManager', () => {
   // Test resolving an event
   test('should resolve an event with a choice', () => {
     const store = createTestStore();
-    const eventManager = EventManager.getInstance();
-    eventManager.initialize(store);
+    const eventManager = createEventManager(store);
     
     // Start with a clean event history
     store.dispatch(clearEventHistory());
@@ -163,8 +208,7 @@ describe('EventManager', () => {
   // Test expiring an event
   test('should expire an event', () => {
     const store = createTestStore();
-    const eventManager = EventManager.getInstance();
-    eventManager.initialize(store);
+    const eventManager = createEventManager(store);
     
     const testEvent = createTestEvent();
     store.dispatch(addEvent(testEvent));
@@ -183,8 +227,7 @@ describe('EventManager', () => {
   // Test evaluating conditions
   test('should evaluate event conditions correctly', () => {
     const store = createTestStore();
-    const eventManager = EventManager.getInstance();
-    eventManager.initialize(store);
+    const eventManager = createEventManager(store);
     
     // Add a test resource
     store.dispatch(addResource(testResource));
@@ -208,13 +251,10 @@ describe('EventManager', () => {
     expect(triggerable).not.toContain(testEvent.id);
     
     // Update resource to meet condition
-    store.dispatch({
-      type: 'resources/updateResourceAmount',
-      payload: {
-        id: 'test-resource',
-        amount: 15
-      }
-    });
+    store.dispatch(addResourceAmount({
+      id: 'test-resource',
+      amount: 10
+    }));
     
     // Check conditions again - should be true now
     triggerable = eventManager.checkEventConditions();
@@ -224,8 +264,7 @@ describe('EventManager', () => {
   // Test applying consequences
   test('should apply event consequences correctly', () => {
     const store = createTestStore();
-    const eventManager = EventManager.getInstance();
-    eventManager.initialize(store);
+    const eventManager = createEventManager(store);
     
     // Add a test resource
     store.dispatch(addResource(testResource));
@@ -256,8 +295,7 @@ describe('EventManager', () => {
     jest.useFakeTimers();
     
     const store = createTestStore();
-    const eventManager = EventManager.getInstance();
-    eventManager.initialize(store);
+    const eventManager = createEventManager(store);
     
     const testEvent = createTestEvent({
       choices: [
@@ -282,8 +320,7 @@ describe('EventManager', () => {
   // Test healing inconsistencies
   test('should heal event state inconsistencies', () => {
     const store = createTestStore();
-    const eventManager = EventManager.getInstance();
-    eventManager.initialize(store);
+    const eventManager = createEventManager(store);
     
     // Create an inconsistent state with manual dispatch
     // Event with ACTIVE status but not in active list

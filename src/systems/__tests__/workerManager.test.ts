@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { WorkerManager } from '../workerManager';
 import resourcesReducer from '../../state/resourcesSlice';
-import structuresReducer, { addStructure } from '../../state/structuresSlice';
+import structuresReducer, { addStructure, assignWorkers, changeWorkerCount } from '../../state/structuresSlice';
 import gameReducer, { setGameStage } from '../../state/gameSlice';
 import { Structure } from '../../models/structure';
 import { resetSingleton, createMockStore } from '../../utils/testUtils';
@@ -55,6 +55,25 @@ describe('WorkerManager', () => {
     }
   ];
   
+  // Helper function to create a properly initialized WorkerManager
+  const createWorkerManager = (state: any) => {
+    // Reset singleton instance
+    resetSingleton(WorkerManager);
+    
+    // Set up mockGetState to return the provided state
+    mockGetState.mockReturnValue(state);
+    
+    // Create WorkerManager with explicit dependencies
+    return WorkerManager.getInstance({
+      dispatch: mockDispatch,
+      getState: mockGetState,
+      actions: {
+        assignWorkers,
+        changeWorkerCount
+      }
+    });
+  };
+  
   beforeEach(() => {
     // Reset singleton instance
     resetSingleton(WorkerManager);
@@ -76,12 +95,8 @@ describe('WorkerManager', () => {
       resources: {}
     };
     
-    // Mock the getState to return our test state
-    mockGetState.mockReturnValue(mockState);
-    
-    // Get singleton instance and initialize
-    workerManager = WorkerManager.getInstance();
-    workerManager.initialize(store);
+    // Create WorkerManager with explicit dependencies
+    workerManager = createWorkerManager(mockState);
   });
   
   describe('Worker counting', () => {
