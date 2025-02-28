@@ -1,7 +1,7 @@
 # Pull Request
 
 ## ⚠️ FIRST LINE BELOW IS YOUR CHANGELOG ENTRY ⚠️
-Added new login feature with OAuth support and remember me functionality
+Replace this line with a clear description of your change for the changelog
 
 
 ## Type of Change

@@ -5,9 +5,10 @@ This document explains our ultra-simple changelog process that makes it impossib
 ## How It Works
 
 1. **First Line Rule**:
-   - The first non-empty, non-heading line in the PR description becomes the changelog entry
+   - The first line after the PR title in the description becomes the changelog entry
    - No special formatting required
    - No sections needed
+   - Visually indicated by a warning label in the PR template
 
 2. **Automatic Categorization**:
    - Based on PR title prefix:
@@ -33,6 +34,7 @@ This document explains our ultra-simple changelog process that makes it impossib
    ```
    # Pull Request
 
+   ## ⚠️ FIRST LINE BELOW IS YOUR CHANGELOG ENTRY ⚠️
    Added login system with OAuth support and remember me functionality
    
    (rest of PR description)
@@ -53,6 +55,7 @@ feat: Add user authentication
 ```
 # Pull Request
 
+## ⚠️ FIRST LINE BELOW IS YOUR CHANGELOG ENTRY ⚠️
 Added user authentication with Google OAuth and GitHub integration
 
 ## Description
@@ -67,10 +70,11 @@ This PR implements the user authentication system...
 
 ## Benefits
 
-1. **Impossible to Miss**: First line is always extracted
+1. **Impossible to Miss**: Extraction point clearly marked with warnings
 2. **No Special Formatting**: No need to remember section formats
 3. **Automatic Fallback**: Uses PR title if needed
 4. **Clear Visual Placement**: PR template clearly shows where to put entry
+5. **Foolproof Design**: Cannot fail due to formatting errors
 
 ## Best Practices
 
@@ -79,3 +83,15 @@ This PR implements the user authentication system...
 3. Use complete sentences
 4. Include all relevant information in that single line
 5. Keep it concise but comprehensive
+
+## Technical Implementation
+
+The extraction script in our workflow:
+
+1. Skips heading lines, empty lines, and warning text
+2. Takes the first remaining line as the changelog entry
+3. Categorizes based on PR title prefix
+4. Falls back to PR title if no entry found
+5. Formats the entry for the changelog
+
+This approach is extremely robust and requires minimal cognitive load from contributors.
