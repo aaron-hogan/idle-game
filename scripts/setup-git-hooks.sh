@@ -165,6 +165,17 @@ if [[ "$STAGED_FILES" == *".md"* ]]; then
   fi
 fi
 
+# Check for merge conflict markers in staged files
+echo "🔍 Checking for unresolved merge conflicts..."
+CONFLICT_FILES=$(git diff --cached --name-only | xargs grep -l "^<<<<<<< \|^=======$\|^>>>>>>> " 2>/dev/null || true)
+if [ ! -z "$CONFLICT_FILES" ]; then
+  echo "❌ Error: Unresolved merge conflicts found in these files:"
+  echo "$CONFLICT_FILES" | sed 's/^/   - /'
+  echo "   Please resolve the conflicts before committing."
+  echo "   (Use git commit --no-verify to bypass if needed)"
+  exit 1
+fi
+
 echo "✅ Pre-commit checks passed!"
 exit 0
 '
