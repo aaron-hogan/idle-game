@@ -132,10 +132,10 @@ The following sections inventory files with linting issues by category to track 
 
 ### 3. Require-Style Imports
 
-#### Priority 1: System Files ✓
-- `src/systems/saveContext.tsx` ✓
-- `src/systems/saveManager.ts` ✓
-- `src/systems/workerManager.ts` ✓
+#### Priority 1: System Files
+- `src/systems/saveContext.tsx`
+- `src/systems/saveManager.ts`
+- `src/systems/workerManager.ts`
 
 #### Priority 2: Integration Tests
 - `src/gameCore.integration.test.tsx`
@@ -143,9 +143,9 @@ The following sections inventory files with linting issues by category to track 
 
 ### 4. TypeScript Comments
 
-#### Priority 1: Test Files
-- `src/tests/gameSystemCoherenceTest.test.ts` - Multiple instances
-- `src/utils/testUtils.ts` - Multiple instances
+#### Priority 1: Test Files ✓
+- `src/tests/gameSystemCoherenceTest.test.ts` - Multiple instances ✓
+- `src/utils/testUtils.ts` - Multiple instances ✓
 
 #### Priority 2: Utility Files
 - `src/utils/resourceUtils.test.ts`
@@ -162,7 +162,7 @@ The following sections inventory files with linting issues by category to track 
 | Unused Variables | ~40 | 8 | 20% |
 | Explicit Any | ~30 | 0 | 0% |
 | Require Imports | ~5 | 5 | 100% |
-| TS Comments | ~5 | 1 | 20% |
+| TS Comments | ~5 | 3 | 60% |
 | Function Types | 1 | 0 | 0% |
 
 ## Batch Planning
@@ -178,14 +178,14 @@ The following sections inventory files with linting issues by category to track 
 - `src/core/GameTimer.ts`
 - `src/systems/saveManager.ts`
 
-### Batch 3: Require Imports in System Files ✓
-- `src/systems/saveContext.tsx` ✓
-- `src/systems/saveManager.ts` ✓
-- `src/systems/workerManager.ts` ✓
+### Batch 3: Require Imports in System Files
+- `src/systems/saveContext.tsx`
+- `src/systems/saveManager.ts`
+- `src/systems/workerManager.ts`
 
-### Batch 4: TypeScript Comments in Test Files
-- `src/tests/gameSystemCoherenceTest.test.ts`
-- `src/utils/testUtils.ts`
+### Batch 4: TypeScript Comments in Test Files ✓
+- `src/tests/gameSystemCoherenceTest.test.ts` ✓
+- `src/utils/testUtils.ts` ✓
 
 ### Batch 5: Explicit Any in Core Components
 - `src/core/GameLoop.ts`
@@ -198,12 +198,13 @@ The following sections inventory files with linting issues by category to track 
 | #105 | Mixed (initial approach) | App.tsx, App.test.tsx, Icon.test.tsx, resourceUtils.ts | Initial cleanup with mixed category approach |
 | #108 | Unused Variables (Batch 1) | GameTimer.tsx, GameTimer.test.tsx, TabNavigation.tsx, ClickableMilestone.tsx | Fixed unused imports and variables in core components |
 | #107 | Unused Variables (Batch 2) | GameLoop.ts, GameTimer.ts, saveManager.ts | Fixed unused parameters and variables in system files |
-| - | Require Imports (Batch 3) | saveContext.tsx, saveManager.ts, workerManager.ts | Replaced require-style imports with ES module imports |
+| #109 | Require Imports (Batch 3) | saveContext.tsx, saveManager.ts, workerManager.ts | Replaced require-style imports with ES module imports |
+| - | TS Comments (Batch 4) | gameSystemCoherenceTest.test.ts, testUtils.ts | Updated @ts-ignore comments to @ts-expect-error with explanations |
 
 ## Next Steps
 
 - [x] PR for unused variables in core components (GameTimer.tsx, GameTimer.test.tsx, TabNavigation.tsx, ClickableMilestone.tsx)
 - [x] PR for unused variables in system files (GameLoop.ts, GameTimer.ts, saveManager.ts)
 - [x] PR for require-style imports in system files (saveContext.tsx, saveManager.ts, workerManager.ts)
-- [ ] PR for @ts-ignore comments in test files (gameSystemCoherenceTest.test.ts, testUtils.ts)
+- [x] PR for @ts-ignore comments in test files (gameSystemCoherenceTest.test.ts, testUtils.ts)
 - [ ] PR for explicit any in GameLoop classes (GameLoop.ts, GameLoop.test.ts)
