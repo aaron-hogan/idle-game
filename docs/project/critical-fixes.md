@@ -2,6 +2,27 @@
 
 This document tracks critical fixes applied to the codebase, providing a central reference for all important bug fixes and their documentation.
 
+## 2025-02-28
+
+### Merge Conflict Marker Fix
+
+- **Issue**: Merge conflict marker left in GameTimer.tsx causing build failures across multiple PRs (#110-#114)
+- **Fix Commit**: [c8fcfda - fix: resolve merge conflict in GameTimer.tsx](https://github.com/aaron-hogan/idle-game/commit/c8fcfda83ee977c5f294e46ad069c6683fda1abe)
+- **Documentation**: [Resolving Merge Conflicts](/docs/processes/resolving-merge-conflicts.md)
+- **Affected Components**:
+  - `src/components/GameTimer.tsx`: Removed merge conflict marker
+- **Prevention Commit**: [494989a - docs: update merge conflict resolution guide and add conflict detection](https://github.com/aaron-hogan/idle-game/commit/494989a)
+- **Root Cause**: Incomplete merge conflict resolution in PR #107 that propagated to PRs #110-#114
+
+### Recovery Plan for PRs #107-#114
+
+1. **Fixed**: Removed the merge conflict marker from GameTimer.tsx
+2. **Prevention**: Added a pre-commit hook to detect conflict markers
+3. **Documentation**: Updated merge conflict resolution guide with lessons learned
+4. **Verification Needed**:
+   - All changes from PRs #107-#114 should be manually verified
+   - Additional testing of affected components recommended
+
 ## 2025-02-27
 
 ### Dependency Injection Implementation
@@ -78,3 +99,7 @@ This document tracks critical fixes applied to the codebase, providing a central
 9. Implement proper dependency injection to decouple components
 10. Clearly communicate PR status and merge results
 11. Avoid singleton patterns when possible for better testability
+12. Thoroughly verify merge conflict resolution is complete before committing
+13. Run builds locally after resolving merge conflicts
+14. Use pre-commit hooks to catch common issues automatically
+15. Review build logs carefully when CI/CD pipelines fail
