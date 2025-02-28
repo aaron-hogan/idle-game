@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Guidelines for testing managers with proper singleton patterns
   - Examples for mocking Redux state in tests
   - Best practices for test cleanup and isolation
+- Comprehensive documentation for linting cleanup process
+  - Structured approach for fixing linting issues by category
+  - Inventory of linting issues across the codebase
+  - Batch processing plan for systematic fixes
 
 ### Fixed
 - Fixed linting errors in multiple files:
