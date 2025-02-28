@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *No unreleased changes at this time.*
 
+## [0.7.5] - 2025-02-28
+
+### Fixed
+- Replaced `any` types in Redux utility functions with proper generic types
+- Used correct `Resource` type in ResourceList component
+- Added proper typing for debugging function in MilestoneProgressStrip
+
 ## [0.7.4] - 2025-02-28
 
 
