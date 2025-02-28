@@ -1,7 +1,8 @@
 # Pull Request
 
-## Description
-<!-- Provide a clear description of the changes in this PR -->
+## ⚠️ FIRST LINE BELOW IS YOUR CHANGELOG ENTRY ⚠️
+Added new login feature with OAuth support and remember me functionality
+
 
 ## Type of Change
 - [ ] Bug fix (fix: ...)
@@ -16,43 +17,11 @@
 ## Related Issues
 <!-- Reference any related issues (e.g., "Fixes #123") -->
 
+## Description
+<!-- Provide more detailed information about your changes -->
+
 ## Implementation Details
 <!-- Briefly explain your implementation approach -->
-
-## Changelog Entry
-<!-- ⚠️ CRITICAL: Your changes must be documented in the CHANGELOG.md ⚠️ -->
-<!-- You have THREE options to ensure your changes are documented (in order of reliability): -->
-
-<!-- OPTION 1 (BEST): Create a dedicated file -->
-<!-- Create a file in .changelog/pr-NUMBER.md (replacing NUMBER with this PR number) -->
-<!-- with properly formatted sections like: -->
-<!--
-### Added
-- New login feature with support for OAuth
-
-### Fixed
-- Authentication token expiration issue
--->
-
-<!-- OPTION 2 (STANDARD): PR Description -->
-<!-- Fill out the sections below for this PR description to be used -->
-<!-- This section must start with "## Changelog Entry" to be recognized -->
-
-### Added
-<!-- List new features or functionality added -->
-<!-- Example: - New login feature with support for OAuth -->
-
-### Changed
-<!-- List changes to existing functionality -->
-<!-- Example: - Improved performance of dashboard rendering -->
-
-### Fixed
-<!-- List bug fixes -->
-<!-- Example: - Fixed authentication token expiration issue -->
-
-### Removed
-<!-- List features or functionality that was removed -->
-<!-- Example: - Removed deprecated API endpoint -->
 
 ## Testing
 <!-- Describe the testing performed to validate changes -->
@@ -78,10 +47,7 @@
 ### Documentation and Quality
 - [ ] Documentation is updated as needed
 - [ ] PR title follows conventional commit format (e.g., "feat: add login feature")
-- [ ] Changelog documentation is provided using one of the three methods:
-  - [ ] Dedicated file in .changelog directory (most reliable)
-  - [ ] Changelog Entry section in this PR description (standard)
-  - [ ] Automatic fallback based on PR title (least reliable)
+- [ ] First line of PR description is a clear changelog entry
 - [ ] No debug/console logs in production code
 - [ ] Branch is updated with main
 
@@ -95,4 +61,6 @@
 ## Additional Notes
 <!-- Any additional information reviewers should know -->
 
-> ⚠️ **CRITICAL**: PR title MUST follow conventional commit format (feat:, fix:, etc.) for automatic versioning to work correctly.
+> ⚠️ **CRITICAL REMINDER**: 
+> 1. PR title MUST follow conventional format (feat:, fix:, docs:, etc.) for versioning
+> 2. The FIRST LINE after "Pull Request" will be used as your changelog entry

@@ -54,75 +54,39 @@ jobs:
           # Save PR body to a file to work with it safely
           echo '${{ github.event.pull_request.body }}' > pr_body.txt
           
-          # Check for a dedicated changelog file
-          PR_NUMBER="${{ github.event.pull_request.number }}"
-          CHANGELOG_FILE=".changelog/pr-${PR_NUMBER}.md"
-          
           # Create a script to process the PR body and extract changelog
           cat > extract_changelog.sh << 'EOF'
           #!/bin/bash
           PR_BODY=$(cat pr_body.txt)
           PR_TITLE="${{ github.event.pull_request.title }}"
-          PR_NUMBER="${{ github.event.pull_request.number }}"
-          CHANGELOG_FILE=".changelog/pr-${PR_NUMBER}.md"
           
-          # First, check if we have a dedicated changelog file
-          if [ -f "$CHANGELOG_FILE" ]; then
-            echo "Found dedicated changelog file: $CHANGELOG_FILE"
-            cat "$CHANGELOG_FILE" > changelog_entry.txt
-            echo "Using content from dedicated changelog file"
-            exit 0
+          # Ultra simple extraction strategy:
+          # Get the first non-empty line after the PR title line
+          CHANGELOG_ENTRY=$(grep -v "^#" pr_body.txt | grep -v "^$" | head -n 1)
+          
+          if [ -n "$CHANGELOG_ENTRY" ]; then
+            echo "Found changelog entry: $CHANGELOG_ENTRY"
+          else
+            echo "No changelog entry found - using PR title as fallback"
+            CHANGELOG_ENTRY="${{ github.event.pull_request.title }}"
           fi
           
-          # Multiple search patterns to make extraction more robust
-          # Look for common changelog section headers
-          PATTERNS=(
-            "## Changelog Entry"
-            "## Changelog"
-            "## CHANGELOG"
-            "### Changelog"
-            "#+ ?Changelog"
-          )
-          
-          FOUND_SECTION=0
-          for PATTERN in "${PATTERNS[@]}"; do
-            if grep -q "$PATTERN" pr_body.txt; then
-              echo "Found changelog section using pattern: $PATTERN"
-              # Extract everything between this pattern and the next heading or end of file
-              sed -n "/$PATTERN/,/^## /p" pr_body.txt | grep -v "^$PATTERN" | grep -v "^## " > changelog_content.txt
-              
-              # If nothing was extracted (e.g., changelog at end of PR), get everything after the header
-              if [ ! -s changelog_content.txt ]; then
-                sed -n "/$PATTERN/,\$p" pr_body.txt | grep -v "^$PATTERN" > changelog_content.txt
-              fi
-              
-              # Check if we got changelog content with any of the expected headers
-              if grep -q "### " changelog_content.txt; then
-                echo "Using changelog entry from PR description"
-                cat changelog_content.txt > changelog_entry.txt
-                FOUND_SECTION=1
-                break
-              fi
-            fi
-          done
-          
-          # If no valid section found, fallback to PR title
-          if [ "$FOUND_SECTION" -eq 0 ]; then
-            echo "No valid changelog section found - fallback to PR title"
-            
-            if [[ "$PR_TITLE" =~ ^[Ff][Ee][Aa][Tt][:\(] ]]; then
-              DESCRIPTION=$(echo "$PR_TITLE" | sed -E 's/^[Ff][Ee][Aa][Tt][:\(] ?//')
-              echo "### Added" > changelog_entry.txt
-              echo "- $DESCRIPTION" >> changelog_entry.txt
-            elif [[ "$PR_TITLE" =~ ^[Ff][Ii][Xx][:\(] ]]; then
-              DESCRIPTION=$(echo "$PR_TITLE" | sed -E 's/^[Ff][Ii][Xx][:\(] ?//')
-              echo "### Fixed" > changelog_entry.txt
-              echo "- $DESCRIPTION" >> changelog_entry.txt
-            else
-              DESCRIPTION=$(echo "$PR_TITLE" | sed -E 's/^[^:]*: ?//')
-              echo "### Changed" > changelog_entry.txt
-              echo "- $DESCRIPTION" >> changelog_entry.txt
-            fi
+          # Determine category based on PR title
+          if [[ "$PR_TITLE" =~ ^[Ff][Ee][Aa][Tt][:\(] ]]; then
+            echo "### Added" > changelog_entry.txt
+            echo "- $CHANGELOG_ENTRY" >> changelog_entry.txt
+          elif [[ "$PR_TITLE" =~ ^[Ff][Ii][Xx][:\(] ]]; then
+            echo "### Fixed" > changelog_entry.txt
+            echo "- $CHANGELOG_ENTRY" >> changelog_entry.txt
+          elif [[ "$PR_TITLE" =~ ^[Dd][Oo][Cc][Ss][:\(] ]]; then
+            echo "### Documentation" > changelog_entry.txt
+            echo "- $CHANGELOG_ENTRY" >> changelog_entry.txt
+          elif [[ "$PR_TITLE" =~ ^[Rr][Ee][Mm][Oo][Vv][Ee][:\(] ]]; then
+            echo "### Removed" > changelog_entry.txt
+            echo "- $CHANGELOG_ENTRY" >> changelog_entry.txt
+          else
+            echo "### Changed" > changelog_entry.txt
+            echo "- $CHANGELOG_ENTRY" >> changelog_entry.txt
           fi
           
           echo "Extracted changelog entry:"

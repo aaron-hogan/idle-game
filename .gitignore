@@ -25,9 +25,6 @@ examples-*.config.js  # Example configuration files
 examples-*.md         # Example documentation files
 src/*hello-world*     # Test files for versioning
 
-# Changelog directory - except for specific allowed files
-.changelog/pr-*.md   # PR-specific changelog entries
-!.changelog/README.md  # Allow README file
 
 # AI Documentation - Not suitable for public repository
 # NOTE: CLAUDE.md is intentionally NOT ignored as it contains critical development instructions
