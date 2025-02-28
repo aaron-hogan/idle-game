@@ -33,6 +33,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Smart detection of PR types to suggest correct version labels
   - Improved CHANGELOG validation during PR review
   - Clear validation messages and guidance for developers
+  - **Enhanced error messages for missing version labels**
+  - **Added step-by-step instructions for adding version labels**
+  - **Included real-world examples of versioning failures**
+- **Additional CHANGELOG process enhancements**:
+  - Created comprehensive documentation for version label requirements 
+  - Added pre-merge verification checklist for reviewers
+  - Improved validation error messages with actionable guidance
+  - Created developer examples of proper versioning workflow
+  - **Added clearer, more visible version label instructions with better formatting**
+  - **Created dedicated enhancement.md file with future improvement ideas**
+  - **Added detailed example of version selection process**
 
 ### Fixed
 - Fixed linting errors in multiple files:
@@ -65,6 +76,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Fixed workflow for CHANGELOG validation during PR reviews
   - Enhanced documentation with clear examples and requirements
   - Added explicit warnings about version label requirements in PR workflow
+  - **Updated check-changelog.sh to provide better, more actionable guidance**
+  - **Enhanced error messages in the PR validation workflow for clarity**
+  - **Added clear step-by-step instructions for adding version labels**
+  - **Added visual separation for critical instructions in validation output**
 
 ## [0.6.1] - 2025-02-28
 

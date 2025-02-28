@@ -209,9 +209,26 @@ gh pr merge <pr-number> --squash --delete-branch
 
 PR #115 was merged despite failing the CHANGELOG update check, leading to a broken process. This type of oversight compromises our quality control. You MUST verify EVERY check, not just the summary status.
 
-**⚠️ VERSION LABEL REQUIREMENT ⚠️**
+**⚠️ CRITICAL: VERSION LABEL REQUIREMENT ⚠️**
 
-Every feature or fix PR MUST include a version label so auto-versioning can move changes from Unreleased to a proper version heading. Without the correct version label, the PR will be merged with unreleased changes still in the Unreleased section.
+Every feature or fix PR MUST include a version label so auto-versioning can move changes from Unreleased to a proper version heading. Without the correct version label, the PR will be merged with unreleased changes still in the Unreleased section, which creates technical debt and breaks our versioning process.
+
+**How to add version labels:**
+1. Click on the "Labels" section on the right side of the PR
+2. Add ONE of the following labels based on your changes:
+   - `version:major` - For breaking changes
+   - `version:minor` - For new features (feat: PRs)
+   - `version:patch` - For bug fixes (fix: PRs)
+   - `version:patch_level` - For minor tweaks
+
+**Version selection guide:**
+- **Major** - Use when your changes will require users to update their code
+- **Minor** - Use for all new features that don't break existing functionality
+- **Patch** - Use for bug fixes and small improvements to existing features
+- **Patch Level** - Use for documentation updates, minor tweaks, or very small fixes
+
+**Real-world example of failures:**
+PR #115 was merged without a version label, causing all its changes to remain in the Unreleased section indefinitely. This broke our automated versioning process and required manual intervention to fix. **DO NOT REPEAT THIS MISTAKE**.
 
 ### 4. Explicitly Communicate Merge Status
 
