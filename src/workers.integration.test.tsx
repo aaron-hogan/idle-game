@@ -9,8 +9,11 @@ import gameReducer from './state/gameSlice';
 import resourcesReducer from './state/resourcesSlice';
 import structuresReducer from './state/structuresSlice';
 import { Structure } from './models/structure';
-import { WorkerManager } from './systems/workerManager';
 import { addStructure } from './state/structuresSlice';
+
+// Import the managers with proper dependency injection
+import { WorkerManager, WorkerManagerDependencies } from './systems/workerManager';
+import { resetSingleton } from './utils/testUtils';
 
 // Mock components to test worker functionality
 const TestComponent = () => (
@@ -21,8 +24,12 @@ const TestComponent = () => (
 
 describe('Worker System Integration Test', () => {
   let store: any;
+  let workerManager: WorkerManager;
   
   beforeEach(() => {
+    // Reset singletons before each test
+    resetSingleton(WorkerManager);
+    
     // Create a store with all necessary reducers
     store = configureStore({
       reducer: {
@@ -83,6 +90,22 @@ describe('Worker System Integration Test', () => {
     
     store.dispatch(addStructure(building1));
     store.dispatch(addStructure(building2));
+    
+    // Initialize manager with proper dependency injection
+    const structureActions = require('../src/state/structuresSlice');
+    
+    // Create dependencies for WorkerManager
+    const workerManagerDependencies: WorkerManagerDependencies = {
+      dispatch: store.dispatch,
+      getState: store.getState,
+      actions: {
+        assignWorkers: structureActions.assignWorkers,
+        changeWorkerCount: structureActions.changeWorkerCount,
+      }
+    };
+    
+    // Get the singleton instance with dependencies
+    workerManager = WorkerManager.getInstance(workerManagerDependencies);
   });
   
   test('WorkerManager can assign and manage workers', () => {
@@ -92,10 +115,6 @@ describe('Worker System Integration Test', () => {
         <TestComponent />
       </Provider>
     );
-    
-    // Create a worker manager with the store
-    const workerManager = WorkerManager.getInstance();
-    workerManager.initialize(store);
     
     // Verify initial state
     expect(store.getState().structures['building1'].workers).toBe(0);
