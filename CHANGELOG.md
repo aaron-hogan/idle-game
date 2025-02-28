@@ -11,7 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.7.2] - 2025-02-28
 
-*No unreleased changes at this time.*
+### Fixed
+- Improved streamlined versioning workflow with better changelog extraction
+- Fixed issue with the PR description validation to properly detect content
+- Added support for multiline entries and better formatting in changelog
 
 ## [0.7.1] - 2025-02-28
 
