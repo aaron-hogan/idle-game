@@ -74,7 +74,26 @@ jobs:
                 suggestedLabel = 'version:major';
               }
               
-              core.setFailed(`Missing version label on PR. Please add one of: version:major, version:minor, version:patch, version:patch_level. Based on your PR title, we recommend: ${suggestedLabel}`);
+              core.setFailed(`
+⚠️ CRITICAL VERSION LABEL REQUIRED ⚠️
+
+This PR is missing a version label, which will BREAK our versioning process if merged.
+Based on your PR title "${PR_TITLE}", we recommend: ${suggestedLabel}
+
+Please add EXACTLY ONE of these labels to your PR:
+- version:major - For breaking changes
+- version:minor - For new features (feat: PRs)
+- version:patch - For bug fixes (fix: PRs) 
+- version:patch_level - For minor tweaks and documentation
+
+Without this label, the changes will remain in Unreleased section after merge, 
+breaking our automated versioning. See PR #115 for a real-world example of this failure.
+
+How to add a label:
+1. Go to the right sidebar of this PR
+2. Click "Labels"
+3. Select the appropriate label (${suggestedLabel} recommended)
+`);
             } else {
               console.log(`✅ PR has version label: ${versionLabel}`);
             }

@@ -60,13 +60,46 @@ The versioning scripts enforce these requirements and will fail if:
 
 ### Version Label Requirements
 
-Every PR that changes code (features, fixes) MUST have exactly one of these labels:
-- `version:major` - For breaking changes
-- `version:minor` - For new features (feat: PRs)
-- `version:patch` - For bug fixes (fix: PRs)
-- `version:patch_level` - For minor tweaks
+**⚠️ CRITICAL: EVERY PR THAT CHANGES CODE MUST HAVE A VERSION LABEL ⚠️**
 
-These labels tell the auto-versioning system what version number to create and tag when your PR is merged.
+Every PR that changes code (features, fixes) MUST have EXACTLY ONE of these labels:
+- `version:major` - For breaking changes that require users to update their code
+- `version:minor` - For new features (feat: PRs) that add new functionality
+- `version:patch` - For bug fixes (fix: PRs) that correct issues in existing code
+- `version:patch_level` - For minor tweaks, documentation, and cosmetic changes
+
+**Why this matters:**
+- Without a version label, your PR will merge BUT the changes will remain in the Unreleased section
+- This breaks our automated versioning system and creates technical debt
+- It requires manual intervention to fix, which is error-prone and time-consuming
+- PR #115 is a real-world example of this failure - **DO NOT REPEAT THIS MISTAKE**
+
+**When to use each label:**
+1. **Major version** - Use when:
+   - You're making breaking API changes
+   - Your changes will require users to update their code
+   - You're removing or significantly changing existing functionality
+   - Example: Renaming a core function that many components rely on
+
+2. **Minor version** - Use when:
+   - You're adding new features
+   - You're extending existing functionality
+   - Your changes don't break backward compatibility
+   - Example: Adding a new resource type or gameplay element
+
+3. **Patch version** - Use when:
+   - You're fixing bugs
+   - You're correcting behavior that doesn't work as intended
+   - You're making performance improvements to existing code
+   - Example: Fixing a calculation bug or correcting a UI issue
+
+4. **Patch level** - Use when:
+   - You're making minor cosmetic changes
+   - You're improving documentation
+   - You're making tiny tweaks that don't affect core functionality
+   - Example: Fixing typos or improving code comments
+
+These labels tell the auto-versioning system what version number to create and tag when your PR is merged. **Without the correct label, this process breaks.**
 
 ### Creating a Release
 
