@@ -65,14 +65,14 @@ export class EventManager {
    * @param dependenciesOrStore The dependencies needed by EventManager or store for backward compatibility
    * @returns The singleton EventManager instance
    */
-  public static getInstance(dependenciesOrStore?: EventManagerDependencies | any): EventManager {
+  public static getInstance(dependenciesOrStore?: EventManagerDependencies | { dispatch: unknown; getState: unknown }): EventManager {
     if (!EventManager.instance) {
       if (!dependenciesOrStore) {
         // Create instance without dependencies, initialize() will be called later
         EventManager.instance = new EventManager({
-          dispatch: (() => {}) as any, // Placeholder
-          getState: (() => ({})) as any, // Placeholder
-          actions: {} as any // Placeholder
+          dispatch: (() => {}) as AppDispatch, // Placeholder
+          getState: (() => ({} as RootState)), // Placeholder
+          actions: {} as EventManagerDependencies['actions'] // Placeholder
         });
       } else if ('dispatch' in dependenciesOrStore && 'getState' in dependenciesOrStore && 'actions' in dependenciesOrStore) {
         // If full dependencies are provided
@@ -80,9 +80,9 @@ export class EventManager {
       } else {
         // If a store is provided (backward compatibility)
         const instance = new EventManager({
-          dispatch: (() => {}) as any, // Placeholder
-          getState: (() => ({})) as any, // Placeholder  
-          actions: {} as any // Placeholder
+          dispatch: (() => {}) as AppDispatch, // Placeholder
+          getState: (() => ({} as RootState)), // Placeholder  
+          actions: {} as EventManagerDependencies['actions'] // Placeholder
         });
         instance.initialize(dependenciesOrStore);
         EventManager.instance = instance;
@@ -100,7 +100,7 @@ export class EventManager {
    * @param store The Redux store
    * @deprecated Use dependency injection through constructor instead
    */
-  public initialize(store: Store<RootState>): void {
+  public initialize(store: { dispatch: unknown; getState: unknown } | Store<RootState>): void {
     // Check if already initialized properly
     try {
       this.ensureInitialized();
@@ -113,8 +113,8 @@ export class EventManager {
     const eventActions = require('../state/eventsSlice');
     
     // Set up dependencies from store
-    this.dispatch = store.dispatch;
-    this.getState = store.getState;
+    this.dispatch = store.dispatch as AppDispatch;
+    this.getState = store.getState as () => RootState;
     this.actions = {
       addEvent: eventActions.addEvent,
       addEvents: eventActions.addEvents,

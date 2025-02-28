@@ -53,9 +53,9 @@ export class WorkerManager {
       if (!dependenciesOrStore) {
         // Create instance without dependencies, initialize() will be called later
         WorkerManager.instance = new WorkerManager({
-          dispatch: (() => {}) as any, // Placeholder
-          getState: (() => ({})) as any, // Placeholder
-          actions: {} as any // Placeholder
+          dispatch: (() => {}) as AppDispatch, // Placeholder
+          getState: (() => ({} as RootState)), // Placeholder
+          actions: {} as WorkerManagerDependencies['actions'] // Placeholder
         });
       } else if ('dispatch' in dependenciesOrStore && 'getState' in dependenciesOrStore && 'actions' in dependenciesOrStore) {
         // If full dependencies are provided
@@ -63,9 +63,9 @@ export class WorkerManager {
       } else {
         // If a store or dispatch is provided (backward compatibility)
         const instance = new WorkerManager({
-          dispatch: (() => {}) as any, // Placeholder
-          getState: (() => ({})) as any, // Placeholder  
-          actions: {} as any // Placeholder
+          dispatch: (() => {}) as AppDispatch, // Placeholder
+          getState: (() => ({} as RootState)), // Placeholder  
+          actions: {} as WorkerManagerDependencies['actions'] // Placeholder
         });
         instance.initialize(dependenciesOrStore, getState);
         WorkerManager.instance = instance;

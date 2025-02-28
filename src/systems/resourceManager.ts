@@ -178,9 +178,11 @@ export class ResourceManager {
     const resources = state.resources;
     
     // Special handling for oppression resource - always ensure it's generated
+    // We need to cast through 'unknown' due to the dynamic nature of the resources state structure
+    const resourcesObj: unknown = resources;
     const oppression = 'byId' in resources 
-      ? (resources.byId as Record<string, { perSecond: number; id: string }>)[ResourceId.OPPRESSION] 
-      : (resources as Record<string, { perSecond: number; id: string }>)[ResourceId.OPPRESSION];
+      ? ((resources.byId as unknown as Record<string, unknown>)[ResourceId.OPPRESSION] as { perSecond: number; id: string }) 
+      : ((resourcesObj as Record<string, unknown>)[ResourceId.OPPRESSION] as { perSecond: number; id: string });
     
     if (oppression) {
       // Get the oppression rate from game balance config
