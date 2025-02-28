@@ -12,6 +12,7 @@ import { calculateOfflineTime, getCurrentTime } from '../utils/timeUtils';
 import { ResourceManager } from '../systems/resourceManager';
 import { BuildingManager } from '../systems/buildingManager';
 import { ProgressionManager } from '../managers/progression/ProgressionManager';
+import { EventProgressionBridge } from '../systems/integrations/EventProgressionBridge';
 
 /**
  * Configuration for the GameManager
@@ -132,6 +133,8 @@ export class GameManager {
     // Initialize core systems
     this.initializeResourceManager();
     this.initializeBuildingManager();
+    this.initializeProgressionManager();
+    this.initializeEventProgressionBridge();
 
     // Force TimeScale to exactly 1.0 to ensure consistent game timing at start
     // This ensures we begin with a stable, predictable time scale
@@ -184,6 +187,38 @@ export class GameManager {
 
     if (this.config.debugMode) {
       console.log('GameManager: BuildingManager initialized');
+    }
+  }
+  
+  /**
+   * Initialize the progression manager
+   */
+  private initializeProgressionManager(): void {
+    try {
+      const progressionManager = ProgressionManager.getInstance();
+      progressionManager.initialize(this.store);
+      
+      if (this.config.debugMode) {
+        console.log('GameManager: ProgressionManager initialized');
+      }
+    } catch (error) {
+      console.error('GameManager: Error initializing ProgressionManager:', error);
+    }
+  }
+  
+  /**
+   * Initialize the event-progression bridge
+   */
+  private initializeEventProgressionBridge(): void {
+    try {
+      const eventProgressionBridge = EventProgressionBridge.getInstance();
+      eventProgressionBridge.initialize(this.store);
+      
+      if (this.config.debugMode) {
+        console.log('GameManager: EventProgressionBridge initialized');
+      }
+    } catch (error) {
+      console.error('GameManager: Error initializing EventProgressionBridge:', error);
     }
   }
 
@@ -431,6 +466,12 @@ export class GameManager {
 
       // Use the SAME scaled delta time for game systems and resource updates
       this.updateResourceSystem(scaledDeltaTime);
+      
+      // Check for game end conditions periodically
+      this.checkGameEndConditions();
+      
+      // Check win/lose proximity for events
+      this.checkWinLoseProximity();
 
       // Periodically update the last save time (every 10 seconds of game time)
       // Reuse state from above to avoid double access
@@ -594,5 +635,46 @@ export class GameManager {
   public setDebugMode(enabled: boolean): void {
     this.config.debugMode = enabled;
     this.gameLoop.setDebugMode(enabled);
+  }
+  
+  /**
+   * Check for win/lose proximity and trigger appropriate events
+   */
+  private checkWinLoseProximity(): void {
+    try {
+      // Only check every 5 seconds to avoid excessive processing
+      const state = this.store.getState();
+      const shouldCheck = Math.floor(state.game.totalPlayTime) % 5 === 0;
+      
+      if (!shouldCheck) {
+        return;
+      }
+      
+      const eventProgressionBridge = EventProgressionBridge.getInstance();
+      eventProgressionBridge.checkWinLoseProximity();
+    } catch (error) {
+      console.error('GameManager: Error checking win/lose proximity:', error);
+    }
+  }
+  
+  /**
+   * Check for game end conditions
+   */
+  private checkGameEndConditions(): void {
+    try {
+      // Only check every 2 seconds to avoid excessive processing
+      const state = this.store.getState();
+      const shouldCheck = Math.floor(state.game.totalPlayTime) % 2 === 0;
+      
+      if (!shouldCheck) {
+        return;
+      }
+      
+      // Import and run the check function
+      const { checkGameEndConditions } = require('../systems/gameEndConditions');
+      checkGameEndConditions(this.store);
+    } catch (error) {
+      console.error('GameManager: Error checking game end conditions:', error);
+    }
   }
 }

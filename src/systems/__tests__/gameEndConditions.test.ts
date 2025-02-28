@@ -4,6 +4,10 @@ import gameReducer, { endGame } from '../../state/gameSlice';
 import { ResourceId, INITIAL_RESOURCES } from '../../constants/resources';
 import { Resource, ResourceCategory } from '../../interfaces/Resource';
 import { checkGameEndConditions } from '../gameEndConditions';
+import { EventManager } from '../eventManager';
+
+// Mock dependencies for event testing
+jest.mock('../eventManager');
 
 describe('Game End Conditions', () => {
   let store: any;
@@ -37,6 +41,12 @@ describe('Game End Conditions', () => {
   beforeEach(() => {
     // Mock endGame action
     jest.spyOn(require('../../state/gameSlice'), 'endGame');
+    
+    // Mock EventManager methods
+    (EventManager.getInstance as jest.Mock).mockImplementation(() => ({
+      registerEvent: jest.fn(),
+      triggerEvent: jest.fn()
+    }));
 
     // Create a fresh store for each test
     store = configureStore({
@@ -82,6 +92,11 @@ describe('Game End Conditions', () => {
       won: true,
       reason: expect.any(String),
     });
+    
+    // Victory event should be triggered
+    const eventManager = EventManager.getInstance();
+    expect(eventManager.registerEvent).toHaveBeenCalled();
+    expect(eventManager.triggerEvent).toHaveBeenCalled();
   });
 
   test('should lose when oppression exceeds power by 50%', () => {
@@ -109,6 +124,11 @@ describe('Game End Conditions', () => {
       won: false,
       reason: expect.any(String),
     });
+    
+    // Defeat event should be triggered
+    const eventManager = EventManager.getInstance();
+    expect(eventManager.registerEvent).toHaveBeenCalled();
+    expect(eventManager.triggerEvent).toHaveBeenCalled();
   });
 
   test('should not end game when oppression is high but not 50% higher than power', () => {
