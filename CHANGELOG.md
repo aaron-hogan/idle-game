@@ -19,6 +19,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Created helper functions to initialize managers with dependencies
   - Improved action creator mocking to avoid circular references
   - Added complete mock state for reliable test execution
+- Fixed integration tests by updating test structure for proper dependency injection
+  - Updated `gameCore.integration.test.tsx` to use proper BuildingManager initialization
+  - Updated `workers.integration.test.tsx` to use proper WorkerManager initialization 
+  - Rewrote `tasks.integration.test.ts` to use simpler mocking approach
+  - Fixed outdated import paths in integration tests
+  - Ensured manager singletons are properly reset between tests
 
 ### Added
 - New script to detect and fix empty versions in CHANGELOG

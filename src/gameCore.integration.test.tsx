@@ -10,10 +10,12 @@ import resourcesReducer from './state/resourcesSlice';
 import structuresReducer from './state/structuresSlice';
 import { addResource, addResourceAmount, deductResources, updateResourcePerSecond } from './state/resourcesSlice';
 import { addStructure, upgradeStructure } from './state/structuresSlice';
-import { ResourceManager } from './systems/resourceManager';
-import { BuildingManager } from './systems/buildingManager';
 import { Structure } from './models/structure';
 import { Resource } from './models/resource';
+
+// Import the managers with proper dependency injection
+import { BuildingManager, BuildingManagerDependencies } from './systems/buildingManager';
+import { resetSingleton } from './utils/testUtils';
 
 // Mock components to test with Redux
 const TestComponent = () => <div>Test Component</div>;
@@ -23,6 +25,9 @@ describe('Game Core Systems Integration', () => {
   let buildingManager: BuildingManager;
   
   beforeEach(() => {
+    // Reset singletons before each test
+    resetSingleton(BuildingManager);
+    
     // Create a store with all necessary reducers
     store = configureStore({
       reducer: {
@@ -122,9 +127,22 @@ describe('Game Core Systems Integration', () => {
     store.dispatch(addStructure(communityGarden));
     store.dispatch(addStructure(housingCoop));
     
-    // Initialize managers
-    buildingManager = BuildingManager.getInstance();
-    buildingManager.initialize(store);
+    // Initialize manager with proper dependency injection
+    const structureActions = require('../src/state/structuresSlice');
+    const resourceActions = require('../src/state/resourcesSlice');
+    
+    const buildingManagerDependencies: BuildingManagerDependencies = {
+      dispatch: store.dispatch,
+      getState: store.getState,
+      actions: {
+        addStructure: structureActions.addStructure,
+        upgradeStructure: structureActions.upgradeStructure,
+        updateProduction: structureActions.updateProduction,
+        deductResources: resourceActions.deductResources,
+      }
+    };
+    
+    buildingManager = BuildingManager.getInstance(buildingManagerDependencies);
   });
   
   test('Resources can be generated over time', () => {
