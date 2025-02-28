@@ -18,9 +18,17 @@ This directory contains documentation for all game features, organized by featur
   - Provides feedback on next milestones
   - Triggers rewards when milestones are completed
 
+- [**Task and Activities System**](task-system/README.md) - System for task assignment and resource earning
+  - Assign workers to various tasks
+  - Earn resources by completing tasks
+  - Unlock new tasks through progression
+  - Complete repeatable tasks for ongoing resource generation
+
 ### Game Components
 
-- Coming soon
+- [**Core Game Loop**](core-game-loop/README.md) - Main game loop and timing mechanics
+- [**Debug Panel**](debug-panel/README.md) - Developer tools for debugging and testing
+- [**Timer System**](timer/README.md) - Game timing and simulation speed control
 
 ## Implementing New Features
 

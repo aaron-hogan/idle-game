@@ -1,4 +1,6 @@
-# Testing Standards
+# [DEPRECATED] Testing Standards
+
+> **DEPRECATED**: This document is no longer maintained. Please refer to the updated [Comprehensive Testing Guide](/docs/processes/testing/testing-guide.md) which consolidates all testing standards.
 
 This document outlines our testing philosophy, approaches, and best practices to ensure a robust and maintainable codebase.
 

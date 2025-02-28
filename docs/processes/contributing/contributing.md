@@ -45,7 +45,7 @@ This guide provides guidelines for contributing to the Anti-Capitalist Idle Game
 When adding or updating documentation:
 
 1. **Follow Documentation Standards**
-   - Follow the standards in `/docs/processes/documentation/standards.md`
+   - Follow the standards in `/docs/processes/documentation/documentation-standards.md`
    - Use the templates in `/docs/processes/documentation/templates/`
 
 2. **Validate Documentation**
@@ -65,7 +65,7 @@ When adding or updating documentation:
 When contributing tests:
 
 1. **Follow Testing Standards**
-   - Follow the standards in `/docs/processes/testing/standards.md`
+   - Follow the standards in `/docs/processes/code-quality/testing-standards.md`
    - Use the templates in `/docs/processes/testing/templates/`
 
 2. **Organize Tests Properly**

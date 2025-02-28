@@ -74,7 +74,7 @@ This guide provides instructions for setting up your development environment and
 - [Architecture Guidelines](/docs/processes/code-quality/architecture-guidelines.md)
 - [Testing Standards](/docs/processes/code-quality/testing-standards.md)
 - [Git Workflow](/docs/processes/git/git-workflow.md)
-- [PR Workflow](/docs/processes/pr-workflow.md)
+- [PR Workflow](/docs/processes/git/pr-workflow.md)
 
 ## Troubleshooting
 

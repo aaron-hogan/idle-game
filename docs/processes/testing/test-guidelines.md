@@ -1,4 +1,6 @@
-# Test Guidelines
+# [DEPRECATED] Test Guidelines
+
+> **DEPRECATED**: This document is no longer maintained. Please refer to the updated [Comprehensive Testing Guide](testing-guide.md) which consolidates all testing guidelines.
 
 This document provides guidelines for writing effective tests in the Anti-Capitalist Idle Game project.
 

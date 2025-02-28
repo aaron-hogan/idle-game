@@ -28,4 +28,4 @@ Code quality is enforced through:
 - CI/CD pipeline for automated checks
 - Code review checklists
 
-For more information on our CI/CD process, see the [CI/CD Pipeline](/docs/processes/ci-cd-pipeline.md) document.
+For more information on our CI/CD process, see the [CI/CD Pipeline](/docs/processes/ci/ci-cd-pipeline.md) document.

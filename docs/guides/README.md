@@ -1,17 +1,29 @@
 # Development Guides
 
-This directory contains guides for developers working on the Anti-Capitalist Idle Game.
+This directory contains guides for developers to understand and work with the project. 
+These guides are focused on explanations and tutorials, not process documentation.
 
-## Available Guides
+## Purpose
 
-- [Getting Started](getting-started.md) - Guide for new developers to set up their environment and get started
-- [Development Setup](development-setup.md) - Detailed instructions for setting up the development environment and common commands
-- [Contributing](contributing.md) - Guidelines for contributing to the project
-- [Style Guide](style-guide.md) - Coding style and best practices
+Unlike the `processes/` directory which contains workflow documentation and standards, this directory is for:
 
-## Using These Guides
+- Feature usage guides
+- Technical explanations
+- Tutorials for developers
+- Concept explanations
+- Best practice examples
 
-- New developers should start with the Getting Started guide
-- All developers should refer to the Development Setup guide for common commands and workflows
-- All developers should review the Contributing guide before submitting changes
-- The Style Guide should be consulted when writing code
+## Structure
+
+Guides should be organized by topic and follow these guidelines:
+
+- Use clear, descriptive titles
+- Include examples where appropriate
+- Focus on practical application
+- Refer to process documentation where needed
+- Use proper markdown formatting
+
+## Related Documentation
+
+For development processes and standards, see the [processes directory](/docs/processes/README.md).
+

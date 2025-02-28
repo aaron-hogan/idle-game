@@ -5,7 +5,7 @@ This directory contains detailed specifications for the Anti-Capitalist Idle Gam
 ## Key Files
 
 - [game-specification.md](game-specification.md) - Comprehensive game design specification
-- [implementation-plan.md](implementation-plan.md) - Technical implementation plan
+- [implementation-plan.md](implementation-plan.md) - Game technical implementation plan
 
 ## Using This Documentation
 

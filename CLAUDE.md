@@ -124,10 +124,10 @@ Before submitting a PR, ensure:
 - [Documentation Standards](/docs/processes/documentation/documentation-standards.md)
 - [Testing Standards](/docs/processes/code-quality/testing-standards.md)
 - [Architecture Guidelines](/docs/processes/code-quality/architecture-guidelines.md)
-- [CI/CD Pipeline](/docs/processes/ci-cd-pipeline.md)
+- [CI/CD Pipeline](/docs/processes/ci/ci-cd-pipeline.md)
 - [GitHub Actions](/docs/features/github-actions/summary.md)
 - [Contributing with CI](/docs/features/github-actions/contributing-with-ci.md)
-- [Streamlined Versioning](/docs/processes/streamlined-versioning.md)
+- [Streamlined Versioning](/docs/processes/versioning/streamlined-versioning.md)
 
 ## <AI-CRITICAL> DOCUMENTATION RULES
 
@@ -189,7 +189,7 @@ For bug fixes:
    ### Removed
    - Features removed
    ```
-4. Follow the complete [Streamlined Versioning Process](/docs/processes/streamlined-versioning.md) for details
+4. Follow the complete [Streamlined Versioning Process](/docs/processes/versioning/streamlined-versioning.md) for details
 
 ## <AI-CRITICAL> BRANCH VERIFICATION FOR AI ASSISTANTS
 

@@ -217,7 +217,7 @@ The wiki serves as the source of truth for finalized feature documentation:
 ## Related Documentation
 
 - [Code Style Guide](/docs/processes/code-quality/code-style-guide.md)
-- [Safe Workflow Checklist](/docs/processes/safe-workflow-checklist.md)
-- [PR Workflow](/docs/processes/pr-workflow.md)
+- [Safe Workflow Checklist](/docs/processes/git/safe-workflow-checklist.md)
+- [PR Workflow](/docs/processes/git/pr-workflow.md)
 
 By following these documentation standards, we ensure that our project has clear, consistent, and useful documentation that helps both current and future team members understand and contribute to the codebase.

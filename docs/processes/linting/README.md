@@ -1,11 +1,13 @@
-# Linting Documentation
+# Linting Processes
 
 This directory contains documentation related to our linting standards, processes, and progress.
 
-## Contents
+## Key Documents
 
-- [Linting Progress](./linting-progress.md) - Tracking our systematic cleanup efforts
-- More documentation will be added as needed
+- [Linting Progress](linting-progress.md) - Tracking our systematic cleanup efforts
+- [Linting Cleanup Process](linting-cleanup-process.md) - Process for cleaning up linting issues
+- [Linting Consolidated](linting-consolidated.md) - Comprehensive linting rules and patterns
+- [Linting Issue Inventory](linting-issue-inventory.md) - Tracking of known linting issues
 
 ## Linting Categories
 

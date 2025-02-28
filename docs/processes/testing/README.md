@@ -8,9 +8,8 @@ This directory contains documentation for testing processes, standards, and best
 
 ## Key Documents
 
-- [Testing Standards](testing-standards.md) - Standards for writing and maintaining tests
-- [Test Coverage Requirements](test-coverage-requirements.md) - Requirements for test coverage
-- [Test Review Process](test-review-process.md) - Process for reviewing tests
+- [Testing Guide](testing-guide.md) - **CURRENT** - Comprehensive guide to testing standards and practices
+- [Test Guidelines](test-guidelines.md) - **DEPRECATED** - Former guidelines for writing tests
 
 ## Testing Overview
 
