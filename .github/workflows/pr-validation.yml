@@ -128,10 +128,28 @@ jobs:
               console.log("✅ PR description contains changelog entry section");
               
               // Extract the changelog entry section and check it's not empty
-              const changelogSection = PR_BODY.match(/## Changelog Entry([\s\S]*?)(?:##|$)/);
-              if (changelogSection && changelogSection[1].trim()) {
-                console.log("✅ Changelog entry contains content");
+              // We need a more robust regex to handle any format of PR description
+              const changelogEntryText = PR_BODY.split('## Changelog Entry')[1];
+              
+              if (changelogEntryText && changelogEntryText.trim()) {
+                // Check if there's content between ## Changelog Entry and the next section
+                let entryContent = "";
+                
+                if (changelogEntryText.includes('##')) {
+                  // Get content up to the next section
+                  entryContent = changelogEntryText.split('##')[0].trim();
+                } else {
+                  // No next section, use all remaining text
+                  entryContent = changelogEntryText.trim();
+                }
+                
+                if (entryContent) {
+                  console.log("✅ Changelog entry contains content");
+                  console.log("Content found: " + entryContent.substring(0, 100) + "...");
+                } else {
+                  core.setFailed("Changelog entry section appears to be empty. Please add content.");
+                }
               } else {
-                core.setFailed("Changelog entry section is empty. Please add content.");
+                core.setFailed("Could not parse changelog entry section. Please ensure '## Changelog Entry' is followed by content.");
               }
             }
