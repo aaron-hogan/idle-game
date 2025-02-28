@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Removed unused imports and variables in App.tsx and App.test.tsx
   - Replaced require-style imports with ES module imports
   - Removed unused screen imports in test files
+  - Updated @ts-ignore comments to @ts-expect-error with explanations in test files (gameSystemCoherenceTest.test.ts, testUtils.ts)
 
 ## [0.6.1] - 2025-02-28
 
