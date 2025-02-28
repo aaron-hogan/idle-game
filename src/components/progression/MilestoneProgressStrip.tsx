@@ -159,7 +159,16 @@ const MilestoneProgressStrip: React.FC<MilestoneProgressStripProps> = ({ sideCou
     console.log('DEBUG: Current scrollLeft', stripRef.current.scrollLeft);
 
     const cards = stripRef.current.querySelectorAll('.milestone-card');
-    const positions: any[] = [];
+    
+    interface CardPosition {
+      index: number;
+      id: string | null;
+      isActive: boolean;
+      offsetLeft: number;
+      offsetWidth: number;
+    }
+    
+    const positions: CardPosition[] = [];
 
     cards.forEach((card, index) => {
       const element = card as HTMLElement;

@@ -1,12 +1,14 @@
 import React from 'react';
 import { useAppSelector } from '../../state/hooks';
 import { selectUnlockedResources } from '../../state/selectors';
+import { Resource } from '../../models/resource';
 import './ResourceList.css';
 
 /**
  * Bare-bones resource display component
  */
-const BareResourceDisplay: React.FC<{ resource: any }> = ({ resource }) => {
+
+const BareResourceDisplay: React.FC<{ resource: Resource }> = ({ resource }) => {
   const percentFull = Math.min(100, (resource.amount / resource.maxAmount) * 100);
 
   return (
