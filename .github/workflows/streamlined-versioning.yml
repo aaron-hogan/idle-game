@@ -63,7 +63,7 @@ jobs:
           # Ultra simple extraction strategy:
           # Get the first non-empty line after the PR title line
           # Skip heading lines, empty lines, and warning text
-          CHANGELOG_ENTRY=$(grep -v "^#" pr_body.txt | grep -v "^$" | grep -v "⚠️" | head -n 1)
+          CHANGELOG_ENTRY=$(grep -v "^#" pr_body.txt | grep -v "^$" | grep -v "⚠️" | head -n 1 || echo "")
           
           if [ -n "$CHANGELOG_ENTRY" ]; then
             echo "Found changelog entry: $CHANGELOG_ENTRY"
