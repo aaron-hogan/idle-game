@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *No unreleased changes at this time.*
 
+## [0.7.4] - 2025-02-28
+
+
+### Fixed
+- Replace explicit `any` types in 200+ React component files with proper TypeScript interfaces
+- Fix React component prop types and event handler type definitions
+- Improve type safety in CSS module imports
+- Enhance typing for React hooks, particularly Redux-related hooks
 ## [0.7.3] - 2025-02-28
 
 ### Fixed
