@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+*No unreleased changes at this time.*
+
+## [0.6.1] - 2025-02-28
+
 ### Fixed
 - Remove wiki directory completely from git tracking
 - Updated test suite to use proper dependency injection pattern
@@ -25,7 +29,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Rewrote `tasks.integration.test.ts` to use simpler mocking approach
   - Fixed outdated import paths in integration tests
   - Ensured manager singletons are properly reset between tests
-
 ### Added
 - New script to detect and fix empty versions in CHANGELOG
 - Improved workflow documentation for changelog maintenance
