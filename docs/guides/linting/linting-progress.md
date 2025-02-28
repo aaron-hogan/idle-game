@@ -9,12 +9,19 @@ This document tracks the progress of our systematic linting cleanup efforts.
 | Unused Variables | Fix unused imports, variables, and parameters | 20% | 8 | ~40 |
 | Require Imports | Convert require-style imports to ES module imports | 100% | 5 | 5 |
 | TS Comments | Update @ts-ignore to @ts-expect-error with explanations | 60% | 3 | 5 |
-| Explicit Any | Replace 'any' types with explicit types | 25% | 5 | ~20 |
+| Explicit Any | Replace 'any' types with explicit types | 35% | 7 | ~20 |
 
 ## Batches Completed
 
-### Batch 6: Explicit Any in Utility Files (2/27/2025)
+### Batch 7: Explicit Any in System Manager Files (2/27/2025)
 - **PR**: Not submitted yet
+- **Status**: Complete
+- **Fixed Files**:
+  - `src/systems/resourceManager.ts`: Replaced any with explicit types in getInstance and initialize methods
+  - `src/systems/buildingManager.ts`: Replaced any with explicit types for proper type safety
+
+### Batch 6: Explicit Any in Utility Files (2/27/2025)
+- **PR**: #112
 - **Status**: Complete
 - **Fixed Files**:
   - `src/utils/EventEmitter.ts`: Replaced any[] with unknown[] for event arguments

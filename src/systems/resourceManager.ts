@@ -70,14 +70,14 @@ export class ResourceManager {
    * @param dependencies The dependencies needed by ResourceManager or store for backward compatibility
    * @returns The singleton ResourceManager instance
    */
-  public static getInstance(dependenciesOrStore?: ResourceManagerDependencies | any): ResourceManager {
+  public static getInstance(dependenciesOrStore?: ResourceManagerDependencies | { dispatch: unknown; getState: unknown }): ResourceManager {
     if (!ResourceManager.instance) {
       if (!dependenciesOrStore) {
         // Create instance without dependencies, initialize() will be called later
         ResourceManager.instance = new ResourceManager({
-          dispatch: (() => {}) as any, // Placeholder
-          getState: (() => ({})) as any, // Placeholder
-          actions: {} as any // Placeholder
+          dispatch: (() => {}) as AppDispatch, // Placeholder
+          getState: (() => ({} as RootState)), // Placeholder
+          actions: {} as ResourceManagerDependencies['actions'] // Placeholder
         });
       } else if ('dispatch' in dependenciesOrStore && 'getState' in dependenciesOrStore && 'actions' in dependenciesOrStore) {
         // If full dependencies are provided
@@ -85,9 +85,9 @@ export class ResourceManager {
       } else {
         // If a store is provided (backward compatibility)
         const instance = new ResourceManager({
-          dispatch: (() => {}) as any, // Placeholder
-          getState: (() => ({})) as any, // Placeholder  
-          actions: {} as any // Placeholder
+          dispatch: (() => {}) as AppDispatch, // Placeholder
+          getState: (() => ({} as RootState)), // Placeholder  
+          actions: {} as ResourceManagerDependencies['actions'] // Placeholder
         });
         instance.initialize(dependenciesOrStore);
         ResourceManager.instance = instance;
@@ -106,7 +106,7 @@ export class ResourceManager {
    * @param store The Redux store
    * @deprecated Use dependency injection through constructor instead
    */
-  public initialize(store: any): void {
+  public initialize(store: { dispatch: unknown; getState: unknown }): void {
     // Check if already initialized properly
     try {
       this.ensureInitialized();
@@ -119,8 +119,8 @@ export class ResourceManager {
     const resourceActions = require('../state/resourcesSlice');
     
     // Set up dependencies from store
-    this.dispatch = store.dispatch;
-    this.getState = store.getState;
+    this.dispatch = store.dispatch as AppDispatch;
+    this.getState = store.getState as () => RootState;
     this.actions = {
       addResource: resourceActions.addResource,
       updateResourceAmount: resourceActions.updateResourceAmount,
@@ -173,11 +173,14 @@ export class ResourceManager {
     }
     
     const state = this.getState();
-    // Use any type to work with both state formats
-    const resources: any = state.resources;
+    
+    // Handle both old (byId) and new (flat) resource state formats
+    const resources = state.resources;
     
     // Special handling for oppression resource - always ensure it's generated
-    const oppression = resources.byId ? resources.byId[ResourceId.OPPRESSION] : resources[ResourceId.OPPRESSION];
+    const oppression = 'byId' in resources 
+      ? (resources.byId as Record<string, { perSecond: number; id: string }>)[ResourceId.OPPRESSION] 
+      : (resources as Record<string, { perSecond: number; id: string }>)[ResourceId.OPPRESSION];
     
     if (oppression) {
       // Get the oppression rate from game balance config
