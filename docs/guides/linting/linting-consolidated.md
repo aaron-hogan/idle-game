@@ -107,10 +107,10 @@ The following sections inventory files with linting issues by category to track 
 - `src/components/progression/ClickableMilestone.tsx` - 'useSelector', 'dispatch' ✓
 - `src/components/navigation/TabNavigation.tsx` - 'location' ✓
 
-#### Priority 2: System Files ✓
-- `src/core/GameLoop.ts` - 'timestamp' ✓
-- `src/core/GameTimer.ts` - 'event', 'e' ✓
-- `src/systems/saveManager.ts` - 'lastSaveTime', 'e' ✓
+#### Priority 2: System Files
+- `src/core/GameLoop.ts` - 'timestamp'
+- `src/core/GameTimer.ts` - 'event', 'e'
+- `src/systems/saveManager.ts` - 'lastSaveTime', 'e'
 
 #### Priority 3: Test Files
 - Various test files with unused imports and variables
@@ -132,10 +132,10 @@ The following sections inventory files with linting issues by category to track 
 
 ### 3. Require-Style Imports
 
-#### Priority 1: System Files
-- `src/systems/saveContext.tsx`
-- `src/systems/saveManager.ts`
-- `src/systems/workerManager.ts`
+#### Priority 1: System Files ✓
+- `src/systems/saveContext.tsx` ✓
+- `src/systems/saveManager.ts` ✓
+- `src/systems/workerManager.ts` ✓
 
 #### Priority 2: Integration Tests
 - `src/gameCore.integration.test.tsx`
@@ -161,7 +161,7 @@ The following sections inventory files with linting issues by category to track 
 |----------|-------------|-------------|----------|
 | Unused Variables | ~40 | 8 | 20% |
 | Explicit Any | ~30 | 0 | 0% |
-| Require Imports | ~5 | 1 | 20% |
+| Require Imports | ~5 | 5 | 100% |
 | TS Comments | ~5 | 1 | 20% |
 | Function Types | 1 | 0 | 0% |
 
@@ -173,15 +173,15 @@ The following sections inventory files with linting issues by category to track 
 - `src/components/progression/ClickableMilestone.tsx` ✓
 - `src/components/navigation/TabNavigation.tsx` ✓
 
-### Batch 2: Unused Variables in System Files ✓
-- `src/core/GameLoop.ts` ✓
-- `src/core/GameTimer.ts` ✓
-- `src/systems/saveManager.ts` ✓
-
-### Batch 3: Require Imports in System Files
-- `src/systems/saveContext.tsx`
+### Batch 2: Unused Variables in System Files
+- `src/core/GameLoop.ts`
+- `src/core/GameTimer.ts`
 - `src/systems/saveManager.ts`
-- `src/systems/workerManager.ts`
+
+### Batch 3: Require Imports in System Files ✓
+- `src/systems/saveContext.tsx` ✓
+- `src/systems/saveManager.ts` ✓
+- `src/systems/workerManager.ts` ✓
 
 ### Batch 4: TypeScript Comments in Test Files
 - `src/tests/gameSystemCoherenceTest.test.ts`
@@ -196,13 +196,14 @@ The following sections inventory files with linting issues by category to track 
 | PR Number | Category | Files Addressed | Notes |
 |-----------|----------|-----------------|-------|
 | #105 | Mixed (initial approach) | App.tsx, App.test.tsx, Icon.test.tsx, resourceUtils.ts | Initial cleanup with mixed category approach |
-| - | Unused Variables (Batch 1) | GameTimer.tsx, GameTimer.test.tsx, TabNavigation.tsx, ClickableMilestone.tsx | Fixed unused imports and variables in core components |
-| - | Unused Variables (Batch 2) | GameLoop.ts, GameTimer.ts, saveManager.ts | Fixed unused parameters and variables in system files |
+| #108 | Unused Variables (Batch 1) | GameTimer.tsx, GameTimer.test.tsx, TabNavigation.tsx, ClickableMilestone.tsx | Fixed unused imports and variables in core components |
+| #107 | Unused Variables (Batch 2) | GameLoop.ts, GameTimer.ts, saveManager.ts | Fixed unused parameters and variables in system files |
+| - | Require Imports (Batch 3) | saveContext.tsx, saveManager.ts, workerManager.ts | Replaced require-style imports with ES module imports |
 
 ## Next Steps
 
 - [x] PR for unused variables in core components (GameTimer.tsx, GameTimer.test.tsx, TabNavigation.tsx, ClickableMilestone.tsx)
 - [x] PR for unused variables in system files (GameLoop.ts, GameTimer.ts, saveManager.ts)
-- [ ] PR for require-style imports in system files (saveContext.tsx, saveManager.ts, workerManager.ts)
+- [x] PR for require-style imports in system files (saveContext.tsx, saveManager.ts, workerManager.ts)
 - [ ] PR for @ts-ignore comments in test files (gameSystemCoherenceTest.test.ts, testUtils.ts)
 - [ ] PR for explicit any in GameLoop classes (GameLoop.ts, GameLoop.test.ts)
