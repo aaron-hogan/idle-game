@@ -63,9 +63,17 @@
 ### Documentation and Quality
 - [ ] Documentation is updated as needed
 - [ ] PR title follows conventional commit format (e.g., "feat: add login feature")
-- [ ] Changelog Entry section above is filled out appropriately
+- [ ] Changelog Entry section above is filled out appropriately:
+  - [ ] It includes at least one subsection (### Added, ### Changed, ### Fixed, or ### Removed)
+  - [ ] Each subsection has at least one bulleted item
+  - [ ] Items are descriptive and meaningful
 - [ ] No debug/console logs in production code
 - [ ] Branch is updated with main
+
+### Versioning Checks
+- [ ] PR title correctly reflects the type of change (feat:, fix:, docs:, etc.)
+- [ ] PR title will trigger appropriate version bump (feat→minor, fix→patch, feat!→major)
+- [ ] PR description contains complete changelog entries matching the changes made
 
 ## Screenshots/Recordings
 <!-- If applicable, add screenshots or recordings to help explain the changes -->
