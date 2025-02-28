@@ -36,9 +36,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - ResourceManager and resourceUtils.ts with proper RootState typing
     - GameLoop.ts and gameLoopTest.ts with Resource typing
     - ProgressionManager.ts and tasksSlice.ts
-- Resolved merge conflict marker in GameTimer.tsx causing build failures
-- Fixed issues with @ts-expect-error directives in testUtils.ts
-- Enhanced PR workflow documentation to emphasize waiting for CI checks
+- **Critical build fix**: Resolved merge conflict marker in GameTimer.tsx causing build failures in PRs #107-#114
+  - Removed the `>>>>>>>` conflict marker that was accidentally committed
+  - Added automatic conflict marker detection to pre-commit hooks
+- Fixed issues with @ts-expect-error directives in testUtils.ts by switching to @ts-ignore
+  - Corrected incorrect comment format that was causing test failures
+  - Fixed unused directive warnings during type checking
+- **Critical process fix**: Enhanced PR workflow documentation to emphasize waiting for CI checks
+  - Added comprehensive verification process for each CI workflow and job
+  - Updated best practices with detailed instructions on checking workflow logs
+  - Added detailed instructions for verifying CHANGELOG updates
+  - Documented actual process failure with PR #115 as a case study
 
 ## [0.6.1] - 2025-02-28
 
