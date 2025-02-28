@@ -2,6 +2,18 @@
 
 This directory contains documentation and tools for core development processes.
 
+## Git Processes
+
+All git-related processes and workflows are organized in the [git directory](/docs/processes/git/).
+
+Key git documentation includes:
+- [Git Workflow](/docs/processes/git/git-workflow.md)
+- [PR Workflow](/docs/processes/git/pr-workflow.md)
+- [Safe Workflow Checklist](/docs/processes/git/safe-workflow-checklist.md)
+- [Branch Management](/docs/processes/git/branch-management.md)
+
+See the [Git README](/docs/processes/git/README.md) for a complete list of git documentation.
+
 ## Documentation Processes
 
 - [Documentation Standards](documentation/standards.md) - Guidelines for creating and maintaining documentation

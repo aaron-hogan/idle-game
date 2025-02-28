@@ -61,13 +61,25 @@ In rare cases, specific documentation files may need to be committed. Use these 
    - Essential for new developers to understand the codebase
    - Required for the application to function
    - Critical configuration examples
+   - Core process documentation (like CLAUDE.md)
 
-2. To commit an excluded file, use the force flag:
+2. To add an exception for a file, use the provided script:
+   ```bash
+   ./scripts/add-doc-exception.sh path/to/file.md "Reason for exception"
+   ```
+   This script will update the .gitignore file with the exception.
+
+3. To commit an excluded file manually, use the force flag:
    ```bash
    git add -f docs/critical-file.md
    ```
 
-3. Document any exceptions in pull requests and explain why the file needs to be tracked.
+4. Document any exceptions in pull requests and explain why the file needs to be tracked.
+
+5. **CRITICAL FILES THAT MUST ALWAYS BE TRACKED**:
+   - CLAUDE.md - Core AI assistant instructions
+   - Safe workflow documentation
+   - Git workflow documentation
 
 ## Document Migration
 

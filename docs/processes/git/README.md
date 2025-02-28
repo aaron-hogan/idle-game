@@ -5,8 +5,12 @@ This directory contains documentation for git workflows, standards, and processe
 ## Key Documents
 
 - [Git Workflow](git-workflow.md) - Standard workflow for using git in this project
-- [Branch Protection](branch-protection.md) - Branch protection rules and policies
-- [Commit Standards](commit-standards.md) - Standards for commit messages and organization
+- [Branch Management](branch-management.md) - Managing feature branches and PRs
+- [PR Workflow](pr-workflow.md) - Detailed process for creating and merging PRs
+- [Safe Workflow Checklist](safe-workflow-checklist.md) - Critical safety steps for git operations
+- [Resolving Merge Conflicts](resolving-merge-conflicts.md) - Guidelines for handling conflicts
+- [Git Process Emphasis](git-process-emphasis.md) - Critical git process requirements
+- [Pre-commit Hooks](pre-commit-hooks-plan.md) - Git hooks for automation and validation
 
 ## Git Workflow Overview
 

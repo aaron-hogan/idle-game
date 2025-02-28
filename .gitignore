@@ -26,8 +26,7 @@ examples-*.md         # Example documentation files
 src/*hello-world*     # Test files for versioning
 
 # AI Documentation - Not suitable for public repository
-*CLAUDE*                      # Claude AI-related files
-CLAUDE.md                     # Main Claude instructions file
+# NOTE: CLAUDE.md is intentionally NOT ignored as it contains critical development instructions
 *claude*                      # Lowercase variations
 *ai-*                         # AI prefixed files
 *AI-*                         # Uppercase AI prefixed
@@ -41,6 +40,8 @@ docs/processes/claude-*       # Claude-related docs in processes directory
 docs/processes/*/claude-*     # Claude-related docs in processes subdirectories
 docs/processes/*/*/claude-*   # Claude-related docs in deeper process subdirectories
 !docs/git_exceptions.md       # Exception log is allowed
+!CLAUDE.md                    # Main Claude instructions file - CRITICAL DEVELOPMENT DOCUMENT
+!docs/processes/claude.md     # Process documentation for Claude
 
 # Example and template files
 examples-*.config.js  # Example configuration files
