@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import GameTimer from './GameTimer';
-import { formatTimeAsDays, getDayProgress } from '../utils/timeUtils';
+import { SECONDS_PER_DAY } from '../utils/timeUtils';
 
 // Mock the timeUtils functions
 jest.mock('../utils/timeUtils', () => ({
