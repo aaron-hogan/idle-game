@@ -4,6 +4,25 @@
 import { GameLoop, TickHandler } from './GameLoop';
 import { GameTimer } from './GameTimer';
 
+// Interface for the mock game timer used in tests
+interface MockGameTimer {
+  setElapsedTime: (real: number, game: number) => void;
+  setTotalGameTime: (time: number) => void;
+  setTimeScale: (scale: number) => void;
+  setDebugMode: (enabled: boolean) => void;
+  mockAdvanceTime: (realDelta: number) => void;
+  getElapsedRealTime: () => number;
+  getElapsedGameTime: () => number;
+  getTotalGameTime: () => number;
+  getTimeScale: () => number;
+  getTimeRatio: () => number;
+  isRunning: () => boolean;
+  start: () => void;
+  pause: () => void;
+  update: () => void;
+  resetFrameTiming: () => void;
+}
+
 // Mock GameTimer for testing
 jest.mock('./GameTimer', () => {
   // Store original module
@@ -19,7 +38,7 @@ jest.mock('./GameTimer', () => {
     private timeScale: number = 1.0;
     private debugMode: boolean = false;
     
-    static getInstance(config?: any): MockGameTimer {
+    static getInstance(config?: { debugMode?: boolean; timeScale?: number; maxFrameTime?: number }): MockGameTimer {
       if (!MockGameTimer.instance) {
         MockGameTimer.instance = new MockGameTimer();
       }
@@ -172,8 +191,8 @@ describe('GameLoop', () => {
     // Start the loop
     gameLoop.start();
     
-    // Get timer instance
-    const timer = GameTimer.getInstance() as any;
+    // Get timer instance with the correct mock implementation
+    const timer = GameTimer.getInstance() as unknown as MockGameTimer;
     
     // Manually trigger a game loop update that would process fixed timestep
     // by directly calling processFixedUpdate
@@ -205,7 +224,7 @@ describe('GameLoop', () => {
     gameLoop.start();
     
     // Get timer and set it up for testing
-    const timer = GameTimer.getInstance() as any;
+    const timer = GameTimer.getInstance() as unknown as MockGameTimer;
     timer.setElapsedTime(1.0, 1.0);
     
     // Force an update
@@ -251,7 +270,7 @@ describe('GameLoop', () => {
     gameLoop.start();
     
     // Get the timer
-    const timer = GameTimer.getInstance() as any;
+    const timer = GameTimer.getInstance() as unknown as MockGameTimer;
     
     // Mock advancing time by less than a fixed time step
     timer.setElapsedTime(0.5 / gameLoop.getStats().tickRate, 0.5 / gameLoop.getStats().tickRate);
@@ -287,7 +306,7 @@ describe('GameLoop', () => {
     gameLoop.start();
     
     // Get the timer
-    const timer = GameTimer.getInstance() as any;
+    const timer = GameTimer.getInstance() as unknown as MockGameTimer;
     
     // Advance timer by 3 fixed time steps worth
     const fixedTimeStep = 1.0 / gameLoop.getStats().tickRate;
