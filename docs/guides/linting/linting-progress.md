@@ -14,7 +14,7 @@ This document tracks the progress of our systematic linting cleanup efforts.
 ## Batches Completed
 
 ### Batch 11: Fix Explicit Any in ProgressionManager and TasksSlice (2/27/2025)
-- **PR**: Not submitted yet
+- **PR**: #114
 - **Status**: Complete
 - **Fixed Files**:
   - `src/managers/progression/ProgressionManager.ts`: Fixed multiple explicit `any` types
@@ -26,7 +26,7 @@ This document tracks the progress of our systematic linting cleanup efforts.
     - Used PayloadAction with proper type casting
 
 ### Batch 10: Fix Explicit Any in GameLoop Files (2/27/2025)
-- **PR**: Not submitted yet
+- **PR**: #114
 - **Status**: Complete
 - **Fixed Files**:
   - `src/systems/gameLoop.ts`: Replaced `any` type with proper types for resources
@@ -36,7 +36,7 @@ This document tracks the progress of our systematic linting cleanup efforts.
     - Properly typed Object.values() iterations
 
 ### Batch 9: Fix TS-expect-error in resourceUtils.ts (2/27/2025)
-- **PR**: Not submitted yet
+- **PR**: #114
 - **Status**: Complete
 - **Fixed Files**:
   - `src/utils/resourceUtils.ts`: Fixed TypeScript errors by properly typing Redux state access
@@ -45,7 +45,7 @@ This document tracks the progress of our systematic linting cleanup efforts.
     - Updated tests to match the new implementation
 
 ### Batch 8: Explicit Any in More System Files (2/27/2025)
-- **PR**: Not submitted yet
+- **PR**: #114
 - **Status**: Complete
 - **Fixed Files**:
   - `src/systems/eventManager.ts`: Replaced any with explicit types in getInstance and initialize methods
@@ -110,6 +110,8 @@ This document tracks the progress of our systematic linting cleanup efforts.
 
 ## Next Steps
 
-- Continue addressing the "Explicit Any" category in remaining files
-- Address the unrelated @ts-expect-error issues in resourceUtils.ts
-- Update ESLint configuration to prevent new linting issues
+- Complete remaining Explicit Any fixes in model files (Batch 12)
+- Address state.models.resources access with proper typing in Redux files (Batch 13)
+- Finish remaining @ts-expect-error issues in component tests (Batch 14)
+- Update ESLint configuration to enforce stricter typing rules
+- Conduct final PR review and merge all batches
