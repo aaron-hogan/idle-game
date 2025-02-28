@@ -54,14 +54,18 @@ jobs:
           PR_BODY="${{ github.event.pull_request.body }}"
           echo "Extracting changelog entry from PR description..."
           
-          # Extract content between "## Changelog Entry" and the next heading
-          CHANGELOG_ENTRY=$(echo "$PR_BODY" | sed -n '/## Changelog Entry/,/##/p' | grep -v "## Changelog Entry" | grep -v "##" | sed '/^$/d')
+          # More robust extraction of content between "## Changelog Entry" and the next heading or end of file
+          # This preserves empty lines within the section which are important for formatting
+          CHANGELOG_SECTION=$(echo "$PR_BODY" | awk '/## Changelog Entry/{flag=1;next} /^## /{flag=0} flag')
+          
+          # Remove any leading/trailing whitespace but preserve internal formatting
+          CHANGELOG_ENTRY=$(echo "$CHANGELOG_SECTION" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
           
           if [ -z "$CHANGELOG_ENTRY" ]; then
             echo "No changelog entry found in PR description. Using PR title as fallback."
             PR_TITLE="${{ github.event.pull_request.title }}"
-            TYPE=$(echo "$PR_TITLE" | sed -E 's/^(feat|fix|docs|chore)(\!)?:.*/\1/')
-            DESCRIPTION=$(echo "$PR_TITLE" | sed -E 's/^(feat|fix|docs|chore)(\!)?://')
+            TYPE=$(echo "$PR_TITLE" | sed -E 's/^(feat|fix|docs|chore|refactor|style|perf|test|build|ci|revert)(\!)?:.*/\1/')
+            DESCRIPTION=$(echo "$PR_TITLE" | sed -E 's/^(feat|fix|docs|chore|refactor|style|perf|test|build|ci|revert)(\!)?://' | sed -e 's/^[[:space:]]*//')
             
             case "$TYPE" in
               feat)
@@ -69,6 +73,12 @@ jobs:
                 ;;
               fix)
                 CHANGELOG_ENTRY="### Fixed\n- $DESCRIPTION"
+                ;;
+              refactor|perf)
+                CHANGELOG_ENTRY="### Changed\n- $DESCRIPTION"
+                ;;
+              docs|chore|style|test|build|ci|revert)
+                CHANGELOG_ENTRY="### Changed\n- $DESCRIPTION"
                 ;;
               *)
                 CHANGELOG_ENTRY="### Changed\n- $DESCRIPTION"
@@ -134,27 +144,47 @@ jobs:
             exit 1
           fi
           
-          # Save the current changelog entry for later use
+          # Read the changelog entry and ensure it doesn't have any shell special characters issues
           CHANGELOG_ENTRY=$(cat changelog_entry.txt)
           
-          # Create new version section in CHANGELOG
+          # Make a backup of the original CHANGELOG.md
+          cp CHANGELOG.md CHANGELOG.md.bak
+          
+          # Create new version section in CHANGELOG - keep the Unreleased section empty
           sed -i "s/## \[Unreleased\]/## [Unreleased]\n\n*No unreleased changes at this time.*\n\n## [$NEW_VERSION] - $DATE/" CHANGELOG.md
           
-          # Insert changelog entry after the new version heading
-          awk -v ver="## [$NEW_VERSION] - $DATE" -v entry="$CHANGELOG_ENTRY" '
-          {
-            print $0
-            if ($0 ~ ver) {
-              print ""
-              print entry
-            }
-          }' CHANGELOG.md > CHANGELOG.md.new
-          mv CHANGELOG.md.new CHANGELOG.md
+          # Read the entire file content
+          CHANGELOG_CONTENT=$(cat CHANGELOG.md)
+          
+          # Replace the placeholder text with the actual changelog entry
+          # This approach avoids issues with special characters in the changelog entry
+          # First remove the placeholder text
+          TEMP_CONTENT=$(echo "$CHANGELOG_CONTENT" | sed "/## \[$NEW_VERSION\] - $DATE/,/^$/s/*No unreleased changes at this time.*//")
+          
+          # Then add the actual changelog entry after the version heading
+          echo "$TEMP_CONTENT" > changelog_temp.md
+          UPDATED_CONTENT=$(awk -v ver="## [$NEW_VERSION] - $DATE" -v entry="$CHANGELOG_ENTRY" '{
+              print $0;
+              if ($0 ~ ver) {
+                print "";
+                print entry;
+              }
+            }' changelog_temp.md)
+          
+          # Write the updated content back to the file
+          echo "$UPDATED_CONTENT" > CHANGELOG.md
+          
+          # Fix any potential blank lines that might have been introduced
+          sed -i '/^[[:space:]]*$/d' CHANGELOG.md
+          # Ensure there's a newline between sections
+          sed -i "s/## \[/\n## \[/g" CHANGELOG.md
           
           # Update package.json again to ensure it has the right version
           node -e "const fs = require('fs'); const pkg = JSON.parse(fs.readFileSync('package.json')); pkg.version = '$NEW_VERSION'; fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');"
           
           echo "CHANGELOG.md and package.json updated successfully"
+          echo "Changelog entry:"
+          echo "$CHANGELOG_ENTRY"
           
       - name: Commit and push changes
         if: steps.version-bump.outputs.bump_type != 'none'
