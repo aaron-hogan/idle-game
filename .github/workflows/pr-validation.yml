@@ -102,49 +102,53 @@ jobs:
               return;
             }
             
-            // Check if PR body contains a changelog entry section
-            if (!PR_BODY.includes('## Changelog Entry')) {
+            // Use new ultra-simple changelog approach:
+            // The first non-empty, non-heading line of the PR description is the changelog entry
+            
+            const bodyLines = PR_BODY.split('\n');
+            let foundNonHeadingLine = false;
+            
+            for (const line of bodyLines) {
+              const trimmedLine = line.trim();
+              
+              // Skip empty lines and heading lines
+              if (trimmedLine === '' || trimmedLine.startsWith('#') || trimmedLine.includes('⚠️')) {
+                continue;
+              }
+              
+              // Found the first non-empty, non-heading line
+              foundNonHeadingLine = true;
+              console.log(`✅ Found changelog entry in first line: "${trimmedLine}"`);
+              break;
+            }
+            
+            if (!foundNonHeadingLine) {
+              // Fallback: Check for traditional format (for backward compatibility)
+              if (PR_BODY.includes('## Changelog Entry') && 
+                 (PR_BODY.includes('### Added') || 
+                  PR_BODY.includes('### Changed') || 
+                  PR_BODY.includes('### Fixed') || 
+                  PR_BODY.includes('### Removed'))) {
+                
+                console.log("✅ Found traditional changelog entry section with subsections");
+                return;
+              }
+              
               core.setFailed(`
-              ❌ PR description must include a "## Changelog Entry" section.
+              ❌ PR description must contain at least one non-empty line that is not a heading.
               
-              Please update your PR description to include this section with at least one of the following subsections:
-              - ### Added (for new features)
-              - ### Changed (for changes in existing functionality)
-              - ### Fixed (for bug fixes)
-              - ### Removed (for removed features)
+              Following our ultra-simple changelog approach:
+              1. The first non-heading line after the PR title will be used as the changelog entry
+              2. It will be categorized automatically based on your PR title
               
-              Example:
+              Alternatively, you can still use the traditional format with explicit sections:
               
               ## Changelog Entry
               
               ### Added
-              - New feature that does X
+              - Feature description
               
-              ### Fixed
-              - Bug that caused Y
+              ### Fixed 
+              - Bug fix description
               `);
-            } else {
-              console.log("✅ Found '## Changelog Entry' section in PR description");
-              
-              // Check if there's any content in the subsections
-              if (PR_BODY.includes('### Added') || 
-                  PR_BODY.includes('### Changed') || 
-                  PR_BODY.includes('### Fixed') || 
-                  PR_BODY.includes('### Removed')) {
-                console.log("✅ Found changelog subsections in PR description");
-                
-                // For now, we'll consider having subsections enough during the transition
-                console.log("✅ Validation passed: PR has changelog entry with subsections");
-              } else {
-                core.setFailed(`
-                ❌ Changelog entry must include at least one subsection:
-                
-                ### Added
-                ### Changed
-                ### Fixed
-                ### Removed
-                
-                Please add at least one of these subsections with a description of your changes.
-                `);
-              }
             }
