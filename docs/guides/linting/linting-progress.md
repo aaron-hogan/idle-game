@@ -9,12 +9,21 @@ This document tracks the progress of our systematic linting cleanup efforts.
 | Unused Variables | Fix unused imports, variables, and parameters | 20% | 8 | ~40 |
 | Require Imports | Convert require-style imports to ES module imports | 100% | 5 | 5 |
 | TS Comments | Update @ts-ignore to @ts-expect-error with explanations | 60% | 3 | 5 |
-| Explicit Any | Replace 'any' types with explicit types | 5% | 1 | ~20 |
+| Explicit Any | Replace 'any' types with explicit types | 25% | 5 | ~20 |
 
 ## Batches Completed
 
-### Batch 5: Explicit Any in Core Components (2/27/2025)
+### Batch 6: Explicit Any in Utility Files (2/27/2025)
 - **PR**: Not submitted yet
+- **Status**: Complete
+- **Fixed Files**:
+  - `src/utils/EventEmitter.ts`: Replaced any[] with unknown[] for event arguments
+  - `src/utils/validationUtils.ts`: Replaced any with unknown in safeJsonStringify
+  - `src/utils/errorUtils.ts`: Replaced multiple any types with unknown 
+  - `src/utils/stateValidation.ts`: Improved validateGameState type safety
+
+### Batch 5: Explicit Any in Core Components (2/27/2025)
+- **PR**: #111
 - **Status**: Complete
 - **Fixed Files**:
   - `src/core/GameLoop.ts`: Replaced store's any type with Store<RootState>

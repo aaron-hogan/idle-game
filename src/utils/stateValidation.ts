@@ -130,7 +130,7 @@ export function validateStructure(structure: Structure): boolean {
  * @param gameState Game state to validate
  * @returns Boolean indicating if game state is valid
  */
-export function validateGameState(gameState: any): boolean {
+export function validateGameState(gameState: unknown): boolean {
   // Check required fields
   if (gameState === undefined || gameState === null) {
     ErrorLogger.getInstance().logError(
@@ -140,28 +140,40 @@ export function validateGameState(gameState: any): boolean {
     return false;
   }
   
-  // Check gameStage
-  if (typeof gameState.gameStage !== 'number' || isNaN(gameState.gameStage) || gameState.gameStage < 0) {
+  // Type guard to ensure gameState is an object
+  if (typeof gameState !== 'object') {
     ErrorLogger.getInstance().logError(
-      `Game state has invalid gameStage: ${gameState.gameStage}`,
+      `Game state is not an object: ${gameState}`,
+      'validateGameState'
+    );
+    return false;
+  }
+  
+  // Cast to a record type for property access with type safety
+  const state = gameState as Record<string, unknown>;
+  
+  // Check gameStage
+  if (typeof state.gameStage !== 'number' || isNaN(state.gameStage) || state.gameStage < 0) {
+    ErrorLogger.getInstance().logError(
+      `Game state has invalid gameStage: ${state.gameStage}`,
       'validateGameState'
     );
     return false;
   }
   
   // Check totalPlayTime
-  if (typeof gameState.totalPlayTime !== 'number' || isNaN(gameState.totalPlayTime) || gameState.totalPlayTime < 0) {
+  if (typeof state.totalPlayTime !== 'number' || isNaN(state.totalPlayTime) || state.totalPlayTime < 0) {
     ErrorLogger.getInstance().logError(
-      `Game state has invalid totalPlayTime: ${gameState.totalPlayTime}`,
+      `Game state has invalid totalPlayTime: ${state.totalPlayTime}`,
       'validateGameState'
     );
     return false;
   }
   
   // Check lastSaveTime
-  if (gameState.lastSaveTime && (typeof gameState.lastSaveTime !== 'number' || isNaN(gameState.lastSaveTime) || gameState.lastSaveTime < 0)) {
+  if (state.lastSaveTime && (typeof state.lastSaveTime !== 'number' || isNaN(state.lastSaveTime) || state.lastSaveTime < 0)) {
     ErrorLogger.getInstance().logError(
-      `Game state has invalid lastSaveTime: ${gameState.lastSaveTime}`,
+      `Game state has invalid lastSaveTime: ${state.lastSaveTime}`,
       'validateGameState'
     );
     return false;

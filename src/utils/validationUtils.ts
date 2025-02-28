@@ -132,7 +132,7 @@ export function safeJsonParse<T>(json: string, defaultValue: T): T {
  * @param defaultValue Default string if stringification fails
  * @returns JSON string or default value
  */
-export function safeJsonStringify(value: any, defaultValue: string = '{}'): string {
+export function safeJsonStringify(value: unknown, defaultValue: string = '{}'): string {
   try {
     return JSON.stringify(value);
   } catch (error) {

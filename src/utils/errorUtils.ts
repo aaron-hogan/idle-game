@@ -17,7 +17,7 @@ export interface ErrorRecord {
   message: string;
   context?: string;
   timestamp: Date;
-  data?: any;
+  data?: unknown;
   stack?: string;
   severity: ErrorSeverity;
   handled: boolean;
@@ -89,14 +89,14 @@ export class ErrorLogger {
    */
   public logError(
     error: Error | string, 
-    contextOrMetadata?: string | Record<string, any>, 
-    severityOrData?: ErrorSeverity | any,
-    extraData?: any
+    contextOrMetadata?: string | Record<string, unknown>, 
+    severityOrData?: ErrorSeverity | unknown,
+    extraData?: unknown
   ): void {
     let context: string | undefined;
-    let metadata: Record<string, any> | undefined;
+    let metadata: Record<string, unknown> | undefined;
     let severity: ErrorSeverity = ErrorSeverity.ERROR;
-    let data: any = undefined;
+    let data: unknown = undefined;
     
     // Parse the parameters
     if (typeof contextOrMetadata === 'string') {
@@ -109,7 +109,7 @@ export class ErrorLogger {
       }
     } else if (typeof contextOrMetadata === 'object' && contextOrMetadata !== null) {
       metadata = contextOrMetadata;
-      context = metadata.component || metadata.context;
+      context = (metadata.component as string) || (metadata.context as string);
       if (severityOrData && Object.values(ErrorSeverity).includes(severityOrData as ErrorSeverity)) {
         severity = severityOrData as ErrorSeverity;
         data = extraData;
@@ -249,7 +249,7 @@ export class ErrorLogger {
  * @param severity Optional severity level
  */
 export function invariant(
-  condition: any, 
+  condition: unknown, 
   message: string, 
   context?: string, 
   severity: ErrorSeverity = ErrorSeverity.ERROR
@@ -292,7 +292,7 @@ export function trySafe<T>(
  * @param context Context for error logging
  * @param fallbackValue Value to return if function throws
  */
-export function safeFn<T, Args extends any[]>(
+export function safeFn<T, Args extends unknown[]>(
   fn: (...args: Args) => T,
   context: string,
   fallbackValue?: T

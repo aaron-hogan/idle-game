@@ -47,7 +47,7 @@ export class EventEmitter {
    * @param eventName Name of the event to emit
    * @param args Arguments to pass to the callbacks
    */
-  public emit(eventName: string, ...args: any[]): void {
+  public emit<T extends unknown[]>(eventName: string, ...args: T): void {
     const callbacks = this.listeners.get(eventName);
     
     if (callbacks) {
