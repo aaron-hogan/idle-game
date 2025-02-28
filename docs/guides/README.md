@@ -1,15 +1,29 @@
-# Development Guides (Deprecated)
+# Development Guides
 
-**THIS DIRECTORY IS DEPRECATED**
+This directory contains guides for developers to understand and work with the project. 
+These guides are focused on explanations and tutorials, not process documentation.
 
-All process documentation has been moved to appropriate subdirectories under `/docs/processes/`:
+## Purpose
 
-- Setup guides → `/docs/processes/setup/`
-- Contributing guides → `/docs/processes/contributing/`
-- Code standards → `/docs/processes/code-quality/`
-- Linting documentation → `/docs/processes/linting/`
-- Testing guides → `/docs/processes/testing/`
+Unlike the `processes/` directory which contains workflow documentation and standards, this directory is for:
 
-Please update any bookmarks or links to refer to the new locations.
+- Feature usage guides
+- Technical explanations
+- Tutorials for developers
+- Concept explanations
+- Best practice examples
 
-This directory will be replaced with a new guides structure focused on feature tutorials and explanations rather than process documentation.
+## Structure
+
+Guides should be organized by topic and follow these guidelines:
+
+- Use clear, descriptive titles
+- Include examples where appropriate
+- Focus on practical application
+- Refer to process documentation where needed
+- Use proper markdown formatting
+
+## Related Documentation
+
+For development processes and standards, see the [processes directory](/docs/processes/README.md).
+
