@@ -16,6 +16,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Structured approach for fixing linting issues by category
   - Inventory of linting issues across the codebase
   - Batch processing plan for systematic fixes
+- Verification script for validating previously conflicted PRs
+- Enhanced merge conflict resolution guide with:
+  - New case study about GameTimer.tsx conflict
+  - Automated conflict detection in pre-commit hooks
+  - Better verification steps during conflict resolution
 
 ### Fixed
 - Fixed linting errors in multiple files:
@@ -31,6 +36,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - ResourceManager and resourceUtils.ts with proper RootState typing
     - GameLoop.ts and gameLoopTest.ts with Resource typing
     - ProgressionManager.ts and tasksSlice.ts
+- Resolved merge conflict marker in GameTimer.tsx causing build failures
+- Fixed issues with @ts-expect-error directives in testUtils.ts
+- Enhanced PR workflow documentation to emphasize waiting for CI checks
 
 ## [0.6.1] - 2025-02-28
 
