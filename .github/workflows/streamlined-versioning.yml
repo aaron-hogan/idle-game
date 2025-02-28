@@ -52,68 +52,50 @@ jobs:
         if: steps.version-bump.outputs.bump_type != 'none'
         run: |
           PR_BODY="${{ github.event.pull_request.body }}"
+          PR_TITLE="${{ github.event.pull_request.title }}"
           echo "Extracting changelog entry from PR description..."
           
-          # Create a temporary file with the PR body
-          echo "$PR_BODY" > pr_body.txt
-          
-          # More reliable extraction of changelog section
-          CHANGELOG_SECTION=""
-          CAPTURE=0
-          
-          while IFS= read -r line; do
-            if [[ "$line" == "## Changelog Entry" ]]; then
-              CAPTURE=1
-            elif [[ "$line" =~ ^## ]]; then
-              if [[ $CAPTURE -eq 1 ]]; then
-                CAPTURE=0
-              fi
-            elif [[ $CAPTURE -eq 1 ]]; then
-              if [[ -n "$CHANGELOG_SECTION" ]]; then
-                CHANGELOG_SECTION="$CHANGELOG_SECTION
-$line"
-              else
-                CHANGELOG_SECTION="$line"
-              fi
-            fi
-          done < pr_body.txt
-          
-          # Check if we found a changelog entry
-          if [ -z "$CHANGELOG_SECTION" ]; then
-            echo "No changelog entry found in PR description. Using PR title as fallback."
-            PR_TITLE="${{ github.event.pull_request.title }}"
-            TYPE=$(echo "$PR_TITLE" | sed -E 's/^(feat|fix|docs|chore|refactor|style|perf|test|build|ci|revert)(\!)?:.*/\1/')
-            DESCRIPTION=$(echo "$PR_TITLE" | sed -E 's/^(feat|fix|docs|chore|refactor|style|perf|test|build|ci|revert)(\!)?://' | sed -e 's/^[[:space:]]*//')
+          # Simplest possible extraction approach - look for fixed patterns
+          if [[ "$PR_BODY" == *"## Changelog Entry"* && "$PR_BODY" == *"### "* ]]; then
+            # PR has a changelog entry section with subsections
+            echo "Found changelog entry in PR description."
             
-            case "$TYPE" in
-              feat)
-                CHANGELOG_ENTRY="### Added
-- $DESCRIPTION"
-                ;;
-              fix)
-                CHANGELOG_ENTRY="### Fixed
-- $DESCRIPTION"
-                ;;
-              refactor|perf)
-                CHANGELOG_ENTRY="### Changed
-- $DESCRIPTION"
-                ;;
-              docs|chore|style|test|build|ci|revert)
-                CHANGELOG_ENTRY="### Changed
-- $DESCRIPTION"
-                ;;
-              *)
-                CHANGELOG_ENTRY="### Changed
-- $DESCRIPTION"
-                ;;
-            esac
+            # Extract from after "## Changelog Entry" to either the next heading or end of string
+            CHANGELOG_TEXT=$(echo "$PR_BODY" | sed -n '/## Changelog Entry/,/## /p' | grep -v "^## Changelog Entry" | grep -v "^## ")
+            
+            # If we didn't match anything, try getting everything after changelog entry
+            if [ -z "$CHANGELOG_TEXT" ]; then
+              CHANGELOG_TEXT=$(echo "$PR_BODY" | sed -n '/## Changelog Entry/,$p' | grep -v "^## Changelog Entry")
+            fi
+            
+            # Save the changelog entry (trimmed)
+            CHANGELOG_ENTRY=$(echo "$CHANGELOG_TEXT" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
           else
-            CHANGELOG_ENTRY="$CHANGELOG_SECTION"
+            # Fallback to using PR title to generate a changelog entry
+            echo "No changelog entry found in PR description. Using PR title as fallback."
+            
+            # Extract type and description from PR title
+            if [[ "$PR_TITLE" =~ ^feat: ]]; then
+              TYPE="feat"
+              DESCRIPTION=$(echo "$PR_TITLE" | sed 's/^feat: //')
+              CHANGELOG_ENTRY="### Added
+- $DESCRIPTION"
+            elif [[ "$PR_TITLE" =~ ^fix: ]]; then
+              TYPE="fix"
+              DESCRIPTION=$(echo "$PR_TITLE" | sed 's/^fix: //')
+              CHANGELOG_ENTRY="### Fixed
+- $DESCRIPTION"
+            else
+              # Default to "Changed" for any other type
+              DESCRIPTION=$(echo "$PR_TITLE" | sed 's/^[^:]*: //')
+              CHANGELOG_ENTRY="### Changed
+- $DESCRIPTION"
+            fi
           fi
           
           # Save to file for later use
           echo "$CHANGELOG_ENTRY" > changelog_entry.txt
-          echo "Changelog entry:"
+          echo "Changelog entry extracted:"
           cat changelog_entry.txt
           
       - name: Bump version
@@ -169,41 +151,31 @@ $line"
             exit 1
           fi
           
-          # Load the changelog entry from the file
+          # Get the changelog entry from our file
           CHANGELOG_ENTRY=$(cat changelog_entry.txt)
           
-          # Create a new changelog with our updates
+          # Simple string-based search and replace approach
+          # 1. Replace Unreleased section with new content
+          sed -i 's/## \[Unreleased\]/## [Unreleased]\n\n*No unreleased changes at this time.*\n\n## ['"$NEW_VERSION"'] - '"$DATE"'/' CHANGELOG.md
+          
+          # 2. Insert changelog entry after the newly created version header
+          awk -v ver="## [$NEW_VERSION] - $DATE" -v entry="$CHANGELOG_ENTRY" '
           {
-            # Find the start of the file until the Unreleased section
-            sed -n '1,/## \[Unreleased\]/p' CHANGELOG.md
-            
-            # Add empty line after Unreleased header
-            echo ""
-            
-            # Add placeholder for unreleased
-            echo "*No unreleased changes at this time.*"
-            echo ""
-            
-            # Add new version with date
-            echo "## [$NEW_VERSION] - $DATE"
-            echo ""
-            
-            # Add changelog entry
-            echo "$CHANGELOG_ENTRY"
-            echo ""
-            
-            # Add the rest of the file starting from the next version
-            sed -n '/## \[[0-9]/,$p' CHANGELOG.md
-          } > new_changelog.md
+            print $0
+            if ($0 ~ ver) {
+              print ""
+              print entry
+            }
+          }' CHANGELOG.md > temp_changelog.md
           
-          # Replace old changelog with new one
-          mv new_changelog.md CHANGELOG.md
+          # 3. Replace the original file
+          cp temp_changelog.md CHANGELOG.md
+          rm temp_changelog.md
           
-          # Update package.json to ensure it has the right version
+          # Update package.json with the new version
           node -e "const fs = require('fs'); const pkg = JSON.parse(fs.readFileSync('package.json')); pkg.version = '$NEW_VERSION'; fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');"
           
           echo "CHANGELOG.md and package.json updated successfully"
-          echo "Added version $NEW_VERSION with changelog entry"
           
       - name: Commit and push changes
         if: steps.version-bump.outputs.bump_type != 'none'
