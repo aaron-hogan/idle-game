@@ -1,0 +1,93 @@
+name: Validate PR Title
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+    branches: [main]
+
+jobs:
+  validate-title:
+    name: Validate PR Title Format
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check PR title format
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const title = context.payload.pull_request.title;
+            console.log(`Validating PR title: "${title}"`);
+            
+            // Valid prefixes for conventional commits
+            const validPrefixes = ['feat', 'fix', 'docs', 'style', 'refactor', 'perf', 'test', 'build', 'ci', 'chore', 'revert'];
+            
+            // Check if title matches conventional format
+            // Format: type(scope?): description
+            // Examples: "feat: add login", "fix(auth): resolve issue", "feat!: breaking change"
+            const conventionalPattern = /^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\!)?(\([a-z-]+\))?\:\s.+$/;
+            
+            if (!conventionalPattern.test(title)) {
+              core.setFailed(`
+              ❌ PR title "${title}" does not follow the conventional format.
+              
+              Please use one of these formats:
+              - feat: add new feature
+              - fix: resolve bug
+              - docs: update documentation
+              - style: format code
+              - refactor: restructure code
+              - perf: improve performance
+              - test: add tests
+              - build: change build process
+              - ci: change CI configuration
+              - chore: update dependencies
+              - revert: revert previous change
+              
+              For breaking changes, add an exclamation mark:
+              - feat!: breaking change
+              
+              You can also specify a scope:
+              - feat(auth): add login feature
+              - fix(api): resolve data issue
+              `);
+            } else {
+              console.log("✅ PR title follows conventional format!");
+              
+              // Extract type for additional information
+              const type = title.split(':')[0].split('(')[0].replace('!', '');
+              let versionImpact = "none";
+              
+              if (type === 'feat' && title.includes('!')) {
+                versionImpact = "major";
+              } else if (type === 'feat') {
+                versionImpact = "minor";
+              } else if (type === 'fix') {
+                versionImpact = "patch";
+              }
+              
+              if (versionImpact !== "none") {
+                console.log(`This PR will trigger a ${versionImpact} version bump when merged.`);
+                
+                // Comment on the PR with version info
+                const comment = `
+                ℹ️ **Versioning Impact**
+                
+                Based on your PR title, this change will result in a **${versionImpact}** version bump when merged.
+                
+                To include specific changelog content, add a "## Changelog Entry" section to your PR description.
+                `;
+                
+                // Only comment on PR open or title edit, not on every commit
+                if (context.payload.action === 'opened' || context.payload.action === 'edited') {
+                  try {
+                    await github.rest.issues.createComment({
+                      issue_number: context.issue.number,
+                      owner: context.repo.owner,
+                      repo: context.repo.repo,
+                      body: comment
+                    });
+                  } catch (error) {
+                    console.log("Could not create comment (likely due to permissions). This is not critical.");
+                  }
+                }
+              }
+            }

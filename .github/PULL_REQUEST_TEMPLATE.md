@@ -4,19 +4,40 @@
 <!-- Provide a clear description of the changes in this PR -->
 
 ## Type of Change
-- [ ] Bug fix
-- [ ] New feature
-- [ ] Enhancement to existing feature
-- [ ] Documentation update
-- [ ] Refactoring
-- [ ] Test improvement
-- [ ] Build/CI process update
+- [ ] Bug fix (fix: ...)
+- [ ] New feature (feat: ...)
+- [ ] Breaking change (feat!: ...)
+- [ ] Documentation update (docs: ...)
+- [ ] Refactoring (refactor: ...)
+- [ ] Test improvement (test: ...)
+- [ ] Build/CI process update (ci: ...)
+- [ ] Chore (chore: ...)
 
 ## Related Issues
 <!-- Reference any related issues (e.g., "Fixes #123") -->
 
 ## Implementation Details
 <!-- Briefly explain your implementation approach -->
+
+## Changelog Entry
+<!-- ⚠️ CRITICAL: This section will be automatically included in the CHANGELOG.md file ⚠️ -->
+<!-- Choose the most appropriate section(s) for your changes and delete the rest -->
+
+### Added
+<!-- List new features or functionality added -->
+<!-- Example: - New login feature with support for OAuth -->
+
+### Changed
+<!-- List changes to existing functionality -->
+<!-- Example: - Improved performance of dashboard rendering -->
+
+### Fixed
+<!-- List bug fixes -->
+<!-- Example: - Fixed authentication token expiration issue -->
+
+### Removed
+<!-- List features or functionality that was removed -->
+<!-- Example: - Removed deprecated API endpoint -->
 
 ## Testing
 <!-- Describe the testing performed to validate changes -->
@@ -41,8 +62,8 @@
 
 ### Documentation and Quality
 - [ ] Documentation is updated as needed
-- [ ] CHANGELOG.md is updated with changes in the Unreleased section
-- [ ] PR has the appropriate version label (version:major, version:minor, version:patch, or version:patch_level)
+- [ ] PR title follows conventional commit format (e.g., "feat: add login feature")
+- [ ] Changelog Entry section above is filled out appropriately
 - [ ] No debug/console logs in production code
 - [ ] Branch is updated with main
 
@@ -52,4 +73,4 @@
 ## Additional Notes
 <!-- Any additional information reviewers should know -->
 
-> ⚠️ **CRITICAL PROCESS LESSON**: TypeScript compilation alone is insufficient validation. Actual runtime testing with no console errors is REQUIRED before a PR is considered ready for review.
+> ⚠️ **CRITICAL**: PR title MUST follow conventional commit format (feat:, fix:, etc.) for automatic versioning to work correctly.
