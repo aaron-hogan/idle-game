@@ -9,6 +9,8 @@ Our versioning system now works on these principles:
 2. **Changelog in PR Description**: Include changelog entries directly in the PR
 3. **Fully Automated**: No manual versioning steps or labels required
 
+> **Important**: For lessons learned during implementation and best practices, see [Streamlined Versioning Learnings](streamlined-versioning-learnings.md)
+
 ## How It Works
 
 ### 1. PR Creation
@@ -158,6 +160,22 @@ Other prefixes like `docs:`, `chore:`, etc. do not trigger version bumps.
 ### My changelog entries weren't included
 
 Make sure your PR description included a section titled "## Changelog Entry" with appropriate subsections (Added, Changed, Fixed, Removed).
+
+### The PR validation is failing
+
+Common issues include:
+1. **Missing Changelog Entry**: Ensure your PR description has a "## Changelog Entry" section.
+2. **Missing Subsections**: Add at least one subsection (### Added, ### Changed, ### Fixed, or ### Removed).
+3. **Empty Subsections**: Each subsection should have at least one item (usually as a bulleted list).
+4. **Formatting Issues**: Follow markdown formatting with proper spacing and indentation.
+
+### Workflow failures in GitHub Actions
+
+If you're seeing workflow failures related to the streamlined versioning:
+1. Check for YAML syntax errors in workflow files
+2. Ensure the PR title follows the conventional format
+3. Verify the PR description has properly formatted changelog entries
+4. Make sure your branch is up to date with main
 
 ## Migration from Previous System
 
