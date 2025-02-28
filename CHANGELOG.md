@@ -7,7 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-*No unreleased changes at this time.*
+### Added
+- **Streamlined versioning system**:
+  - New automatic versioning based on conventional PR titles (feat:, fix:, etc.)
+  - Extract changelog entries directly from PR descriptions
+  - Eliminated manual version labeling requirement
+  - Added comprehensive documentation for streamlined versioning process
+- **Enhanced PR workflow**:
+  - New PR title validation to enforce conventional commit format
+  - Updated PR template with changelog entry section
+  - Automated version determination based on PR title prefix
+  - Helpful validation messages with specific guidance
 
 ## [0.7.0] - 2025-02-28
 
