@@ -3,7 +3,7 @@
 ## ⚠️ CRITICAL PROCESS REQUIREMENT ⚠️
 
 **BEFORE BEGINNING ANY WORK, YOU MUST:**
-1. Read and follow the [Safe Workflow Checklist](/docs/processes/safe-workflow-checklist.md)
+1. Read and follow the [Safe Workflow Checklist](/docs/processes/git/safe-workflow-checklist.md)
 2. Create a properly named git branch following our [Git Workflow](/docs/processes/git/git-workflow.md)
 3. Follow our [Documentation Standards](/docs/processes/documentation/documentation-standards.md)
 4. Review the [Feature Development Process](/docs/processes/feature-development-process.md)
@@ -52,7 +52,9 @@ Main branch should have these protection rules enabled:
 - Require status checks to pass before merging
 - Include administrators in these restrictions
 
-If these protections are not in place, please notify the repository administrators.
+For complete details, see [Branch Protection](/docs/processes/git/branch-protection.md).
+
+If these protections are not in place, please notify the repository administrators immediately.
 
 ## <AI-CRITICAL> BUILD COMMANDS
 
@@ -114,9 +116,11 @@ Before submitting a PR, ensure:
 - [UI Components](/docs/features/visual-design/visual-design.md)
 
 ### Process Documentation
-- [Safe Workflow Checklist](/docs/processes/safe-workflow-checklist.md)
+- [Safe Workflow Checklist](/docs/processes/git/safe-workflow-checklist.md)
 - [Git Workflow](/docs/processes/git/git-workflow.md)
-- [PR Workflow](/docs/processes/pr-workflow.md)
+- [PR Workflow](/docs/processes/git/pr-workflow.md)
+- [Branch Management](/docs/processes/git/branch-management.md)
+- [Resolving Merge Conflicts](/docs/processes/git/resolving-merge-conflicts.md)
 - [Documentation Standards](/docs/processes/documentation/documentation-standards.md)
 - [Testing Standards](/docs/processes/code-quality/testing-standards.md)
 - [Architecture Guidelines](/docs/processes/code-quality/architecture-guidelines.md)
