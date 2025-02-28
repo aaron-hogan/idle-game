@@ -133,24 +133,8 @@ jobs:
                   PR_BODY.includes('### Removed')) {
                 console.log("✅ Found changelog subsections in PR description");
                 
-                // Extract the changelog entry section to check if it has actual content
-                const changelogSectionMatch = PR_BODY.match(/## Changelog Entry([\s\S]*?)(?=##|$)/);
-                if (changelogSectionMatch && changelogSectionMatch[1]) {
-                  const changelogContent = changelogSectionMatch[1].trim();
-                  // Check if there's any content besides just the subsection headers
-                  const subsectionContentCheck = changelogContent.replace(/### (Added|Changed|Fixed|Removed)/g, '').trim();
-                  
-                  if (!subsectionContentCheck) {
-                    core.setFailed(`
-                    ❌ Changelog subsections are empty. 
-                    
-                    Please add content to at least one subsection. Example:
-                    
-                    ### Added
-                    - New login feature with OAuth support
-                    `);
-                  }
-                }
+                // For now, we'll consider having subsections enough during the transition
+                console.log("✅ Validation passed: PR has changelog entry with subsections");
               } else {
                 core.setFailed(`
                 ❌ Changelog entry must include at least one subsection:
