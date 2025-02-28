@@ -28,6 +28,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Updated `workers.integration.test.tsx` to use proper WorkerManager initialization 
   - Rewrote `tasks.integration.test.ts` to use simpler mocking approach
   - Fixed outdated import paths in integration tests
+- Cleaned up test suite by removing outdated tests and fixing App component tests
+  - Removed skipped tests in GameLoop test files that were testing outdated functionality
+  - Fixed App component tests by properly mocking the events state
+  - Improved test maintainability by removing obsolete test cases
   - Ensured manager singletons are properly reset between tests
 ### Added
 - New script to detect and fix empty versions in CHANGELOG
