@@ -14,11 +14,12 @@ Our process documentation is organized into these key areas:
 - [**Versioning**](/docs/processes/versioning/) - Version management and releases
 - [**Planning**](/docs/processes/planning/) - Research and implementation planning
 
-## Core Process Documents
+## Additional Process Areas
 
-- [Feature Development Process](feature-development-process.md) - End-to-end process for developing features
-- [Todo Management](todo-management.md) - Managing task lists and priorities
-- [Troubleshooting Guide](troubleshooting-guide.md) - Solutions for common issues
+- [**Feature Development**](/docs/processes/feature/) - End-to-end processes for feature development
+- [**Troubleshooting**](/docs/processes/troubleshooting/) - Solutions for common issues
+- [**Release Processes**](/docs/processes/releases/) - Processes for releasing new versions
+- [**AI Assistance**](/docs/processes/ai/) - Working with AI tools and assistants
 
 ## Incident Management
 
