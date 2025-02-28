@@ -8,6 +8,7 @@ import {
   Achievement, 
   StageRequirement,
   AchievementReward,
+  MilestoneReward,
   MilestoneType,
   AchievementType
 } from '../../interfaces/progression';
@@ -17,6 +18,7 @@ import {
   Dispatch 
 } from '@reduxjs/toolkit';
 import { RootState } from '../../state/store';
+import { Resource } from '../../models/resource';
 import { 
   completeMilestone, 
   unlockAchievement, 
@@ -148,7 +150,7 @@ export class ProgressionManager {
             // Get resource using properly typed access
             // Use safe access for indexing with type assertion
             const resource = (typeof target === 'string' && target in resources) ? 
-              (resources as Record<string, any>)[target] : undefined;
+              (resources as Record<string, Resource>)[target] : undefined;
             if (!resource) {
               this.debugLog(`Warning: Resource ${target} not found`);
               return false;
@@ -183,7 +185,7 @@ export class ProgressionManager {
             
             // Get resource using properly typed access
             const resource = (typeof target === 'string' && target in resources) ? 
-              (resources as Record<string, any>)[target] : undefined;
+              (resources as Record<string, Resource>)[target] : undefined;
             if (!resource) {
               this.debugLog(`Warning: Resource ${target} not found`);
               return false;
@@ -411,7 +413,7 @@ export class ProgressionManager {
    * Apply a single milestone reward
    * @param reward The reward to apply
    */
-  private applyMilestoneReward(reward: any): void {
+  private applyMilestoneReward(reward: MilestoneReward): void {
     try {
       this.ensureInitialized();
       const { type, target, value } = reward;
@@ -820,7 +822,7 @@ export class ProgressionManager {
         
         if (req.type === 'resourceAmount' && req.target) {
           const resources = state.resources;
-          const resource = (resources as Record<string, any>)[req.target];
+          const resource = (resources as Record<string, Resource>)[req.target];
           
           if (!resource) continue;
           
@@ -861,8 +863,9 @@ export class ProgressionManager {
       const state = this.getState!();
       
       // Get oppression and power resources
-      const oppression = (state.resources['corporate-oppression']?.amount || 0) as number;
-      const power = (state.resources['collective-power']?.amount || 1) as number;
+      const resources = state.resources as Record<string, Resource>;
+      const oppression = (resources['corporate-oppression']?.amount || 0);
+      const power = (resources['collective-power']?.amount || 1);
       
       // Calculate ratio of oppression to power (higher = more oppression)
       const ratio = Math.min(1, oppression / (power || 1));

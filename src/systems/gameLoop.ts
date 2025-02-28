@@ -357,8 +357,8 @@ export class GameLoop {
       
       // Log detailed resource info occasionally
       if (this.tickCount % 100 === 0) { // Every 10 seconds at 10Hz
-        const state = store.getState();
-        Object.values(state.resources).forEach((resource: any) => {
+        const state = store.getState() as RootState;
+        Object.values(state.resources).forEach((resource) => {
           if (resource && resource.name) {
             console.log(`Resource ${resource.name}: amount=${resource.amount.toFixed(2)}, perSecond=${resource.perSecond.toFixed(2)}`);
           }

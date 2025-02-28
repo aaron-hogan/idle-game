@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction, AnyAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Task, TaskStatus, initialTasks } from '../models/task';
 import { RootState } from './store';
 
@@ -120,9 +120,9 @@ const tasksSlice = createSlice({
   },
   extraReducers: (builder) => {
     // When a saved game is loaded, replace the tasks state
-    builder.addCase('game/gameLoaded', (state, action: AnyAction) => {
+    builder.addCase('game/gameLoaded' as any, (state, action: PayloadAction<any>) => {
       if (action.payload && action.payload.tasks) {
-        return action.payload.tasks;
+        return action.payload.tasks as TasksState;
       }
       return state;
     });
