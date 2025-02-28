@@ -163,12 +163,11 @@ jobs:
           
           # Then add the actual changelog entry after the version heading
           echo "$TEMP_CONTENT" > changelog_temp.md
-          UPDATED_CONTENT=$(awk -v ver="## [$NEW_VERSION] - $DATE" -v entry="$CHANGELOG_ENTRY" '
-            {
-              print $0
+          UPDATED_CONTENT=$(awk -v ver="## [$NEW_VERSION] - $DATE" -v entry="$CHANGELOG_ENTRY" '{
+              print $0;
               if ($0 ~ ver) {
-                print ""
-                print entry
+                print "";
+                print entry;
               }
             }' changelog_temp.md)
           
