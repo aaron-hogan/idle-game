@@ -1,0 +1,206 @@
+﻿2025-02-28T00:02:18.3980820Z Current runner version: '2.322.0'
+2025-02-28T00:02:18.4011844Z ##[group]Operating System
+2025-02-28T00:02:18.4013092Z Ubuntu
+2025-02-28T00:02:18.4014082Z 24.04.2
+2025-02-28T00:02:18.4014834Z LTS
+2025-02-28T00:02:18.4015662Z ##[endgroup]
+2025-02-28T00:02:18.4016475Z ##[group]Runner Image
+2025-02-28T00:02:18.4017364Z Image: ubuntu-24.04
+2025-02-28T00:02:18.4018368Z Version: 20250223.1.0
+2025-02-28T00:02:18.4020018Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20250223.1/images/ubuntu/Ubuntu2404-Readme.md
+2025-02-28T00:02:18.4022397Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20250223.1
+2025-02-28T00:02:18.4024314Z ##[endgroup]
+2025-02-28T00:02:18.4025189Z ##[group]Runner Image Provisioner
+2025-02-28T00:02:18.4026193Z 2.0.422.1
+2025-02-28T00:02:18.4026969Z ##[endgroup]
+2025-02-28T00:02:18.4028697Z ##[group]GITHUB_TOKEN Permissions
+2025-02-28T00:02:18.4031622Z Contents: read
+2025-02-28T00:02:18.4032454Z Metadata: read
+2025-02-28T00:02:18.4033766Z Packages: read
+2025-02-28T00:02:18.4034739Z ##[endgroup]
+2025-02-28T00:02:18.4037647Z Secret source: Actions
+2025-02-28T00:02:18.4038756Z Prepare workflow directory
+2025-02-28T00:02:18.4499293Z Prepare all required actions
+2025-02-28T00:02:18.4553953Z Getting action download info
+2025-02-28T00:02:18.8000034Z Download action repository 'actions/checkout@v4' (SHA:11bd71901bbe5b1630ceea73d27597364c9af683)
+2025-02-28T00:02:18.9612295Z Complete job name: Check CHANGELOG
+2025-02-28T00:02:19.0261885Z ##[group]Run actions/checkout@v4
+2025-02-28T00:02:19.0262700Z with:
+2025-02-28T00:02:19.0263079Z   fetch-depth: 0
+2025-02-28T00:02:19.0263674Z   repository: aaron-hogan/idle-game
+2025-02-28T00:02:19.0264333Z   token: ***
+2025-02-28T00:02:19.0264713Z   ssh-strict: true
+2025-02-28T00:02:19.0265093Z   ssh-user: git
+2025-02-28T00:02:19.0265484Z   persist-credentials: true
+2025-02-28T00:02:19.0265927Z   clean: true
+2025-02-28T00:02:19.0266315Z   sparse-checkout-cone-mode: true
+2025-02-28T00:02:19.0266794Z   fetch-tags: false
+2025-02-28T00:02:19.0267192Z   show-progress: true
+2025-02-28T00:02:19.0267628Z   lfs: false
+2025-02-28T00:02:19.0268001Z   submodules: false
+2025-02-28T00:02:19.0268393Z   set-safe-directory: true
+2025-02-28T00:02:19.0269050Z ##[endgroup]
+2025-02-28T00:02:19.2319799Z Syncing repository: aaron-hogan/idle-game
+2025-02-28T00:02:19.2321933Z ##[group]Getting Git version info
+2025-02-28T00:02:19.2322827Z Working directory is '/home/runner/work/idle-game/idle-game'
+2025-02-28T00:02:19.2324253Z [command]/usr/bin/git version
+2025-02-28T00:02:19.2390172Z git version 2.48.1
+2025-02-28T00:02:19.2419692Z ##[endgroup]
+2025-02-28T00:02:19.2435315Z Temporarily overriding HOME='/home/runner/work/_temp/ace5b025-2bfe-4837-bec1-e5e58ecd824d' before making global git config changes
+2025-02-28T00:02:19.2438133Z Adding repository directory to the temporary git global config as a safe directory
+2025-02-28T00:02:19.2442414Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/idle-game/idle-game
+2025-02-28T00:02:19.2479884Z Deleting the contents of '/home/runner/work/idle-game/idle-game'
+2025-02-28T00:02:19.2484232Z ##[group]Initializing the repository
+2025-02-28T00:02:19.2488944Z [command]/usr/bin/git init /home/runner/work/idle-game/idle-game
+2025-02-28T00:02:19.2560333Z hint: Using 'master' as the name for the initial branch. This default branch name
+2025-02-28T00:02:19.2561376Z hint: is subject to change. To configure the initial branch name to use in all
+2025-02-28T00:02:19.2562469Z hint: of your new repositories, which will suppress this warning, call:
+2025-02-28T00:02:19.2563432Z hint:
+2025-02-28T00:02:19.2564152Z hint: 	git config --global init.defaultBranch <name>
+2025-02-28T00:02:19.2564882Z hint:
+2025-02-28T00:02:19.2565956Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2025-02-28T00:02:19.2567740Z hint: 'development'. The just-created branch can be renamed via this command:
+2025-02-28T00:02:19.2569050Z hint:
+2025-02-28T00:02:19.2569757Z hint: 	git branch -m <name>
+2025-02-28T00:02:19.2570810Z Initialized empty Git repository in /home/runner/work/idle-game/idle-game/.git/
+2025-02-28T00:02:19.2580004Z [command]/usr/bin/git remote add origin https://github.com/aaron-hogan/idle-game
+2025-02-28T00:02:19.2615020Z ##[endgroup]
+2025-02-28T00:02:19.2615823Z ##[group]Disabling automatic garbage collection
+2025-02-28T00:02:19.2619007Z [command]/usr/bin/git config --local gc.auto 0
+2025-02-28T00:02:19.2648243Z ##[endgroup]
+2025-02-28T00:02:19.2648993Z ##[group]Setting up auth
+2025-02-28T00:02:19.2655063Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2025-02-28T00:02:19.2684252Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2025-02-28T00:02:19.2991345Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2025-02-28T00:02:19.3023246Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2025-02-28T00:02:19.3259704Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2025-02-28T00:02:19.3294332Z ##[endgroup]
+2025-02-28T00:02:19.3295840Z ##[group]Fetching the repository
+2025-02-28T00:02:19.3305818Z [command]/usr/bin/git -c protocol.version=2 fetch --prune --no-recurse-submodules origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/* +243f0c15e0251810fd0708353357fe3c0df60ef4:refs/remotes/pull/100/merge
+2025-02-28T00:02:19.6926067Z From https://github.com/aaron-hogan/idle-game
+2025-02-28T00:02:19.6928482Z  * [new branch]      archive/day-timer-fix-feb2025            -> origin/archive/day-timer-fix-feb2025
+2025-02-28T00:02:19.6931401Z  * [new branch]      chore/comprehensive-cleanup              -> origin/chore/comprehensive-cleanup
+2025-02-28T00:02:19.6934526Z  * [new branch]      chore/gitignore-improvements             -> origin/chore/gitignore-improvements
+2025-02-28T00:02:19.6937177Z  * [new branch]      cleanup/project-structure-organization   -> origin/cleanup/project-structure-organization
+2025-02-28T00:02:19.6939791Z  * [new branch]      cleanup/root-folder-consolidation        -> origin/cleanup/root-folder-consolidation
+2025-02-28T00:02:19.6942248Z  * [new branch]      cleanup/workflow-tests                   -> origin/cleanup/workflow-tests
+2025-02-28T00:02:19.6944524Z  * [new branch]      develop                                  -> origin/develop
+2025-02-28T00:02:19.6946954Z  * [new branch]      docs/enhance-git-documentation           -> origin/docs/enhance-git-documentation
+2025-02-28T00:02:19.6950074Z  * [new branch]      docs/github-workflows-cleanup            -> origin/docs/github-workflows-cleanup
+2025-02-28T00:02:19.6953046Z  * [new branch]      docs/improve-branch-protection           -> origin/docs/improve-branch-protection
+2025-02-28T00:02:19.6956618Z  * [new branch]      docs/improve-documentation-organization  -> origin/docs/improve-documentation-organization
+2025-02-28T00:02:19.6960151Z  * [new branch]      docs/pr-validation-documentation         -> origin/docs/pr-validation-documentation
+2025-02-28T00:02:19.6963401Z  * [new branch]      docs/process-failure-learnings           -> origin/docs/process-failure-learnings
+2025-02-28T00:02:19.6967530Z  * [new branch]      docs/retrospective-changelog-improvements -> origin/docs/retrospective-changelog-improvements
+2025-02-28T00:02:19.6972215Z  * [new branch]      docs/update-milestone-strip-documentation -> origin/docs/update-milestone-strip-documentation
+2025-02-28T00:02:19.6976113Z  * [new branch]      feature/branch-management-tools          -> origin/feature/branch-management-tools
+2025-02-28T00:02:19.6979573Z  * [new branch]      feature/dependency-injection             -> origin/feature/dependency-injection
+2025-02-28T00:02:19.6982973Z  * [new branch]      feature/game-balance-config              -> origin/feature/game-balance-config
+2025-02-28T00:02:19.6986808Z  * [new branch]      feature/git-automation                   -> origin/feature/git-automation
+2025-02-28T00:02:19.6990404Z  * [new branch]      feature/milestone-visual-enhancements    -> origin/feature/milestone-visual-enhancements
+2025-02-28T00:02:19.6995050Z  * [new branch]      feature/patch-versioning                 -> origin/feature/patch-versioning
+2025-02-28T00:02:19.6998965Z  * [new branch]      feature/todo-synchronization             -> origin/feature/todo-synchronization
+2025-02-28T00:02:19.7002832Z  * [new branch]      feature/tutorial-help-system             -> origin/feature/tutorial-help-system
+2025-02-28T00:02:19.7007142Z  * [new branch]      feature/versioning-process               -> origin/feature/versioning-process
+2025-02-28T00:02:19.7011846Z  * [new branch]      fix/bump-version-script-enhancement      -> origin/fix/bump-version-script-enhancement
+2025-02-28T00:02:19.7016696Z  * [new branch]      fix/changelog-organization               -> origin/fix/changelog-organization
+2025-02-28T00:02:19.7020980Z  * [new branch]      fix/changelog-versioning                 -> origin/fix/changelog-versioning
+2025-02-28T00:02:19.7025530Z  * [new branch]      fix/ci-workflow-optimization             -> origin/fix/ci-workflow-optimization
+2025-02-28T00:02:19.7029963Z  * [new branch]      fix/complete-root-cleanup                -> origin/fix/complete-root-cleanup
+2025-02-28T00:02:19.7034998Z  * [new branch]      fix/dependency-injection-tests           -> origin/fix/dependency-injection-tests
+2025-02-28T00:02:19.7039294Z  * [new branch]      fix/empty-versions-in-changelog          -> origin/fix/empty-versions-in-changelog
+2025-02-28T00:02:19.7043309Z  * [new branch]      fix/events-selector-memoization          -> origin/fix/events-selector-memoization
+2025-02-28T00:02:19.7047245Z  * [new branch]      fix/failing-tests                        -> origin/fix/failing-tests
+2025-02-28T00:02:19.7049800Z  * [new branch]      fix/game-loop-errors                     -> origin/fix/game-loop-errors
+2025-02-28T00:02:19.7053013Z  * [new branch]      fix/github-action-permissions            -> origin/fix/github-action-permissions
+2025-02-28T00:02:19.7056024Z  * [new branch]      fix/milestone-centering                  -> origin/fix/milestone-centering
+2025-02-28T00:02:19.7059004Z  * [new branch]      fix/milestone-progress-infinite-update   -> origin/fix/milestone-progress-infinite-update
+2025-02-28T00:02:19.7062061Z  * [new branch]      fix/oppression-rate-display              -> origin/fix/oppression-rate-display
+2025-02-28T00:02:19.7065328Z  * [new branch]      fix/pr-validation-case-sensitivity       -> origin/fix/pr-validation-case-sensitivity
+2025-02-28T00:02:19.7068208Z  * [new branch]      fix/process-env-variables                -> origin/fix/process-env-variables
+2025-02-28T00:02:19.7070988Z  * [new branch]      fix/progression-manager-imports          -> origin/fix/progression-manager-imports
+2025-02-28T00:02:19.7073978Z  * [new branch]      fix/progression-selectors                -> origin/fix/progression-selectors
+2025-02-28T00:02:19.7076639Z  * [new branch]      fix/reduce-console-noise                 -> origin/fix/reduce-console-noise
+2025-02-28T00:02:19.7079448Z  * [new branch]      fix/remaining-selector-issues            -> origin/fix/remaining-selector-issues
+2025-02-28T00:02:19.7082226Z  * [new branch]      fix/remove-gitignored-files              -> origin/fix/remove-gitignored-files
+2025-02-28T00:02:19.7086347Z  * [new branch]      fix/skip-tests-auto-versioning           -> origin/fix/skip-tests-auto-versioning
+2025-02-28T00:02:19.7089516Z  * [new branch]      fix/task-manager-double-initialization   -> origin/fix/task-manager-double-initialization
+2025-02-28T00:02:19.7092934Z  * [new branch]      fix/test-suite-fixes                     -> origin/fix/test-suite-fixes
+2025-02-28T00:02:19.7096005Z  * [new branch]      fix/update-tests-tutorial                -> origin/fix/update-tests-tutorial
+2025-02-28T00:02:19.7098208Z  * [new branch]      main                                     -> origin/main
+2025-02-28T00:02:19.7101153Z  * [new branch]      refactor/manager-dependency-injection    -> origin/refactor/manager-dependency-injection
+2025-02-28T00:02:19.7104132Z  * [new branch]      sync/sync-main-develop                   -> origin/sync/sync-main-develop
+2025-02-28T00:02:19.7106592Z  * [new branch]      test/hello-world-versioning              -> origin/test/hello-world-versioning
+2025-02-28T00:02:19.7108901Z  * [new tag]         v0.5.1                                   -> v0.5.1
+2025-02-28T00:02:19.7110490Z  * [new tag]         v0.5.2                                   -> v0.5.2
+2025-02-28T00:02:19.7112040Z  * [new tag]         v0.5.3                                   -> v0.5.3
+2025-02-28T00:02:19.7114445Z  * [new tag]         v0.5.5                                   -> v0.5.5
+2025-02-28T00:02:19.7116655Z  * [new tag]         v0.5.6                                   -> v0.5.6
+2025-02-28T00:02:19.7118233Z  * [new tag]         v0.6.0                                   -> v0.6.0
+2025-02-28T00:02:19.7119987Z  * [new ref]         243f0c15e0251810fd0708353357fe3c0df60ef4 -> pull/100/merge
+2025-02-28T00:02:19.7123850Z ##[endgroup]
+2025-02-28T00:02:19.7126300Z ##[group]Determining the checkout info
+2025-02-28T00:02:19.7129140Z ##[endgroup]
+2025-02-28T00:02:19.7130851Z [command]/usr/bin/git sparse-checkout disable
+2025-02-28T00:02:19.7143258Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2025-02-28T00:02:19.7171236Z ##[group]Checking out the ref
+2025-02-28T00:02:19.7174328Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/100/merge
+2025-02-28T00:02:19.7506100Z Note: switching to 'refs/remotes/pull/100/merge'.
+2025-02-28T00:02:19.7507966Z 
+2025-02-28T00:02:19.7509553Z You are in 'detached HEAD' state. You can look around, make experimental
+2025-02-28T00:02:19.7514010Z changes and commit them, and you can discard any commits you make in this
+2025-02-28T00:02:19.7517908Z state without impacting any branches by switching back to a branch.
+2025-02-28T00:02:19.7519904Z 
+2025-02-28T00:02:19.7521211Z If you want to create a new branch to retain commits you create, you may
+2025-02-28T00:02:19.7524397Z do so (now or later) by using -c with the switch command. Example:
+2025-02-28T00:02:19.7526108Z 
+2025-02-28T00:02:19.7526758Z   git switch -c <new-branch-name>
+2025-02-28T00:02:19.7527658Z 
+2025-02-28T00:02:19.7528104Z Or undo this operation with:
+2025-02-28T00:02:19.7528810Z 
+2025-02-28T00:02:19.7529193Z   git switch -
+2025-02-28T00:02:19.7529699Z 
+2025-02-28T00:02:19.7530593Z Turn off this advice by setting config variable advice.detachedHead to false
+2025-02-28T00:02:19.7532150Z 
+2025-02-28T00:02:19.7534682Z HEAD is now at 243f0c1 Merge babcdc45e51b1616c802a98994c5de1320bd599d into 24079cb2e681ad94c54e715b7b4bdc4f37cb93ba
+2025-02-28T00:02:19.7538805Z ##[endgroup]
+2025-02-28T00:02:19.7553465Z [command]/usr/bin/git log -1 --format=%H
+2025-02-28T00:02:19.7576475Z 243f0c15e0251810fd0708353357fe3c0df60ef4
+2025-02-28T00:02:19.7802322Z ##[group]Run # Get PR title for type detection
+2025-02-28T00:02:19.7803850Z [36;1m# Get PR title for type detection[0m
+2025-02-28T00:02:19.7805375Z [36;1mPR_TITLE="Fix failing tests with proper dependency injection"[0m
+2025-02-28T00:02:19.7806875Z [36;1mecho "PR title: $PR_TITLE"[0m
+2025-02-28T00:02:19.7807908Z [36;1m[0m
+2025-02-28T00:02:19.7808775Z [36;1m# Skip this check for specific PR types[0m
+2025-02-28T00:02:19.7810344Z [36;1mif echo "$PR_TITLE" | grep -E "^(docs|chore|ci|test):" > /dev/null; then[0m
+2025-02-28T00:02:19.7812186Z [36;1m  echo "PR type doesn't require CHANGELOG update, skipping check"[0m
+2025-02-28T00:02:19.7813756Z [36;1m  exit 0[0m
+2025-02-28T00:02:19.7814545Z [36;1mfi[0m
+2025-02-28T00:02:19.7815274Z [36;1m[0m
+2025-02-28T00:02:19.7816115Z [36;1m# Check if CHANGELOG.md was modified[0m
+2025-02-28T00:02:19.7818987Z [36;1mif ! git diff --name-only 24079cb2e681ad94c54e715b7b4bdc4f37cb93ba babcdc45e51b1616c802a98994c5de1320bd599d | grep "CHANGELOG.md" > /dev/null; then[0m
+2025-02-28T00:02:19.7822027Z [36;1m  echo "Error: CHANGELOG.md was not updated"[0m
+2025-02-28T00:02:19.7823985Z [36;1m  echo "Please add an entry for your changes to the [Unreleased] section of CHANGELOG.md"[0m
+2025-02-28T00:02:19.7825686Z [36;1m  exit 1[0m
+2025-02-28T00:02:19.7826453Z [36;1mfi[0m
+2025-02-28T00:02:19.7827194Z [36;1m[0m
+2025-02-28T00:02:19.7828123Z [36;1mecho "CHANGELOG.md has been updated correctly"[0m
+2025-02-28T00:02:19.7879928Z shell: /usr/bin/bash -e {0}
+2025-02-28T00:02:19.7880924Z ##[endgroup]
+2025-02-28T00:02:19.7971437Z PR title: Fix failing tests with proper dependency injection
+2025-02-28T00:02:19.8008781Z Error: CHANGELOG.md was not updated
+2025-02-28T00:02:19.8012539Z Please add an entry for your changes to the [Unreleased] section of CHANGELOG.md
+2025-02-28T00:02:19.8028199Z ##[error]Process completed with exit code 1.
+2025-02-28T00:02:19.8199013Z Post job cleanup.
+2025-02-28T00:02:19.9132209Z [command]/usr/bin/git version
+2025-02-28T00:02:19.9175316Z git version 2.48.1
+2025-02-28T00:02:19.9217973Z Temporarily overriding HOME='/home/runner/work/_temp/a2f1f379-99f1-4dc4-9ae0-dba908694d96' before making global git config changes
+2025-02-28T00:02:19.9220893Z Adding repository directory to the temporary git global config as a safe directory
+2025-02-28T00:02:19.9223782Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/idle-game/idle-game
+2025-02-28T00:02:19.9257561Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2025-02-28T00:02:19.9288926Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2025-02-28T00:02:19.9524829Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2025-02-28T00:02:19.9545012Z http.https://github.com/.extraheader
+2025-02-28T00:02:19.9557508Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2025-02-28T00:02:19.9590688Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2025-02-28T00:02:19.9932128Z Cleaning up orphan processes

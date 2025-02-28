@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Guidelines for testing managers with proper singleton patterns
   - Examples for mocking Redux state in tests
   - Best practices for test cleanup and isolation
+- Comprehensive documentation for linting cleanup process
+  - Structured approach for fixing linting issues by category
+  - Inventory of linting issues across the codebase
+  - Batch processing plan for systematic fixes
 
 ### Fixed
 - Fixed linting errors in multiple files:
@@ -19,6 +23,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Removed unused imports and variables in App.tsx and App.test.tsx
   - Replaced require-style imports with ES module imports in system files (saveContext.tsx, saveManager.ts, workerManager.ts)
   - Removed unused screen imports in test files
+  - Resolved unused imports/variables in GameTimer.tsx, GameTimer.test.tsx, TabNavigation.tsx, and ClickableMilestone.tsx
+  - Fixed unused parameters/variables in GameLoop.ts (_timestamp), GameTimer.ts (_event), and saveManager.ts (_e, lastSaveTime)
 
 ## [0.6.1] - 2025-02-28
 

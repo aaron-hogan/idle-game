@@ -1,0 +1,25 @@
+﻿2025-02-28T01:07:56.9479313Z ##[group]Run # Get PR title for type detection
+2025-02-28T01:07:56.9480148Z [36;1m# Get PR title for type detection[0m
+2025-02-28T01:07:56.9480832Z [36;1mPR_TITLE="Fix: Clean up skipped and outdated tests"[0m
+2025-02-28T01:07:56.9481514Z [36;1mecho "PR title: $PR_TITLE"[0m
+2025-02-28T01:07:56.9482021Z [36;1m[0m
+2025-02-28T01:07:56.9482483Z [36;1m# Skip this check for specific PR types[0m
+2025-02-28T01:07:56.9483247Z [36;1mif echo "$PR_TITLE" | grep -E "^(docs|chore|ci|test):" > /dev/null; then[0m
+2025-02-28T01:07:56.9484155Z [36;1m  echo "PR type doesn't require CHANGELOG update, skipping check"[0m
+2025-02-28T01:07:56.9484858Z [36;1m  exit 0[0m
+2025-02-28T01:07:56.9485255Z [36;1mfi[0m
+2025-02-28T01:07:56.9485850Z [36;1m[0m
+2025-02-28T01:07:56.9486489Z [36;1m# Check if CHANGELOG.md was modified[0m
+2025-02-28T01:07:56.9487845Z [36;1mif ! git diff --name-only 1864aa4a25a45f84a63192a37d52c92f81fb2c2f 6ea3036afe167636790e15935ec1876bd8aa2cc6 | grep "CHANGELOG.md" > /dev/null; then[0m
+2025-02-28T01:07:56.9489229Z [36;1m  echo "Error: CHANGELOG.md was not updated"[0m
+2025-02-28T01:07:56.9490109Z [36;1m  echo "Please add an entry for your changes to the [Unreleased] section of CHANGELOG.md"[0m
+2025-02-28T01:07:56.9490920Z [36;1m  exit 1[0m
+2025-02-28T01:07:56.9491373Z [36;1mfi[0m
+2025-02-28T01:07:56.9491776Z [36;1m[0m
+2025-02-28T01:07:56.9492251Z [36;1mecho "CHANGELOG.md has been updated correctly"[0m
+2025-02-28T01:07:56.9543468Z shell: /usr/bin/bash -e {0}
+2025-02-28T01:07:56.9544054Z ##[endgroup]
+2025-02-28T01:07:56.9635100Z PR title: Fix: Clean up skipped and outdated tests
+2025-02-28T01:07:56.9673967Z Error: CHANGELOG.md was not updated
+2025-02-28T01:07:56.9674864Z Please add an entry for your changes to the [Unreleased] section of CHANGELOG.md
+2025-02-28T01:07:56.9688365Z ##[error]Process completed with exit code 1.

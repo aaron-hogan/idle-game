@@ -132,7 +132,7 @@ export class SaveManager {
       // Just update config if already initialized
       this.setConfig(config);
       return;
-    } catch (e) {
+    } catch (_e) {
       // Continue with initialization
     }
     
@@ -356,7 +356,7 @@ export class SaveManager {
         // Update individual properties to avoid type issues with unknown properties
         const { 
           gameStage, 
-          lastSaveTime, 
+          // lastSaveTime not used, so not destructured
           totalPlayTime,
           isRunning,
           tickRate,
