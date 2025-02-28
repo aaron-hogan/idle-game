@@ -2,29 +2,28 @@
 
 This directory contains documentation and tools for core development processes.
 
-## Git Processes
+## Process Documentation Structure
 
-All git-related processes and workflows are organized in the [git directory](/docs/processes/git/).
+Our process documentation is organized into these key areas:
 
-Key git documentation includes:
-- [Git Workflow](/docs/processes/git/git-workflow.md)
-- [PR Workflow](/docs/processes/git/pr-workflow.md)
-- [Safe Workflow Checklist](/docs/processes/git/safe-workflow-checklist.md)
-- [Branch Management](/docs/processes/git/branch-management.md)
+- [**Git Processes**](/docs/processes/git/) - Version control and collaboration workflows
+- [**CI/CD Processes**](/docs/processes/ci/) - Continuous integration and deployment
+- [**Code Quality**](/docs/processes/code-quality/) - Coding standards and architecture
+- [**Documentation**](/docs/processes/documentation/) - Documentation standards and templates
+- [**Testing**](/docs/processes/testing/) - Testing standards and strategies
+- [**Versioning**](/docs/processes/versioning/) - Version management and releases
+- [**Planning**](/docs/processes/planning/) - Research and implementation planning
 
-See the [Git README](/docs/processes/git/README.md) for a complete list of git documentation.
+## Core Process Documents
 
-## Documentation Processes
+- [Feature Development Process](feature-development-process.md) - End-to-end process for developing features
+- [Todo Management](todo-management.md) - Managing task lists and priorities
+- [Troubleshooting Guide](troubleshooting-guide.md) - Solutions for common issues
 
-- [Documentation Standards](documentation/standards.md) - Guidelines for creating and maintaining documentation
-- [Documentation Templates](documentation/templates/) - Templates for different documentation types
-- [Documentation Validation](documentation/validation/) - Tools for validating documentation quality
+## Incident Management
 
-## Testing Processes
-
-- [Testing Standards](testing/standards.md) - Guidelines for test creation and maintenance
-- [Testing Templates](testing/templates/) - Templates for test plans and reports
-- [Testing Strategies](testing/strategies.md) - Approaches to testing different aspects of the game
+- [Incidents Directory](/docs/processes/incidents/) - Documentation of past incidents and resolutions
+- [Process Failure Analysis](/docs/processes/lessons/process-failure-analysis.md) - Lessons learned
 
 ## Development Process Updates
 

@@ -11,6 +11,8 @@ This directory contains documentation for git workflows, standards, and processe
 - [Resolving Merge Conflicts](resolving-merge-conflicts.md) - Guidelines for handling conflicts
 - [Git Process Emphasis](git-process-emphasis.md) - Critical git process requirements
 - [Pre-commit Hooks](pre-commit-hooks-plan.md) - Git hooks for automation and validation
+- [Commit Standards](commit-standards.md) - Standards for commit messages and formatting
+- [Branch Protection](branch-protection.md) - Branch protection rules and configuration
 
 ## Git Workflow Overview
 
