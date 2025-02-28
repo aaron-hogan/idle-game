@@ -8,7 +8,7 @@ import { RootState } from '../state/store';
  */
 export const createMockStore = () => {
   const mockDispatch = jest.fn();
-  
+
   // Create a mock state that follows the shape of our Redux store
   const mockState = {
     resources: {},
@@ -23,46 +23,46 @@ export const createMockStore = () => {
       startDate: Date.now(),
       gameEnded: false,
       gameWon: false,
-      endReason: null
+      endReason: null,
     },
-    tasks: { 
+    tasks: {
       tasks: {},
       activeTasks: [],
       completedTasks: [],
-      failedTasks: []
+      failedTasks: [],
     },
-    events: { 
+    events: {
       availableEvents: {},
       activeEvents: [],
       completedEvents: [],
-      eventHistory: []
+      eventHistory: [],
     },
-    progression: { 
-      level: 1, 
+    progression: {
+      level: 1,
       experience: 0,
       experienceNeeded: 100,
       skillPoints: 0,
-      skills: {}
+      skills: {},
     },
-    tutorial: { 
-      active: false, 
+    tutorial: {
+      active: false,
       currentStep: null,
-      completedTutorials: [], 
+      completedTutorials: [],
       tutorialsEnabled: true,
       firstTimeUser: true,
-      showContextualHelp: true
-    }
+      showContextualHelp: true,
+    },
   };
-  
+
   const mockGetState = jest.fn().mockReturnValue(mockState);
-  
+
   const mockStore = {
     dispatch: mockDispatch,
     getState: mockGetState,
     subscribe: jest.fn(),
     replaceReducer: jest.fn(),
   } as unknown as Store;
-  
+
   return { mockStore, mockDispatch, mockGetState };
 };
 
@@ -75,10 +75,10 @@ export function resetSingleton(singletonClass: any): void {
   // Access private static instance field and reset it
   // Note: This is a hack for testing purposes only
   if ('instance' in singletonClass) {
-    // @ts-expect-error - Accessing private field for testing
+    // @ts-expect-error Private field access for testing
     singletonClass.instance = null;
   }
-  
+
   // For error logger, use the proper reset method if available
   if (singletonClass === ErrorLogger && typeof ErrorLogger.resetInstance === 'function') {
     ErrorLogger.resetInstance();
@@ -105,13 +105,13 @@ export function createTestableManager<T>(BaseClass: any): new (...args: any[]) =
   // Create a test subclass that can be directly instantiated
   return class TestManager extends BaseClass {
     constructor(...args: any[]) {
-      // @ts-expect-error - Accessing private constructor for testing
+      // @ts-expect-error Private constructor access for testing
       super(...args);
     }
-    
+
     // Add static method to set the singleton instance for testing
     static setTestInstance(instance: any): void {
-      // @ts-expect-error - Setting private static field for testing
+      // @ts-expect-error Private static field access for testing
       BaseClass.instance = instance;
     }
   } as any;
