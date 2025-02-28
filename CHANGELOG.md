@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Removed unused imports and variables in App.tsx and App.test.tsx
   - Replaced require-style imports with ES module imports
   - Removed unused screen imports in test files
+  - Resolved unused imports/variables in GameTimer.tsx, GameTimer.test.tsx, TabNavigation.tsx, and ClickableMilestone.tsx
 
 ## [0.6.1] - 2025-02-28
 
