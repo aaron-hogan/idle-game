@@ -9,6 +9,9 @@ import { useAppSelector } from '../state/hooks';
 import { store } from '../state/store';
 import { formatTimeSince } from '../utils/timeUtils';
 import { saveExists, backupExists } from '../utils/saveUtils';
+import * as gameActions from '../state/gameSlice';
+import * as resourcesActions from '../state/resourcesSlice';
+import * as structuresActions from '../state/structuresSlice';
 
 /**
  * Interface for the save context value
@@ -98,10 +101,7 @@ export const SaveProvider: React.FC<SaveProviderProps> = ({
       })
     };
     
-    // Import required action creators
-    const gameActions = require('../state/gameSlice');
-    const resourcesActions = require('../state/resourcesSlice');
-    const structureActions = require('../state/structuresSlice');
+    // Use imported action creators
     
     // Initialize save manager with dependencies
     const manager = SaveManager.getInstance({
@@ -110,7 +110,7 @@ export const SaveProvider: React.FC<SaveProviderProps> = ({
       actions: {
         resetGame: gameActions.resetGame,
         resetResources: resourcesActions.resetResources,
-        resetStructures: structureActions.resetStructures
+        resetStructures: structuresActions.resetStructures
       },
       config: config
     });

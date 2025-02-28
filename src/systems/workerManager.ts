@@ -3,6 +3,7 @@ import { RootState } from '../state/store';
 import { Structure } from '../models/structure';
 import { invariant } from '../utils/errorUtils';
 import { validateNumber } from '../utils/validationUtils';
+import * as structuresActions from '../state/structuresSlice';
 
 // Import only the types needed for dependency injection
 import type { AppDispatch } from '../state/store';
@@ -93,8 +94,7 @@ export class WorkerManager {
       // Continue with initialization
     }
     
-    // Import necessary action creators
-    const structuresActions = require('../state/structuresSlice');
+    // Use the imported action creators
     
     // Try to determine if it's a store or dispatch function
     const isStore = storeOrDispatch && 'getState' in storeOrDispatch;
