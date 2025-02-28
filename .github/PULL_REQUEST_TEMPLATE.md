@@ -20,8 +20,23 @@
 <!-- Briefly explain your implementation approach -->
 
 ## Changelog Entry
-<!-- ⚠️ CRITICAL: This section will be automatically included in the CHANGELOG.md file ⚠️ -->
-<!-- Choose the most appropriate section(s) for your changes and delete the rest -->
+<!-- ⚠️ CRITICAL: Your changes must be documented in the CHANGELOG.md ⚠️ -->
+<!-- You have THREE options to ensure your changes are documented (in order of reliability): -->
+
+<!-- OPTION 1 (BEST): Create a dedicated file -->
+<!-- Create a file in .changelog/pr-NUMBER.md (replacing NUMBER with this PR number) -->
+<!-- with properly formatted sections like: -->
+<!--
+### Added
+- New login feature with support for OAuth
+
+### Fixed
+- Authentication token expiration issue
+-->
+
+<!-- OPTION 2 (STANDARD): PR Description -->
+<!-- Fill out the sections below for this PR description to be used -->
+<!-- This section must start with "## Changelog Entry" to be recognized -->
 
 ### Added
 <!-- List new features or functionality added -->
@@ -63,17 +78,16 @@
 ### Documentation and Quality
 - [ ] Documentation is updated as needed
 - [ ] PR title follows conventional commit format (e.g., "feat: add login feature")
-- [ ] Changelog Entry section above is filled out appropriately:
-  - [ ] It includes at least one subsection (### Added, ### Changed, ### Fixed, or ### Removed)
-  - [ ] Each subsection has at least one bulleted item
-  - [ ] Items are descriptive and meaningful
+- [ ] Changelog documentation is provided using one of the three methods:
+  - [ ] Dedicated file in .changelog directory (most reliable)
+  - [ ] Changelog Entry section in this PR description (standard)
+  - [ ] Automatic fallback based on PR title (least reliable)
 - [ ] No debug/console logs in production code
 - [ ] Branch is updated with main
 
 ### Versioning Checks
 - [ ] PR title correctly reflects the type of change (feat:, fix:, docs:, etc.)
 - [ ] PR title will trigger appropriate version bump (feat→minor, fix→patch, feat!→major)
-- [ ] PR description contains complete changelog entries matching the changes made
 
 ## Screenshots/Recordings
 <!-- If applicable, add screenshots or recordings to help explain the changes -->
