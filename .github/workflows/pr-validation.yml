@@ -74,26 +74,21 @@ jobs:
                 suggestedLabel = 'version:major';
               }
               
-              core.setFailed(`
-⚠️ CRITICAL VERSION LABEL REQUIRED ⚠️
-
-This PR is missing a version label, which will BREAK our versioning process if merged.
-Based on your PR title "${PR_TITLE}", we recommend: ${suggestedLabel}
-
-Please add EXACTLY ONE of these labels to your PR:
-- version:major - For breaking changes
-- version:minor - For new features (feat: PRs)
-- version:patch - For bug fixes (fix: PRs) 
-- version:patch_level - For minor tweaks and documentation
-
-Without this label, the changes will remain in Unreleased section after merge, 
-breaking our automated versioning. See PR #115 for a real-world example of this failure.
-
-How to add a label:
-1. Go to the right sidebar of this PR
-2. Click "Labels"
-3. Select the appropriate label (${suggestedLabel} recommended)
-`);
+              core.setFailed('⚠️ CRITICAL VERSION LABEL REQUIRED ⚠️\n\n'
+                + 'This PR is missing a version label, which will BREAK our versioning process if merged.\n'
+                + `Based on your PR title "${PR_TITLE}", we recommend: ${suggestedLabel}\n\n`
+                + 'Please add EXACTLY ONE of these labels to your PR:\n'
+                + '- version:major - For breaking changes\n'
+                + '- version:minor - For new features (feat: PRs)\n'
+                + '- version:patch - For bug fixes (fix: PRs)\n'
+                + '- version:patch_level - For minor tweaks and documentation\n\n'
+                + 'Without this label, the changes will remain in Unreleased section after merge,\n'
+                + 'breaking our automated versioning. See PR #115 for a real-world example of this failure.\n\n'
+                + 'How to add a label:\n'
+                + '1. Go to the right sidebar of this PR\n'
+                + '2. Click "Labels"\n'
+                + `3. Select the appropriate label (${suggestedLabel} recommended)`
+              );
             } else {
               console.log(`✅ PR has version label: ${versionLabel}`);
             }
