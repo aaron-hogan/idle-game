@@ -7,7 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-*No unreleased changes at this time.*
+### Added
+- New test guidelines documentation to standardize testing practices
+  - Guidelines for testing managers with proper singleton patterns
+  - Examples for mocking Redux state in tests
+  - Best practices for test cleanup and isolation
 
 ## [0.6.1] - 2025-02-28
 
